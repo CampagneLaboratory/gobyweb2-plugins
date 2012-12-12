@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<!--
+  ~ Copyright (c) 2011-2012  by Cornell University  and the  Cornell Research Foundation,
+  ~ Inc. All Rights Reserved.
+  ~
+  ~ GobyWeb plugins  are released  under the LGPL3 license,  unless  otherwise specified
+  ~ by the license of a specific plugin. See the file LGPL3.license in this distribution
+  ~ for a copy of the LGPL license.
+  ~
+  ~ When a plugin is not released under the LGPL3 license,  the comments  at the top  of
+  ~ the plugin's config.xml will indicate how that specific plugin is released/licensed.
+  -->
+<resourceConfig xsi:noNamespaceSchemaLocation="../../../schemas/plugins.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <name>Bowtie 2</name>
+    <id>BOWTIE2</id>
+    <help>Bowtie 2 short read aligner. See http://bowtie-bio.sourceforge.net/index.shtml.</help>
+    <version>2.0.0.5</version>
+    <files>
+        <file>
+            <id>EXEC_PATH</id>
+            <filename>bowtie2</filename>
+        </file>
+        <file>
+    		<id>ALIGN</id>
+    		<filename>bowtie2-align</filename>
+    	</file>
+    	<file>
+    		<id>INSPECT</id>
+    		<filename>bowtie2-inspect</filename>
+    	</file>
+    	<file>
+    		<id>BUILD</id>
+    		<filename>bowtie2-build</filename>
+    	</file>
+    </files>
+</resourceConfig>

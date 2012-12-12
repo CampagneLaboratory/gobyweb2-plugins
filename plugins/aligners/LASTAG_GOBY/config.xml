@@ -1,0 +1,165 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<!--
+  ~ Copyright (c) 2011-2012  by Cornell University  and the  Cornell Research Foundation,
+  ~ Inc. All Rights Reserved.
+  ~
+  ~ GobyWeb plugins  are released  under the LGPL3 license,  unless  otherwise specified
+  ~ by the license of a specific plugin. See the file LGPL3.license in this distribution
+  ~ for a copy of the LGPL license.
+  ~
+  ~ When a plugin is not released under the LGPL3 license,  the comments  at the top  of
+  ~ the plugin's config.xml will indicate how that specific plugin is released/licensed.
+  -->
+<alignerConfig xsi:noNamespaceSchemaLocation="../../../schemas/plugins.xsd"
+               xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <name>Lastag</name>
+    <id>LASTAG_GOBY</id>
+    <dbLegacyId>lastag</dbLegacyId>
+    <help>Version of Lastag wrapped with Goby align mode.</help>
+    <supportsColorSpace>false</supportsColorSpace>
+    <supportsGobyReads>true</supportsGobyReads>
+    <supportsGobyAlignments>true</supportsGobyAlignments>
+    <supportsFastqReads>false</supportsFastqReads>
+    <supportsFastaReads>false</supportsFastaReads>
+    <supportsBAMAlignments>false</supportsBAMAlignments>
+    <version>1.1</version>
+    <indexDirectory>/scratchLocal/gobyweb/input-data/reference-db/%VERSION%/%ORGANISM%/%SPACE%/lastag</indexDirectory>
+    <runtime>
+        <need scope="ALIGN" key="excl" value="false"/>
+        <need scope="ALIGN" key="h_vmem" value="30g"/>
+        <need scope="ALIGN" key="virtual_free" value="32g"/>
+        <need scope="ALIGN_JVM" value="4g"/>
+        <need scope="ALIGNMENT_POST_PROCESSING" key="excl" value="false"/>
+        <need scope="ALIGNMENT_POST_PROCESSING" key="h_vmem" value="10g"/>
+        <need scope="ALIGNMENT_POST_PROCESSING" key="virtual_free" value="12g"/>
+
+    </runtime>
+    <requires>
+        <resource>
+            <id>GOBY</id>
+            <versionExactly>20120216154520</versionExactly>
+        </resource>
+    </requires>
+    <options>
+        <option>
+            <id>ALIGNER_OPTIONS</id>
+            <dbLegacyId>alignerAdvancedOptions</dbLegacyId>
+            <name>Other aligner options</name>
+            <help>Provide any additional Lastag option here following the syntax expected by the Goby align mode with
+                lastag aligner.
+            </help>
+            <required>false</required>
+            <defaultsTo></defaultsTo>
+            <type>STRING</type>
+            <flagFormat>%s</flagFormat>
+            <includeSpaces>true</includeSpaces>
+        </option>
+        <option>
+            <id>AMBIGUITY_THRESHOLD</id>
+            <dbLegacyId>ambiguityThreshold</dbLegacyId>
+            <name>Ambiguity threshold</name>
+            <help>The maximum number of locations a read can match in the reference to not be considered ambiguous. Read
+                is ambiguous if #hits>threshold.
+            </help>
+            <required>true</required>
+            <autoFormat>true</autoFormat>
+            <defaultsTo>1</defaultsTo>
+            <type>INTEGER</type>
+            <flagFormat>--ambiguity-threshold %d</flagFormat>
+            <includeSpaces>true</includeSpaces>
+        </option>
+        <option>
+            <id>MAX_GAPS_ALLOWED</id>
+            <dbLegacyId>lastagMaxGapsAllowed</dbLegacyId>
+            <name>Max gaps allowed</name>
+            <help>The maximum number of gaps that an alignment can include for a read to be considered matching.
+            </help>
+            <required>false</required>
+            <autoFormat>false</autoFormat>
+            <defaultsTo>1</defaultsTo>
+            <type>INTEGER</type>
+
+        </option>
+        <option>
+            <id>GAP_EXISTENCE_COST</id>
+            <dbLegacyId>lastagGapOpeningCost</dbLegacyId>
+            <name>Gap existence cost</name>
+            <help>Cost for opening a gap.</help>
+            <required>false</required>
+            <autoFormat>false</autoFormat>
+            <defaultsTo>7</defaultsTo>
+            <type>INTEGER</type>
+
+        </option>
+        <option>
+            <id>GAP_EXTENSION_COST</id>
+            <dbLegacyId>lastagGapExtentionCost</dbLegacyId>
+            <name>Gap extension cost</name>
+            <help>Cost for extending a gap.</help>
+            <required>false</required>
+            <autoFormat>false</autoFormat>
+            <defaultsTo>1</defaultsTo>
+            <type>INTEGER</type>
+
+        </option>
+        <option>
+            <id>QUALITY_FILTER_PARAMETERS</id>
+            <dbLegacyId>sequenceErrorThreshold</dbLegacyId>
+            <name>Percent identity</name>
+            <help>Quality filter parameters. Use x% to indicate that reads must have less than x% base
+                differences when matched against the reference. Defaults to 0.05, which indicates 5% error at
+                most.
+            </help>
+            <required>true</required>
+            <autoFormat>true</autoFormat>
+            <defaultsTo>0.05</defaultsTo>
+            <type>DOUBLE</type>
+            <flagFormat>--quality-filter-parameters threshold=%s</flagFormat>
+            <includeSpaces>true</includeSpaces>
+        </option>
+        <option>
+            <id>MATCH_QUALITY</id>
+            <dbLegacyId>lastMatchQuality</dbLegacyId>
+            <name>Match quality</name>
+            <help>Keep only matches with the specified quality criteria.
+            </help>
+            <required>true</required>
+            <autoFormat>false</autoFormat>
+            <defaultsTo>BEST_MATCH</defaultsTo>
+            <type>CATEGORY</type>
+            <categories>
+                <category>
+                    <id>PERFECT_MATCHES_ONLY</id>
+                    <name>Perfect matches only</name>
+                    <value>PERFECT_MATCHES_ONLY</value>
+                    <help>Keeps only perfect matches.</help>
+                </category>
+                <category>
+                    <id>ONE_MISMATCH</id>
+                    <name>One mismatch at most.</name>
+                    <value>ONE_MISMATCH</value>
+                    <help>Keeps only up to one mismatch.</help>
+                </category>
+                <category>
+                    <id>TWO_MISMATCHES</id>
+                    <name>Two mismatches</name>
+                    <value>TWO_MISMATCHES</value>
+                    <help>Keeps only up to twp mismatches.</help>
+                </category>
+                <category>
+                    <id>IDENTITY_95</id>
+                    <name>95% identity</name>
+                    <value>IDENTITY_95</value>
+                    <help>Keep matches with at least 95% identity over the length of the read.</help>
+                </category>
+                <category>
+                    <id>BEST_MATCH</id>
+                    <name>Best match.</name>
+                    <value>BEST_MATCH</value>
+                    <help>Keep best match, irrespective of agreement with reference.</help>
+                </category>
+            </categories>
+
+        </option>
+    </options>
+</alignerConfig>

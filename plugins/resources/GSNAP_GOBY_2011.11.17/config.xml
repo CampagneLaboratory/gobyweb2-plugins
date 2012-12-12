@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<!--
+  ~ Copyright (c) 2011-2012  by Cornell University  and the  Cornell Research Foundation,
+  ~ Inc. All Rights Reserved.
+  ~
+  ~ GobyWeb plugins  are released  under the LGPL3 license,  unless  otherwise specified
+  ~ by the license of a specific plugin. See the file LGPL3.license in this distribution
+  ~ for a copy of the LGPL license.
+  ~
+  ~ When a plugin is not released under the LGPL3 license,  the comments  at the top  of
+  ~ the plugin's config.xml will indicate how that specific plugin is released/licensed.
+  -->
+<resourceConfig xsi:noNamespaceSchemaLocation="../../../schemas/plugins.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <name>GSNAP with Goby support</name>
+    <id>GSNAP_WITH_GOBY</id>
+    <help>Version of GSNAP that supports Goby file format.</help>
+    <version>2011.11.17</version><!-- GSNAP version numbers are dates when the tool was first released. We convert dates
+    to version number by replacing dashes with dots (e.g., 2011-10-16 -> 2011.10.16) -->
+    <files>
+        <file>
+            <id>EXEC_PATH</id>
+            <filename>gsnap-icb</filename>
+        </file>
+    </files>
+</resourceConfig>

@@ -1,0 +1,11 @@
+# This subset seed pattern is suitable for aligning reverse strands of
+# bisulfite-converted DNA to unconverted DNA.
+AG C T
+AG C T
+AG C T
+AG C T
+AG C T
+AG C T
+AG C T
+AG C T
+AGCT

@@ -1,0 +1,214 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<!--
+  ~ Copyright (c) 2011-2012  by Cornell University  and the  Cornell Research Foundation,
+  ~ Inc. All Rights Reserved.
+  ~
+  ~ GobyWeb plugins  are released  under the LGPL3 license,  unless  otherwise specified
+  ~ by the license of a specific plugin. See the file LGPL3.license in this distribution
+  ~ for a copy of the LGPL license.
+  ~
+  ~ When a plugin is not released under the LGPL3 license,  the comments  at the top  of
+  ~ the plugin's config.xml will indicate how that specific plugin is released/licensed.
+  -->
+<alignmentAnalysisConfig xsi:noNamespaceSchemaLocation="../../../schemas/plugins.xsd"
+                         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <name>Sequence Variation Analyses with Goby</name>
+    <id>SEQ_VAR_GOBY</id>
+    <dbLegacyId>Compare sequence variants</dbLegacyId>
+    <help>Compares groups of samples and produce output about sequence variants observed in the alignments. Implemented
+        with Goby. Specific analysis depends on selected output format.
+    </help>
+    <analysisType>SequenceVariants</analysisType>
+    <supportsTranscriptAlignments>false</supportsTranscriptAlignments>
+    <splitProcessCombine>true</splitProcessCombine>
+    <producesVariantCallingFormatOutput>true</producesVariantCallingFormatOutput>
+    <supportsGobyAlignments>true</supportsGobyAlignments>
+    <copyWeightFiles>false</copyWeightFiles>
+    <version>1.0</version>
+    <requires>
+        <resource>
+            <id>GOBY</id>
+            <versionAtLeast>20120125181554</versionAtLeast>
+        </resource>
+    </requires>
+    <runtime>
+        <need scope="GLOBAL" key="h_vmem" value="18g"/>
+        <need scope="GLOBAL" key="virtual_free" value="20g"/>
+        <need scope="PROCESS" key="excl" value="false"/>
+        <need scope="PROCESS" key="h_vmem" value="8g"/>
+        <need scope="PROCESS" key="virtual_free" value="8g"/>
+        <need scope="PROCESS_JVM" value="6g"/>
+        <need scope="COMBINE" key="excl" value="false"/>
+        <need scope="COMBINE" key="h_vmem" value="60g"/>
+        <need scope="COMBINE" key="virtual_free" value="60g"/>
+        <need scope="COMBINE_JVM" value="55g"/>
+    </runtime>
+    <outputSchema>
+        <outputFile>
+            <id>STATS_RESULTS_DB</id>
+            <name>table of statistics</name>
+            <required>true</required>
+            <mimeType>application/x-sqlite3</mimeType>
+            <tableName>stats</tableName>
+            <filename>stats.db</filename>
+            <help>View the table of results in the interactive GobyWeb table browser. Table contains called variations.</help>
+        </outputFile>
+        <outputFile>
+            <id>STATS_RESULTS_LUCENE_INDEX</id>
+            <name>table of statistics</name>
+            <required>true</required>
+            <mimeType>application/lucene-index</mimeType>
+            <tableName>stats</tableName>
+            <filename>stats.lucene.index</filename>
+            <help>View the table of results in the interactive GobyWeb table browser. Table contains called variations.
+            </help>
+        </outputFile>
+        <outputFile>
+            <id>STATS_RESULTS</id>
+            <name>VCF file</name>
+            <required>true</required>
+            <mimeType>text/variant-calling-format</mimeType>
+            <filename>stats.vcf.gz</filename>
+            <help>VCF file with results of called variations.</help>
+        </outputFile>
+        <outputFile>
+            <id>STATS_RESULTS_INDEX</id>
+            <name>VCF file index</name>
+            <required>true</required>
+            <mimeType>text/variant-calling-format-index</mimeType>
+            <filename>stats.vcf.gz.tbi</filename>
+            <help>VCF file index (produced with tabix).</help>
+        </outputFile>
+    </outputSchema>
+    <options>
+        <option>
+            <id>OUTPUT_FORMAT</id>
+            <dbLegacyId>analysisType_compare_sequence_variants</dbLegacyId>
+            <name>Type of analysis and output format</name>
+            <help>Determines the type of sequence variation analysis to perform and the output format.</help>
+            <required>true</required>
+            <defaultsTo>GENOTYPES</defaultsTo>
+            <type>CATEGORY</type>
+            <categories>
+                <category>
+                    <id>GENOTYPES</id>
+                    <name>genotypes</name>
+                    <value>GENOTYPES</value>
+                    <help>Calls genotypes at observed bases.</help>
+                    <dbLegacyValue>genotypes</dbLegacyValue>
+                </category>
+                <category>
+                    <id>ALLELE_FREQUENCIES</id>
+                    <name>allele_frequencies</name>
+                    <value>ALLELE_FREQUENCIES</value>
+                    <help>Estimate allelic expression.</help>
+                    <dbLegacyValue>allele-frequencies</dbLegacyValue>
+                </category>
+                <category>
+                    <id>GROUP_COMPARISONS</id>
+                    <name>group_comparisons</name>
+                    <value>COMPARE_GROUPS</value>
+                    <help>Compare groups of samples with allelic association test.</help>
+                    <dbLegacyValue>group-comparison</dbLegacyValue>
+                </category>
+            </categories>
+            <autoFormat>true</autoFormat>
+            <flagFormat>--format=%s</flagFormat>
+            <includeSpaces>true</includeSpaces>
+        </option>
+        <option>
+            <id>REALIGN_AROUND_INDELS</id>
+            <dbLegacyId>realignment_option</dbLegacyId>
+            <name>Realign reads near indels</name>
+            <help>When this option is active, reads are realigned around indels and this can help prevent alignment
+                artifacts.
+            </help>
+            <required>true</required>
+            <defaultsTo>false</defaultsTo>
+            <type>BOOLEAN</type>
+            <autoFormat>false</autoFormat>
+        </option>
+        <option>
+            <id>CALL_INDELS</id>
+            <name>Call indels</name>
+            <help>When this option is active, indels are called and reported in the VCF output file. Please be advised
+                that the VCF output may become incompatible with various tools, as rules for reporting indels in VCF are
+                far from clearly described and various tools are known to interpret the VCF specification differently.
+            </help>
+            <required>false</required>
+            <defaultsTo>false</defaultsTo>
+            <type>BOOLEAN</type>
+            <autoFormat>false</autoFormat>
+        </option>
+        <option>
+            <id>FORCE_DIPLOID</id>
+            <name>Diploid genome</name>
+            <help>When this option is active, genotype calls are forced to be diploid. Use when you know that the
+                genome the reads were generated from was diploid.
+            </help>
+            <required>false</required>
+            <defaultsTo>false</defaultsTo>
+            <type>BOOLEAN</type>
+            <autoFormat>false</autoFormat>
+        </option>
+        <option>
+            <id>Q_VALUE_THRESHOLD</id>
+            <name>q-value threshold</name>
+            <help>Threshold on q-values to determine if the candidate result should be kept. A candidate is kept if any
+                q-value is lower than the threshold.
+            </help>
+            <required>true</required>
+            <defaultsTo>1.0</defaultsTo>
+            <type>DOUBLE</type>
+            <autoFormat>false</autoFormat>
+        </option>
+        <option>
+            <id>NUM_TOP_HITS</id>
+            <name>Number of top hits</name>
+            <help>Number of hits to report if no candidates has an adjusted p-value above the q-value threshold.</help>
+            <required>true</required>
+            <defaultsTo>10000</defaultsTo>
+            <type>INTEGER</type>
+            <autoFormat>false</autoFormat>
+        </option>
+        <option>
+            <id>MINIMUM_VARIATION_SUPPORT</id>
+            <name>Minimum variation support</name>
+            <help>Minimum number of reads that must have the variation for the variation to be reported in the output
+            </help>
+            <required>true</required>
+            <defaultsTo>1</defaultsTo>
+            <type>INTEGER</type>
+            <autoFormat>false</autoFormat>
+        </option>
+        <option>
+            <id>THRESHOLD_DISTINCT_READ_INDICES</id>
+            <name>Minimum number of distinct read indices</name>
+            <help>Number of distinct read indices a position has to have to be reported in the output.</help>
+            <required>true</required>
+            <defaultsTo>1</defaultsTo>
+            <type>INTEGER</type>
+            <autoFormat>false</autoFormat>
+        </option>
+        <option hiddenWhen="true">
+            <id>ANNOTATIONS</id>
+            <name>Annotations</name>
+            <help>The annotation file to use to define regions.
+            </help>
+            <required>false</required>
+            <defaultsTo>NONE</defaultsTo>
+            <type>CATEGORY</type>
+            <categories>
+                <category>
+                    <id>NONE</id>
+                    <name>NONE</name>
+                    <value>NONE</value>
+                    <help>No annotations</help>
+                </category>
+            </categories>
+            <autoFormat>false</autoFormat>
+        </option>
+    </options>
+    <minimumNumberOfGroups>1</minimumNumberOfGroups>
+    <maximumNumberOfGroups>50</maximumNumberOfGroups>
+</alignmentAnalysisConfig>

@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<!--
+  ~ Copyright (c) 2011-2012  by Cornell University  and the  Cornell Research Foundation,
+  ~ Inc. All Rights Reserved.
+  ~
+  ~ GobyWeb plugins  are released  under the LGPL3 license,  unless  otherwise specified
+  ~ by the license of a specific plugin. See the file LGPL3.license in this distribution
+  ~ for a copy of the LGPL license.
+  ~
+  ~ When a plugin is not released under the LGPL3 license,  the comments  at the top  of
+  ~ the plugin's config.xml will indicate how that specific plugin is released/licensed.
+  -->
+<resourceConfig xsi:noNamespaceSchemaLocation="../../../schemas/plugins.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <name>Bismark</name>
+    <id>BISMARK</id>
+    <help>A tool to map bisulfite converted sequence reads and determine cytosine methylation states. See http://www.bioinformatics.babraham.ac.uk/projects/bismark/.</help>
+    <version>0.7.4</version>
+    <requires>
+    	<resource>
+            <id>BOWTIE2</id>
+            <versionAtLeast>2.0.0.5</versionAtLeast>
+        </resource>
+    </requires>
+    <files>
+        <file>
+            <id>EXEC_PATH</id>
+            <filename>bismark</filename>
+        </file>
+        <file>
+        	<id>METHYL_EXTRACT</id>
+        	<filename>methylation_extractor</filename>
+        </file>
+        <file>
+        	<id>INDEXER</id>
+        	<filename>bismark_genome_preparation</filename>
+        </file>
+    </files>
+</resourceConfig>

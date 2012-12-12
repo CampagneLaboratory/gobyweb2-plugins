@@ -1,0 +1,378 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<!--
+  ~ Copyright (c) 2011-2012  by Cornell University  and the  Cornell Research Foundation,
+  ~ Inc. All Rights Reserved.
+  ~
+  ~ GobyWeb plugins  are released  under the LGPL3 license,  unless  otherwise specified
+  ~ by the license of a specific plugin. See the file LGPL3.license in this distribution
+  ~ for a copy of the LGPL license.
+  ~
+  ~ When a plugin is not released under the LGPL3 license,  the comments  at the top  of
+  ~ the plugin's config.xml will indicate how that specific plugin is released/licensed.
+  -->
+<alignmentAnalysisConfig xsi:noNamespaceSchemaLocation="../../../schemas/plugins.xsd"
+                         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <name>Methylation analysis at base-level resolution</name>
+    <id>SEQ_VAR_GOBY_METHYLATION</id>
+    <dbLegacyId>GobyMethylation</dbLegacyId>
+    <help>Compares groups of samples and produce methylation rate output and statistics of differential methylation at
+        single base resolution.
+        Implemented with Goby.
+    </help>
+    <analysisType>Methylation</analysisType>
+    <supportsTranscriptAlignments>false</supportsTranscriptAlignments>
+    <splitProcessCombine>true</splitProcessCombine>
+    <producesVariantCallingFormatOutput>true</producesVariantCallingFormatOutput>
+    <supportsGobyAlignments>true</supportsGobyAlignments>
+    <copyWeightFiles>false</copyWeightFiles>
+    <version>1.3.1</version>
+    <requires>
+        <resource>
+            <id>GOBY</id>
+            <versionAtLeast>20120703160732</versionAtLeast>
+        </resource>
+    </requires>
+    <runtime>
+        <need scope="GLOBAL" key="h_vmem" value="18g"/>
+        <need scope="GLOBAL" key="virtual_free" value="20g"/>
+        <need scope="PROCESS" key="excl" value="false"/>
+        <need scope="PROCESS" key="h_vmem" value="6g"/>
+        <need scope="PROCESS" key="virtual_free" value="6g"/>
+        <need scope="PROCESS_JVM" value="4g"/>
+        <need scope="COMBINE" key="excl" value="false"/>
+        <need scope="COMBINE" key="h_vmem" value="60g"/>
+        <need scope="COMBINE" key="virtual_free" value="60g"/>
+        <need scope="COMBINE_JVM" value="55g"/>
+    </runtime>
+    <files>
+        <file>
+            <id>SCRIPT</id>
+            <filename>script.sh</filename>
+        </file>
+        <file>
+            <id>R_SCRIPT</id>
+            <filename>generateSummaryPlots.R</filename>
+        </file>
+    </files>
+    <outputSchema>
+        <outputFile>
+            <id>STATS_RESULTS_DB</id>
+            <name>table of statistics</name>
+            <required>true</required>
+            <mimeType>application/x-sqlite3</mimeType>
+            <!-- note that filename and table name must match: removing the extension from filename and replacing sequences of
+            special characters with _ must yield the tableName. This convention is implemented in the tool
+            TsvVcfToSqlite.groovy -->
+            <filename>stats.db</filename>
+            <tableName>stats</tableName>
+            <help>View the table of results in the interactive GobyWeb table browser. Table contains methylation rates
+                for individual genomic bases.
+            </help>
+        </outputFile>
+        <outputFile>
+            <id>STATS_RESULTS_LUCENE_INDEX</id>
+            <name>table of statistics</name>
+            <required>true</required>
+            <mimeType>application/lucene-index</mimeType>
+            <!-- note that filename and table name must match: removing the extension from filename and replacing sequences of
+           special characters with _ must yield the tableName. This convention is implemented in the tool
+           TsvVcfToSqlite.groovy -->
+            <filename>stats.lucene.index</filename>
+            <tableName>stats</tableName>
+            <help>View the table of results in the interactive GobyWeb table browser. Table contains methylation rates
+                for individual genomic bases.
+            </help>
+        </outputFile>
+        <outputFile>
+            <id>STATS_RESULTS</id>
+            <name>VCF file</name>
+            <required>true</required>
+            <mimeType>text/variant-calling-format</mimeType>
+            <filename>stats.vcf.gz</filename>
+            <help>VCF file with called methylation rates.</help>
+        </outputFile>
+        <outputFile>
+            <id>STATS_RESULTS_INDEX</id>
+            <name>VCF file index</name>
+            <required>true</required>
+            <mimeType>text/variant-calling-format-index</mimeType>
+            <filename>stats.vcf.gz.tbi</filename>
+            <help>VCF file index (produced with tabix).</help>
+        </outputFile>
+        <outputFile>
+            <id>DEPTH_RESULTS_DB</id>
+            <name>depths of coverage</name>
+            <required>true</required>
+            <mimeType>application/x-sqlite3</mimeType>
+            <filename>depths.db</filename>
+            <tableName>depths</tableName>
+            <help>Data in tab-delimited format about the depth of coverage of the measured cytosines.</help>
+        </outputFile>
+        <outputFile>
+            <id>DEPTH_RESULTS_LUCENE_INDEX</id>
+            <name>depths of coverage</name>
+            <required>true</required>
+            <mimeType>application/lucene-index</mimeType>
+            <filename>depths.lucene.index</filename>
+            <tableName>depths</tableName>
+            <help>Data in tab-delimited format about the depth of coverage of the measured cytosines.</help>
+        </outputFile>
+        <outputFile>
+            <id>CONVERSION_RATES_RESULTS_DB</id>
+            <name>bisulfite conversion rates</name>
+            <required>true</required>
+            <mimeType>application/x-sqlite3</mimeType>
+            <filename>conversion-rates.db</filename>
+            <tableName>conversion_rates</tableName>
+            <help>Data in tab-delimited format about rate of conversion of cytosines in a non-CpG context.</help>
+        </outputFile>
+        <outputFile>
+            <id>CONVERSION_RATES_RESULTS_LUCENE_INDEX</id>
+            <name>bisulfite conversion rates</name>
+            <required>true</required>
+            <mimeType>application/lucene-index</mimeType>
+            <filename>conversion-rates.lucene.index</filename>
+            <tableName>conversion_rates</tableName>
+            <help>Data in tab-delimited format about rate of conversion of cytosines in a non-CpG context.</help>
+        </outputFile>
+        <outputFile>
+            <id>NON_CONVERSION_RESULTS_DB</id>
+            <name>non conversion context</name>
+            <required>true</required>
+            <mimeType>application/x-sqlite3</mimeType>
+            <filename>non-conversion.db</filename>
+            <tableName>non_conversion</tableName>
+            <help>Data in tab-delimited format about the contexts observed for non-converted CpG.</help>
+        </outputFile>
+        <outputFile>
+            <id>NON_CONVERSION_RESULTS_LUCENE_INDEX</id>
+            <name>non conversion context</name>
+            <required>true</required>
+            <mimeType>application/lucene-index</mimeType>
+            <filename>non-conversion.lucene-index</filename>
+            <tableName>non_conversion</tableName>
+            <help>Data in tab-delimited format about the contexts observed for non-converted CpG.</help>
+        </outputFile>
+        <outputFile>
+            <id>DEPTH_RESULTS_TSV</id>
+            <name>depths of coverage</name>
+            <required>true</required>
+            <mimeType>text/tab-separated-values</mimeType>
+            <filename>depths.tsv</filename>
+            <help>Data in tab-delimited format about the depth of coverage of the measured cytosines.</help>
+        </outputFile>
+        <outputFile>
+            <id>CONVERSION_RATES_RESULTS_TSV</id>
+            <name>bisulfite conversion rates</name>
+            <required>true</required>
+            <mimeType>text/tab-separated-values</mimeType>
+            <filename>conversion-rates.tsv</filename>
+            <help>Data in tab-delimited format about rate of conversion of cytosines in a non-CpG context.</help>
+        </outputFile>
+        <outputFile>
+            <id>NON_CONVERSION_RESULTS_TSV</id>
+            <name>non conversion context</name>
+            <required>true</required>
+            <mimeType>text/tab-separated-values</mimeType>
+            <filename>non-conversion.tsv</filename>
+            <help>Data in tab-delimited format about the contexts observed for non-converted CpG.</help>
+        </outputFile>
+        <outputFile>
+            <id>SAMPLE_COVERAGE_PLOT</id>
+            <required>true</required>
+            <name>Sample coverage plot</name>
+            <mimeType>image/png</mimeType>
+            <filename>coverage.png</filename>
+            <help>QC plots showing read coverage density across samples.</help>
+        </outputFile>
+        <outputFile>
+            <id>BISULFITE_CONVERSION_PLOT</id>
+            <name>Bisulfite conversion plot</name>
+            <required>true</required>
+            <mimeType>image/png</mimeType>
+            <filename>conversion.png</filename>
+            <help>Histogram showing Non CpG bisulfite conversion rates across all samples in the analysis.</help>
+        </outputFile>
+    </outputSchema>
+    <options>
+        <option>
+            <id>OUTPUT_FORMAT</id>
+            <dbLegacyId>analysisType_gobymethylation</dbLegacyId>
+            <name>Type of analysis and output format</name>
+            <help>Determines the type of sequence variation analysis to perform and the output format.</help>
+            <required>true</required>
+            <defaultsTo>METHYLATION</defaultsTo>
+            <type>CATEGORY</type>
+            <categories>
+                <category>
+                    <id>METHYLATION</id>
+                    <name>methylation</name>
+                    <value>METHYLATION</value>
+                    <help>Methylation rate estimation and call for differentially methylated sites.</help>
+                    <dbLegacyValue>methylation</dbLegacyValue>
+                </category>
+            </categories>
+            <autoFormat>false</autoFormat>
+        </option>
+        <option>
+            <id>Q_VALUE_THRESHOLD</id>
+            <name>q-value threshold</name>
+            <help>Threshold on q-values to determine if the candidate result should be kept. A candidate is kept if any
+                q-value is lower than the threshold.
+            </help>
+            <required>true</required>
+            <defaultsTo>0.05</defaultsTo>
+            <type>DOUBLE</type>
+            <autoFormat>false</autoFormat>
+        </option>
+        <option>
+            <id>NUM_TOP_HITS</id>
+            <name>Number of top hits</name>
+            <help>Number of hits to report if no candidates has an adjusted p-value above the q-value threshold.</help>
+            <required>true</required>
+            <defaultsTo>10000</defaultsTo>
+            <type>INTEGER</type>
+            <autoFormat>false</autoFormat>
+        </option>
+        <option>
+            <id>MINIMUM_VARIATION_SUPPORT</id>
+            <name>Minimum variation support</name>
+            <help>Minimum number of reads that must have the variation for the variation to be reported in the output
+            </help>
+            <required>true</required>
+            <defaultsTo>35</defaultsTo>
+            <type>INTEGER</type>
+            <autoFormat>false</autoFormat>
+        </option>
+        <option>
+            <id>THRESHOLD_DISTINCT_READ_INDICES</id>
+            <name>Minimum number of distinct read indices</name>
+            <help>Number of distinct read indices a position has to have to be reported in the output.</help>
+            <required>true</required>
+            <defaultsTo>1</defaultsTo>
+            <type>INTEGER</type>
+            <autoFormat>false</autoFormat>
+        </option>
+        <option hiddenWhen="true">
+            <id>FORCE_DIPLOID</id>
+            <name>Diploid genome</name>
+            <help>When this option is active, genotype calls are forced to be diploid. Use when you know that the
+                genome the reads were generated from was diploid.
+            </help>
+            <required>false</required>
+            <defaultsTo>false</defaultsTo>
+            <type>BOOLEAN</type>
+            <autoFormat>false</autoFormat>
+        </option>
+        <option>
+            <id>CALL_INDELS</id>
+            <name>Call indels</name>
+            <help>When this option is active, indels are called and reported in the VCF output file. Please be advised
+                that the VCF output may become incompatible with various tools, as rules for reporting indels in VCF are
+                far from clearly described and various tools are known to interpret the VCF specification differently.
+            </help>
+            <required>true</required>
+            <defaultsTo>false</defaultsTo>
+            <type>BOOLEAN</type>
+            <autoFormat>false</autoFormat>
+        </option>
+        <option hiddenWhen="true">
+            <id>ANNOTATIONS</id>
+            <name>Annotations</name>
+            <help>The annotation file to use to define regions.
+            </help>
+            <required>false</required>
+            <defaultsTo>NONE</defaultsTo>
+            <type>CATEGORY</type>
+            <categories>
+                <category>
+                    <id>NONE</id>
+                    <name>NONE</name>
+                    <value>NONE</value>
+                    <help>No annotations</help>
+                </category>
+            </categories>
+            <autoFormat>false</autoFormat>
+        </option>
+        <option>
+            <id>ESTIMATE_INTRA_GROUP_DIFFERENCE_DENSITY</id>
+            <name>Estimate empirical p-values</name>
+            <help>When this option is active, estimate an empirical p-value using observed distribution of intra-group
+                differences in each group under comparison.
+                The empirical p-value requires experimental replicates (i.e., more than one sample in at least one
+                group).
+            </help>
+            <required>false</required>
+            <defaultsTo>false</defaultsTo>
+            <type>BOOLEAN</type>
+            <autoFormat>false</autoFormat>
+        </option>
+        <option hiddenWhen="NOT value(ESTIMATE_INTRA_GROUP_DIFFERENCE_DENSITY)">
+            <id>PVALUE_COMBINATOR</id>
+            <name>P-value combination method</name>
+            <help>Method to combine evidence from multiple tests.</help>
+            <required>false</required>
+            <defaultsTo>median</defaultsTo>
+            <type>CATEGORY</type>
+            <autoFormat>false</autoFormat>
+            <categories>
+                <category>
+                    <id>MEDIAN</id>
+                    <name>median</name>
+                    <value>median</value>
+                    <help>Takes the median of the p-values.</help>
+                </category>
+                <category>
+                    <id>MAX</id>
+                    <name>Maximum</name>
+                    <value>max</value>
+                    <help>Take the maximum of the p-values under test (conservative approach, only one sample pair
+                        contributes to the final p-value).
+                    </help>
+                </category>
+                <category>
+                    <id>SUM</id>
+                    <name>Sum</name>
+                    <value>sum</value>
+                    <help>Sum the p-values until the sum would exceed 1. most conservative approach. Signal from
+                        different pairs is taken into account.
+                    </help>
+                </category>
+                <category>
+                    <id>QFAST</id>
+                    <name>QFAST</name>
+                    <value>qfast</value>
+                    <help>QFAST approach, see Bailey TL and Gribskov M, Bioinformatics 1998, Vol 14 n 1 p 48-54. It is
+                        often sufficient for a few pairs to be significant to reach significance for the q-value.
+                    </help>
+                </category>
+
+            </categories>
+
+        </option>
+        <option hiddenWhen="NOT value(ESTIMATE_INTRA_GROUP_DIFFERENCE_DENSITY)">
+            <id>WINDOW_LENGTH</id>
+            <name>Length of a fixed window.</name>
+            <help>A moving window is used to detect significant sites at the end of a DMR. This parameter indicates the
+                length of the moving window.
+            </help>
+            <required>false</required>
+            <defaultsTo>1000</defaultsTo>
+            <type>INTEGER</type>
+            <autoFormat>false</autoFormat>
+        </option>
+        <option hiddenWhen="NOT value(ESTIMATE_INTRA_GROUP_DIFFERENCE_DENSITY)">
+            <id>SIGNIFICANCE_THRESHOLD_FOR_WINDOW</id>
+            <name>Significance threshold to consider a site significant in a window.</name>
+            <help>Sites with empirical p-values below this threshold are counted towards a DMR. Other sites are
+                ignored.
+            </help>
+            <required>false</required>
+            <defaultsTo>0.05</defaultsTo>
+            <type>DOUBLE</type>
+            <autoFormat>false</autoFormat>
+        </option>
+    </options>
+    <minimumNumberOfGroups>1</minimumNumberOfGroups>
+    <maximumNumberOfGroups>50</maximumNumberOfGroups>
+</alignmentAnalysisConfig>

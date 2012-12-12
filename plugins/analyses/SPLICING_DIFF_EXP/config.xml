@@ -1,0 +1,164 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<!--
+  ~ Copyright (c) 2011-2012  by Cornell University  and the  Cornell Research Foundation,
+  ~ Inc. All Rights Reserved.
+  ~
+  ~ GobyWeb plugins  are released  under the LGPL3 license,  unless  otherwise specified
+  ~ by the license of a specific plugin. See the file LGPL3.license in this distribution
+  ~ for a copy of the LGPL license.
+  ~
+  ~ When a plugin is not released under the LGPL3 license,  the comments  at the top  of
+  ~ the plugin's config.xml will indicate how that specific plugin is released/licensed.
+  -->
+<alignmentAnalysisConfig xsi:noNamespaceSchemaLocation="../../../schemas/plugins.xsd"
+                         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <name>Splicing differential usage</name>
+    <id>SPLICING_DIFF_EXP</id>
+    <help>Compares usage of splice sites across groups of samples. Can process the result of STAR alignments to yield
+        table of differential usage for splice sites.
+    </help>
+    <analysisType>DiffExp</analysisType>
+    <supportsTranscriptAlignments>false</supportsTranscriptAlignments>
+    <splitProcessCombine>true</splitProcessCombine>
+    <producesTabDelimitedOutput>true</producesTabDelimitedOutput>
+    <supportsGobyAlignments>true</supportsGobyAlignments>
+    <copyAlignments>false</copyAlignments>
+    <copyWeightFiles>false</copyWeightFiles>
+    <version>1.2.1</version>
+    <requires>
+        <resource>
+            <id>GOBY</id>
+            <versionAtLeast>20121012122417</versionAtLeast>
+        </resource>
+        <resource>
+            <id>SCALA</id>
+            <versionAtLeast>2.9.2</versionAtLeast>
+        </resource>
+        <resource>
+            <id>R</id>
+            <versionExactly>2.14.1</versionExactly>
+        </resource>
+        <resource>
+            <id>DESEQ_SCRIPT</id>
+            <versionAtLeast>2012.07.25</versionAtLeast>
+        </resource>
+        <resource>
+            <id>EDGE_R_SCRIPT</id>
+            <versionAtLeast>2012.07.25</versionAtLeast>
+        </resource>
+    </requires>
+    <runtime>
+        <need scope="GLOBAL" key="h_vmem" value="18g"/>
+        <need scope="GLOBAL" key="virtual_free" value="20g"/>
+        <need scope="PROCESS" key="excl" value="false"/>
+        <need scope="PROCESS" key="h_vmem" value="8g"/>
+        <need scope="PROCESS" key="virtual_free" value="8g"/>
+        <need scope="PROCESS_JVM" value="6g"/>
+        <need scope="COMBINE" key="excl" value="false"/>
+        <need scope="COMBINE" key="h_vmem" value="8g"/>
+        <need scope="COMBINE" key="virtual_free" value="8g"/>
+        <need scope="COMBINE_JVM" value="5g"/>
+    </runtime>
+    <outputSchema>
+        <outputFile>
+            <id>STATS_RESULTS_DB</id>
+            <name>table of statistics</name>
+            <required>true</required>
+            <mimeType>application/x-sqlite3</mimeType>
+            <tableName>junctions</tableName>
+            <filename>junctions.db</filename>
+            <help>View the table of results in the interactive GobyWeb table browser. Table contains usage of splice
+                sites across groups and samples.
+            </help>
+        </outputFile>
+        <outputFile>
+            <id>STATS_RESULTS_LUCENE_INDEX</id>
+            <name>table of statistics</name>
+            <required>true</required>
+            <mimeType>application/lucene-index</mimeType>
+            <tableName>junctions</tableName>
+            <filename>junctions.lucene.index</filename>
+            <help>View the table of results in the interactive GobyWeb table browser. Table contains usage of splice
+                sites across groups and samples.
+            </help>
+        </outputFile>
+        <outputFile>
+            <id>STATS_RESULTS</id>
+            <required>true</required>
+            <name>splice junction usage data</name>
+            <mimeType>text/tab-separated-values</mimeType>
+            <filename>junctions.tsv</filename>
+            <help>Statistics of differential expression splice junction usage.</help>
+        </outputFile>
+        <outputFile>
+            <id>SAMPLE_MDS_PLOT</id>
+            <required>true</required>
+            <name>MDS Plot</name>
+            <mimeType>image/png</mimeType>
+            <filename>mds.png</filename>
+            <help>Plot showing how samples are related based on multidimensional scaling.</help>
+        </outputFile>
+        <outputFile>
+            <id>ANALYSIS_SMEAR_PLOT</id>
+            <name>Analysis smear plot</name>
+            <required>true</required>
+            <mimeType>image/png</mimeType>
+            <filename>smear.png</filename>
+            <help>MA-like plot showing the log-fold change plotted against the log-counts
+                per million for splice junctions. Significantly differentially expressed junctions are highlighted.
+            </help>
+        </outputFile>
+    </outputSchema>
+    <execute>
+        <script phase="pre-deployment" language="groovy" filename="alignmentsToTags.groovy"/>
+    </execute>
+    <options>
+        <option>
+            <id>STAT_ENGINE</id>
+            <name>Estimation method</name>
+            <help>The method used to estimate statistical significance of differences.
+            </help>
+            <required>false</required>
+            <defaultsTo>NONE</defaultsTo>
+            <type>CATEGORY</type>
+            <categories>
+                <category>
+                    <id>DESEQ</id>
+                    <name>DESEQ</name>
+                    <value>DESEQ</value>
+                    <help>Use the DESEQ statistic.</help>
+                </category>
+                <category>
+                    <id>EDGE_R</id>
+                    <name>EDGE_R</name>
+                    <value>EDGE_R</value>
+                    <help>Use the EdgeR statistic.</help>
+                </category>
+            </categories>
+            <autoFormat>false</autoFormat>
+        </option>
+        <option>
+            <id>FORCE_GOBY_SPLICE_USE</id>
+            <name>Force recalculation of splice junction usage from Goby alignment splice link info.</name>
+            <help>When this option is active, splice junction counts are recalculated from the alignment, even in the
+                presence of a STAR splice junction TSV file.
+            </help>
+            <required>false</required>
+            <defaultsTo>false</defaultsTo>
+            <type>BOOLEAN</type>
+            <autoFormat>false</autoFormat>
+        </option>
+    </options>
+    <files>
+        <file>
+            <id>PROCESS_SCRIPT</id>
+            <filename>Process.scala</filename>
+        </file>
+        <file>
+            <id>POST_PROCESS_SCRIPT</id>
+            <filename>PostProcess.scala</filename>
+        </file>
+    </files>
+    <minimumNumberOfGroups>1</minimumNumberOfGroups>
+    <maximumNumberOfGroups>50</maximumNumberOfGroups>
+</alignmentAnalysisConfig>

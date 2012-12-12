@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<!--
+  ~ Copyright (c) 2011-2012  by Cornell University  and the  Cornell Research Foundation,
+  ~ Inc. All Rights Reserved.
+  ~
+  ~ GobyWeb plugins  are released  under the LGPL3 license,  unless  otherwise specified
+  ~ by the license of a specific plugin. See the file LGPL3.license in this distribution
+  ~ for a copy of the LGPL license.
+  ~
+  ~ When a plugin is not released under the LGPL3 license,  the comments  at the top  of
+  ~ the plugin's config.xml will indicate how that specific plugin is released/licensed.
+  -->
+<alignerConfig xsi:noNamespaceSchemaLocation="../../../schemas/plugins.xsd"
+               xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <name>GSNAP (Goby output), 2011-07-07</name>
+    <id>GSNAP_GOBY_2011_07_07</id>
+    <help>GSNAP writing to Goby output.</help>
+    <supportsColorSpace>false</supportsColorSpace>
+    <supportsBisulfiteConvertedReads>false</supportsBisulfiteConvertedReads>
+    <supportsGobyReads>true</supportsGobyReads>
+    <supportsGobyAlignments>true</supportsGobyAlignments>
+    <supportsPairedEndAlignments>true</supportsPairedEndAlignments>
+    <supportsFastqReads>false</supportsFastqReads>
+    <supportsFastaReads>false</supportsFastaReads>
+    <supportsBAMAlignments>false</supportsBAMAlignments>
+    <version>1.0</version>
+    <indexDirectory>%NODE_LOCAL_DATA_ROOT%/%VERSION%/%ORGANISM%/%SPACE%/gsnap</indexDirectory>
+    <runtime>
+        <need scope="ALIGN" key="excl" value="true"/>
+        <need scope="ALIGN" key="h_vmem" value="25g"/>
+        <need scope="ALIGN" key="virtual_free" value="28g"/>
+        <need scope="ALIGN" key="os" value="rhel5.4"/>
+        <need scope="ALIGN_JVM" value="4g"/>
+        <need scope="ALIGNMENT_POST_PROCESSING" key="excl" value="false"/>
+        <need scope="ALIGNMENT_POST_PROCESSING" key="h_vmem" value="10g" />
+        <need scope="ALIGNMENT_POST_PROCESSING" key="virtual_free" value="12g" />
+
+    </runtime>
+    <requires>
+        <resource>
+            <id>GSNAP_WITH_GOBY</id>
+            <versionExactly>2011.07.07</versionExactly>
+        </resource>
+        <resource>
+            <id>ILLUMINA_ADAPTERS</id>
+            <versionAtLeast>1.0</versionAtLeast>
+        </resource>
+    </requires>
+    <options>
+        <option>
+            <id>ALIGNER_OPTIONS</id>
+            <dbLegacyId>alignerAdvancedOptions</dbLegacyId>
+            <name>Other aligner options</name>
+            <help>Provide any additional GSNAP option here following the syntax expected by GSNAP.</help>
+            <required>false</required>
+            <defaultsTo></defaultsTo>
+            <type>STRING</type>
+            <flagFormat>%s</flagFormat>
+            <includeSpaces>true</includeSpaces>
+        </option>
+        <option>
+            <id>AMBIGUITY_THRESHOLD</id>
+            <dbLegacyId>ambiguityThreshold</dbLegacyId>
+            <name>Ambiguity threshold</name>
+            <help>The maximum number of locations a read can match in the reference to not be considered ambiguous. Read
+                is ambiguous if #hits>threshold.
+            </help>
+            <required>true</required>
+            <defaultsTo>1</defaultsTo>
+            <autoFormat>true</autoFormat>
+            <type>INTEGER</type>
+            <flagFormat>-n %s</flagFormat>
+            <includeSpaces>true</includeSpaces>
+        </option>
+        <!-- This version doesn't support bisulfite, so no strandness option -->
+    </options>
+</alignerConfig>

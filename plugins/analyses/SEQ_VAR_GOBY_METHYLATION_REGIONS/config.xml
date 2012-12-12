@@ -1,0 +1,378 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<!--
+  ~ Copyright (c) 2011-2012  by Cornell University  and the  Cornell Research Foundation,
+  ~ Inc. All Rights Reserved.
+  ~
+  ~ GobyWeb plugins  are released  under the LGPL3 license,  unless  otherwise specified
+  ~ by the license of a specific plugin. See the file LGPL3.license in this distribution
+  ~ for a copy of the LGPL license.
+  ~
+  ~ When a plugin is not released under the LGPL3 license,  the comments  at the top  of
+  ~ the plugin's config.xml will indicate how that specific plugin is released/licensed.
+  -->
+<alignmentAnalysisConfig xsi:noNamespaceSchemaLocation="../../../schemas/plugins.xsd"
+                         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <name>Methylation analysis over annotated regions</name>
+    <id>SEQ_VAR_GOBY_METHYLATION_REGIONS</id>
+    <dbLegacyId>GobyMethylationRegions</dbLegacyId>
+    <help>Compares groups of samples and produce methylation rate output and statistics for annotated regions of the
+        genome. Implemented with Goby 1.9.2.2+.
+    </help>
+    <analysisType>Methylation</analysisType>
+    <supportsTranscriptAlignments>false</supportsTranscriptAlignments>
+    <splitProcessCombine>true</splitProcessCombine>
+    <producesTabDelimitedOutput>true</producesTabDelimitedOutput>
+    <producesVariantCallingFormatOutput>false</producesVariantCallingFormatOutput>
+    <supportsGobyAlignments>true</supportsGobyAlignments>
+    <copyWeightFiles>false</copyWeightFiles>
+    <version>1.6.3.4</version>
+    <requires>
+        <resource>
+            <id>GOBY</id>
+            <versionAtLeast>20120608105135</versionAtLeast>
+        </resource>
+        <resource>
+            <id>IGVTOOLS</id>
+            <versionAtLeast>1.5.16</versionAtLeast>
+        </resource>
+    </requires>
+    <runtime>
+        <need scope="GLOBAL" key="h_vmem" value="18g"/>
+        <need scope="GLOBAL" key="virtual_free" value="20g"/>
+        <need scope="PROCESS" key="excl" value="false"/>
+        <need scope="PROCESS" key="h_vmem" value="8g"/>
+        <need scope="PROCESS" key="virtual_free" value="8g"/>
+        <need scope="PROCESS_JVM" value="6g"/>
+        <need scope="COMBINE" key="excl" value="false"/>
+        <need scope="COMBINE" key="h_vmem" value="6g"/>
+        <need scope="COMBINE" key="virtual_free" value="6g"/>
+        <need scope="COMBINE_JVM" value="4g"/>
+    </runtime>
+    <files>
+        <file>
+            <id>SCRIPT</id>
+            <filename>script.sh</filename>
+        </file>
+    </files>
+    <outputSchema>
+        <outputFile>
+            <id>STATS_RESULTS_DB</id>
+            <name>table of statistics</name>
+            <required>true</required>
+            <mimeType>application/x-sqlite3</mimeType>
+            <filename>stats.db</filename>
+            <tableName>stats</tableName>
+            <help>View the table of results in the interactive GobyWeb table browser.</help>
+        </outputFile>
+        <outputFile>
+            <id>STATS_RESULTS_LUCENE_INDEX</id>
+            <name>table of statistics</name>
+            <required>true</required>
+            <mimeType>application/lucene-index</mimeType>
+            <filename>stats.lucene.index</filename>
+            <tableName>stats</tableName>
+            <help>View the table of results in the interactive GobyWeb table browser.</help>
+        </outputFile>
+        <outputFile>
+            <id>STATS_RESULTS</id>
+            <name>TSV file</name>
+            <required>true</required>
+            <mimeType>text/tab-separated-values</mimeType>
+            <filename>stats.tsv</filename>
+            <help>Statistics of region methylation rates, in the IGV format (Download file as .tsv, rename to .igv to
+                view in IGV).
+            </help>
+        </outputFile>
+        <outputFile>
+            <id>IGV_OUTPUT</id>
+            <name>IGV file</name>
+            <required>true</required>
+            <mimeType>text/tab-separated-values</mimeType>
+            <filename>methyl-regions.igv</filename>
+            <help>Statistics of region methylation rates, in the IGV format. The file has been sorted and is ready to
+                view in IGV.
+            </help>
+        </outputFile>
+    </outputSchema>
+    <options>
+        <option>
+            <id>OUTPUT_FORMAT</id>
+            <dbLegacyId>analysisType_gobymethylation</dbLegacyId>
+            <name>Type of analysis and output format</name>
+            <help>Determines the type of sequence variation analysis to perform and the output format.</help>
+            <required>true</required>
+            <defaultsTo>METHYLATION</defaultsTo>
+            <type>CATEGORY</type>
+            <categories>
+                <category>
+                    <id>METHYLATION_REGIONS</id>
+                    <name>methylation</name>
+                    <value>METHYLATION_REGIONS</value>
+                    <help>Estimate methylation rates over annotated regions of the genome.</help>
+                    <dbLegacyValue>methylation_regions</dbLegacyValue>
+                </category>
+            </categories>
+            <autoFormat>false</autoFormat>
+        </option>
+        <option>
+            <id>Q_VALUE_THRESHOLD</id>
+            <name>q-value threshold</name>
+            <help>Threshold on q-values to determine if the candidate result should be kept. A candidate is kept if any
+                q-value is lower than the threshold.
+            </help>
+            <required>true</required>
+            <defaultsTo>0.05</defaultsTo>
+            <type>DOUBLE</type>
+            <autoFormat>false</autoFormat>
+        </option>
+        <option>
+            <id>NUM_TOP_HITS</id>
+            <name>Number of top hits</name>
+            <help>Number of hits to report if no candidates has an adjusted p-value above the q-value threshold.</help>
+            <required>true</required>
+            <defaultsTo>10000</defaultsTo>
+            <type>INTEGER</type>
+            <autoFormat>false</autoFormat>
+        </option>
+        <option>
+            <id>MINIMUM_VARIATION_SUPPORT</id>
+            <name>Minimum variation support</name>
+            <help>Minimum number of reads that must have the variation for the variation to be reported in the output
+            </help>
+            <required>true</required>
+            <defaultsTo>35</defaultsTo>
+            <type>INTEGER</type>
+            <autoFormat>false</autoFormat>
+        </option>
+        <option>
+            <id>THRESHOLD_DISTINCT_READ_INDICES</id>
+            <name>Minimum number of distinct read indices</name>
+            <help>Number of distinct read indices a position has to have to be reported in the output.</help>
+            <required>true</required>
+            <defaultsTo>1</defaultsTo>
+            <type>INTEGER</type>
+            <autoFormat>false</autoFormat>
+        </option>
+        <option hiddenWhen="true">
+            <id>CALL_INDELS</id>
+            <name>Call indels</name>
+            <help>When this option is active, indels are called and reported in the VCF output file. Please be advised
+                that the VCF output may become incompatible with various tools, as rules for reporting indels in VCF are
+                far from clearly described and various tools are known to interpret the VCF specification differently.
+            </help>
+            <required>true</required>
+            <defaultsTo>false</defaultsTo>
+            <type>BOOLEAN</type>
+            <autoFormat>false</autoFormat>
+        </option>
+        <option>
+            <id>FORCE_DIPLOID</id>
+            <name>Diploid genome</name>
+            <help>When this option is active, genotype calls are forced to be diploid. Use when you know that the
+                genome the reads were generated from was diploid.
+            </help>
+            <required>false</required>
+            <defaultsTo>false</defaultsTo>
+            <type>BOOLEAN</type>
+            <autoFormat>false</autoFormat>
+        </option>
+        <option>
+            <id>ANNOTATIONS</id>
+            <name>Annotations</name>
+            <help>The annotation file to use to define regions.</help>
+            <required>true</required>
+            <defaultsTo>NONE</defaultsTo>
+            <dbLegacyId>something</dbLegacyId>
+            <categories>
+                <category>
+                    <id>GENES</id>
+                    <name>Genes</name>
+                    <value>${NODE_LOCAL_DATA_ROOT}/annotations/${ORGANISM}/methyl-gene-annotations.tsv</value>
+                    <help>Regions over gene boundaries.</help>
+                    <dbLegacyValue>genes</dbLegacyValue>
+                </category>
+                <category>
+                    <id>EXONS</id>
+                    <name>Exons</name>
+                    <value>${NODE_LOCAL_DATA_ROOT}/annotations/${ORGANISM}/methyl-exon-annotations.tsv</value>
+                    <help>Regions over exon boundaries.</help>
+                    <dbLegacyValue>exons</dbLegacyValue>
+                </category>
+                <category>
+                    <id>CPG_ISLANDS</id>
+                    <name>Cpg Islands</name>
+                    <value>${NODE_LOCAL_DATA_ROOT}/annotations/${ORGANISM}/methyl-cpgIsland-annotations.tsv</value>
+                    <help>Regions over CpG island boundaries.</help>
+                    <dbLegacyValue>cpgs</dbLegacyValue>
+                </category>
+                <category>
+                    <id>REFSEQ_PROMOTER</id>
+                    <name>Refseq Promoters</name>
+                    <value>${NODE_LOCAL_DATA_ROOT}/annotations/${ORGANISM}/methyl-refseq-promoter-annotations.tsv
+                    </value>
+                    <help>Regions 2kb +/- from the transcription start site of refseq transcripts.</help>
+                    <dbLegacyValue>promoters</dbLegacyValue>
+                </category>
+                <category>
+                    <id>1KB_Tile</id>
+                    <name>1KB Genome Tiles</name>
+                    <value>${NODE_LOCAL_DATA_ROOT}/annotations/${ORGANISM}/methyl-1kbtile-annotations.tsv
+                    </value>
+                    <help>1KB sliding windows across the genome</help>
+                    <dbLegacyValue>1kbTiles</dbLegacyValue>
+                </category>
+                <category>
+                    <id>5' UTR</id>
+                    <name>5' Untranslated Region</name>
+                    <value>${NODE_LOCAL_DATA_ROOT}/annotations/${ORGANISM}/methyl-
+                        5prime-annotations.tsv
+                    </value>
+                    <help>5' Untranslated Region.</help>
+                    <dbLegacyValue>5utr</dbLegacyValue>
+                </category>
+                <category>
+                    <id>3' UTR</id>
+                    <name>3' Untranslated Region</name>
+                    <value>${NODE_LOCAL_DATA_ROOT}/annotations/${ORGANISM}/methyl-3prime-annotations.tsv</value>
+                    <help>3' Untranslated Region.</help>
+                    <dbLegacyValue>3utr</dbLegacyValue>
+                </category>
+                <category>
+                    <id>ENSEMBL_PROMOTER</id>
+                    <name>Ensembl Promoters</name>
+                    <value>${NODE_LOCAL_DATA_ROOT}/annotations/${ORGANISM}/methyl-ens-promoter-annotations.tsv</value>
+                    <help>Regions 2kb upstream of transcription start site of ensembl transcripts.</help>
+                    <dbLegacyValue>ENSpromoters</dbLegacyValue>
+                </category>
+                <category>
+                    <id>INTRONS</id>
+                    <name>Introns</name>
+                    <value>${NODE_LOCAL_DATA_ROOT}/annotations/${ORGANISM}/methyl-intron-annotations.tsv</value>
+                    <help>Regions over intron boundaries.</help>
+                    <dbLegacyValue>introns</dbLegacyValue>
+                </category>
+                <category>
+                    <id>INTERGENIC</id>
+                    <name>intergenic</name>
+                    <value>${NODE_LOCAL_DATA_ROOT}/annotations/${ORGANISM}/methyl-intergenic-annotations.tsv
+                    </value>
+                    <help>Intergenic regions of the genome. Complement of promoters, 5'UTRs, exons, introns and
+                        3'UTRs.
+                    </help>
+                    <dbLegacyValue>intergenic</dbLegacyValue>
+                </category>
+                <category>
+                    <id>HELP</id>
+                    <name>HELP_assay</name>
+                    <value>${NODE_LOCAL_DATA_ROOT}/annotations/${ORGANISM}/methyl-HELP-annotations.tsv
+                    </value>
+                    <help>HELP low density Chip probeset windows, extended 1KB on either side.
+                    </help>
+                    <dbLegacyValue>HELP_assay</dbLegacyValue>
+                </category>
+                <category>
+                    <id>COMBINED</id>
+                    <name>combined</name>
+                    <value>${NODE_LOCAL_DATA_ROOT}/annotations/${ORGANISM}/methyl-combined-annotations.tsv
+                    </value>
+                    <help>Combined annotations. Consists of all annotation types in one file.
+                    </help>
+                    <dbLegacyValue>combined</dbLegacyValue>
+                </category>
+            </categories>
+            <type>CATEGORY</type>
+            <autoFormat>false</autoFormat>
+        </option>
+        <option>
+            <id>INDEL_RATE</id>
+            <name>Estimate indel rate</name>
+            <help>When this option is active, the rate of indels is estimated over each annotation. The percentage of
+                sites where an indel is called is written in the MR field(s).
+            </help>
+            <required>false</required>
+            <defaultsTo>false</defaultsTo>
+            <type>BOOLEAN</type>
+            <autoFormat>false</autoFormat>
+        </option>
+        <option>
+            <id>WRITE_COUNTS</id>
+            <name>Write Cm C columns in output file</name>
+            <help>When this option is active, the output file includes C and Cm columns corresponding to the number of
+                non-methylated and methylated cytosines respectively.
+            </help>
+            <required>false</required>
+            <defaultsTo>false</defaultsTo>
+            <type>BOOLEAN</type>
+            <autoFormat>false</autoFormat>
+        </option>
+        <option>
+            <id>ESTIMATE_INTRA_GROUP_DIFFERENCE_DENSITY</id>
+            <name>Estimate empirical p-values</name>
+            <help>When this option is active, estimate an empirical p-value using observed distribution of intra-group
+                differences in each group under comparison.
+                The empirical p-value requires experimental replicates (i.e., more than one sample in at least one
+                group).
+            </help>
+            <required>false</required>
+            <defaultsTo>false</defaultsTo>
+            <type>BOOLEAN</type>
+            <autoFormat>false</autoFormat>
+        </option>
+        <option hiddenWhen="NOT value(ESTIMATE_INTRA_GROUP_DIFFERENCE_DENSITY)">
+            <id>PVALUE_COMBINATOR</id>
+            <name>P-value combination method</name>
+            <help>Method to combine evidence from multiple tests.</help>
+            <required>false</required>
+            <defaultsTo>median</defaultsTo>
+            <type>CATEGORY</type>
+            <autoFormat>false</autoFormat>
+            <categories>
+                <category>
+                    <id>MEDIAN</id>
+                    <name>median</name>
+                    <value>median</value>
+                    <help>Takes the median of the p-values.</help>
+                </category>
+                <category>
+                    <id>MAX</id>
+                    <name>Maximum</name>
+                    <value>max</value>
+                    <help>Take the maximum of the p-values under test (conservative approach, only one sample pair
+                        contributes to the final p-value).
+                    </help>
+                </category>
+                <category>
+                    <id>SUM</id>
+                    <name>Sum</name>
+                    <value>sum</value>
+                    <help>Sum the p-values until the sum would exceed 1. most conservative approach. Signal from
+                        different pairs is taken into account.
+                    </help>
+                </category>
+
+                <category>
+                    <id>QFAST</id>
+                    <name>QFAST</name>
+                    <value>qfast</value>
+                    <help>QFAST approach, see Bailey TL and Gribskov M, Bioinformatics 1998, Vol 14 n 1 p 48-54. It is
+                        often sufficient for a few pairs to be significant to reach significance for the q-value.
+                    </help>
+                </category>
+
+            </categories>
+
+        </option>
+        <option>
+            <id>CONTEXTS</id>
+            <name>Cytosine contexts</name>
+            <help>A comma separated list of contexts, among CpG,CpA,CpC,CpT,CpN.
+            </help>
+            <required>true</required>
+            <defaultsTo>CpG</defaultsTo>
+            <type>STRING</type>
+            <autoFormat>false</autoFormat>
+        </option>
+    </options>
+    <minimumNumberOfGroups>1</minimumNumberOfGroups>
+    <maximumNumberOfGroups>50</maximumNumberOfGroups>
+</alignmentAnalysisConfig>

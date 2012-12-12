@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<!--
+  ~ Copyright (c) 2011-2012  by Cornell University  and the  Cornell Research Foundation,
+  ~ Inc. All Rights Reserved.
+  ~
+  ~ GobyWeb plugins  are released  under the LGPL3 license,  unless  otherwise specified
+  ~ by the license of a specific plugin. See the file LGPL3.license in this distribution
+  ~ for a copy of the LGPL license.
+  ~
+  ~ When a plugin is not released under the LGPL3 license,  the comments  at the top  of
+  ~ the plugin's config.xml will indicate how that specific plugin is released/licensed.
+  -->
+<resourceConfig xsi:noNamespaceSchemaLocation="../../../schemas/plugins.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <name>Illumina adapters</name>
+    <id>ILLUMINA_ADAPTERS</id>
+    <help>Sequences for paired-end adapters used in Illumina sequencing protocols. Obtain these sequences from
+        support@illumina.com and put them one sequence per line in a text format. If sequences contain Xs, expand each
+        possibility to represent a fully specified sequence.
+    </help>
+    <version>1.0</version>
+    <!-- version number is arbitrary here. Increment when new kits require different adapter
+   sequences -->
+    <files>
+        <file>
+            <id>FILE_PATH</id>
+            <filename>adapters.txt</filename>
+        </file>
+    </files>
+</resourceConfig>

@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<!--
+  ~ Copyright (c) 2011-2012  by Cornell University  and the  Cornell Research Foundation,
+  ~ Inc. All Rights Reserved.
+  ~
+  ~ GobyWeb plugins  are released  under the LGPL3 license,  unless  otherwise specified
+  ~ by the license of a specific plugin. See the file LGPL3.license in this distribution
+  ~ for a copy of the LGPL license.
+  ~
+  ~ When a plugin is not released under the LGPL3 license,  the comments  at the top  of
+  ~ the plugin's config.xml will indicate how that specific plugin is released/licensed.
+  -->
+<alignmentAnalysisConfig xsi:noNamespaceSchemaLocation="../../../schemas/plugins.xsd"
+                         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <name>Bismark Methylation Extraction</name>
+    <id>BISMARK_METHYL_EXTRACT</id>
+    <help>Extract methylation calls from Bismark aligned reads</help>
+    <analysisType>Methylation</analysisType>
+    <supportsTranscriptAlignments>false</supportsTranscriptAlignments>
+    <splitProcessCombine>true</splitProcessCombine>
+    <producesTabDelimitedOutput>true</producesTabDelimitedOutput>
+    <supportsGobyAlignments>true</supportsGobyAlignments>
+    <copyWeightFiles>false</copyWeightFiles>
+    <version>1.0</version>
+    <requires>
+        <resource>
+            <id>GOBY</id>
+            <versionAtLeast>20120125181554</versionAtLeast>
+        </resource>
+        <resource>
+            <id>BISMARK</id>
+            <versionAtLeast>0.7.4</versionAtLeast>
+        </resource>
+        <resource>
+            <id>SAMTOOLS</id>
+            <versionAtLeast>0.1.18</versionAtLeast>
+        </resource>
+    </requires>
+    <files>
+        <file>
+            <id>PROCESS_AGGREGATOR</id>
+            <filename>ProcessAggregator.groovy</filename>
+        </file>
+        <file>
+            <id>COMBINE_AGGREGATOR</id>
+            <filename>CombineAggregator.groovy</filename>
+        </file>
+    </files>
+    <execute>
+        <script phase="pre-deployment" language="groovy" filename="makePluginConstants.groovy"/>
+    </execute>
+    <runtime>
+        <need scope="PROCESS" key="excl" value="false"/>
+        <need scope="PROCESS" key="h_vmem" value="20g"/>
+        <need scope="PROCESS" key="virtual_free" value="20g"/>
+        <need scope="PROCESS_JVM" value="15g"/>
+        <need scope="GLOBAL" key="excl" value="false"/>
+        <need scope="GLOBAL" key="h_vmem" value="8g"/>
+        <need scope="GLOBAL" key="virtual_free" value="8g"/>
+        <need scope="COMBINE" key="excl" value="false"/>
+        <need scope="COMBINE" key="h_vmem" value="4g"/>
+        <need scope="COMBINE" key="virtual_free" value="4g"/>
+        <need scope="COMBINE_JVM" value="2g"/>
+        <need scope="SPLIT_JVM" value="6g"/>
+    </runtime>
+    <outputSchema>
+        <outputFile>
+            <id>METHYLATION_RESULTS_DB</id>
+            <name>Methylation Rates</name>
+            <required>true</required>
+            <mimeType>application/x-sqlite3</mimeType>
+            <filename>methylation.db</filename>
+            <tableName>methylation</tableName>
+            <help>todo</help>
+        </outputFile>
+        <outputFile>
+            <id>METHYLATION_RESULTS_LUCENE_INDEX</id>
+            <name>Methylation Rates</name>
+            <required>true</required>
+            <mimeType>application/lucene-index</mimeType>
+            <filename>methylation.lucene.index</filename>
+            <tableName>methylation</tableName>
+            <help>todo</help>
+        </outputFile>
+        <outputFile>
+            <id>METHYLATION_RESULTS</id>
+            <name>Methylation Rates</name>
+            <required>true</required>
+            <mimeType>text/tab-separated-values</mimeType>
+            <filename>methylation.tsv</filename>
+            <help>todo</help>
+        </outputFile>
+    </outputSchema>
+    <minimumNumberOfGroups>1</minimumNumberOfGroups>
+    <maximumNumberOfGroups>10</maximumNumberOfGroups>
+</alignmentAnalysisConfig>

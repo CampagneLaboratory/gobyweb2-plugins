@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<!--
+  ~ Copyright (c) 2011-2012  by Cornell University  and the  Cornell Research Foundation,
+  ~ Inc. All Rights Reserved.
+  ~
+  ~ GobyWeb plugins  are released  under the LGPL3 license,  unless  otherwise specified
+  ~ by the license of a specific plugin. See the file LGPL3.license in this distribution
+  ~ for a copy of the LGPL license.
+  ~
+  ~ When a plugin is not released under the LGPL3 license,  the comments  at the top  of
+  ~ the plugin's config.xml will indicate how that specific plugin is released/licensed.
+  -->
+<alignmentAnalysisConfig xsi:noNamespaceSchemaLocation="../../../schemas/plugins.xsd"
+                         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <name>Indel counts with Goby</name>
+    <id>INDEL_COUNTS_GOBY</id>
+
+    <help>Compares groups of samples and produce output about number of called indels in each sample and group. Implemented
+        with Goby.
+    </help>
+    <analysisType>SequenceVariants</analysisType>
+    <supportsTranscriptAlignments>false</supportsTranscriptAlignments>
+    <splitProcessCombine>true</splitProcessCombine>
+    <producesTabDelimitedOutput>true</producesTabDelimitedOutput>
+    <producesVariantCallingFormatOutput>false</producesVariantCallingFormatOutput>
+    <supportsGobyAlignments>true</supportsGobyAlignments>
+    <copyWeightFiles>false</copyWeightFiles>
+    <version>1.2</version>
+    <requires>
+        <resource>
+            <id>GOBY</id>
+            <versionAtLeast>20120126122456</versionAtLeast>
+        </resource>
+    </requires>
+    <runtime>
+        <need scope="GLOBAL" key="h_vmem" value="18g"/>
+        <need scope="GLOBAL" key="virtual_free" value="20g"/>
+        <need scope="PROCESS" key="excl" value="false"/>
+        <need scope="PROCESS" key="h_vmem" value="8g"/>
+        <need scope="PROCESS" key="virtual_free" value="8g"/>
+        <need scope="PROCESS_JVM" value="6g"/>
+        <need scope="COMBINE" key="excl" value="false"/>
+        <need scope="COMBINE" key="h_vmem" value="6g"/>
+        <need scope="COMBINE" key="virtual_free" value="6g"/>
+        <need scope="COMBINE_JVM" value="3g"/>
+    </runtime>
+    <outputSchema>
+        <outputFile>
+            <id>STATS_RESULTS_DB</id>
+            <name>table of statistics</name>
+            <required>true</required>
+            <mimeType>application/x-sqlite3</mimeType>
+            <tableName>stats</tableName>
+            <filename>stats.db</filename>
+            <help>View the table of results in the interactive GobyWeb table browser. Table contains indel counts generated with Goby discover-sequence-variants mode, indel-counts output format.</help>
+        </outputFile>
+        <outputFile>
+            <id>STATS_RESULTS_LUCENE_INDEX</id>
+            <name>table of statistics</name>
+            <required>true</required>
+            <mimeType>application/lucene-index</mimeType>
+            <tableName>stats</tableName>
+            <filename>stats.lucene.index</filename>
+            <help>View the table of results in the interactive GobyWeb table browser. Table contains indel counts generated with Goby discover-sequence-variants mode, indel-counts output format.</help>
+        </outputFile>
+        <outputFile>
+            <id>STATS_RESULTS</id>
+            <name>TSV file</name>
+            <required>true</required>
+            <mimeType>text/tab-separated-values</mimeType>
+            <filename>stats.tsv</filename>
+            <help>Tab delimited file with counts for called indels.</help>
+        </outputFile>
+    </outputSchema>
+    <options>
+        <option>
+            <id>OUTPUT_FORMAT</id>
+            <name>Type of analysis and output format</name>
+            <help>Determines the type of sequence variation analysis to perform and the output format.</help>
+            <required>true</required>
+            <defaultsTo>INDEL_COUNTS</defaultsTo>
+            <type>CATEGORY</type>
+            <categories>
+                <category>
+                    <id>INDEL_COUNTS</id>
+                    <name>indel-counts</name>
+                    <value>INDEL_COUNTS</value>
+                    <help>Count called indels in samples and groups.</help>
+                </category>
+
+            </categories>
+            <autoFormat>true</autoFormat>
+            <flagFormat>--format=%s</flagFormat>
+            <includeSpaces>true</includeSpaces>
+        </option>
+        <option>
+            <id>REALIGN_AROUND_INDELS</id>
+            <dbLegacyId>realignment_option</dbLegacyId>
+            <name>Realign reads near indels</name>
+            <help>When this option is active, reads are realigned around indels and this can help prevent alignment
+                artifacts.
+            </help>
+            <required>true</required>
+            <defaultsTo>false</defaultsTo>
+            <type>BOOLEAN</type>
+            <autoFormat>false</autoFormat>
+        </option>
+        <option>
+            <id>MINIMUM_VARIATION_SUPPORT</id>
+            <name>Minimum variation support</name>
+            <help>Minimum number of reads that must have the variation for the variation to be reported in the output
+            </help>
+            <required>true</required>
+            <defaultsTo>35</defaultsTo>
+            <type>INTEGER</type>
+            <autoFormat>false</autoFormat>
+        </option>
+        <option>
+            <id>THRESHOLD_DISTINCT_READ_INDICES</id>
+            <name>Minimum number of distinct read indices</name>
+            <help>Number of distinct read indices a position has to have to be reported in the output.</help>
+            <required>true</required>
+            <defaultsTo>1</defaultsTo>
+            <type>INTEGER</type>
+            <autoFormat>false</autoFormat>
+        </option>
+
+    </options>
+    <minimumNumberOfGroups>1</minimumNumberOfGroups>
+    <maximumNumberOfGroups>50</maximumNumberOfGroups>
+</alignmentAnalysisConfig>

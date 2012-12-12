@@ -1,0 +1,286 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<!--
+  ~ Copyright (c) 2011-2012  by Cornell University  and the  Cornell Research Foundation,
+  ~ Inc. All Rights Reserved.
+  ~
+  ~ GobyWeb plugins  are released  under the LGPL3 license,  unless  otherwise specified
+  ~ by the license of a specific plugin. See the file LGPL3.license in this distribution
+  ~ for a copy of the LGPL license.
+  ~
+  ~ When a plugin is not released under the LGPL3 license,  the comments  at the top  of
+  ~ the plugin's config.xml will indicate how that specific plugin is released/licensed.
+  -->
+<alignmentAnalysisConfig xsi:noNamespaceSchemaLocation="../../../schemas/plugins.xsd"
+                         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <name>Contaminant identification</name>
+    <id>CONTAMINANT_EXTRACT</id>
+    <dbLegacyId>Extract Contaminants</dbLegacyId>
+    <help>Finds potential contaminants based on the unmapped reads in the alignments. This plugin will create contigs from unmapped reads, and try to align these contigs to viral and bacterial nucleotide sequences to identify potential sample contaminants.
+    </help>
+    <analysisType>DiffExp</analysisType>
+    <supportsTranscriptAlignments>false</supportsTranscriptAlignments>
+    <splitProcessCombine>true</splitProcessCombine>
+    <producesTabDelimitedOutput>true</producesTabDelimitedOutput>
+    <supportsGobyAlignments>true</supportsGobyAlignments>
+    <copyWeightFiles>false</copyWeightFiles>
+    <version>1.7</version>
+    <files>
+        <file>
+            <id>OUTPUT_FORMATTER</id>
+            <filename>OutputFormatter.groovy</filename>
+        </file>
+        <file>
+        	<id>VIRAL_REF</id>
+        	<filename>viralref.tar.gz</filename>
+        </file>
+        <file>
+        	<id>VIRAL_NAMES</id>
+        	<filename>viral-names.map</filename>
+        </file>
+        <file>
+            <id>MICRO_REF</id>
+            <filename>microref.tar.gz</filename>
+        </file>
+        <file>
+            <id>MICRO_NAMES</id>
+            <filename>micro-names.map</filename>
+        </file>
+        <file>
+            <id>FUNGAL_REF</id>
+            <filename>fungalref.tar.gz</filename>
+        </file>
+        <file>
+            <id>FUNGAL_NAMES</id>
+            <filename>fungal-names.map</filename>
+        </file>
+    </files>
+    <requires>
+        <resource>
+            <id>GOBY</id>
+            <versionAtLeast>20120723142616</versionAtLeast>
+        </resource>
+        <resource>
+            <id>MINIA</id>
+            <versionAtLeast>20120626</versionAtLeast>
+        </resource>
+        <resource>
+        	<id>TRINITY</id>
+        	<versionAtLeast>20120518</versionAtLeast>
+        </resource>
+        <resource>
+            <id>LAST</id>
+            <versionAtLeast>230</versionAtLeast>
+        </resource>
+        <resource>
+        	<id>EXTRACT_NONMATCHED</id>
+        	<versionAtLeast>2012.06.04</versionAtLeast>
+        </resource>
+        <resource>
+            <id>BWA_WITH_GOBY</id>
+            <versionAtLeast>0.5.9.16</versionAtLeast>
+        </resource>
+        <resource>
+        	<id>ILLUMINA_ADAPTERS</id>
+        	<versionAtLeast>1.0</versionAtLeast>
+        </resource>
+    </requires>
+    <runtime>
+
+        <need scope="PROCESS" key="excl" value="false"/>
+        <need scope="PROCESS" key="h_vmem" value="20g"/>
+        <need scope="PROCESS" key="virtual_free" value="20g"/>
+        <need scope="PROCESS_JVM" value="15g"/>
+        <need scope="GLOBAL" key="excl" value="false"/>
+        <need scope="GLOBAL" key="h_vmem" value="8g"/>
+        <need scope="GLOBAL" key="virtual_free" value="8g"/>
+        <need scope="COMBINE" key="excl" value="false"/>
+        <need scope="COMBINE" key="h_vmem" value="4g"/>
+        <need scope="COMBINE" key="virtual_free" value="4g"/>
+        <need scope="COMBINE_JVM" value="2g"/>
+        <need scope="SPLIT_JVM" value="6g"/>
+    </runtime>
+    <execute>
+        <script phase="pre-deployment" language="groovy" filename="makePluginConstants.groovy"/>
+    </execute>
+    <outputSchema>
+        <outputFile>
+            <id>CONTAMINANT_RESULTS_DB</id>
+            <name>table with full results of analysis</name>
+            <required>true</required>
+            <mimeType>application/x-sqlite3</mimeType>
+            <filename>contaminants.db</filename>
+            <tableName>contaminants</tableName>
+            <help>View the table of results in the interactive GobyWeb table browser. Table contains found
+                contaminants.
+            </help>
+        </outputFile>
+        <outputFile>
+            <id>CONTAMINANT_RESULTS</id>
+            <name>TSV file with full results of analysis</name>
+            <required>true</required>
+            <mimeType>text/tab-separated-values</mimeType>
+            <filename>contaminants.tsv</filename>
+            <help>TSV file with results of contaminant extraction.</help>
+        </outputFile>
+        <outputFile>
+            <id>CONTAMINANT_SUMMARY_DB</id>
+            <name>table with summary of analysis</name>
+            <required>true</required>
+            <mimeType>application/x-sqlite3</mimeType>
+            <filename>summary.db</filename>
+            <tableName>summary</tableName>
+            <help>View the table of results in the interactive GobyWeb table browser. Table contains summary of found contaminants.</help>
+        </outputFile>
+        <outputFile>
+            <id>CONTAMINANT_SUMMARY</id>
+            <name>TSV file with summary results of analysis</name>
+            <required>true</required>
+            <mimeType>text/tab-separated-values</mimeType>
+            <filename>summary.tsv</filename>
+            <help>TSV file with a summary of contaminant extraction.</help>
+        </outputFile>
+        <outputFile>
+            <id>REALIGNED_UNMAPPED_DB</id>
+            <name>table with match counts of contigs to unmapped reads</name>
+            <required>true</required>
+            <mimeType>application/x-sqlite3</mimeType>
+            <filename>realigned.db</filename>
+            <tableName>realigned</tableName>
+            <help>View the table of results in the interactive GobyWeb table browser. Table contains counts of contigs matched to unmapped reads.</help>
+        </outputFile>
+        <outputFile>
+            <id>REALIGNED_UNMAPPED</id>
+            <name>TSV file with match counts of contigs to unmapped reads</name>
+            <required>true</required>
+            <mimeType>text/tab-separated-values</mimeType>
+            <filename>realigned.tsv</filename>
+            <help>TSV file with match counts of contigs to unmapped reads.</help>
+        </outputFile>
+        <outputFile>
+            <id>ASSEMBLED_READS</id>
+            <name>Assembled Reads</name>
+            <required>true</required>
+            <mimeType>application/x-tar</mimeType>
+            <filename>assembled-reads.tar.gz</filename>
+            <help>GZIP archive with the assembled reads from each sample</help>
+        </outputFile>
+    </outputSchema>
+    <options>
+    	<option>
+    		<id>ASSEMBLER</id>
+    		<name>Assembler</name>
+    		<help>The assembler to use when combining reads into contigs</help>
+    		<required>true</required>
+    		<defaultsTo>MINIA</defaultsTo>
+    		<type>CATEGORY</type>
+    		<categories>
+    			<category>
+    				<id>MINIA</id>
+    				<name>Minia</name>
+    				<value>MINIA</value>
+    				<help>http://minia.genouest.org/</help>
+    			</category>
+    			<category>
+    				<id>TRINITY</id>
+    				<name>Trinity</name>
+    				<value>TRINITY</value>
+    				<help>http://trinityrnaseq.sourceforge.net/</help>
+    			</category>
+    		</categories>
+    	</option>
+    	<option>
+    		<id>ALIGNER</id>
+    		<name>Aligner</name>
+    		<help>The aligner to use for realigning reads to contigs</help>
+    		<required>true</required>
+    		<defaultsTo>LAST</defaultsTo>
+    		<type>CATEGORY</type>
+    		<categories>
+    			<category>
+    				<id>LAST</id>
+    				<name>Last</name>
+    				<value>LAST</value>
+    				<help>http://last.cbrc.jp/</help>
+    			</category>
+    			<category>
+    				<id>BWA</id>
+    				<name>BWA</name>
+    				<value>BWA</value>
+    				<help>http://bio-bwa.sourceforge.net/</help>
+    			</category>
+    		</categories>
+    	</option>
+        <option>
+            <id>SEARCH_REFERENCE</id>
+            <name>Search Reference</name>
+            <help>The reference of contaminants to search for</help>
+            <required>true</required>
+            <defaultsTo>VIRAL</defaultsTo>
+            <type>CATEGORY</type>
+            <categories>
+                <category>
+                    <id>VIRAL</id>
+                    <name>Viral</name>
+                    <value>VIRAL</value>
+                    <help> </help>
+                </category>
+                <category>
+                    <id>MICROBIAL</id>
+                    <name>Microbial</name>
+                    <value>MICROBIAL</value>
+                    <help> </help>
+                </category>
+                 <category>
+                    <id>FUNGAL</id>
+                    <name>Fungal</name>
+                    <value>FUNGAL</value>
+                    <help> </help>
+                </category>
+            </categories>
+        </option>
+        <option>
+            <id>EVALUETHRESHOLD</id>
+            <name>E-value Threshold</name>
+            <help>Matches with an E-value above the threshold will not be considered significant</help>
+            <required>true</required>
+            <defaultsTo>1e-6</defaultsTo>
+            <type>DOUBLE</type>
+        </option>
+        <option>
+            <id>KMER_LENGTH</id>
+            <name>kmer length</name>
+            <help>kmer length to use for assembly (not supported with trinity)</help>
+            <required>true</required>
+            <defaultsTo>25</defaultsTo>
+            <type>DOUBLE</type>
+        </option>
+    	<option>
+    		<id>IDENTITYTHRESHOLD</id>
+    		<name>Percent Identity Threshold</name>
+    		<help>Matches with a percent identity below the threshold will not be considered significant</help>
+    		<required>true</required>
+    		<defaultsTo>90</defaultsTo>
+    		<type>DOUBLE</type>
+    	</option>
+        <option>
+            <id>TRIM_ADAPTERS</id>
+            <name>Trim Illumina Adapters</name>
+            <help>Illumina Adapters will be trimmed from unmatched reads before assembly</help>
+            <required>true</required>
+            <defaultsTo>true</defaultsTo>
+            <type>BOOLEAN</type>
+            <autoFormat>false</autoFormat>
+        </option>
+        <option>
+            <id>MERGE_GROUPS</id>
+            <name>Merge Groups</name>
+            <help>Combine unmapped reads within each group before assembly</help>
+            <required>true</required>
+            <defaultsTo>false</defaultsTo>
+            <type>BOOLEAN</type>
+            <autoFormat>false</autoFormat>
+        </option>
+    </options>
+    <minimumNumberOfGroups>1</minimumNumberOfGroups>
+    <maximumNumberOfGroups>10</maximumNumberOfGroups>
+</alignmentAnalysisConfig>

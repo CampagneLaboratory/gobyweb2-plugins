@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<!--
+  ~ Copyright (c) 2011-2012  by Cornell University  and the  Cornell Research Foundation,
+  ~ Inc. All Rights Reserved.
+  ~
+  ~ GobyWeb plugins  are released  under the LGPL3 license,  unless  otherwise specified
+  ~ by the license of a specific plugin. See the file LGPL3.license in this distribution
+  ~ for a copy of the LGPL license.
+  ~
+  ~ When a plugin is not released under the LGPL3 license,  the comments  at the top  of
+  ~ the plugin's config.xml will indicate how that specific plugin is released/licensed.
+  -->
+<alignerConfig xsi:noNamespaceSchemaLocation="../../../schemas/plugins.xsd"
+               xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <name>STAR (Goby output)</name>
+    <id>STAR_GOBY</id>
+    <dbLegacyId>STAR (Goby native)</dbLegacyId>
+    <help>STAR writing to Goby output. See aligner information at http://gingeraslab.cshl.edu/STAR/.</help>
+    <supportsColorSpace>false</supportsColorSpace>
+    <supportsBisulfiteConvertedReads>true</supportsBisulfiteConvertedReads>
+    <supportsGobyReads>true</supportsGobyReads>
+    <supportsGobyAlignments>true</supportsGobyAlignments>
+    <supportsPairedEndAlignments>true</supportsPairedEndAlignments>
+    <supportsFastqReads>true</supportsFastqReads>
+    <supportsFastaReads>true</supportsFastaReads>
+    <supportsBAMAlignments>false</supportsBAMAlignments>
+    <version>1.2</version>
+    <indexDirectory>%NODE_LOCAL_DATA_ROOT%/%VERSION%/%ORGANISM%/%SPACE%/star/index</indexDirectory>
+    <runtime>
+        <need scope="ALIGN" key="excl" value="true"/>
+        <need scope="ALIGN" key="h_vmem" value="35g"/>
+        <need scope="ALIGN" key="virtual_free" value="35g"/>
+        <need scope="ALIGN" key="os" value="rhel5.4"/>
+        <need scope="ALIGN_JVM" value="4g"/>
+        <need scope="ALIGNMENT_POST_PROCESSING" key="excl" value="false"/>
+        <need scope="ALIGNMENT_POST_PROCESSING" key="h_vmem" value="10g"/>
+        <need scope="ALIGNMENT_POST_PROCESSING" key="virtual_free" value="12g"/>
+        <need scope="ALIGNMENT_POST_PROCESSING_JVM" value="8g"/>
+    </runtime>
+    <requires>
+        <resource>
+            <id>STAR</id>
+            <versionAtLeast>2.1.4</versionAtLeast>
+        </resource>
+        <resource>
+            <id>GOBY</id>
+            <versionAtLeast>20120620120930</versionAtLeast>
+        </resource>
+        <resource>
+            <id>SAMTOOLS</id>
+            <versionAtLeast>0.1.18</versionAtLeast>
+        </resource>
+        <resource>
+            <id>SCALA</id>
+            <versionAtLeast>2.9.2</versionAtLeast>
+        </resource>
+        <resource>
+            <id>EXTRACT_NONMATCHED</id>
+            <versionAtLeast>2012.06.25</versionAtLeast>
+        </resource>
+    </requires>
+    <options>
+        <!--option>
+            <id>OUT_FILTER_MISMATCH_N_MAX</id>
+            <dbLegacyId>outFilterMismatchNmax</dbLegacyId>
+            <name>outFilterMismatchNmax</name>
+            <help>alignment will be output only if it has fewer mismatches than this value
+            </help>
+            <required>true</required>
+            <defaultsTo>10</defaultsTo>
+            <type>INTEGER</type>
+            <autoFormat>true</autoFormat>
+            <flagFormat>&dash;&dash;outFilterMismatchNmax %s</flagFormat>
+            <includeSpaces>true</includeSpaces>
+        </option-->
+        <option>
+            <id>AMBIGUITY_THRESHOLD</id>
+            <dbLegacyId>ambiguityThreshold</dbLegacyId>
+            <name>Ambiguity threshold</name>
+            <help>The maximum number of reference sequence locations that can be matched for a read to be considered
+                non-ambiguous. Please note that STAR currently discards/does not output alignments found to strictly
+                match more than the specified ambiguity threshold.
+            </help>
+            <required>true</required>
+            <defaultsTo>10</defaultsTo>
+            <type>INTEGER</type>
+            <autoFormat>true</autoFormat>
+            <flagFormat>-n %s</flagFormat>
+            <includeSpaces>true</includeSpaces>
+        </option>
+        <option>
+            <id>ALIGNER_OPTIONS</id>
+            <dbLegacyId>alignerAdvancedOptions</dbLegacyId>
+            <name>Other aligner options</name>
+            <help>Provide any additional STAR option here following the syntax expected by STAR.</help>
+            <required>false</required>
+            <defaultsTo></defaultsTo>
+            <type>STRING</type>
+            <flagFormat>%s</flagFormat>
+            <includeSpaces>true</includeSpaces>
+        </option>
+        <option>
+            <id>NON_MATCHING</id>
+            <name>Export non-matching reads</name>
+            <help>Output unmatched reads after alignment is complete</help>
+            <required>true</required>
+            <defaultsTo>false</defaultsTo>
+            <type>BOOLEAN</type>
+            <autoFormat>false</autoFormat>
+        </option>
+    </options>
+    <files>
+        <file>
+            <id>COMBINE_SPLICE_SCRIPT</id>
+            <filename>CombineSpliceData.scala</filename>
+        </file>
+    </files>
+</alignerConfig>

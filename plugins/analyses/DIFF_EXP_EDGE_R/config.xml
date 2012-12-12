@@ -1,0 +1,381 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<!--
+  ~ Copyright (c) 2011-2012  by Cornell University  and the  Cornell Research Foundation,
+  ~ Inc. All Rights Reserved.
+  ~
+  ~ GobyWeb plugins  are released  under the LGPL3 license,  unless  otherwise specified
+  ~ by the license of a specific plugin. See the file LGPL3.license in this distribution
+  ~ for a copy of the LGPL license.
+  ~
+  ~ When a plugin is not released under the LGPL3 license,  the comments  at the top  of
+  ~ the plugin's config.xml will indicate how that specific plugin is released/licensed.
+  -->
+<alignmentAnalysisConfig xsi:noNamespaceSchemaLocation="../../../schemas/plugins.xsd"
+                         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <name>Differential Expression Analysis with EdgeR</name>
+    <id>DIFF_EXP_EDGE_R</id>
+    <help>Compares groups of samples to determine set of gene/exon or other annotations differentially expressed across
+        groups. Counts are calculated with Goby, statistics of differential expression are estimated using the EdgeR
+        Bioconductor package.
+    </help>
+    <analysisType>DiffExp</analysisType>
+    <supportsTranscriptAlignments>false</supportsTranscriptAlignments>
+    <splitProcessCombine>true</splitProcessCombine>
+    <producesTabDelimitedOutput>true</producesTabDelimitedOutput>
+    <version>1.0</version>
+    <supportsGobyAlignments>true</supportsGobyAlignments>
+    <requires>
+        <resource>
+            <id>GOBY</id>
+            <versionAtLeast>20111021144833</versionAtLeast>
+        </resource>
+        <resource>
+            <id>R</id>
+            <versionExactly>2.14.1</versionExactly>
+        </resource>
+        <resource>
+            <id>EDGE_R_SCRIPT</id>
+            <versionAtLeast>2012.08.24</versionAtLeast>
+        </resource>
+    </requires>
+    <runtime>
+        <need scope="PROCESS" key="excl" value="false"/>
+        <need scope="PROCESS" key="h_vmem" value="6g"/>
+        <need scope="PROCESS" key="virtual_free" value="6g"/>
+        <need scope="PROCESS_JVM" value="4g"/>
+        <need scope="GLOBAL" key="excl" value="false"/>
+        <need scope="GLOBAL" key="h_vmem" value="8g"/>
+        <need scope="GLOBAL" key="virtual_free" value="8g"/>
+        <need scope="COMBINE" key="excl" value="false"/>
+        <need scope="COMBINE" key="h_vmem" value="22g"/>
+        <need scope="COMBINE" key="virtual_free" value="22g"/>
+        <need scope="COMBINE_JVM" value="16g"/>
+        <need scope="SPLIT_JVM" value="6g"/>
+    </runtime>
+    <execute>
+        <script phase="pre-deployment" language="groovy" filename="sampleToGroups.groovy"/>
+    </execute>
+    <options>
+        <validation>
+            <rule validWhen="(matches(ANNOTATION_SOURCE,GENE_EXON_OTHER) AND (value(ESTIMATE_COUNTS_GENE) OR value(ESTIMATE_COUNTS_EXON) OR value(ESTIMATE_COUNTS_OTHER))) OR NOT (matches(ANNOTATION_SOURCE,GENE_EXON_OTHER))"
+                  error="at least one of gene exon, other must be selected when ANNOTATION_SOURCE is gene/exon/other"/>
+            <rule validWhen="(matches(WEIGHT_ADJUSTMENT,GC_CONTENT) AND NOT matches(BIAS_ADJUSTMENT_FORMULA,NONE)) OR NOT matches(WEIGHT_ADJUSTMENT,GC_CONTENT)"
+                  error="A GC content adjustment formula must be selected when GC content weight adjustment is selected."/>
+        </validation>
+        <option>
+            <id>REMOVE_SHARED_SEGMENTS</id>
+            <name>Remove shared segments</name>
+            <help>Remove annotation segments when they partially overlap with more than one primary annotation id. When
+                this option is selected and the primary id is a gene, and secondary id is an exon, the mode will remove
+                exons that are associated with several genes. When the option is used with transcript id as primary and
+                exon as secondary, exons are removed that are shared across different transcripts of the same gene.
+            </help>
+            <required>false</required>
+            <defaultsTo>false</defaultsTo>
+            <type>SWITCH</type>
+            <autoFormat>true</autoFormat>
+            <flagFormat>--remove-shared-segments</flagFormat>
+            <includeSpaces>true</includeSpaces>
+        </option>
+        <option>
+            <id>NUM_TOP_HITS</id>
+            <name>Number of top hits</name>
+            <help>Number of hits to report if no candidates has an adjusted p-value above the q-value threshold.</help>
+            <required>true</required>
+            <defaultsTo>10000</defaultsTo>
+            <type>INTEGER</type>
+            <autoFormat>false</autoFormat>
+        </option>
+        <option>
+            <id>Q_VALUE_THRESHOLD</id>
+            <name>q-value threshold</name>
+            <help>Threshold on q-values to determine if the candidate result should be kept. A candidate is kept if any
+                q-value is lower than the threshold.
+            </help>
+            <required>true</required>
+            <defaultsTo>1.0</defaultsTo>
+            <type>DOUBLE</type>
+            <autoFormat>false</autoFormat>
+        </option>
+        <option>
+            <id>WEIGHT_ADJUSTMENT</id>
+            <dbLegacyId>weightAdjustment</dbLegacyId>
+            <name>weight adjustment</name>
+            <help>Type of count adjustment.</help>
+            <defaultsTo>NONE</defaultsTo>
+            <type>CATEGORY</type>
+            <categories>
+                <category>
+                    <id>NONE</id>
+                    <name>None</name>
+                    <value>NONE</value>
+                    <help>No adjustment.</help>
+                    <dbLegacyValue>none</dbLegacyValue>
+                </category>
+                <category>
+                    <id>GC_CONTENT</id>
+                    <name>GC content</name>
+                    <value>GC_CONTENT</value>
+                    <help>Adjust for GC content.</help>
+                    <dbLegacyValue>gc</dbLegacyValue>
+                </category>
+                <category>
+                    <id>HEPTAMERS</id>
+                    <name>Heptamers</name>
+                    <value>HEPTAMERS</value>
+                    <help>Adjust for heptamer bias.</help>
+                    <dbLegacyValue>heptamers</dbLegacyValue>
+                </category>
+            </categories>
+        </option>
+        <option hiddenWhen="NOT matches(WEIGHT_ADJUSTMENT,GC_CONTENT)">
+            <id>BIAS_ADJUSTMENT_FORMULA</id>
+            <dbLegacyId>adjustGCBias</dbLegacyId>
+            <name>GC adjustment formula</name>
+            <help>When GC weight adjustment is selected, you can configure the type of formula used to adjust counts for
+                GC content.
+            </help>
+            <defaultsTo>FORMULA3</defaultsTo>
+            <type>CATEGORY</type>
+            <categories>
+                <category>
+                    <id>NONE</id>
+                    <name>None</name>
+                    <value>NONE</value>
+                    <help>Should be used when GC content adjustment is not needed.</help>
+                    <dbLegacyValue>false</dbLegacyValue>
+                </category>
+                <category>
+                    <id>FORMULA1</id>
+                    <name>FORMULA1</name>
+                    <value>FORMULA1</value>
+                    <help>FORMULA1</help>
+                </category>
+                <category>
+                    <id>FORMULA2</id>
+                    <name>FORMULA2</name>
+                    <value>FORMULA2</value>
+                    <help>FORMULA2</help>
+                </category>
+                <category>
+                    <id>FORMULA3</id>
+                    <name>FORMULA3</name>
+                    <value>FORMULA3</value>
+                    <help>FORMULA3</help>
+                </category>
+                <category>
+                    <id>FORMULA4</id>
+                    <name>FORMULA4</name>
+                    <value>FORMULA4</value>
+                    <help>FORMULA4</help>
+                </category>
+            </categories>
+        </option>
+        <option>
+            <id>NORMALIZATION_FACTORS_METHOD</id>
+            <name>normalization factors method</name>
+            <help>Method used to calculate normalization factors to scale the raw library sizes.
+                TMM - The weighted trimmed mean of M-values (to the reference) proposed by Robinson and Oshlack (2010),
+                where the weights are from the delta method on Binomial data.
+                RLE - The scaling factor method proposed by Anders and Huber (2010) -the median library is calculated
+                from the geometric mean of all columns and the median ratio of each sample to the median library is
+                taken as the scale factor.
+                BUQ - The upper-quartile normalization method of Bullard et al (2010), in which the scale factors are
+                calculated from the 75% quantile of the counts for each library, after removing transcripts which
+                are zero in all libraries.
+            </help>
+            <required>true</required>
+            <defaultsTo>TMM</defaultsTo>
+            <type>CATEGORY</type>
+            <categories>
+                <category>
+                    <id>TMM</id>
+                    <name>TMM</name>
+                    <value>TMM</value>
+                    <help>The weighted trimmed mean of M-values (to the reference) proposed by Robinson and Oshlack
+                        (2010),
+                        where the weights are from the delta method on Binomial data.
+                    </help>
+                    <dbLegacyValue>tmm</dbLegacyValue>
+                </category>
+                <category>
+                    <id>RLE</id>
+                    <name>RLE</name>
+                    <value>RLE</value>
+                    <help>The scaling factor method proposed by Anders and Huber (2010) -the median library is
+                        calculated
+                        from the geometric mean of all columns and the median ratio of each sample to the median library
+                        is
+                        taken as the scale factor.
+                    </help>
+                    <dbLegacyValue>rle</dbLegacyValue>
+                </category>
+                <category>
+                    <id>UpperQuartile</id>
+                    <name>BUQ</name>
+                    <value>BUQ</value>
+                    <help>The upper-quartile normalization method of Bullard et al (2010), in which the scale factors
+                        are
+                        calculated from the 75% quantile of the counts for each library, after removing transcripts
+                        which
+                        are zero in all libraries.
+                    </help>
+                    <dbLegacyValue>buq</dbLegacyValue>
+                </category>
+            </categories>
+        </option>
+        <option>
+            <id>DISPERSION_METHOD</id>
+            <name>dispersion method</name>
+            <help>Method to estimate the dispersion parameter for the negative binomial model. Options are "common"
+                and "tagwise". See EdgeR documentation.
+            </help>
+            <required>true</required>
+            <defaultsTo>tagwise</defaultsTo>
+            <type>CATEGORY</type>
+            <categories>
+                <category>
+                    <id>common</id>
+                    <name>common</name>
+                    <value>common</value>
+                    <help>Use common dispersion
+                    </help>
+                    <dbLegacyValue>common</dbLegacyValue>
+                </category>
+                <category>
+                    <id>tagwise</id>
+                    <name>tagwise</name>
+                    <value>tagwise</value>
+                    <help>Estimate tagwise dispersion by the empirical Bayes method
+                    </help>
+                    <dbLegacyValue>tagwise</dbLegacyValue>
+                </category>
+            </categories>
+        </option>
+        <option>
+            <id>FILTERING</id>
+            <dbLegacyId>filtering_flag</dbLegacyId>
+            <name>apply filtering</name>
+            <help>Indicate whether low count tags should be filtered. This prevents reporting spurious DE tags in the
+                final result. See edgeR documentation for more details.
+            </help>
+            <required>true</required>
+            <defaultsTo>TRUE</defaultsTo>
+            <type>BOOLEAN</type>
+        </option>
+
+        <option>
+            <id>ANNOTATION_SOURCE</id>
+            <dbLegacyId>annotation_types</dbLegacyId>
+            <name>Source of annotations</name>
+            <help>Select the source of annotations and type of analysis to perform.
+            </help>
+            <defaultsTo>GENE_EXON_OTHER</defaultsTo>
+            <type>CATEGORY</type>
+            <categories>
+                <category>
+                    <id>GENE_EXON_OTHER</id>
+                    <name>Gene/Exon/Other</name>
+                    <value>GENE_EXON_OTHER</value>
+                    <help>Differential expression for Gene/Exon/Other annotations.</help>
+                    <dbLegacyValue>genes/exons/other</dbLegacyValue>
+                </category>
+                <category>
+                    <id>CNV</id>
+                    <name>Copy Number Variants</name>
+                    <value>CNV</value>
+                    <help>Differential coverage over regions of known CNVs.</help>
+                    <dbLegacyValue>CNVs</dbLegacyValue>
+                </category>
+            </categories>
+        </option>
+        <option hiddenWhen="NOT matches(ANNOTATION_SOURCE,GENE_EXON_OTHER)">
+            <id>ESTIMATE_COUNTS_GENE</id>
+            <dbLegacyId>analysisType_goby_gene</dbLegacyId>
+            <name>Gene counts</name>
+            <help>Estimate gene counts.</help>
+            <type>BOOLEAN</type>
+            <defaultsTo>true</defaultsTo>
+        </option>
+        <option hiddenWhen="NOT matches(ANNOTATION_SOURCE,GENE_EXON_OTHER)">
+            <id>ESTIMATE_COUNTS_EXON</id>
+            <dbLegacyId>analysisType_goby_exon</dbLegacyId>
+            <name>Exon counts</name>
+            <help>Estimate exon counts.</help>
+            <type>BOOLEAN</type>
+        </option>
+        <option hiddenWhen="NOT matches(ANNOTATION_SOURCE,GENE_EXON_OTHER)">
+            <id>ESTIMATE_COUNTS_OTHER</id>
+            <dbLegacyId>analysisType_goby_other</dbLegacyId>
+            <name>Other counts</name>
+            <help>Estimate other counts. The other category represents intergenic regions.</help>
+            <type>BOOLEAN</type>
+        </option>
+    </options>
+    <files>
+        <file>
+            <id>R_SCRIPT</id>
+            <filename>deAnalysisEdgeR.R</filename>
+        </file>
+        <file>
+            <id>PARALLEL_SCRIPT</id>
+            <filename>parallel.sh</filename>
+            <importFromPlugin>DIFF_EXP_GOBY</importFromPlugin>
+        </file>
+    </files>
+    <outputSchema>
+        <outputFile>
+            <id>STATS_RESULTS_DB</id>
+            <name>table of statistics</name>
+            <required>true</required>
+            <mimeType>application/x-sqlite3</mimeType>
+            <tableName>stats</tableName>
+            <filename>stats.db</filename>
+            <help>View the table of results in the interactive GobyWeb table browser. The table was generated by the
+                Edge R package after counts have been produced with the goby alignment-to-counts mode.
+            </help>
+        </outputFile>
+        <outputFile>
+            <id>STATS_RESULTS_LUCENE_INDEX</id>
+            <name>table of statistics</name>
+            <required>true</required>
+            <mimeType>application/lucene-index</mimeType>
+            <tableName>stats</tableName>
+            <filename>stats.lucene.index</filename>
+            <help>View the table of results in the interactive GobyWeb table browser. The table was generated by the
+                Edge R package after counts have been produced with the goby alignment-to-counts mode.
+            </help>
+        </outputFile>
+        <outputFile>
+            <id>STATS_RESULTS</id>
+            <name>Statistics</name>
+            <required>true</required>
+            <mimeType>text/tab-separated-values</mimeType>
+            <filename>stats.tsv</filename>
+            <help>Statistics of differential expression (generated by the Edge R package after counts have been
+                produced with the goby alignment-to-counts mode).
+            </help>
+        </outputFile>
+        <outputFile>
+            <id>SAMPLE_MDS_PLOT</id>
+            <required>true</required>
+            <name>MDS Plot</name>
+            <mimeType>image/png</mimeType>
+            <filename>mds.png</filename>
+            <help>Plot showing how samples are related based on multidimensional scaling.</help>
+        </outputFile>
+        <outputFile>
+            <id>ANALYSIS_SMEAR_PLOT</id>
+            <name>Analysis smear plot</name>
+            <required>true</required>
+            <mimeType>image/png</mimeType>
+            <filename>smear.png</filename>
+            <help>MA-like plot showing the log-fold change plotted against the log-counts
+                per million for each genomic locus. Significantly differentially expressed genes are highlighted.
+            </help>
+        </outputFile>
+    </outputSchema>
+    <minimumNumberOfGroups>2</minimumNumberOfGroups>
+    <maximumNumberOfGroups>2</maximumNumberOfGroups>
+</alignmentAnalysisConfig>
+
