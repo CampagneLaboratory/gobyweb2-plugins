@@ -193,8 +193,7 @@
                     <name>TMM</name>
                     <value>TMM</value>
                     <help>The weighted trimmed mean of M-values (to the reference) proposed by Robinson and Oshlack
-                        (2010),
-                        where the weights are from the delta method on Binomial data.
+                        (2010), where the weights are from the delta method on Binomial data.
                     </help>
                     <dbLegacyValue>tmm</dbLegacyValue>
                 </category>
@@ -203,22 +202,18 @@
                     <name>RLE</name>
                     <value>RLE</value>
                     <help>The scaling factor method proposed by Anders and Huber (2010) -the median library is
-                        calculated
-                        from the geometric mean of all columns and the median ratio of each sample to the median library
-                        is
-                        taken as the scale factor.
+                        calculated from the geometric mean of all columns and the median ratio of each sample to the median library
+                        is taken as the scale factor.
                     </help>
                     <dbLegacyValue>rle</dbLegacyValue>
                 </category>
                 <category>
-                    <id>UpperQuartile</id>
-                    <name>BUQ</name>
-                    <value>BUQ</value>
+                    <id>upperquartile</id>
+                    <name>upperquartile</name>
+                    <value>upperquartile</value>
                     <help>The upper-quartile normalization method of Bullard et al (2010), in which the scale factors
-                        are
-                        calculated from the 75% quantile of the counts for each library, after removing transcripts
-                        which
-                        are zero in all libraries.
+                        are calculated from the 75% quantile of the counts for each library, after removing transcripts
+                        which are zero in all libraries.
                     </help>
                     <dbLegacyValue>buq</dbLegacyValue>
                 </category>
