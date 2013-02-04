@@ -15,12 +15,8 @@
 function plugin_align {
 
       SPLICED_OPTION=""
-      if [ "${PLUGINS_ALIGNER_GSNAP_GOBY_SPLICED_ALIGNMENT}" == "spliced" ]; then
-         if [ -e "${GSNAP_SPLICE_FILE}" ]; then
+       if [ "${PLUGINS_ALIGNER_GSNAP_BAM_SPLICED_ALIGNMENT}" == "spliced" ]; then
                SPLICED_OPTION="-s ${GSNAP_SPLICE_FILE}"
-         else
-              SPLICED_OPTION="--novelsplicing 1 "
-         fi
       fi
 
        OUTPUT=$1
