@@ -11,7 +11,7 @@
   ~ the plugin's config.xml will indicate how that specific plugin is released/licensed.
   -->
 <resourceConfig xsi:noNamespaceSchemaLocation="../../../schemas/plugins.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
-    <name>Samtools</name>
+    <name>Variant Effect Predictor</name>
     <id>VARIANT_EFFECT_PREDICTOR</id>
     <help>Variant effect predictor. See http://useast.ensembl.org/info/docs/variation/vep/vep_script.html. Auto-install with artifacts.</help>
     <version>2.8</version>
