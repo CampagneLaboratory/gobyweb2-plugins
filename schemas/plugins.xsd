@@ -57,7 +57,8 @@
             <xs:element ref="id"/>
             <xs:element ref="name"/>
             <xs:element ref="version"/>
-            <xs:element ref="requires" minOccurs="0"/>
+            <xs:element ref="requires" minOccurs="0" maxOccurs="1"/>
+            <xs:element ref="artifacts" minOccurs="0" maxOccurs="1"/>
             <xs:element ref="help"/>
             <xs:element ref="files" minOccurs="0" maxOccurs="1"/>
         </xs:all>
