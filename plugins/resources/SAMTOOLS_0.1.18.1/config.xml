@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<!--
+  ~ Copyright (c) 2011-2013  by Cornell University  and the  Cornell Research Foundation,
+  ~ Inc. All Rights Reserved.
+  ~
+  ~ GobyWeb plugins  are released  under the LGPL3 license,  unless  otherwise specified
+  ~ by the license of a specific plugin. See the file LGPL3.license in this distribution
+  ~ for a copy of the LGPL license.
+  ~
+  ~ When a plugin is not released under the LGPL3 license,  the comments  at the top  of
+  ~ the plugin's config.xml will indicate how that specific plugin is released/licensed.
+  -->
+<resourceConfig xsi:noNamespaceSchemaLocation="../../../schemas/plugins.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <name>Samtools</name>
+    <id>SAMTOOLS</id>
+    <help>Samtools distribution. Tools for working with alignments in the SAM/BAM formats. Auto-install with artifacts.</help>
+    <version>0.1.18.1</version>
+    <artifacts>
+        <artifact id="BINARIES" order="1"/>
+    </artifacts>
+    <files>
+        <file>
+            <id>EXEC_PATH</id>
+            <filename>samtools</filename>
+        </file>
+    </files>
+</resourceConfig>

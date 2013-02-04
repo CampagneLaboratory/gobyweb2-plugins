@@ -1,0 +1,4 @@
+#!/bin/sh
+# Execute the samtools executable from the artifact repository:
+export GROOVY_HOME=${RESOURCES_ARTIFACTS_GROOVY_DISTRIBUTION}
+${RESOURCES_ARTIFACTS_GROOVY_DISTRIBUTION}/bin/groovy $*

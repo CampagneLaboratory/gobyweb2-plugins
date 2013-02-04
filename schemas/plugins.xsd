@@ -240,6 +240,7 @@
     </xs:complexType>
     <xs:simpleType name="T_scope">
         <xs:restriction base="xs:string">
+            <xs:enumeration value="INSTALL_ARTIFACTS"/>
             <xs:enumeration value="GLOBAL"/>
             <xs:enumeration value="SPLIT_JVM"/>
             <xs:enumeration value="ALIGN"/>
@@ -267,8 +268,8 @@
     <xs:element name="supportsPairedEndAlignments" type="xs:boolean"/>
     <xs:element name="supportsGobyReads" type="xs:boolean"/>
     <xs:element name="supportsGobyAlignments" type="xs:boolean"/>
-    <xs:element name="copyAlignments" type="xs:boolean"  default="true"/>
-    <xs:element name="copyWeightFiles" type="xs:boolean"  default="true"/>
+    <xs:element name="copyAlignments" type="xs:boolean" default="true"/>
+    <xs:element name="copyWeightFiles" type="xs:boolean" default="true"/>
     <xs:element name="supportsFastqReads" type="xs:boolean"/>
     <xs:element name="supportsFastaReads" type="xs:boolean"/>
     <xs:element name="supportsColorSpace" type="xs:boolean"/>
@@ -317,6 +318,10 @@
     <xs:element name="runtime" type="T_runtime"/>
     <xs:element name="execute" type="T_execute"/>
     <xs:element name="isDirectory" type="T_isDirectory" default="false"/>
+    <xs:element name="artifacts" type="T_artifacts"/>
+    <xs:element name="artifact" type="T_artifact"/>
+    <xs:element name="attributes" type="T_attributes"/>
+    <xs:element name="attribute" type="T_attribute"/>
 
     <xs:element name="script" type="T_script"/>
     <xs:simpleType name="T_script_language_type">
@@ -327,13 +332,39 @@
 
     <xs:simpleType name="T_script_phase_type">
         <xs:restriction base="xs:string">
-                    <xs:enumeration value="pre-deployment"/>
-                </xs:restriction>
+            <xs:enumeration value="pre-deployment"/>
+        </xs:restriction>
     </xs:simpleType>
 
 
     <xs:simpleType name="T_isDirectory">
         <xs:restriction base="xs:boolean"/>
     </xs:simpleType>
+
+
+    <xs:complexType name="T_artifacts">
+        <xs:sequence>
+            <xs:element ref="artifact" minOccurs="1" maxOccurs="unbounded"/>
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:complexType name="T_attributes">
+        <xs:sequence>
+            <xs:element ref="attribute" minOccurs="1" maxOccurs="unbounded"/>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:complexType name="T_attribute">
+        <xs:attribute name="name" type="xs:string"/>
+        <xs:attribute name="value" type="xs:string"/>
+    </xs:complexType>
+    <xs:complexType name="T_artifact">
+        <xs:all>
+            <xs:element ref="attributes" minOccurs="0" maxOccurs="1"/>
+        </xs:all>
+        <xs:attribute name="order" type="xs:integer"/>
+        <xs:attribute name="id" type="xs:string"/>
+
+
+    </xs:complexType>
 
 </xs:schema>

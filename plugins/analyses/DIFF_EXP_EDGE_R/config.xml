@@ -26,6 +26,10 @@
     <supportsGobyAlignments>true</supportsGobyAlignments>
     <requires>
         <resource>
+            <id>ENSEMBL_ANNOTATIONS</id>
+            <versionAtLeast>1.0</versionAtLeast>
+        </resource>
+        <resource>
             <id>GOBY</id>
             <versionAtLeast>20111021144833</versionAtLeast>
         </resource>

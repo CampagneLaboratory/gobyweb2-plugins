@@ -1,0 +1,3 @@
+#!/bin/sh
+# Execute the samtools executable from the artifact repository:
+${RESOURCES_ARTIFACTS_SAMTOOLS_BINARIES}/samtools $*
