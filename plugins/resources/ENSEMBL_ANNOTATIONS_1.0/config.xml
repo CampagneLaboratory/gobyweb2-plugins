@@ -13,7 +13,7 @@
 <resourceConfig
         xsi:noNamespaceSchemaLocation="file:/Users/campagne/IdeaProjects/gobyweb2-plugin-install/gobyweb_home/conf/schemas/plugins.xsd"
         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
-    <name>Ensembl Genomes</name>
+    <name>Ensembl Annotations</name>
     <id>ENSEMBL_ANNOTATIONS</id>
     <help>Annotations obtained from Ensembl/Biomart</help>
     <version>1.1</version>

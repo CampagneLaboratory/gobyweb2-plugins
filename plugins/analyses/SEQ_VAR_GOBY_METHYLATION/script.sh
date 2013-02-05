@@ -18,6 +18,7 @@
 #. constants.sh
 #. auto-options.sh
 . ${RESOURCES_GOBY_SHELL_SCRIPT}
+. ${RESOURCES_ANNOTATE_VCF_EXEC_PATH}
 
 function plugin_alignment_analysis_split {
 
@@ -96,9 +97,12 @@ function plugin_alignment_analysis_process {
 
      dieUponError  "Compare sequence variations part, sub-task ${CURRENT_PART} failed."
 
-     ${QUEUE_WRITER} --tag ${TAG} --status ${JOB_PART_DIFF_EXP_STATUS} --description "End discover-sequence-variations for part # ${ARRAY_JOB_INDEX}." --index ${CURRENT_PART} --job-type job-part
+     annotate_vep ${QUEUE_WRITER} --tag ${TAG} --status ${JOB_PART_DIFF_EXP_STATUS} --description "End discover-sequence-variations for part # ${ARRAY_JOB_INDEX}." --index ${CURRENT_PART} --job-type job-part
+     annotate_ensembl_genes ${QUEUE_WRITER} --tag ${TAG} --status ${JOB_PART_DIFF_EXP_STATUS} --description "End discover-sequence-variations for part # ${ARRAY_JOB_INDEX}." --index ${CURRENT_PART} --job-type job-part
 
-     annotate_vcf_file ${TAG}-dsv-${ARRAY_JOB_INDEX}.vcf   ${TAG}-discover-sequence-variants-output-${ARRAY_JOB_INDEX}.vcf.gz
+     # methylation does not require annotation:
+     false ${TAG}-dsv-${ARRAY_JOB_INDEX}.vcf \
+           ${TAG}-discover-sequence-variants-output-${ARRAY_JOB_INDEX}.vcf.gz
 
 
 }
@@ -176,9 +180,9 @@ function plugin_alignment_analysis_combine {
 
         # Do not attempt FDR adjustment when there is no p-value, or when using the empirical-Ps just concat the split files and sort:
 
-        ${VCFTOOLS_BIN}/vcf-concat ${PART_RESULT_FILES} | \
-        ${VCFTOOLS_BIN}/vcf-sort | \
-        ${BGZIP_EXEC_PATH} -c > ${RESULT_FILE}
+        ${RESOURCES_ARTIFACTS_VCF_TOOLS_BINARIES}/vcf-concat ${PART_RESULT_FILES} | \
+        ${RESOURCES_ARTIFACTS_VCF_TOOLS_BINARIES}/vcf-sort | \
+        ${RESOURCES_TABIX_BGZIP_EXEC_PATH} -c > ${RESULT_FILE}
 
    else
 
@@ -194,7 +198,7 @@ function plugin_alignment_analysis_combine {
           --output ${TMPDIR}/${TAG}-pre.vcf.gz
        dieUponError  "Failed to FDR correct, sub-task ${CURRENT_PART} failed."
 
-       gunzip -c -d ${TMPDIR}/${TAG}-pre.vcf.gz | ${VCFTOOLS_BIN}/vcf-sort | ${BGZIP_EXEC_PATH} -c > ${RESULT_FILE}
+       gunzip -c -d ${TMPDIR}/${TAG}-pre.vcf.gz | ${RESOURCES_ARTIFACTS_VCF_TOOLS_BINARIES}/vcf-sort | ${RESOURCES_TABIX_BGZIP_EXEC_PATH} -c > ${RESULT_FILE}
        dieUponError  "Failed to bgzip VCF output."
    fi
 

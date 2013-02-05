@@ -12,7 +12,7 @@
   -->
 <resourceConfig xsi:noNamespaceSchemaLocation="../../../schemas/plugins.xsd"
                 xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
-    <name>Samtools</name>
+    <name>Tabix</name>
     <id>TABIX</id>
     <help>Tabix distribution. Tools for indexing tab delimited files. Auto-install with
         artifacts.

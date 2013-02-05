@@ -212,6 +212,19 @@ public class Biomart {
                             "ensembl_gene_id": "GENE",
                     ]
             ],
+            "ref-start-end-gene-hgnc": [
+                                outputFilename: "ref-start-end-gene-hgnc-sorted.tsv",
+                                sort: "-k 1,1 -k 2,2n -k 3,3n",
+                                index: "-s 1 -b 2 -e 3",
+                                dataset: "gene_ensembl",
+                                fields: [
+                                        "chromosome_name": "CHROM",
+                                        "start_position": "FROM",
+                                        "end_position": "TO",
+                                        "ensembl_gene_id": "GENE",
+                                        "hgnc_symbol": "HGNC",
+                                ]
+                        ],
             "gene-id-description": [
                     outputFilename: "gene_id_description.tsv",   // note the undescores because we make a SqlLite db
                     // file and dashes in the filename would prevent attaching the database

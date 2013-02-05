@@ -13,7 +13,7 @@
 <resourceConfig
         xsi:noNamespaceSchemaLocation="file:/Users/campagne/IdeaProjects/gobyweb2-plugin-install/gobyweb_home/conf/schemas/plugins.xsd"
         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
-    <name>FAI indexed genomes</name>
+    <name>Annotate VCF</name>
     <id>ANNOTATE_VCF</id>
     <help>Annotate VCF files with results from Variant Effect Predictor</help>
     <version>1.0</version>
@@ -22,10 +22,14 @@
             <id>VARIANT_EFFECT_PREDICTOR</id>
             <versionAtLeast>2.8</versionAtLeast>
         </resource>
-        <!--resource>
+        <resource>
+            <id>ENSEMBL_ANNOTATIONS</id>
+            <versionAtLeast>1.0</versionAtLeast>
+        </resource>
+        <resource>
             <id>TABIX</id>
             <versionAtLeast>0.2.6</versionAtLeast>
-        </resource-->
+        </resource>
         <!--resource>
             <id>VCF_TOOLS</id>
             <versionAtLeast>0.1.10</versionAtLeast>

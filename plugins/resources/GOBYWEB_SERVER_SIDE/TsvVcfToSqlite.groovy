@@ -96,6 +96,12 @@ public class TsvVcfToSqlite {
                     <help>The command line prefix for writing to the queue</help>
                 </flaggedOption>
                 <flaggedOption>
+                    <id>queue-writer-prefix-variable</id>
+                    <longFlag>queue-writer-prefix-variable</longFlag>
+                    <required>false</required>
+                    <help>The name of an environment variable containing the command line prefix for writing to the queue</help>
+                </flaggedOption>
+                <flaggedOption>
                     <id>job-start-status</id>
                     <longFlag>job-start-status</longFlag>
                     <required>false</required>
@@ -202,6 +208,12 @@ public class TsvVcfToSqlite {
             tag = null
         }
         queueWriterPrefix = jsapResult.getString("queue-writer-prefix")
+        String queueWriterPrefixVariable = jsapResult.getString("queue-writer-prefix-variable")
+
+        if (queueWriterPrefixVariable != null && queueWriterPrefix == null) {
+            queueWriterPrefix = System.getenv(queueWriterPrefixVariable)
+        }
+
         queueJobStartStatusCode = jsapResult.getString("job-start-status")
         numberRowsToExport = jsapResult.getLong("number-to-export")
         if (numberRowsToExport < 0) {
@@ -253,7 +265,7 @@ public class TsvVcfToSqlite {
 
 
         for (final String inputFilename : inputFilenames) {
-           // create a new exporter for each file:
+            // create a new exporter for each file:
             exporter = resetConverter()
             if (tag == null) {
                 String subFilename = FilenameUtils.getName(inputFilename)

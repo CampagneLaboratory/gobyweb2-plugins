@@ -1,4 +1,3 @@
-#!/bin/sh
 
 function dieUponError {
     RETURN_STATUS=$?
@@ -11,24 +10,75 @@ function dieUponError {
 
 }
 
-function annotate {
+function annotate_vep {
 
-    input=$1
-    output=$2
+    doAnnotate=$1
+    input=$2
+    output=$3
     outputNoGzExtension="${output%.gz}"
-    org=`echo ${ORGANISM} | tr '[:upper:]' '[:lower:]'`
-    # Retrieve annotations from vep and rewrite the VCF:
-    ${RESOURCES_VARIANT_EFFECT_PREDICTOR_SCRIPT} --format vcf -i ${input} -o ${outputNoGzExtension} --species ${org} \
-       --force_overwrite --host useastdb.ensembl.org --vcf
-    dieUponError
+  #  . ${SGE_O_WORKDIR}/constants.sh
+  #  . ${SGE_O_WORKDIR}/auto-options.sh
+  #  . ${TMPDIR}/exports.sh
 
-    # make extension
-    ${RESOURCES_TABIX_BGZIP_EXEC_PATH} ${outputNoGzExtension}
-    dieUponError
+    if [ "${doAnnotate}" == "true" ]; then
+
+        org=`echo ${ORGANISM} | tr '[:upper:]' '[:lower:]'`
+        # Retrieve annotations from vep and rewrite the VCF:
+        ${RESOURCES_VARIANT_EFFECT_PREDICTOR_SCRIPT} --format vcf -i ${input} -o ${outputNoGzExtension} --species ${org} \
+           --force_overwrite --host useastdb.ensembl.org --vcf --allow_non_variant --hgnc
+        dieUponError
+
+        if [ ! -e ${outputNoGzExtension} ]; then
+              # No file was produced by VEP, we replace that non-existent output with the input:
+              cp ${input} ${outputNoGzExtension}
+        fi
+        # make extension
+        ${RESOURCES_TABIX_BGZIP_EXEC_PATH} ${outputNoGzExtension}
+        dieUponError
+
+    else
+
+        cp ${input} ${outputNoGzExtension}
+        dieUponError
+        ${RESOURCES_TABIX_BGZIP_EXEC_PATH} ${outputNoGzExtension}
+        dieUponError
+    fi
 
 }
 
-annotate $1 $2
+function annotate_ensembl_genes {
+
+    doAnnotate=$1
+    input=$2
+    output=$3
+    outputNoGzExtension="${output%.gz}"
+   # . ${SGE_O_WORKDIR}/constants.sh
+   # . ${SGE_O_WORKDIR}/auto-options.sh
+   # . ${TMPDIR}/exports.sh
+
+    if [ "${doAnnotate}" == "true" ]; then
+
+           cat >${TMPDIR}/attribute.lst <<EOF
+key=INFO,ID=GENE,Number=1,Type=String,Description="Ensembl gene identifier"
+key=INFO,ID=GENE_NAME,Number=1,Type=String,Description="Gene name"
+EOF
+
+     ${RESOURCES_ARTIFACTS_VCF_TOOLS_BINARIES}/vcf-sort ${input} \
+       | ${RESOURCES_ARTIFACTS_VCF_TOOLS_BINARIES}/vcf-annotate -a ${RESOURCES_ARTIFACTS_ENSEMBL_ANNOTATIONS_ANNOTATIONS}/ref-start-end-gene-hgnc-sorted.tsv.gz \
+                      -d ${TMPDIR}/attributes.lst -c CHROM,FROM,TO,INFO/GENE,INFO/GENE_NAME  \
+       |${RESOURCES_TABIX_BGZIP_EXEC_PATH} -c > ${output}
+        dieUponError
+
+
+    else
+
+        cp ${input} ${outputNoGzExtension}
+        dieUponError
+        ${RESOURCES_TABIX_BGZIP_EXEC_PATH} ${outputNoGzExtension}
+        dieUponError
+    fi
+
+}
 
 function dummy_ignore_this {
   ${RESOURCES_VARIANT_EFFECT_PREDICTOR_SCRIPT} --format vcf -i ${input} -o ${TMPDIR}/vep-results.tsv --species ${org} \
@@ -47,9 +97,9 @@ key=INFO,ID=RS,Number=1,Type=String,Description="rs ID"
 key=INFO,ID=Effect,Number=1,Type=String,Description="Effect of variation on transcript, predicted with VEP"
 EOF
 
-     ${VCFTOOLS_BIN}/vcf-sort ${input} \
-       | ${VCFTOOLS_BIN}/vcf-annotate -a ${TMPDIR}/vep-results.tsv.gz \
+     ${RESOURCES_ARTIFACTS_VCF_TOOLS_BINARIES}/vcf-sort ${input} \
+       | ${RESOURCES_ARTIFACTS_VCF_TOOLS_BINARIES}/vcf-annotate -a ${TMPDIR}/vep-results.tsv.gz \
                       -d ${TMPDIR}/vep.lst -c CHROM,FROM,TO,INFO/GENE,INFO/GENE_NAME,INFO/RS,INFO/Effect  \
-       |${BGZIP_EXEC_PATH} -c > ${output}
+       |${RESOURCES_TABIX_BGZIP_EXEC_PATH} -c > ${output}
 
 }

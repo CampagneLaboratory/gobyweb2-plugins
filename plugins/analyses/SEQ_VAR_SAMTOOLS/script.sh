@@ -112,7 +112,9 @@ function plugin_alignment_analysis_sequential {
        if [ -s ${SGE_O_WORKDIR}/${TAG}-samtools.vcf ]; then
          ${QUEUE_WRITER} --tag ${TAG} --status ${JOB_PART_DIFF_EXP_STATUS} --description "Annotating results" --index 1 --job-type job-part
 
-        annotate_vcf_file ${SGE_O_WORKDIR}/${TAG}-samtools.vcf ${SGE_O_WORKDIR}/${TAG}.vcf.gz
+
+         ${RESOURCES_ANNOTATE_VCF_EXEC_PATH} ${PLUGINS_ALIGNMENT_ANALYSIS_SEQ_VAR_SAMTOOLS_ANNOTATE_VARIATIONS} \
+            ${SGE_O_WORKDIR}/${TAG}-samtools.vcf ${SGE_O_WORKDIR}/${TAG}.vcf.gz
 
         /bin/mkdir -p ${RESULT_DIR}
         /bin/cp ${SGE_O_WORKDIR}/${TAG}.vcf.gz ${RESULT_DIR}/

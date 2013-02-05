@@ -30,8 +30,12 @@
             <id>SAMTOOLS</id>
             <versionAtLeast>0.1.14</versionAtLeast>
         </resource>
+        <resource>
+            <id>ANNOTATE_VCF</id>
+            <versionAtLeast>1.0</versionAtLeast>
+        </resource>
     </requires>
-   <runtime>
+    <runtime>
         <need scope="GLOBAL" key="h_vmem" value="18g"/>
         <need scope="GLOBAL" key="virtual_free" value="20g"/>
         <need scope="PROCESS" key="excl" value="true"/>
@@ -69,6 +73,16 @@
                 </category>
             </categories>
             <autoFormat>false</autoFormat>
+        </option>
+        <option>
+            <id>ANNOTATE_VARIATIONS</id>
+            <name>Annotate variations</name>
+            <help>When this option is active, annotate variations with the Variant Effect Predictor. Not that positions
+                that cannot be annotated may be removed from the output.
+            </help>
+            <required>true</required>
+            <defaultsTo>true</defaultsTo>
+            <type>BOOLEAN</type>
         </option>
         <option>
             <id>NUM_TOP_HITS</id>

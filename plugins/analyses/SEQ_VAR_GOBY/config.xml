@@ -30,6 +30,18 @@
             <id>GOBY</id>
             <versionAtLeast>20120125181554</versionAtLeast>
         </resource>
+        <resource>
+            <id>VCF_TOOLS</id>
+            <versionAtLeast>0.1.10</versionAtLeast>
+        </resource>
+        <resource>
+            <id>VARIANT_EFFECT_PREDICTOR</id>
+            <versionAtLeast>2.8</versionAtLeast>
+        </resource>
+        <resource>
+            <id>ANNOTATE_VCF</id>
+            <versionAtLeast>1.0</versionAtLeast>
+        </resource>
     </requires>
     <runtime>
         <need scope="GLOBAL" key="h_vmem" value="18g"/>
@@ -51,7 +63,20 @@
             <mimeType>application/x-sqlite3</mimeType>
             <tableName>stats</tableName>
             <filename>stats.db</filename>
-            <help>View the table of results in the interactive GobyWeb table browser. Table contains called variations.</help>
+            <help>View the table of results in the interactive GobyWeb table browser. Table contains called
+                variations.
+            </help>
+        </outputFile>
+        <outputFile>
+            <id>VARIANT_ANNOTATION_PREDICTOR_OUTPUT</id>
+            <name>variant annotation predictor output</name>
+            <required>true</required>
+            <mimeType>application/lucene-index</mimeType>
+            <tableName>vep</tableName>
+            <filename>vep.lucene.index</filename>
+            <help>View the table of results in the interactive GobyWeb table browser. Table contains output form the
+                Variant Annotation Predictor tool (VEP).
+            </help>
         </outputFile>
         <outputFile>
             <id>STATS_RESULTS_LUCENE_INDEX</id>
@@ -150,6 +175,16 @@
             <defaultsTo>false</defaultsTo>
             <type>BOOLEAN</type>
             <autoFormat>false</autoFormat>
+        </option>
+        <option>
+            <id>ANNOTATE_VARIATIONS</id>
+            <name>Annotate variations</name>
+            <help>When this option is active, annotate variations with the Variant Effect Predictor. Not that positions
+                that cannot be annotated may be removed from the output.
+            </help>
+            <required>true</required>
+            <defaultsTo>true</defaultsTo>
+            <type>BOOLEAN</type>
         </option>
         <option>
             <id>Q_VALUE_THRESHOLD</id>

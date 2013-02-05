@@ -42,6 +42,7 @@ function plugin_alignment_analysis_num_parts {
 }
 
 function plugin_alignment_analysis_process {
+
    SLICING_PLAN_FILENAME=$1
    ARRAY_JOB_INDEX=$2
    shift
@@ -96,7 +97,8 @@ function plugin_alignment_analysis_process {
 
       ${QUEUE_WRITER} --tag ${TAG} --status ${JOB_PART_DIFF_EXP_STATUS} --description "End discover-sequence-variations for part # ${ARRAY_JOB_INDEX}." --index ${CURRENT_PART} --job-type job-part
 
-      annotate_vcf_file ${TAG}-dsv-${ARRAY_JOB_INDEX}.vcf   ${TAG}-discover-sequence-variants-output-${ARRAY_JOB_INDEX}.vcf.gz
+      ${RESOURCES_ANNOTATE_VCF_EXEC_PATH} ${PLUGINS_ALIGNMENT_ANALYSIS_SEQ_VAR_GOBY_ANNOTATE_VARIATIONS} \
+            ${TAG}-dsv-${ARRAY_JOB_INDEX}.vcf ${TAG}-discover-sequence-variants-output-${ARRAY_JOB_INDEX}.vcf.gz
 
 
 }
@@ -141,10 +143,10 @@ function plugin_alignment_analysis_combine {
    if [ "${OUTPUT_FORMAT}" == "GENOTYPES" -o ${NUM_GROUPS} == 1 ]; then
 
         # Do not attempt FDR adjustment when there is no p-value, just concat the split files and sort:
-
-        ${VCFTOOLS_BIN}/vcf-concat ${PART_RESULT_FILES} | \
-        ${VCFTOOLS_BIN}/vcf-sort | \
-        ${BGZIP_EXEC_PATH} -c > ${RESULT_FILE}
+        ${RESOURCES_ARTIFACTS_VCF_TOOLS_BINARIES}/
+        ${RESOURCES_ARTIFACTS_VCF_TOOLS_BINARIES}/vcf-concat ${PART_RESULT_FILES} | \
+        ${RESOURCES_ARTIFACTS_VCF_TOOLS_BINARIES}/vcf-sort | \
+        ${RESOURCES_TABIX_BGZIP_EXEC_PATH} -c > ${RESULT_FILE}
 
    else
        Q_VALUE_THRESHOLD=${PLUGINS_ALIGNMENT_ANALYSIS_SEQ_VAR_GOBY_Q_VALUE_THRESHOLD}
@@ -157,7 +159,7 @@ function plugin_alignment_analysis_combine {
           ${COLUMNS} \
           --output ${TMPDIR}/${TAG}-pre.vcf.gz
 
-        gunzip -c -d ${TMPDIR}/${TAG}-pre.vcf.gz | ${VCFTOOLS_BIN}/vcf-sort | ${BGZIP_EXEC_PATH} -c > ${RESULT_FILE}
+        gunzip -c -d ${TMPDIR}/${TAG}-pre.vcf.gz | ${RESOURCES_ARTIFACTS_VCF_TOOLS_BINARIES}/vcf-sort | ${RESOURCES_TABIX_BGZIP_EXEC_PATH} -c > ${RESULT_FILE}
    fi
 
    ${TABIX_EXEC_PATH} -f -p vcf ${RESULT_FILE}
