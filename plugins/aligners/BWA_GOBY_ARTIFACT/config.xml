@@ -27,7 +27,7 @@
     <requires>
         <resource>
             <id>BWA_WITH_GOBY_ARTIFACT</id>
-            <versionAtLeast>0.5.9.16.3</versionAtLeast>
+            <versionAtLeast>0.5.9.16.5</versionAtLeast>
         </resource>
     </requires>
     <runtime>
