@@ -24,20 +24,18 @@ function plugin_align {
     if [ "${COLOR_SPACE}" == "true" ]; then
         COLOR_SPACE_OPTION="-c"
     fi
+    BWA_GOBY_EXEC_PATH=${RESOURCES_ARTIFACTS_BWA_WITH_GOBY_ARTIFACT_EXECUTABLE}/bin/bwa
+    ORG=` echo ${ORGANISM} | tr [:lower:] [:upper:]  `
+    BUILD_NUMBER=`echo ${GENOME_REFERENCE_ID} | awk -F\. '{print $1}' | tr [:lower:] [:upper:] `
+    ENSEMBL_RELEASE=`echo ${GENOME_REFERENCE_ID} | awk -F\. '{print $(NF)}'| tr [:lower:] [:upper:] `
+
+    INDEX_DIR=$(eval echo \${RESOURCES_ARTIFACTS_BWA_WITH_GOBY_ARTIFACT_INDEX_${ORG}_${BUILD_NUMBER}_${ENSEMBL_RELEASE}})/index
 
     if [ "${PAIRED_END_ALIGNMENT}" == "true" ]; then
         # PAIRED END alignment, native aligner
         SAI_FILE_0=${READS##*/}-0.sai
         SAI_FILE_1=${READS##*/}-1.sai
 
-        ORG=` echo ${ORGANISM} | tr [:lower:] [:upper:]  `
-        BUILD_NUMBER=`echo ${GENOME_REFERENCE_ID} | awk -F\. '{print $1}' | tr [:lower:] [:upper:] `
-        ENSEMBL_RELEASE=`echo ${GENOME_REFERENCE_ID} | awk -F\. '{print $(NF)}'| tr [:lower:] [:upper:] `
-
-        INDEX_DIR=$(eval echo \${RESOURCES_ARTIFACTS_BWA_WITH_GOBY_ARTIFACT_INDEX_${ORGANISM}_${BUILD_NUMBER}_${ENSEMBL_RELEASE}})/index
-
-
-        BWA_GOBY_EXEC_PATH=${RESOURCES_ARTIFACTS_BWA_WITH_GOBY_ARTIFACT_EXECUTABLE}/bin/bwa
         nice ${BWA_GOBY_EXEC_PATH} aln -w 0 -t ${BWA_GOBY_NUM_THREADS} ${COLOR_SPACE_OPTION} -f ${SAI_FILE_0} -l ${INPUT_READ_LENGTH} ${ALIGNER_OPTIONS} -x ${START_POSITION} -y ${END_POSITION} ${INDEX_DIR} ${READS_FILE}
         RETURN_STATUS=$?
         if [ $RETURN_STATUS -eq 0 ]; then

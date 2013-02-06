@@ -34,11 +34,10 @@ function plugin_install_artifact {
             ORGANISM=$3
             BUILD_NUMBER=$4
             ENSEMBL_RELEASE=$5
-            echo "Organism=${ORGANISM} Reference-build=${GENOME_REFERENCE_ID}"
+            echo "Organism=${ORGANISM} Reference-build=${BUILD_NUMBER} ${ENSEMBL_RELEASE} "
 
             BWA_EXEC=${RESOURCES_ARTIFACTS_BWA_WITH_GOBY_ARTIFACT_EXECUTABLE}/bin/bwa
-            INDEX_DIR=index
-            mkdir -p ${INDEX_DIR}
+
             GENOME_DIR=$(eval echo \${RESOURCES_ARTIFACTS_ENSEMBL_GENOMES_TOPLEVEL_${ORGANISM}_${BUILD_NUMBER}_${ENSEMBL_RELEASE}})
             FAI_INDEXED_GENOME_DIR=$(eval echo \${RESOURCES_ARTIFACTS_FAI_INDEXED_GENOMES_SAMTOOLS_FAI_INDEX_${ORGANISM}_${BUILD_NUMBER}_${ENSEMBL_RELEASE}})
 
@@ -49,12 +48,15 @@ function plugin_install_artifact {
                  SPACE_PARAM="-c"
             fi
 
-            ${BWA_EXEC} index -a bwtsw ${SPACE_PARAM} -p ${INDEX_DIR} ${INPUT_FASTA_NO_GZ}
+            ${BWA_EXEC} index -a bwtsw ${SPACE_PARAM} -p index ${INPUT_FASTA_NO_GZ}
             STATUS=$?
             if [ ${STATUS} != 0 ]; then
+
              return ${STATUS}
             fi
-            cp -r ${INDEX_DIR} ${installation_path}/
+            ls -ltr
+            cp -r index* ${installation_path}/
+
             echo "Finished indexing Organism=${ORGANISM} Reference-build=${GENOME_REFERENCE_ID}"
             exit 0
             ;;
