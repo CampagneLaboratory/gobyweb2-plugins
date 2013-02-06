@@ -21,7 +21,7 @@ function plugin_install_artifact {
                 # cp bwa ${installation_path}/bwa-icb
                 #chmod +x ${installation_path}/bwa-icb
             )
-             if [ -e ${installation_path}/bin/bwa ]; then
+            if [ -e ${installation_path}/bin/bwa ]; then
                 return 0
             else
                return 127
@@ -36,7 +36,7 @@ function plugin_install_artifact {
             ENSEMBL_RELEASE=$5
             echo "Organism=${ORGANISM} Reference-build=${GENOME_REFERENCE_ID}"
 
-            BWA_EXEC=${RESOURCES_ARTIFACTS_BWA_GOBY_EXECUTABLE}/bin/bwa
+            BWA_EXEC=${RESOURCES_ARTIFACTS_BWA_WITH_GOBY_ARTIFACT_EXECUTABLE}/bin/bwa
             INDEX_DIR=index
             mkdir -p ${INDEX_DIR}
             GENOME_DIR=$(eval echo \${RESOURCES_ARTIFACTS_ENSEMBL_GENOMES_TOPLEVEL_${ORGANISM}_${BUILD_NUMBER}_${ENSEMBL_RELEASE}})
