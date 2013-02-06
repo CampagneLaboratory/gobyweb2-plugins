@@ -141,6 +141,12 @@ public class ProcessSample {
                     <help>The command line prefix for writing to the queue</help>
                 </flaggedOption>
                 <flaggedOption>
+                     <id>queue-writer-prefix-variable</id>
+                     <longFlag>queue-writer-prefix-variable</longFlag>
+                     <required>false</required>
+                     <help>The name of an environment variable containing the command line prefix for writing to the queue</help>
+                </flaggedOption>
+                <flaggedOption>
                     <id>job-start-status</id>
                     <longFlag>job-start-status</longFlag>
                     <required>false</required>
@@ -279,6 +285,11 @@ public class ProcessSample {
         sshPrefix = jsapResult.getString("ssh-prefix")
         webFilesDir = jsapResult.getString("web-files-dir")
         queueWriterPrefix = jsapResult.getString("queue-writer-prefix")
+        String queueWriterPrefixVariable = jsapResult.getString("queue-writer-prefix-variable")
+
+        if (queueWriterPrefixVariable != null && queueWriterPrefix == null) {
+            queueWriterPrefix = System.getenv(queueWriterPrefixVariable)
+        }
         queueJobStartStatusCode = jsapResult.getString("job-start-status")
         workDir = jsapResult.getString("work-dir")
         if (queueWriterPrefix && queueJobStartStatusCode) {
