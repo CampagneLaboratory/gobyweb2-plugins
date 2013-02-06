@@ -4,6 +4,6 @@ slchoose R                 2.14.1 gcc_64
 
 function run-R {
 
-R $*
+R "$@"
 
 }

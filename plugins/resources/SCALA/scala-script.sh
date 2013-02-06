@@ -40,6 +40,6 @@ function scala {
         local CLASSPATH_SCALA=$2
         shift 2
         export JAVA_HOME=/softlib/exe/x86_64/pkg/sun_jdk/6.0.2/dist
-        ${SCALA_HOME}/bin/scala -J-Xmx${MEM} -cp ${CLASSPATH_SCALA} $*
+        ${SCALA_HOME}/bin/scala -J-Xmx${MEM} -cp ${CLASSPATH_SCALA} "$@"
      fi
 }

@@ -1,3 +1,3 @@
 . ${TMPDIR}/exports.sh
 # Execute the bgzip executable from the artifact repository:
-${RESOURCES_ARTIFACTS_TABIX_BINARIES}/bgzip $*
+${RESOURCES_ARTIFACTS_TABIX_BINARIES}/bgzip "$@"

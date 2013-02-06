@@ -1,3 +1,3 @@
 . ${TMPDIR}/exports.sh
 # Execute the tabix executable from the artifact repository:
-${RESOURCES_ARTIFACTS_TABIX_BINARIES}/tabix $*
+${RESOURCES_ARTIFACTS_TABIX_BINARIES}/tabix "$@"
