@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <!--
-  ~ Copyright (c) 2011-2012  by Cornell University  and the  Cornell Research Foundation,
+  ~ Copyright (c) 2011-2013  by Cornell University  and the  Cornell Research Foundation,
   ~ Inc. All Rights Reserved.
   ~
   ~ GobyWeb plugins  are released  under the LGPL3 license,  unless  otherwise specified
@@ -11,10 +11,9 @@
   ~ the plugin's config.xml will indicate how that specific plugin is released/licensed.
   -->
 <alignerConfig xsi:noNamespaceSchemaLocation="../../../schemas/plugins.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
-    <name>BWA with Goby support</name>
-    <id>BWA_GOBY</id>
-    <dbLegacyId>bwa (Goby native)</dbLegacyId>
-    <help>Version of BWA that supports Goby formats natively.</help>
+    <name>BWA with Goby support (auto-install)</name>
+    <id>BWA_GOBY_ARTIFACT</id>
+    <help>Version of BWA that supports Goby formats natively, auto-install version of the plugin.</help>
     <supportsColorSpace>true</supportsColorSpace>
     <supportsPairedEndAlignments>true</supportsPairedEndAlignments>
     <supportsGobyReads>true</supportsGobyReads>
@@ -23,11 +22,12 @@
     <supportsFastaReads>false</supportsFastaReads>
     <supportsBAMAlignments>false</supportsBAMAlignments>
     <version>1.0</version>
+    <!-- indexDirectory is no longuer used -->
     <indexDirectory>%NODE_LOCAL_DATA_ROOT%/%VERSION%/%ORGANISM%/%SPACE%/bwa</indexDirectory>
     <requires>
         <resource>
-            <id>BWA_WITH_GOBY</id>
-            <versionExactly>0.5.9.16.2</versionExactly>
+            <id>BWA_WITH_GOBY_ARTIFACT</id>
+            <versionAtLeast>0.5.9.16.3</versionAtLeast>
         </resource>
     </requires>
     <runtime>
