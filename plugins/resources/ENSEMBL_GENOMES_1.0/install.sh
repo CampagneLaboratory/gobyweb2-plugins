@@ -14,26 +14,29 @@ function plugin_install_artifact {
             echo "Organism=${ORGANISM} Reference-build=${GENOME_REFERENCE_ID} ENSEMBL_RELEASE=${ENSEMBL_RELEASE}"
             ORG_LOWERCASE=`echo  ${ORGANISM}| tr '[:upper:]' '[:lower:]'`
             # get genome from local NFS, or wget from ensembl servers if not present
-            if [ -e ~gobyweb/genomes/${ORGANISM}/${GENOME_REFERENCE_ID}/${ENSEMBL_RELEASE}/ ]; then
-                # For human, use the compatible 1000g assembly instead of the Ensembl build: (coordinates are compatible),
-                # see http://www.1000genomes.org/category/assembly
-
-                if [ "${GENOME_REFERENCE_ID}" = "GRCh37" ]; then
-                    cp ~gobyweb/genomes/${ORGANISM}/1000g/*  copied.dna.toplevel.fa.gz
-                else
-                    cp ~gobyweb/genomes/${ORGANISM}/${GENOME_REFERENCE_ID}/${ENSEMBL_RELEASE}/*  copied.dna.toplevel.fa.gz
-                fi
-            else
-                if [ "${GENOME_REFERENCE_ID}" = "GRCh37" ]; then
+            BUILD_NUMBER=`echo ${GENOME_REFERENCE_ID} | awk -F\. '{print $1}'`
+            if [ "${BUILD_NUMBER}" = "GRCh37" ]; then
+                   if [ ! -e ~gobyweb/genomes/${ORGANISM}/1000g/ ]; then
+                        # cache directory does not exist, make it and grab the file from the 1000g web site:
+                        mkdir -p ~gobyweb/genomes/${ORGANISM}/1000g/
                         wget ftp://ftp.1000genomes.ebi.ac.uk/vol1/ftp/technical/reference/human_g1k_v37.fasta.gz
-                        mv human_g1k_v37.fasta.gz copied.dna.toplevel.fa.gz
+                        mv human_g1k_v37.fasta.gz ~gobyweb/genomes/${ORGANISM}/1000g/human_g1k_v37.fasta.gz
+                   fi
+                   cp ~gobyweb/genomes/${ORGANISM}/1000g/*  copied.dna.toplevel.fa.gz
+            else
+                if [ -e ~gobyweb/genomes/${ORGANISM}/${GENOME_REFERENCE_ID}/${ENSEMBL_RELEASE}/ ]; then
+                    # For human, use the compatible 1000g assembly instead of the Ensembl build: (coordinates are compatible),
+                    # see http://www.1000genomes.org/category/assembly
+
+                        cp ~gobyweb/genomes/${ORGANISM}/${GENOME_REFERENCE_ID}/${ENSEMBL_RELEASE}/*  copied.dna.toplevel.fa.gz
+
                 else
                     wget ftp://ftp.ensembl.org/pub/release-${ENSEMBL_RELEASE}/fasta/${ORG_LOWERCASE}/dna/\*.dna.toplevel.fa.gz
-                fi
-                # Check the NFS cache again, put the wget file in the cache if no other process did it:
-                if [ ! -e ~gobyweb/genomes/${ORGANISM}/${GENOME_REFERENCE_ID}/${ENSEMBL_RELEASE}/ ]; then
-                    mkdir -p ~gobyweb/genomes/${ORGANISM}/${GENOME_REFERENCE_ID}/${ENSEMBL_RELEASE}/
-                    cp  *.dna.toplevel.fa.gz  ~gobyweb/genomes/${ORGANISM}/${GENOME_REFERENCE_ID}/${ENSEMBL_RELEASE}/dna.toplevel.fa.gz
+                                        # Check the NFS cache again, put the wget file in the cache if no other process did it:
+                    if [ ! -e ~gobyweb/genomes/${ORGANISM}/${GENOME_REFERENCE_ID}/${ENSEMBL_RELEASE}/ ]; then
+                        mkdir -p ~gobyweb/genomes/${ORGANISM}/${GENOME_REFERENCE_ID}/${ENSEMBL_RELEASE}/
+                        cp  *.dna.toplevel.fa.gz  ~gobyweb/genomes/${ORGANISM}/${GENOME_REFERENCE_ID}/${ENSEMBL_RELEASE}/dna.toplevel.fa.gz
+                    fi
                 fi
             fi
             cp *dna.toplevel.fa.gz ${installation_path}/genome-toplevel.fasta.gz
