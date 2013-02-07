@@ -42,6 +42,10 @@
             <id>ANNOTATE_VCF</id>
             <versionAtLeast>1.0</versionAtLeast>
         </resource>
+        <resource>
+            <id>GOBY_INDEXED_GENOMES</id>
+            <versionAtLeast>1.0</versionAtLeast>
+        </resource>
     </requires>
     <runtime>
         <need scope="GLOBAL" key="h_vmem" value="18g"/>

@@ -55,7 +55,7 @@ function plugin_install_artifact {
              return ${STATUS}
             fi
             ls -ltr
-            cp -r index* ${installation_path}/
+            cp index* ${installation_path}/
 
             echo "Finished indexing Organism=${ORGANISM} Reference-build=${GENOME_REFERENCE_ID}"
             exit 0

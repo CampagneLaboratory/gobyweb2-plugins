@@ -84,7 +84,7 @@ function plugin_alignment_analysis_process {
            --format ${OUTPUT_FORMAT} \
            --eval filter \
            ${REALIGNMENT_ARGS} \
-           --genome ${REFERENCE_DIRECTORY}/random-access-genome \
+           --genome ${RESOURCES_ARTIFACTS_GOBY_INDEXED_GENOMES_SEQUENCE_CACHE}/random-access-genome \
            --minimum-variation-support ${MINIMUM_VARIATION_SUPPORT} \
            --threshold-distinct-read-indices ${THRESHOLD_DISTINCT_READ_INDICES} \
            --output ${TAG}-dsv-${ARRAY_JOB_INDEX}.vcf  \
