@@ -1,4 +1,8 @@
 . ${TMPDIR}/exports.sh
 . ${RESOURCES_ARTIFACTS_ENSEMBL_API_INSTALL_DIR}/setup.sh
 
-perl ${RESOURCES_ARTIFACTS_ENSEMBL_API_INSTALL_DIR}/src/ensembl-tools/scripts/variant_effect_predictor/variant_effect_predictor.pl "$@"
+BUILD_NUMBER=`echo ${GENOME_REFERENCE_ID} | awk -F\. '{print $1}'`
+ENSEMBL_VERSION_NUMBER=`echo ${GENOME_REFERENCE_ID} | awk -F\. '{print $(NF)}'`
+
+VEP_CACHE_DIR=$(eval echo \${RESOURCES_ARTIFACTS_ENSEMBL_API_VEP_CACHE_${ORG_LOWERCASE}_${ENSEMBL_VERSION_NUMBER}})
+perl ${RESOURCES_ARTIFACTS_ENSEMBL_API_INSTALL_DIR}/src/ensembl-tools/scripts/variant_effect_predictor/variant_effect_predictor.pl --cache --dir ${VEP_CACHE_DIR} "$@"

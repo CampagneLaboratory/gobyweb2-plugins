@@ -104,8 +104,12 @@ function plugin_alignment_analysis_process {
 
       ${QUEUE_WRITER} --tag ${TAG} --status ${JOB_PART_DIFF_EXP_STATUS} --description "End discover-sequence-variations for part # ${ARRAY_JOB_INDEX}." --index ${CURRENT_PART} --job-type job-part
 
-      ${RESOURCES_ANNOTATE_VCF_EXEC_PATH} ${PLUGINS_ALIGNMENT_ANALYSIS_SEQ_VAR_GOBY_ANNOTATE_VARIATIONS} \
+     . ${RESOURCES_ANNOTATE_VCF_EXEC_PATH}
+     annotate_vep ${PLUGINS_ALIGNMENT_ANALYSIS_SEQ_VAR_GOBY_ANNOTATE_VARIATIONS} \
             ${TAG}-dsv-${ARRAY_JOB_INDEX}.vcf ${TAG}-discover-sequence-variants-output-${ARRAY_JOB_INDEX}.vcf.gz
+
+     annotate_ensembl_genes ${PLUGINS_ALIGNMENT_ANALYSIS_SEQ_VAR_GOBY_ANNOTATE_VARIATIONS} \
+                 ${TAG}-dsv-${ARRAY_JOB_INDEX}.vcf ${TAG}-discover-sequence-variants-output-${ARRAY_JOB_INDEX}.vcf.gz
 
 
 }

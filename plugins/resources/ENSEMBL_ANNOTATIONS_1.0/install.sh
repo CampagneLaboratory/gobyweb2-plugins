@@ -41,14 +41,14 @@ function plugin_install_artifact {
             --exports exon-annotations,ref-start-end-gene,gene-id-description,ref-start-end-gene-hgnc
 
             if [ "$?" -eq "0" ]; then
-             exit 0
+             return 0
             else
-             exit 1
+             return 1
             fi
             ;;
 
         *)  echo "Resource artifact id not recognized: "+$id
-            exit 99
+            return 99
             ;;
 
     esac
@@ -107,5 +107,5 @@ function get_attribute_values() {
     set -xv
     echo "Printing result from ${out}:"
     cat ${out}
-    exit 0
+    return 0
 }

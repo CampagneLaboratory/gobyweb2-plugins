@@ -32,8 +32,23 @@ export PERL5LIB
 EOF
             chmod +x  ${installation_path}/setup.sh
             return 0
-
             ;;
+
+           'VEP_CACHE')
+                VERSION="70"
+                . ${SGE_O_WORKDIR}/constants.sh
+                . ${SGE_O_WORKDIR}/auto-options.sh
+                ORG_LOWERCASE=`echo  ${ORGANISM}| tr '[:upper:]' '[:lower:]'`
+                wget ftp://ftp.ensembl.org/pub/release-70/variation/VEP/${ORG_LOWERCASE}_vep_\*.tar.gz
+                mkdir -p ${installation_path}/VEP_CACHE/
+                gzip -c -d  ${ORG_LOWERCASE}_vep_*.tar.gz | (cd ${installation_path}/VEP_CACHE/ ; tar -xvf -)
+
+                if [ -e ${installation_path}/VEP_CACHE/${ORG_LOWERCASE} ]; then
+                    return 0
+                else
+                    return 1
+                fi
+                ;;
 
         *)  echo "Resource artifact id not recognized: "+$id
             return 99
@@ -43,4 +58,24 @@ EOF
 
     exit 1
 
+}
+
+
+
+function get_attribute_values() {
+
+    id=$1
+    out=$2
+
+       . ${SGE_O_WORKDIR}/constants.sh
+       set -xv
+
+       BUILD_NUMBER=`echo ${GENOME_REFERENCE_ID} | awk -F\. '{print $1}'`
+       ENSEMBL_VERSION_NUMBER=`echo ${GENOME_REFERENCE_ID} | awk -F\. '{print $(NF)}'`
+       echo >>${out} "organism=${ORGANISM}"
+       echo >>${out} "ensembl-version-number=${ENSEMBL_VERSION_NUMBER}"
+
+       echo "Printing result from ${out}:"
+       cat ${out}
+       return 0
 }

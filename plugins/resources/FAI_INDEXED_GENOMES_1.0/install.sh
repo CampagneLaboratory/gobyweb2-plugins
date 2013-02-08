@@ -19,14 +19,14 @@ function plugin_install_artifact {
             ${RESOURCES_ARTIFACTS_SAMTOOLS_BINARIES}/samtools faidx ${installation_path}/genome-toplevel.fasta
 
             if [ -e ${installation_path}/genome-toplevel.fasta.fai ]; then
-                exit 0
+                return 0
             else
-                exit 1
+                return 1
             fi
             ;;
 
         *)  echo "Resource artifact id not recognized: "+$id
-            exit 99
+            return 99
             ;;
 
     esac

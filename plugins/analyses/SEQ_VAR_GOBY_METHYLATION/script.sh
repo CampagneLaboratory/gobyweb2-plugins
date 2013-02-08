@@ -97,12 +97,12 @@ function plugin_alignment_analysis_process {
 
      dieUponError  "Compare sequence variations part, sub-task ${CURRENT_PART} failed."
 
-     annotate_vep ${QUEUE_WRITER} --tag ${TAG} --status ${JOB_PART_DIFF_EXP_STATUS} --description "End discover-sequence-variations for part # ${ARRAY_JOB_INDEX}." --index ${CURRENT_PART} --job-type job-part
-     annotate_ensembl_genes ${QUEUE_WRITER} --tag ${TAG} --status ${JOB_PART_DIFF_EXP_STATUS} --description "End discover-sequence-variations for part # ${ARRAY_JOB_INDEX}." --index ${CURRENT_PART} --job-type job-part
+     # methylation requires only gene annotations:
 
-     # methylation does not require annotation:
-     false ${TAG}-dsv-${ARRAY_JOB_INDEX}.vcf \
-           ${TAG}-discover-sequence-variants-output-${ARRAY_JOB_INDEX}.vcf.gz
+     . ${RESOURCES_ANNOTATE_VCF_EXEC_PATH}
+     annotate_ensembl_genes ${PLUGINS_ALIGNMENT_ANALYSIS_SEQ_VAR_GOBY_ANNOTATE_VARIATIONS} \
+                 ${TAG}-dsv-${ARRAY_JOB_INDEX}.vcf ${TAG}-discover-sequence-variants-output-${ARRAY_JOB_INDEX}.vcf.gz annotate_vep ${QUEUE_WRITER} --tag ${TAG} --status ${JOB_PART_DIFF_EXP_STATUS} --description "End discover-sequence-variations for part # ${ARRAY_JOB_INDEX}." --index ${CURRENT_PART} --job-type job-part
+
 
 
 }

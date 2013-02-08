@@ -10,13 +10,21 @@
   ~ When a plugin is not released under the LGPL3 license,  the comments  at the top  of
   ~ the plugin's config.xml will indicate how that specific plugin is released/licensed.
   -->
-<resourceConfig xsi:noNamespaceSchemaLocation="../../../schemas/plugins.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+<resourceConfig xsi:noNamespaceSchemaLocation="../../../schemas/plugins.xsd"
+                xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
     <name>Ensembl API</name>
     <id>ENSEMBL_API</id>
-    <help>Ensembl API. See http://useast.ensembl.org/info/docs/api/api_installation.html. Auto-install with artifacts.</help>
+    <help>Ensembl API. See http://useast.ensembl.org/info/docs/api/api_installation.html. Auto-install with artifacts.
+    </help>
     <version>70</version>
     <artifacts>
         <artifact id="INSTALL_DIR" order="1"/>
+        <artifact id="VEP_CACHE" order="1">
+            <attributes>
+                <attribute name="organism"/>
+                <attribute name="ensembl-version-number"/>
+            </attributes>
+        </artifact>
     </artifacts>
     <files>
         <file>
