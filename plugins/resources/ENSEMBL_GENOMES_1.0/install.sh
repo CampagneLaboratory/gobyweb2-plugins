@@ -15,7 +15,7 @@ function plugin_install_artifact {
             ORG_LOWERCASE=`echo  ${ORGANISM}| tr '[:upper:]' '[:lower:]'`
             # get genome from local NFS, or wget from ensembl servers if not present
             BUILD_NUMBER=`echo ${GENOME_REFERENCE_ID} | awk -F\. '{print $1}'`
-            if [ "${BUILD_NUMBER}" = "GRCh37" ]; then
+            if [ "${BUILD_NUMBER}" = "GRCH37" ]; then
                    if [ ! -e ~gobyweb/genomes/${ORGANISM}/1000g/ ]; then
                         # cache directory does not exist, make it and grab the file from the 1000g web site:
                         mkdir -p ~gobyweb/genomes/${ORGANISM}/1000g/
