@@ -17,7 +17,7 @@ function plugin_install_artifact {
 
             GENOME_DIR=$(eval echo \${RESOURCES_ARTIFACTS_ENSEMBL_GENOMES_TOPLEVEL_${ORG}_${BUILD_NUMBER}_${ENSEMBL_RELEASE}})
 
-            run-goby build-sequence-cache -i ${GENOME_DIR}/genome-toplevel.fasta.gz -o random-access-genome
+            run-goby 4g build-sequence-cache ${GENOME_DIR}/genome-toplevel.fasta.gz -b random-access-genome
             cp random-access-genome* ${installation_path}/
 
 
