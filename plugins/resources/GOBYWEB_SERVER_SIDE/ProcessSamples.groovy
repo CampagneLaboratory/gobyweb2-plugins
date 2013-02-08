@@ -375,7 +375,7 @@ public class ProcessSample {
 
 	    // Convert any fasta/fastq to compact-reads
 	    final List<File> stepTwoFiles = new ArrayList<File>()
-	    def quickCompactConcat = false
+
 	    String pairFilename
 	    for (String processFilename in processFilenames) {
 	        pairFilename = null
@@ -479,9 +479,6 @@ public class ProcessSample {
                     println "Conversion finished"
                     stepTwoFiles << new File(localCompactFilename)
         
-                    // If any of the compact-reads files came from fa/fq, we can't do a quick concat
-                    // because read-indexes for all the files are going to be 0-based
-                    quickCompactConcat = false
                 } catch (IOException e) {
                     // The conversion failed. Nothing else can be done.
                     println "Conversion to compact-reads failed, IOException ${e.message}"
