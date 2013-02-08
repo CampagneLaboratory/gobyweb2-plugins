@@ -375,7 +375,7 @@ public class ProcessSample {
 
 	    // Convert any fasta/fastq to compact-reads
 	    final List<File> stepTwoFiles = new ArrayList<File>()
-	    def quickCompactConcat = true
+	    def quickCompactConcat = false
 	    String pairFilename
 	    for (String processFilename in processFilenames) {
 	        pairFilename = null
@@ -399,7 +399,7 @@ public class ProcessSample {
                 if (processFqGzTar) {
                     outputBasename = removeFileExtension(fafqFilename)
                     if (pairFilename && outputBasename.endsWith("_1")) {
-                        // Remove the pair desingation on the output compact-reads file
+                        // Remove the pair designation on the output compact-reads file
                         outputBasename = outputBasename[0..-3]
                     }
                 } else {
@@ -509,7 +509,7 @@ public class ProcessSample {
                     ConcatenateCompactReadsMode concat = new ConcatenateCompactReadsMode();
                     localFile = new File("${clusterReadsDir}/${storedName}")
                     concat.setOutputFilename localFile.toString()
-                    concat.setQuickConcat quickCompactConcat
+                    concat.setQuickConcat false
                     for (stepTwoFile in stepTwoFiles) {
                         println "Adding file to concat ${stepTwoFile}"
                         concat.addInputFile stepTwoFile
