@@ -56,6 +56,13 @@ function plugin_alignment_analysis_process {
    else
      ANNOTATION_OPTION=" "
    fi
+    set -x
+    ORG=` echo ${ORGANISM} | tr [:lower:] [:upper:]  `
+    BUILD_NUMBER=`echo ${GENOME_REFERENCE_ID} | awk -F\. '{print $1}' | tr [:lower:] [:upper:] `
+    ENSEMBL_RELEASE=`echo ${GENOME_REFERENCE_ID} | awk -F\. '{print $(NF)}'| tr [:lower:] [:upper:] `
+
+    SEQUENCE_CACHE_DIR=$(eval echo \${RESOURCES_ARTIFACTS_GOBY_INDEXED_GENOMES_SEQUENCE_CACHE_${ORG}_${BUILD_NUMBER}_${ENSEMBL_RELEASE}})
+
 
    # These variables are defined: SLICING_PLAN_FILENAME
      echo "Processing run_single_alignment_analysis_process for part ${SGE_TASK_ID}"
@@ -84,7 +91,7 @@ function plugin_alignment_analysis_process {
            --format ${OUTPUT_FORMAT} \
            --eval filter \
            ${REALIGNMENT_ARGS} \
-           --genome ${RESOURCES_ARTIFACTS_GOBY_INDEXED_GENOMES_SEQUENCE_CACHE}/random-access-genome \
+           --genome ${SEQUENCE_CACHE_DIR}/random-access-genome \
            --minimum-variation-support ${MINIMUM_VARIATION_SUPPORT} \
            --threshold-distinct-read-indices ${THRESHOLD_DISTINCT_READ_INDICES} \
            --output ${TAG}-dsv-${ARRAY_JOB_INDEX}.vcf  \
@@ -143,9 +150,9 @@ function plugin_alignment_analysis_combine {
    if [ "${OUTPUT_FORMAT}" == "GENOTYPES" -o ${NUM_GROUPS} == 1 ]; then
 
         # Do not attempt FDR adjustment when there is no p-value, just concat the split files and sort:
-        ${RESOURCES_ARTIFACTS_VCF_TOOLS_BINARIES}/
-        ${RESOURCES_ARTIFACTS_VCF_TOOLS_BINARIES}/vcf-concat ${PART_RESULT_FILES} | \
-        ${RESOURCES_ARTIFACTS_VCF_TOOLS_BINARIES}/vcf-sort | \
+
+        ${RESOURCES_ARTIFACTS_VCF_TOOLS_BINARIES}/bin/vcf-concat ${PART_RESULT_FILES} | \
+        ${RESOURCES_ARTIFACTS_VCF_TOOLS_BINARIES}/bin/vcf-sort | \
         ${RESOURCES_TABIX_BGZIP_EXEC_PATH} -c > ${RESULT_FILE}
 
    else
