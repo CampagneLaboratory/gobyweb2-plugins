@@ -10,6 +10,14 @@ function dieUponError {
 
 }
 
+function compressWhenNeeded {
+  output=$1
+  outputNoGzExtension="${output%.gz}"
+  if [ ! "${output}" = "${outputNoGzExtension}" ]; then
+      ${RESOURCES_TABIX_BGZIP_EXEC_PATH} ${outputNoGzExtension}
+  fi
+}
+
 function annotate_vep {
 
     doAnnotate=$1
@@ -32,19 +40,20 @@ function annotate_vep {
               # No file was produced by VEP, we replace that non-existent output with the input:
               cp ${input} ${outputNoGzExtension}
         fi
-        # make extension
-        ${RESOURCES_TABIX_BGZIP_EXEC_PATH} ${outputNoGzExtension}
+
+        compressWhenNeeded ${output}
         dieUponError
 
     else
 
         cp ${input} ${outputNoGzExtension}
         dieUponError
-        ${RESOURCES_TABIX_BGZIP_EXEC_PATH} ${outputNoGzExtension}
+        compressWhenNeeded ${output}
         dieUponError
     fi
 
 }
+
 
 function annotate_ensembl_genes {
 
@@ -58,23 +67,26 @@ function annotate_ensembl_genes {
 
     if [ "${doAnnotate}" == "true" ]; then
 
-           cat >${TMPDIR}/attribute.lst <<EOF
+           cat >${TMPDIR}/attributes.lst <<EOF
 key=INFO,ID=GENE,Number=1,Type=String,Description="Ensembl gene identifier"
 key=INFO,ID=GENE_NAME,Number=1,Type=String,Description="Gene name"
 EOF
 
      ${RESOURCES_ARTIFACTS_VCF_TOOLS_BINARIES}/bin/vcf-sort ${input} \
        | ${RESOURCES_ARTIFACTS_VCF_TOOLS_BINARIES}/bin/vcf-annotate -a ${RESOURCES_ARTIFACTS_ENSEMBL_ANNOTATIONS_ANNOTATIONS}/ref-start-end-gene-hgnc-sorted.tsv.gz \
-                      -d ${TMPDIR}/attributes.lst -c CHROM,FROM,TO,INFO/GENE,INFO/GENE_NAME  \
-       |${RESOURCES_TABIX_BGZIP_EXEC_PATH} -c > ${output}
+                      -d ${TMPDIR}/attributes.lst -c CHROM,FROM,TO,INFO/GENE,INFO/GENE_NAME >${outputNoGzExtension}
+
         dieUponError
+
+       compressWhenNeeded ${output}
+       dieUponError
 
 
     else
 
         cp ${input} ${outputNoGzExtension}
         dieUponError
-        ${RESOURCES_TABIX_BGZIP_EXEC_PATH} ${outputNoGzExtension}
+        compressWhenNeeded ${output}
         dieUponError
     fi
 
