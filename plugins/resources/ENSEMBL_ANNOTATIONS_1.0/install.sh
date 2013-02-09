@@ -41,6 +41,8 @@ function plugin_install_artifact {
             --exports exon-annotations,ref-start-end-gene,gene-id-description,ref-start-end-gene-hgnc
 
             if [ "$?" -eq "0" ]; then
+             # Make sure tabix indices have a more recent timestamp than tabix data files:
+             touch   ${installation_path}/*.tbi
              return 0
             else
              return 1
