@@ -41,9 +41,9 @@ EOF
                 ORG_LOWERCASE=`echo  ${ORGANISM}| tr '[:upper:]' '[:lower:]'`
                 wget ftp://ftp.ensembl.org/pub/release-70/variation/VEP/${ORG_LOWERCASE}_vep_\*.tar.gz
                 mkdir -p ${installation_path}/VEP_CACHE/
-                gzip -c -d  ${ORG_LOWERCASE}_vep_*.tar.gz | (cd ${installation_path}/VEP_CACHE/ ; tar -xvf -)
+                gzip -c -d  ${ORG_LOWERCASE}_vep_*.tar.gz | (cd ${installation_path}/ ; tar -xvf -)
 
-                if [ -e ${installation_path}/VEP_CACHE/${ORG_LOWERCASE} ]; then
+                if [ -e ${installation_path}/${ORG_LOWERCASE} ]; then
                     return 0
                 else
                     return 1

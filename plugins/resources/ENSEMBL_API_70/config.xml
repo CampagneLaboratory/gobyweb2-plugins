@@ -16,7 +16,7 @@
     <id>ENSEMBL_API</id>
     <help>Ensembl API. See http://useast.ensembl.org/info/docs/api/api_installation.html. Auto-install with artifacts.
     </help>
-    <version>70</version>
+    <version>70.0.2</version>
     <artifacts>
         <artifact id="INSTALL_DIR" order="1"/>
         <artifact id="VEP_CACHE" order="1">

@@ -63,8 +63,8 @@ key=INFO,ID=GENE,Number=1,Type=String,Description="Ensembl gene identifier"
 key=INFO,ID=GENE_NAME,Number=1,Type=String,Description="Gene name"
 EOF
 
-     ${RESOURCES_ARTIFACTS_VCF_TOOLS_BINARIES}/vcf-sort ${input} \
-       | ${RESOURCES_ARTIFACTS_VCF_TOOLS_BINARIES}/vcf-annotate -a ${RESOURCES_ARTIFACTS_ENSEMBL_ANNOTATIONS_ANNOTATIONS}/ref-start-end-gene-hgnc-sorted.tsv.gz \
+     ${RESOURCES_ARTIFACTS_VCF_TOOLS_BINARIES}/bin/vcf-sort ${input} \
+       | ${RESOURCES_ARTIFACTS_VCF_TOOLS_BINARIES}/bin/vcf-annotate -a ${RESOURCES_ARTIFACTS_ENSEMBL_ANNOTATIONS_ANNOTATIONS}/ref-start-end-gene-hgnc-sorted.tsv.gz \
                       -d ${TMPDIR}/attributes.lst -c CHROM,FROM,TO,INFO/GENE,INFO/GENE_NAME  \
        |${RESOURCES_TABIX_BGZIP_EXEC_PATH} -c > ${output}
         dieUponError
@@ -97,8 +97,8 @@ key=INFO,ID=RS,Number=1,Type=String,Description="rs ID"
 key=INFO,ID=Effect,Number=1,Type=String,Description="Effect of variation on transcript, predicted with VEP"
 EOF
 
-     ${RESOURCES_ARTIFACTS_VCF_TOOLS_BINARIES}/vcf-sort ${input} \
-       | ${RESOURCES_ARTIFACTS_VCF_TOOLS_BINARIES}/vcf-annotate -a ${TMPDIR}/vep-results.tsv.gz \
+     ${RESOURCES_ARTIFACTS_VCF_TOOLS_BINARIES}/bin/vcf-sort ${input} \
+       | ${RESOURCES_ARTIFACTS_VCF_TOOLS_BINARIES}/bin/vcf-annotate -a ${TMPDIR}/vep-results.tsv.gz \
                       -d ${TMPDIR}/vep.lst -c CHROM,FROM,TO,INFO/GENE,INFO/GENE_NAME,INFO/RS,INFO/Effect  \
        |${RESOURCES_TABIX_BGZIP_EXEC_PATH} -c > ${output}
 
