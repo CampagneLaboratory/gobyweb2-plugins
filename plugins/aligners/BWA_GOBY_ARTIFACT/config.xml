@@ -14,14 +14,14 @@
     <name>BWA with Goby support (auto-install)</name>
     <id>BWA_GOBY_ARTIFACT</id>
     <help>Version of BWA that supports Goby formats natively, auto-install version of the plugin.</help>
+    <version>1.1</version>
     <supportsColorSpace>true</supportsColorSpace>
-    <supportsPairedEndAlignments>true</supportsPairedEndAlignments>
-    <supportsGobyReads>true</supportsGobyReads>
     <supportsGobyAlignments>true</supportsGobyAlignments>
+    <supportsPairedEndAlignments>true</supportsPairedEndAlignments>
+    <supportsBAMAlignments>false</supportsBAMAlignments>
+    <supportsGobyReads>true</supportsGobyReads>
     <supportsFastqReads>false</supportsFastqReads>
     <supportsFastaReads>false</supportsFastaReads>
-    <supportsBAMAlignments>false</supportsBAMAlignments>
-    <version>1.1</version>
     <!-- indexDirectory is no longuer used -->
     <indexDirectory>%NODE_LOCAL_DATA_ROOT%/%VERSION%/%ORGANISM%/%SPACE%/bwa</indexDirectory>
     <requires>

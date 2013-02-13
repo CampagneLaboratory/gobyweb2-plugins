@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema">
+
+    <xs:include schemaLocation="common.xsd"/>
+    <xs:include schemaLocation="config.xsd"/>
+
+
+    <xs:complexType name="T_resourceConfig">
+        <xs:complexContent>
+        <xs:extension base="BasePluginConfig">
+        <xs:sequence>
+            <xs:element ref="requires" minOccurs="0" maxOccurs="1"/>
+            <xs:element name="artifacts" type="T_artifacts" minOccurs="0" maxOccurs="1"/>
+            <xs:element ref="files" minOccurs="0" maxOccurs="1"/>
+        </xs:sequence>
+        </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+
+    <xs:complexType name="T_artifacts">
+        <xs:sequence>
+            <xs:element name="artifact" type="T_artifact" minOccurs="1" maxOccurs="unbounded"/>
+        </xs:sequence>
+    </xs:complexType>
+
+
+    <xs:complexType name="T_artifact">
+        <xs:all>
+            <xs:element ref="attributes" minOccurs="0" maxOccurs="1"/>
+        </xs:all>
+        <xs:attribute name="order" type="xs:integer"/>
+        <xs:attribute name="id" type="xs:string"/>
+    </xs:complexType>
+
+</xs:schema>

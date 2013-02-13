@@ -21,24 +21,15 @@
         Please note that this aligner does not generate TooManyHits information, and therefore is unable to distinguish
         between reads that do not match and reads that match in too many locations.
     </help>
+    <version>2.0</version>
     <supportsColorSpace>false</supportsColorSpace>
-    <supportsGobyReads>true</supportsGobyReads>
     <supportsGobyAlignments>true</supportsGobyAlignments>
-    <supportsFastqReads>false</supportsFastqReads>
-    <supportsFastaReads>false</supportsFastaReads>
     <supportsBAMAlignments>false</supportsBAMAlignments>
     <supportsBisulfiteConvertedReads>true</supportsBisulfiteConvertedReads>
-    <runtime>
-        <need scope="ALIGN" key="excl" value="true"/>
-        <!-- Since lastal uses shared memory, we trick SGE into keeping jobs alive even if they appear to use too much memory. -->
-        <need scope="ALIGN" key="h_vmem" value="800g"/>
-        <need scope="ALIGN" key="virtual_free" value="25g"/>
-        <need scope="ALIGN_JVM" value="4g"/>
-        <need scope="ALIGNMENT_POST_PROCESSING" key="excl" value="false"/>
-        <need scope="ALIGNMENT_POST_PROCESSING" key="h_vmem" value="12g" />
-        <need scope="ALIGNMENT_POST_PROCESSING" key="virtual_free" value="12g" />
-    </runtime>
-    <version>2.0</version>
+    <supportsGobyReads>true</supportsGobyReads>
+    <supportsFastqReads>false</supportsFastqReads>
+    <supportsFastaReads>false</supportsFastaReads>
+    <indexDirectory>/scratchLocal/gobyweb/input-data/reference-db/%VERSION%/%ORGANISM%/%SPACE%/last-bisulfite</indexDirectory>
     <requires>
         <resource>
             <id>GOBY</id>
@@ -53,16 +44,26 @@
             <versionAtLeast>1.1</versionAtLeast>
         </resource>
     </requires>
-    <!-- This plugin assumes that forward and reverse strands have been indexed separately and put into the indexDirectory
-    with the names index_f and index_r
-    -->
-    <indexDirectory>/scratchLocal/gobyweb/input-data/reference-db/%VERSION%/%ORGANISM%/%SPACE%/last-bisulfite</indexDirectory>
-     <files>
+    <files>
         <file>
             <id>ALIGN_BOTH_STRANDS</id>
             <filename>align-bisulfite-both-strands.sh</filename>
         </file>
     </files>
+    <runtime>
+        <need scope="ALIGN" key="excl" value="true"/>
+        <!-- Since lastal uses shared memory, we trick SGE into keeping jobs alive even if they appear to use too much memory. -->
+        <need scope="ALIGN" key="h_vmem" value="800g"/>
+        <need scope="ALIGN" key="virtual_free" value="25g"/>
+        <need scope="ALIGN_JVM" value="4g"/>
+        <need scope="ALIGNMENT_POST_PROCESSING" key="excl" value="false"/>
+        <need scope="ALIGNMENT_POST_PROCESSING" key="h_vmem" value="12g" />
+        <need scope="ALIGNMENT_POST_PROCESSING" key="virtual_free" value="12g" />
+    </runtime>
+
+    <!-- This plugin assumes that forward and reverse strands have been indexed separately and put into the indexDirectory
+    with the names index_f and index_r
+    -->
 
     <options>
         <option>

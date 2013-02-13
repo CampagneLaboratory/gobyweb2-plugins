@@ -17,14 +17,16 @@
     <help>Compares usage of splice sites across groups of samples. Can process the result of STAR alignments to yield
         table of differential usage for splice sites.
     </help>
+    <version>1.2.1</version>
     <analysisType>DiffExp</analysisType>
+    <minimumNumberOfGroups>1</minimumNumberOfGroups>
+    <maximumNumberOfGroups>50</maximumNumberOfGroups>
     <supportsTranscriptAlignments>false</supportsTranscriptAlignments>
     <splitProcessCombine>true</splitProcessCombine>
     <producesTabDelimitedOutput>true</producesTabDelimitedOutput>
     <supportsGobyAlignments>true</supportsGobyAlignments>
     <copyAlignments>false</copyAlignments>
     <copyWeightFiles>false</copyWeightFiles>
-    <version>1.2.1</version>
     <requires>
         <resource>
             <id>GOBY</id>
@@ -159,6 +161,5 @@
             <filename>PostProcess.scala</filename>
         </file>
     </files>
-    <minimumNumberOfGroups>1</minimumNumberOfGroups>
-    <maximumNumberOfGroups>50</maximumNumberOfGroups>
+
 </alignmentAnalysisConfig>

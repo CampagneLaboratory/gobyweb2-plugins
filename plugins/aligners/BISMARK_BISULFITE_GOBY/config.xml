@@ -15,25 +15,16 @@
     <name>Bismark Bisulfite Mapper</name>
     <id>BISMARK_BISULFITE_GOBY</id>
     <help>Align bisulfite converted reads with Bismark.</help>
+    <version>1.1</version>
     <supportsColorSpace>false</supportsColorSpace>
-    <supportsGobyReads>true</supportsGobyReads>
     <supportsGobyAlignments>true</supportsGobyAlignments>
-    <supportsFastqReads>false</supportsFastqReads>
-    <supportsFastaReads>false</supportsFastaReads>
+    <supportsPairedEndAlignments>true</supportsPairedEndAlignments>
     <supportsBAMAlignments>false</supportsBAMAlignments>
     <supportsBisulfiteConvertedReads>true</supportsBisulfiteConvertedReads>
-    <supportsPairedEndAlignments>true</supportsPairedEndAlignments>
+    <supportsGobyReads>true</supportsGobyReads>
+    <supportsFastqReads>false</supportsFastqReads>
+    <supportsFastaReads>false</supportsFastaReads>
     <indexDirectory>%NODE_LOCAL_DATA_ROOT%/%VERSION%/%ORGANISM%/%SPACE%/bismark</indexDirectory>
-    <version>1.1</version>
-    <runtime>
-        <need scope="ALIGN" key="excl" value="false"/>
-        <need scope="ALIGN" key="h_vmem" value="20g"/>
-        <need scope="ALIGN" key="virtual_free" value="20g"/>
-        <need scope="ALIGN_JVM" value="15g"/>
-        <need scope="ALIGNMENT_POST_PROCESSING" key="excl" value="false"/>
-        <need scope="ALIGNMENT_POST_PROCESSING" key="h_vmem" value="12g" />
-        <need scope="ALIGNMENT_POST_PROCESSING" key="virtual_free" value="12g" />
-    </runtime>
     <requires>
         <resource>
             <id>GOBY</id>
@@ -44,18 +35,27 @@
             <versionAtLeast>0.7.4</versionAtLeast>
         </resource>
         <resource>
-        	<id>BOWTIE2</id>
-        	<versionAtLeast>2.0.0.5</versionAtLeast>
+            <id>BOWTIE2</id>
+            <versionAtLeast>2.0.0.5</versionAtLeast>
         </resource>
         <resource>
-        	<id>SAMTOOLS</id>
-        	<versionAtLeast>0.1.18</versionAtLeast>
+            <id>SAMTOOLS</id>
+            <versionAtLeast>0.1.18</versionAtLeast>
         </resource>
         <resource>
             <id>ILLUMINA_ADAPTERS</id>
             <versionAtLeast>1.0</versionAtLeast>
         </resource>
     </requires>
+    <runtime>
+        <need scope="ALIGN" key="excl" value="false"/>
+        <need scope="ALIGN" key="h_vmem" value="20g"/>
+        <need scope="ALIGN" key="virtual_free" value="20g"/>
+        <need scope="ALIGN_JVM" value="15g"/>
+        <need scope="ALIGNMENT_POST_PROCESSING" key="excl" value="false"/>
+        <need scope="ALIGNMENT_POST_PROCESSING" key="h_vmem" value="12g" />
+        <need scope="ALIGNMENT_POST_PROCESSING" key="virtual_free" value="12g" />
+    </runtime>
     <options>
         <option>
             <id>ALIGNER_OPTIONS</id>

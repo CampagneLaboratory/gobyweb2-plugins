@@ -15,13 +15,16 @@
     <name>Bismark Methylation Extraction</name>
     <id>BISMARK_METHYL_EXTRACT</id>
     <help>Extract methylation calls from Bismark aligned reads</help>
+    <version>1.0</version>
     <analysisType>Methylation</analysisType>
+    <minimumNumberOfGroups>1</minimumNumberOfGroups>
+    <maximumNumberOfGroups>10</maximumNumberOfGroups>
     <supportsTranscriptAlignments>false</supportsTranscriptAlignments>
     <splitProcessCombine>true</splitProcessCombine>
     <producesTabDelimitedOutput>true</producesTabDelimitedOutput>
     <supportsGobyAlignments>true</supportsGobyAlignments>
     <copyWeightFiles>false</copyWeightFiles>
-    <version>1.0</version>
+
     <requires>
         <resource>
             <id>GOBY</id>
@@ -91,6 +94,5 @@
             <help>todo</help>
         </outputFile>
     </outputSchema>
-    <minimumNumberOfGroups>1</minimumNumberOfGroups>
-    <maximumNumberOfGroups>10</maximumNumberOfGroups>
+
 </alignmentAnalysisConfig>

@@ -16,14 +16,22 @@
     <id>LASTAG_GOBY</id>
     <dbLegacyId>lastag</dbLegacyId>
     <help>Version of Lastag wrapped with Goby align mode.</help>
+    <version>1.1</version>
+
     <supportsColorSpace>false</supportsColorSpace>
-    <supportsGobyReads>true</supportsGobyReads>
     <supportsGobyAlignments>true</supportsGobyAlignments>
+    <supportsBAMAlignments>false</supportsBAMAlignments>
+
+    <supportsGobyReads>true</supportsGobyReads>
     <supportsFastqReads>false</supportsFastqReads>
     <supportsFastaReads>false</supportsFastaReads>
-    <supportsBAMAlignments>false</supportsBAMAlignments>
-    <version>1.1</version>
     <indexDirectory>/scratchLocal/gobyweb/input-data/reference-db/%VERSION%/%ORGANISM%/%SPACE%/lastag</indexDirectory>
+    <requires>
+        <resource>
+            <id>GOBY</id>
+            <versionExactly>20120216154520</versionExactly>
+        </resource>
+    </requires>
     <runtime>
         <need scope="ALIGN" key="excl" value="false"/>
         <need scope="ALIGN" key="h_vmem" value="30g"/>
@@ -32,14 +40,7 @@
         <need scope="ALIGNMENT_POST_PROCESSING" key="excl" value="false"/>
         <need scope="ALIGNMENT_POST_PROCESSING" key="h_vmem" value="10g"/>
         <need scope="ALIGNMENT_POST_PROCESSING" key="virtual_free" value="12g"/>
-
     </runtime>
-    <requires>
-        <resource>
-            <id>GOBY</id>
-            <versionExactly>20120216154520</versionExactly>
-        </resource>
-    </requires>
     <options>
         <option>
             <id>ALIGNER_OPTIONS</id>

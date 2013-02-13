@@ -17,13 +17,45 @@
     <dbLegacyId>Extract Contaminants</dbLegacyId>
     <help>Finds potential contaminants based on the unmapped reads in the alignments. This plugin will create contigs from unmapped reads, and try to align these contigs to viral and bacterial nucleotide sequences to identify potential sample contaminants.
     </help>
+    <version>1.7</version>
     <analysisType>DiffExp</analysisType>
+    <minimumNumberOfGroups>1</minimumNumberOfGroups>
+    <maximumNumberOfGroups>10</maximumNumberOfGroups>
     <supportsTranscriptAlignments>false</supportsTranscriptAlignments>
     <splitProcessCombine>true</splitProcessCombine>
     <producesTabDelimitedOutput>true</producesTabDelimitedOutput>
     <supportsGobyAlignments>true</supportsGobyAlignments>
     <copyWeightFiles>false</copyWeightFiles>
-    <version>1.7</version>
+    <requires>
+        <resource>
+            <id>GOBY</id>
+            <versionAtLeast>20120723142616</versionAtLeast>
+        </resource>
+        <resource>
+            <id>MINIA</id>
+            <versionAtLeast>20120626</versionAtLeast>
+        </resource>
+        <resource>
+            <id>TRINITY</id>
+            <versionAtLeast>20120518</versionAtLeast>
+        </resource>
+        <resource>
+            <id>LAST</id>
+            <versionAtLeast>230</versionAtLeast>
+        </resource>
+        <resource>
+            <id>EXTRACT_NONMATCHED</id>
+            <versionAtLeast>2012.06.04</versionAtLeast>
+        </resource>
+        <resource>
+            <id>BWA_WITH_GOBY</id>
+            <versionAtLeast>0.5.9.16</versionAtLeast>
+        </resource>
+        <resource>
+            <id>ILLUMINA_ADAPTERS</id>
+            <versionAtLeast>1.0</versionAtLeast>
+        </resource>
+    </requires>
     <files>
         <file>
             <id>OUTPUT_FORMATTER</id>
@@ -54,36 +86,7 @@
             <filename>fungal-names.map</filename>
         </file>
     </files>
-    <requires>
-        <resource>
-            <id>GOBY</id>
-            <versionAtLeast>20120723142616</versionAtLeast>
-        </resource>
-        <resource>
-            <id>MINIA</id>
-            <versionAtLeast>20120626</versionAtLeast>
-        </resource>
-        <resource>
-        	<id>TRINITY</id>
-        	<versionAtLeast>20120518</versionAtLeast>
-        </resource>
-        <resource>
-            <id>LAST</id>
-            <versionAtLeast>230</versionAtLeast>
-        </resource>
-        <resource>
-        	<id>EXTRACT_NONMATCHED</id>
-        	<versionAtLeast>2012.06.04</versionAtLeast>
-        </resource>
-        <resource>
-            <id>BWA_WITH_GOBY</id>
-            <versionAtLeast>0.5.9.16</versionAtLeast>
-        </resource>
-        <resource>
-        	<id>ILLUMINA_ADAPTERS</id>
-        	<versionAtLeast>1.0</versionAtLeast>
-        </resource>
-    </requires>
+
     <runtime>
 
         <need scope="PROCESS" key="excl" value="false"/>
@@ -281,6 +284,5 @@
             <autoFormat>false</autoFormat>
         </option>
     </options>
-    <minimumNumberOfGroups>1</minimumNumberOfGroups>
-    <maximumNumberOfGroups>10</maximumNumberOfGroups>
+
 </alignmentAnalysisConfig>

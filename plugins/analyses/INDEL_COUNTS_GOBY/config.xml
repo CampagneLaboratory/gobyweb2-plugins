@@ -18,14 +18,16 @@
     <help>Compares groups of samples and produce output about number of called indels in each sample and group. Implemented
         with Goby.
     </help>
+    <version>1.2</version>
     <analysisType>SequenceVariants</analysisType>
+    <minimumNumberOfGroups>1</minimumNumberOfGroups>
+    <maximumNumberOfGroups>50</maximumNumberOfGroups>
     <supportsTranscriptAlignments>false</supportsTranscriptAlignments>
     <splitProcessCombine>true</splitProcessCombine>
     <producesTabDelimitedOutput>true</producesTabDelimitedOutput>
     <producesVariantCallingFormatOutput>false</producesVariantCallingFormatOutput>
     <supportsGobyAlignments>true</supportsGobyAlignments>
     <copyWeightFiles>false</copyWeightFiles>
-    <version>1.2</version>
     <requires>
         <resource>
             <id>GOBY</id>
@@ -126,6 +128,5 @@
         </option>
 
     </options>
-    <minimumNumberOfGroups>1</minimumNumberOfGroups>
-    <maximumNumberOfGroups>50</maximumNumberOfGroups>
+
 </alignmentAnalysisConfig>

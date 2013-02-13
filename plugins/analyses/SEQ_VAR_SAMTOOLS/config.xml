@@ -18,13 +18,15 @@
     <help>Compares groups of samples and produce output about sequence variants observed in the alignments. Implemented
         with SAMTOOLS. Specific analysis depends on selected output format.
     </help>
+    <version>1.0</version>
     <analysisType>SequenceVariants</analysisType>
+    <minimumNumberOfGroups>1</minimumNumberOfGroups>
+    <maximumNumberOfGroups>2</maximumNumberOfGroups>
     <supportsTranscriptAlignments>false</supportsTranscriptAlignments>
+    <supportsBAMAlignments>true</supportsBAMAlignments>
     <splitProcessCombine>true</splitProcessCombine>
     <producesVariantCallingFormatOutput>true</producesVariantCallingFormatOutput>
-    <supportsBAMAlignments>true</supportsBAMAlignments>
     <copyWeightFiles>false</copyWeightFiles>
-    <version>1.0</version>
     <requires>
         <resource>
             <id>SAMTOOLS</id>
@@ -94,6 +96,5 @@
             <autoFormat>false</autoFormat>
         </option>
     </options>
-    <minimumNumberOfGroups>1</minimumNumberOfGroups>
-    <maximumNumberOfGroups>2</maximumNumberOfGroups>
+
 </alignmentAnalysisConfig>

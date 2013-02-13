@@ -17,12 +17,16 @@
     <help>BWA writing to BAM output. This aligner requests exclusive access to a server node and run parallel on this
         node against a single reads file.
     </help>
-    <runtime>
-        <need scope="ALIGN" key="excl" value="false"/>
-        <need scope="ALIGN" key="h_vmem" value="12g"/>
-        <need scope="ALIGN" key="virtual_free" value="16g"/>
-        <need scope="ALIGN_JVM" value="4g"/>
-    </runtime>
+    <version>1.0</version>
+    <supportsColorSpace>true</supportsColorSpace>
+    <supportsGobyAlignments>false</supportsGobyAlignments>
+    <supportsPairedEndAlignments>true</supportsPairedEndAlignments>
+    <supportsBAMAlignments>true</supportsBAMAlignments>
+    <supportsBisulfiteConvertedReads>false</supportsBisulfiteConvertedReads>
+    <supportsGobyReads>true</supportsGobyReads>
+    <supportsFastqReads>false</supportsFastqReads>
+    <supportsFastaReads>false</supportsFastaReads>
+    <indexDirectory>%NODE_LOCAL_DATA_ROOT%/%VERSION%/%ORGANISM%/%SPACE%/bwa</indexDirectory>
     <requires>
         <resource>
             <id>BWA_WITH_GOBY</id>
@@ -33,15 +37,12 @@
             <versionAtLeast>0.1.14</versionAtLeast>
         </resource>
     </requires>
-    <supportsColorSpace>true</supportsColorSpace>
-    <supportsBisulfiteConvertedReads>false</supportsBisulfiteConvertedReads>
-    <supportsGobyReads>true</supportsGobyReads>
-    <supportsGobyAlignments>false</supportsGobyAlignments>
-    <supportsPairedEndAlignments>true</supportsPairedEndAlignments>
-    <supportsFastqReads>false</supportsFastqReads>
-    <supportsFastaReads>false</supportsFastaReads>
-    <supportsBAMAlignments>true</supportsBAMAlignments>
-    <indexDirectory>%NODE_LOCAL_DATA_ROOT%/%VERSION%/%ORGANISM%/%SPACE%/bwa</indexDirectory>
+    <runtime>
+        <need scope="ALIGN" key="excl" value="false"/>
+        <need scope="ALIGN" key="h_vmem" value="12g"/>
+        <need scope="ALIGN" key="virtual_free" value="16g"/>
+        <need scope="ALIGN_JVM" value="4g"/>
+    </runtime>
     <options>
         <option>
             <id>ALIGNER_OPTIONS</id>
@@ -55,5 +56,4 @@
             <includeSpaces>true</includeSpaces>
         </option>
     </options>
-    <version>1.0</version>
 </alignerConfig>

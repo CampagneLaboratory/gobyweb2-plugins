@@ -15,14 +15,14 @@
     <id>BWA_GOBY</id>
     <dbLegacyId>bwa (Goby native)</dbLegacyId>
     <help>Version of BWA that supports Goby formats natively.</help>
+    <version>1.0</version>
     <supportsColorSpace>true</supportsColorSpace>
-    <supportsPairedEndAlignments>true</supportsPairedEndAlignments>
-    <supportsGobyReads>true</supportsGobyReads>
     <supportsGobyAlignments>true</supportsGobyAlignments>
+    <supportsPairedEndAlignments>true</supportsPairedEndAlignments>
+    <supportsBAMAlignments>false</supportsBAMAlignments>
+    <supportsGobyReads>true</supportsGobyReads>
     <supportsFastqReads>false</supportsFastqReads>
     <supportsFastaReads>false</supportsFastaReads>
-    <supportsBAMAlignments>false</supportsBAMAlignments>
-    <version>1.0</version>
     <indexDirectory>%NODE_LOCAL_DATA_ROOT%/%VERSION%/%ORGANISM%/%SPACE%/bwa</indexDirectory>
     <requires>
         <resource>

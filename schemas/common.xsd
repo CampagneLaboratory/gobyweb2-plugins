@@ -1,0 +1,206 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema">
+
+    <xs:simpleType name="T_type">
+        <xs:restriction base="xs:string">
+            <xs:enumeration value="BOOLEAN"/>
+            <xs:enumeration value="CATEGORY"/>
+            <xs:enumeration value="DOUBLE"/>
+            <xs:enumeration value="INTEGER"/>
+            <xs:enumeration value="STRING"/>
+            <xs:enumeration value="SWITCH"/>
+        </xs:restriction>
+    </xs:simpleType>
+
+
+    <xs:complexType name="T_requires">
+        <xs:sequence>
+            <xs:element ref="resource" maxOccurs="unbounded"/>
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:complexType name="T_resource">
+        <xs:sequence>
+            <xs:element name="id" type="xs:string"/>
+            <xs:choice minOccurs="1" maxOccurs="1">
+                <xs:element ref="versionAtLeast"/>
+                <xs:element ref="versionExactly"/>
+            </xs:choice>
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:complexType name="T_runtime">
+        <xs:sequence>
+            <xs:element ref="need" minOccurs="1" maxOccurs="unbounded"/>
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:simpleType name="T_scope">
+        <xs:restriction base="xs:string">
+            <xs:enumeration value="INSTALL_ARTIFACTS"/>
+            <xs:enumeration value="GLOBAL"/>
+            <xs:enumeration value="SPLIT_JVM"/>
+            <xs:enumeration value="ALIGN"/>
+            <xs:enumeration value="ALIGN_JVM"/>
+            <xs:enumeration value="PROCESS"/>
+            <xs:enumeration value="PROCESS_JVM"/>
+            <xs:enumeration value="COMBINE"/>
+            <xs:enumeration value="COMBINE_JVM"/>
+            <xs:enumeration value="ALIGNMENT_POST_PROCESSING"/>
+            <xs:enumeration value="ALIGNMENT_POST_PROCESSING_JVM"/>
+        </xs:restriction>
+    </xs:simpleType>
+
+    <xs:complexType name="T_need">
+        <xs:all>
+        </xs:all>
+        <xs:attribute name="scope" type="T_scope">
+        </xs:attribute>
+        <xs:attribute name="key" type="xs:string"/>
+        <xs:attribute name="value" type="xs:string"/>
+    </xs:complexType>
+
+
+    <xs:complexType name="T_options">
+        <xs:sequence>
+            <xs:element ref="validation" minOccurs="0" maxOccurs="1"/>
+            <xs:element ref="option" maxOccurs="unbounded"/>
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:complexType name="T_validation">
+        <xs:sequence>
+            <xs:element ref="rule" minOccurs="1" maxOccurs="unbounded"/>
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:complexType name="T_option">
+        <xs:all>
+            <xs:element name="id" type="xs:string"/>
+            <xs:element name="dbLegacyId" type="xs:string" minOccurs="0"/>
+            <xs:element name="name" type="xs:string"/>
+            <xs:element name="help" type="xs:string"/>
+            <xs:element ref="required" minOccurs="0"/>
+            <xs:element ref="defaultsTo" minOccurs="0"/>
+            <xs:element ref="type"/>
+            <xs:element ref="categories" minOccurs="0"/>
+            <xs:element ref="autoFormat" minOccurs="0"/>
+            <xs:element ref="flagFormat" minOccurs="0"/>
+            <xs:element ref="includeSpaces" minOccurs="0"/>
+        </xs:all>
+        <xs:attribute name="hiddenWhen" type="xs:string"/>
+    </xs:complexType>
+
+    <xs:complexType name="T_categories">
+        <xs:sequence>
+            <xs:element ref="category" maxOccurs="unbounded"/>
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:complexType name="T_category" mixed="true">
+        <xs:sequence minOccurs="0">
+            <xs:element name="id" type="xs:string"/>
+            <xs:element name="name" type="xs:string"/>
+            <xs:element ref="value"/>
+            <xs:element name="help" type="xs:string"/>
+            <xs:element name="dbLegacyValue" type="xs:string"  minOccurs="0"/>
+        </xs:sequence>
+    </xs:complexType>
+
+
+
+    <xs:complexType name="T_rule">
+        <xs:all>
+        </xs:all>
+        <xs:attribute name="validWhen" type="xs:string"/>
+        <xs:attribute name="error" type="xs:string"/>
+    </xs:complexType>
+
+    <xs:complexType name="T_attributes">
+        <xs:sequence>
+            <xs:element ref="attribute" minOccurs="1" maxOccurs="unbounded"/>
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:complexType name="T_attribute">
+        <xs:attribute name="name" type="xs:string"/>
+        <xs:attribute name="value" type="xs:string"/>
+    </xs:complexType>
+
+    <xs:complexType name="T_files">
+        <xs:sequence>
+            <xs:element ref="file" maxOccurs="unbounded"/>
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:complexType name="T_file">
+        <xs:all>
+            <xs:element name="id" type="xs:string"/>
+            <xs:element ref="filename"/>
+            <xs:element ref="importFromPlugin" minOccurs="0"/>
+            <xs:element ref="isDirectory" minOccurs="0"/>
+        </xs:all>
+    </xs:complexType>
+
+    <xs:simpleType name="T_isDirectory">
+        <xs:restriction base="xs:boolean"/>
+    </xs:simpleType>
+
+    <xs:complexType name="T_execute">
+        <xs:sequence>
+            <xs:element ref="script" minOccurs="1" maxOccurs="unbounded"/>
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:simpleType name="T_script_language_type">
+        <xs:restriction base="xs:string">
+            <xs:enumeration value="groovy"/>
+        </xs:restriction>
+    </xs:simpleType>
+
+    <xs:simpleType name="T_script_phase_type">
+        <xs:restriction base="xs:string">
+            <xs:enumeration value="pre-deployment"/>
+        </xs:restriction>
+    </xs:simpleType>
+
+    <xs:complexType name="T_script">
+        <xs:all>
+        </xs:all>
+        <xs:attribute name="filename" type="xs:string"/>
+        <xs:attribute name="language" type="T_script_language_type"/>
+        <xs:attribute name="phase" type="T_script_phase_type"/>
+    </xs:complexType>
+
+    <xs:element name="requires" type="T_requires"/>
+    <xs:element name="resource" type="T_resource"/>
+    <xs:element name="versionAtLeast" type="xs:string"/>
+    <xs:element name="versionExactly" type="xs:string"/>
+    <xs:element name="runtime" type="T_runtime"/>
+    <xs:element name="need" type="T_need"/>
+    <xs:element name="options" type="T_options"/>
+    <xs:element name="validation" type="T_validation"/>
+    <xs:element name="option" type="T_option"/>
+    <xs:element name="required" type="xs:boolean"/>
+    <xs:element name="defaultsTo" type="xs:string"/>
+    <xs:element name="type" type="T_type"/>
+    <xs:element name="categories" type="T_categories"/>
+    <xs:element name="autoFormat" type="xs:boolean"/>
+    <xs:element name="flagFormat" type="xs:string"/>
+    <xs:element name="includeSpaces" type="xs:boolean"/>
+    <xs:element name="category" type="T_category"/>
+    <xs:element name="value" type="xs:string"/>
+    <xs:element name="rule" type="T_rule"/>
+    <xs:element name="attributes" type="T_attributes"/>
+    <xs:element name="attribute" type="T_attribute"/>
+    <xs:element name="files" type="T_files"/>
+    <xs:element name="file" type="T_file"/>
+    <xs:element name="filename" type="xs:string"/>
+    <xs:element name="importFromPlugin" type="xs:string"/>
+    <xs:element name="isDirectory" type="T_isDirectory" default="false"/>
+    <xs:element name="supportsGobyAlignments" type="xs:boolean"/>
+    <xs:element name="supportsBAMAlignments" type="xs:boolean"/>
+    <xs:element name="execute" type="T_execute"/>
+    <xs:element name="script" type="T_script"/>
+
+</xs:schema>

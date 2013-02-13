@@ -18,11 +18,13 @@
         groups. Counts are calculated with Goby, statistics of differential expression are estimated using the EdgeR
         Bioconductor package.
     </help>
+    <version>1.0</version>
     <analysisType>DiffExp</analysisType>
+    <minimumNumberOfGroups>2</minimumNumberOfGroups>
+    <maximumNumberOfGroups>2</maximumNumberOfGroups>
     <supportsTranscriptAlignments>false</supportsTranscriptAlignments>
     <splitProcessCombine>true</splitProcessCombine>
     <producesTabDelimitedOutput>true</producesTabDelimitedOutput>
-    <version>1.0</version>
     <supportsGobyAlignments>true</supportsGobyAlignments>
     <requires>
         <resource>
@@ -374,7 +376,6 @@
             </help>
         </outputFile>
     </outputSchema>
-    <minimumNumberOfGroups>2</minimumNumberOfGroups>
-    <maximumNumberOfGroups>2</maximumNumberOfGroups>
+
 </alignmentAnalysisConfig>
 

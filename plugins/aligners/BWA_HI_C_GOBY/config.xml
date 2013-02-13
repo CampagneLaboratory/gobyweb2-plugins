@@ -15,14 +15,14 @@
     <id>BWA_HI_C_GOBY</id>
     <dbLegacyId>bwa for Hi-C data (Goby native)</dbLegacyId>
     <help>Version of BWA to align Hi-C reads.</help>
+    <version>1.0.1</version>
     <supportsColorSpace>true</supportsColorSpace>
-    <supportsPairedEndAlignments>true</supportsPairedEndAlignments>
-    <supportsGobyReads>true</supportsGobyReads>
     <supportsGobyAlignments>true</supportsGobyAlignments>
+    <supportsPairedEndAlignments>true</supportsPairedEndAlignments>
+    <supportsBAMAlignments>false</supportsBAMAlignments>
+    <supportsGobyReads>true</supportsGobyReads>
     <supportsFastqReads>false</supportsFastqReads>
     <supportsFastaReads>false</supportsFastaReads>
-    <supportsBAMAlignments>false</supportsBAMAlignments>
-    <version>1.0.1</version>
     <indexDirectory>%NODE_LOCAL_DATA_ROOT%/%VERSION%/%ORGANISM%/%SPACE%/bwa</indexDirectory>
     <requires>
         <resource>

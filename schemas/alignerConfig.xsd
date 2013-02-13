@@ -1,0 +1,38 @@
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema">
+
+    <xs:include schemaLocation="config.xsd"/>
+
+    <xs:include schemaLocation="common.xsd"/>
+
+    <xs:simpleType name="T_filename">
+        <!-- make sure we don't allow spaces of newline in a filename, because IDEA tends to add them reformatting XML
+        files, and this breaks the app. -->
+        <xs:restriction base="xs:string">
+            <xs:pattern value="[^\n\r\t\s]+"/>
+        </xs:restriction>
+    </xs:simpleType>
+
+    <xs:complexType name="T_alignerConfig">
+        <xs:complexContent>
+        <xs:extension base="BasePluginConfig">
+        <xs:sequence>
+            <xs:element name="supportsColorSpace" type="xs:boolean" minOccurs="0"/>
+            <xs:element ref="supportsGobyAlignments" minOccurs="0"/>
+            <xs:element name="supportsPairedEndAlignments" type="xs:boolean" minOccurs="0"/>
+            <xs:element ref="supportsBAMAlignments" minOccurs="0"/>
+            <xs:element name="supportsBisulfiteConvertedReads" type="xs:boolean" minOccurs="0"/>
+            <xs:element name="supportsGobyReads" type="xs:boolean" minOccurs="0"/>
+            <xs:element name="supportsFastqReads" type="xs:boolean" minOccurs="0"/>
+            <xs:element name="supportsFastaReads" type="xs:boolean" minOccurs="0"/>
+            <xs:element name="indexDirectory" type="T_filename"/>
+            <xs:element ref="requires" minOccurs="0"/>
+            <xs:element ref="files" minOccurs="0" maxOccurs="1"/>
+            <xs:element ref="runtime" minOccurs="0" maxOccurs="1"/>
+            <xs:element ref="execute" minOccurs="0" maxOccurs="1"/>
+            <xs:element ref="options" minOccurs="0"/>
+        </xs:sequence>
+        </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+
+</xs:schema>

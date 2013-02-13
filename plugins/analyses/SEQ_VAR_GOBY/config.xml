@@ -18,13 +18,15 @@
     <help>Compares groups of samples and produce output about sequence variants observed in the alignments. Implemented
         with Goby. Specific analysis depends on selected output format.
     </help>
+    <version>1.0</version>
     <analysisType>SequenceVariants</analysisType>
+    <minimumNumberOfGroups>1</minimumNumberOfGroups>
+    <maximumNumberOfGroups>50</maximumNumberOfGroups>
     <supportsTranscriptAlignments>false</supportsTranscriptAlignments>
     <splitProcessCombine>true</splitProcessCombine>
     <producesVariantCallingFormatOutput>true</producesVariantCallingFormatOutput>
     <supportsGobyAlignments>true</supportsGobyAlignments>
     <copyWeightFiles>false</copyWeightFiles>
-    <version>1.0</version>
     <requires>
         <resource>
             <id>GOBY</id>
@@ -248,6 +250,4 @@
             <autoFormat>false</autoFormat>
         </option>
     </options>
-    <minimumNumberOfGroups>1</minimumNumberOfGroups>
-    <maximumNumberOfGroups>50</maximumNumberOfGroups>
 </alignmentAnalysisConfig>

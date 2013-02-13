@@ -18,18 +18,30 @@
     <help>Compares groups of samples to determine set of gene/exon or other annotations differentially expressed across
         groups. Counts and statistics are estimated with Goby.
     </help>
+    <version>1.1</version>
     <analysisType>DiffExp</analysisType>
+    <minimumNumberOfGroups>1</minimumNumberOfGroups>
+    <maximumNumberOfGroups>50</maximumNumberOfGroups>
     <supportsTranscriptAlignments>false</supportsTranscriptAlignments>
     <splitProcessCombine>true</splitProcessCombine>
     <producesTabDelimitedOutput>true</producesTabDelimitedOutput>
     <supportsGobyAlignments>true</supportsGobyAlignments>
-    <version>1.1</version>
     <requires>
         <resource>
             <id>GOBY</id>
             <versionAtLeast>20120722101632</versionAtLeast>
         </resource>
     </requires>
+    <files>
+        <file>
+            <id>R_SCRIPT</id>
+            <filename>GobyDEToPlots.R</filename>
+        </file>
+        <file>
+            <id>PARALLEL_SCRIPT</id>
+            <filename>parallel.sh</filename>
+        </file>
+    </files>
     <runtime>
         <need scope="PROCESS" key="excl" value="false"/>
         <need scope="PROCESS" key="h_vmem" value="6g"/>
@@ -44,16 +56,6 @@
         <need scope="COMBINE_JVM" value="16g"/>
         <need scope="SPLIT_JVM" value="6g"/>
     </runtime>
-    <files>
-        <file>
-            <id>R_SCRIPT</id>
-            <filename>GobyDEToPlots.R</filename>
-        </file>
-        <file>
-            <id>PARALLEL_SCRIPT</id>
-            <filename>parallel.sh</filename>
-        </file>
-    </files>
     <options>
         <validation>
             <rule validWhen="(matches(ANNOTATION_SOURCE,GENE_EXON_OTHER) AND (value(ESTIMATE_COUNTS_GENE) OR value(ESTIMATE_COUNTS_EXON) OR value(ESTIMATE_COUNTS_OTHER))) OR NOT (matches(ANNOTATION_SOURCE,GENE_EXON_OTHER))"
@@ -314,6 +316,5 @@ Categories=["FORMULA1", "FORMULA2", "FORMULA3", FORMULA4", "false:None]
             <help>Scatter plot for transcripts counts.</help>
         </outputFile>
     </outputSchema>
-    <minimumNumberOfGroups>1</minimumNumberOfGroups>
-    <maximumNumberOfGroups>50</maximumNumberOfGroups>
+
 </alignmentAnalysisConfig>

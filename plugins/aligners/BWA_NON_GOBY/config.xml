@@ -16,14 +16,16 @@
     <id>BWA_NON_GOBY</id>
     <dbLegacyId>bwa</dbLegacyId>
     <help>Version of BWA does not support Goby formats natively.</help>
+    <version>1.0</version>
     <disabled>true</disabled>
     <supportsColorSpace>true</supportsColorSpace>
-    <supportsGobyReads>true</supportsGobyReads>
     <supportsGobyAlignments>true</supportsGobyAlignments>
+    <supportsBAMAlignments>false</supportsBAMAlignments>
+    <supportsGobyReads>true</supportsGobyReads>
     <supportsFastqReads>false</supportsFastqReads>
     <supportsFastaReads>false</supportsFastaReads>
-    <supportsBAMAlignments>false</supportsBAMAlignments>
-    <version>1.0</version>
+
+    <indexDirectory>%NODE_LOCAL_DATA_ROOT%/%VERSION%/%ORGANISM%/%SPACE%/bwa</indexDirectory>
     <runtime>
         <need scope="ALIGN" key="excl" value="false"/>
         <need scope="ALIGN" key="h_vmem" value="12g"/>

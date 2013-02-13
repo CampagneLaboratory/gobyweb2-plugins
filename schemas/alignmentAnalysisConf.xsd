@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema">
+
+    <xs:include schemaLocation="common.xsd"/>
+    <xs:include schemaLocation="config.xsd"/>
+
+    <xs:simpleType name="T_analysisType">
+        <xs:restriction base="xs:string">
+            <xs:enumeration value="DiffExp"/>
+            <xs:enumeration value="SequenceVariants"/>
+            <xs:enumeration value="Methylation"/>
+        </xs:restriction>
+    </xs:simpleType>
+
+
+    <xs:complexType name="T_output-schema">
+        <xs:sequence>
+            <xs:element name="outputFile" type="T_outputFile" maxOccurs="unbounded"/>
+        </xs:sequence>
+    </xs:complexType>
+
+
+
+    <xs:complexType name="T_outputFile">
+        <xs:all>
+            <xs:element name="id" type="xs:string"/>
+            <xs:element name="name" type="xs:string"/>
+            <xs:element name="help" type="xs:string"/>
+            <xs:element ref="required" minOccurs="0"/>
+            <xs:element ref="filename"/>
+            <xs:element name="mimeType" type="xs:string"/>
+            <xs:element name="tableName" type="xs:string" minOccurs="0"/>
+        </xs:all>
+    </xs:complexType>
+
+
+    <xs:complexType name="T_alignmentAnalysisConfig">
+        <xs:complexContent>
+        <xs:extension base="BasePluginConfig">
+        <xs:sequence>
+            <xs:element name="analysisType" type="T_analysisType"/>
+            <xs:element name="minimumNumberOfGroups" type="xs:integer" minOccurs="1" maxOccurs="1"/>
+            <xs:element name="maximumNumberOfGroups" type="xs:integer" minOccurs="1" maxOccurs="1"/>
+            <xs:element name="supportsTranscriptAlignments" type="xs:boolean" minOccurs="0"/>
+            <xs:element ref="supportsBAMAlignments" minOccurs="0"/>
+            <xs:element name="splitProcessCombine" type="xs:boolean" minOccurs="0"/>
+            <xs:element name="producesTabDelimitedOutput" type="xs:boolean" minOccurs="0"/>
+            <xs:element name="producesVariantCallingFormatOutput" type="xs:boolean" minOccurs="0"/>
+            <xs:element ref="supportsGobyAlignments" minOccurs="0"/>
+            <xs:element name="copyAlignments" type="xs:boolean" default="true"  minOccurs="0" maxOccurs="1"/>
+            <xs:element name="copyWeightFiles" type="xs:boolean" default="true" minOccurs="0" maxOccurs="1"/>
+            <xs:element ref="requires" minOccurs="0"/>
+            <xs:element ref="files" minOccurs="0"/>
+            <xs:element ref="execute" minOccurs="0" maxOccurs="1"/>
+            <xs:element ref="runtime" minOccurs="0" maxOccurs="1"/>
+            <xs:element name="outputSchema" type="T_output-schema" minOccurs="0"/>
+            <xs:element ref="options" minOccurs="0"/>
+        </xs:sequence>
+        </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+
+</xs:schema>

@@ -18,23 +18,16 @@
     <help>GSNAP writing to BAM output. This aligner requests exclusive access to a server node and run parallel on this
         node against a single reads file.
     </help>
+    <version>1.0</version>
     <supportsColorSpace>false</supportsColorSpace>
-    <supportsBisulfiteConvertedReads>false</supportsBisulfiteConvertedReads>
-    <supportsGobyReads>true</supportsGobyReads>
     <supportsGobyAlignments>false</supportsGobyAlignments>
     <supportsPairedEndAlignments>true</supportsPairedEndAlignments>
+    <supportsBAMAlignments>true</supportsBAMAlignments>
+    <supportsBisulfiteConvertedReads>false</supportsBisulfiteConvertedReads>
+    <supportsGobyReads>true</supportsGobyReads>
     <supportsFastqReads>true</supportsFastqReads>
     <supportsFastaReads>false</supportsFastaReads>
-    <supportsBAMAlignments>true</supportsBAMAlignments>
-    <version>1.0</version>
     <indexDirectory>%NODE_LOCAL_DATA_ROOT%/%VERSION%/%ORGANISM%/%SPACE%/gsnap</indexDirectory>
-    <runtime>
-        <need scope="ALIGN" key="excl" value="true"/>
-        <need scope="ALIGN" key="h_vmem" value="25g"/>
-        <need scope="ALIGN" key="virtual_free" value="28g"/>
-        <need scope="ALIGN" key="os" value="rhel5.4"/>
-        <need scope="ALIGN_JVM" value="4g"/>
-    </runtime>
     <requires>
         <resource>
             <!-- We point here to GSNAP_WITH_GOBY, but you can use a version of GSNAP of teh specified version number,
@@ -47,6 +40,13 @@
             <versionAtLeast>0.1.14</versionAtLeast>
         </resource>
     </requires>
+    <runtime>
+        <need scope="ALIGN" key="excl" value="true"/>
+        <need scope="ALIGN" key="h_vmem" value="25g"/>
+        <need scope="ALIGN" key="virtual_free" value="28g"/>
+        <need scope="ALIGN" key="os" value="rhel5.4"/>
+        <need scope="ALIGN_JVM" value="4g"/>
+    </runtime>
     <options>
         <option>
             <id>ALIGNER_OPTIONS</id>

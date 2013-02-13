@@ -18,11 +18,13 @@
     <help>Compares groups of samples to determine set of gene/exon or other annotations differentially expressed across
         groups. Counts are calculated with Goby, statistics of diffential expression are estimated with DESeq.
     </help>
+    <version>1.1</version>
     <analysisType>DiffExp</analysisType>
+    <minimumNumberOfGroups>2</minimumNumberOfGroups>
+    <maximumNumberOfGroups>2</maximumNumberOfGroups>
     <supportsTranscriptAlignments>false</supportsTranscriptAlignments>
     <splitProcessCombine>true</splitProcessCombine>
     <producesTabDelimitedOutput>true</producesTabDelimitedOutput>
-    <version>1.1</version>
     <supportsGobyAlignments>true</supportsGobyAlignments>
     <requires>
         <resource>
@@ -292,7 +294,6 @@
             <help>Scatter plot for other (intergenic regions).</help>
         </outputFile>
     </outputSchema>
-    <minimumNumberOfGroups>2</minimumNumberOfGroups>
-    <maximumNumberOfGroups>2</maximumNumberOfGroups>
+
 </alignmentAnalysisConfig>
 
