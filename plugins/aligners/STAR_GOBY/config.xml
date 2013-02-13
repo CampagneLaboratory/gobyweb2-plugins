@@ -49,6 +49,12 @@
             <versionAtLeast>2012.06.25</versionAtLeast>
         </resource>
     </requires>
+    <files>
+        <file>
+            <id>COMBINE_SPLICE_SCRIPT</id>
+            <filename>CombineSpliceData.scala</filename>
+        </file>
+    </files>
     <runtime>
         <need scope="ALIGN" key="excl" value="true"/>
         <need scope="ALIGN" key="h_vmem" value="35g"/>
@@ -111,10 +117,5 @@
             <autoFormat>false</autoFormat>
         </option>
     </options>
-    <files>
-        <file>
-            <id>COMBINE_SPLICE_SCRIPT</id>
-            <filename>CombineSpliceData.scala</filename>
-        </file>
-    </files>
+
 </alignerConfig>
