@@ -13,14 +13,14 @@
 <resourceConfig xsi:noNamespaceSchemaLocation="../../../schemas/plugins.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
     <name>Extract Non-matching Reads</name>
     <id>EXTRACT_NONMATCHED</id>
+    <help>Script that uses goby to extract unmapped reads from a reads/alignment pair</help>
+    <version>2012.06.25</version>
     <requires>
         <resource>
             <id>GOBY</id>
             <versionAtLeast>20120605173944</versionAtLeast>
         </resource>
     </requires>
-    <help>Script that uses goby to extract unmapped reads from a reads/alignment pair</help>
-    <version>2012.06.25</version>
     <files>
          <file>
             <id>SHELL_SCRIPT</id>
