@@ -10,8 +10,7 @@
   ~ When a plugin is not released under the LGPL3 license,  the comments  at the top  of
   ~ the plugin's config.xml will indicate how that specific plugin is released/licensed.
   -->
-<resourceConfig
-        xsi:noNamespaceSchemaLocation="file:/Users/campagne/IdeaProjects/gobyweb2-plugin-install/gobyweb_home/conf/schemas/plugins.xsd"
+<resourceConfig xsi:noNamespaceSchemaLocation="../../../schemas/plugins.xsd"
         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
     <name>Ensembl Genomes</name>
     <id>ENSEMBL_GENOMES</id>
