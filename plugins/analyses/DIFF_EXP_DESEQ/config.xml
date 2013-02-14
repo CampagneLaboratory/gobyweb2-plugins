@@ -40,7 +40,17 @@
             <versionExactly>2.14.1</versionExactly>
         </resource>
     </requires>
-
+    <files>
+        <file>
+            <id>R_SCRIPT</id>
+            <filename>geneDESeqAnalysis.R</filename>
+        </file>
+        <file>
+            <id>PARALLEL_SCRIPT</id>
+            <filename>parallel.sh</filename>
+            <importFromPlugin>DIFF_EXP_GOBY</importFromPlugin>
+        </file>
+    </files>
     <runtime>
         <need scope="PROCESS" key="excl" value="false"/>
         <need scope="PROCESS" key="h_vmem" value="6g"/>
@@ -225,17 +235,7 @@
             <type>BOOLEAN</type>
         </option>
     </options>
-    <files>
-        <file>
-            <id>R_SCRIPT</id>
-            <filename>geneDESeqAnalysis.R</filename>
-        </file>
-        <file>
-            <id>PARALLEL_SCRIPT</id>
-            <filename>parallel.sh</filename>
-            <importFromPlugin>DIFF_EXP_GOBY</importFromPlugin>
-        </file>
-    </files>
+
     <outputSchema>
         <outputFile>
             <id>STATS_RESULTS_DB</id>

@@ -53,8 +53,8 @@
             <xs:element ref="files" minOccurs="0"/>
             <xs:element ref="runtime" minOccurs="0" maxOccurs="1"/>
             <xs:element ref="execute" minOccurs="0" maxOccurs="1"/>
-            <xs:element name="outputSchema" type="T_output-schema" minOccurs="0"/>
             <xs:element ref="options" minOccurs="0"/>
+            <xs:element name="outputSchema" type="T_output-schema" minOccurs="0"/>
         </xs:sequence>
         </xs:extension>
         </xs:complexContent>
