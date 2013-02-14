@@ -49,6 +49,16 @@
             <versionAtLeast>2012.07.25</versionAtLeast>
         </resource>
     </requires>
+    <files>
+        <file>
+            <id>PROCESS_SCRIPT</id>
+            <filename>Process.scala</filename>
+        </file>
+        <file>
+            <id>POST_PROCESS_SCRIPT</id>
+            <filename>PostProcess.scala</filename>
+        </file>
+    </files>
     <runtime>
         <need scope="GLOBAL" key="h_vmem" value="18g"/>
         <need scope="GLOBAL" key="virtual_free" value="20g"/>
@@ -61,6 +71,48 @@
         <need scope="COMBINE" key="virtual_free" value="8g"/>
         <need scope="COMBINE_JVM" value="5g"/>
     </runtime>
+
+    <execute>
+        <script phase="pre-deployment" language="groovy" filename="alignmentsToTags.groovy"/>
+    </execute>
+    <options>
+        <option>
+            <id>STAT_ENGINE</id>
+            <name>Estimation method</name>
+            <help>The method used to estimate statistical significance of differences.
+            </help>
+            <required>false</required>
+            <defaultsTo>NONE</defaultsTo>
+            <type>CATEGORY</type>
+            <categories>
+                <category>
+                    <id>DESEQ</id>
+                    <name>DESEQ</name>
+                    <value>DESEQ</value>
+                    <help>Use the DESEQ statistic.</help>
+                </category>
+                <category>
+                    <id>EDGE_R</id>
+                    <name>EDGE_R</name>
+                    <value>EDGE_R</value>
+                    <help>Use the EdgeR statistic.</help>
+                </category>
+            </categories>
+            <autoFormat>false</autoFormat>
+        </option>
+        <option>
+            <id>FORCE_GOBY_SPLICE_USE</id>
+            <name>Force recalculation of splice junction usage from Goby alignment splice link info.</name>
+            <help>When this option is active, splice junction counts are recalculated from the alignment, even in the
+                presence of a STAR splice junction TSV file.
+            </help>
+            <required>false</required>
+            <defaultsTo>false</defaultsTo>
+            <type>BOOLEAN</type>
+            <autoFormat>false</autoFormat>
+        </option>
+    </options>
+
     <outputSchema>
         <outputFile>
             <id>STATS_RESULTS_DB</id>
@@ -111,55 +163,5 @@
             </help>
         </outputFile>
     </outputSchema>
-    <execute>
-        <script phase="pre-deployment" language="groovy" filename="alignmentsToTags.groovy"/>
-    </execute>
-    <options>
-        <option>
-            <id>STAT_ENGINE</id>
-            <name>Estimation method</name>
-            <help>The method used to estimate statistical significance of differences.
-            </help>
-            <required>false</required>
-            <defaultsTo>NONE</defaultsTo>
-            <type>CATEGORY</type>
-            <categories>
-                <category>
-                    <id>DESEQ</id>
-                    <name>DESEQ</name>
-                    <value>DESEQ</value>
-                    <help>Use the DESEQ statistic.</help>
-                </category>
-                <category>
-                    <id>EDGE_R</id>
-                    <name>EDGE_R</name>
-                    <value>EDGE_R</value>
-                    <help>Use the EdgeR statistic.</help>
-                </category>
-            </categories>
-            <autoFormat>false</autoFormat>
-        </option>
-        <option>
-            <id>FORCE_GOBY_SPLICE_USE</id>
-            <name>Force recalculation of splice junction usage from Goby alignment splice link info.</name>
-            <help>When this option is active, splice junction counts are recalculated from the alignment, even in the
-                presence of a STAR splice junction TSV file.
-            </help>
-            <required>false</required>
-            <defaultsTo>false</defaultsTo>
-            <type>BOOLEAN</type>
-            <autoFormat>false</autoFormat>
-        </option>
-    </options>
-    <files>
-        <file>
-            <id>PROCESS_SCRIPT</id>
-            <filename>Process.scala</filename>
-        </file>
-        <file>
-            <id>POST_PROCESS_SCRIPT</id>
-            <filename>PostProcess.scala</filename>
-        </file>
-    </files>
 
 </alignmentAnalysisConfig>

@@ -44,6 +44,17 @@
             <versionAtLeast>2012.08.24</versionAtLeast>
         </resource>
     </requires>
+    <files>
+        <file>
+            <id>R_SCRIPT</id>
+            <filename>deAnalysisEdgeR.R</filename>
+        </file>
+        <file>
+            <id>PARALLEL_SCRIPT</id>
+            <filename>parallel.sh</filename>
+            <importFromPlugin>DIFF_EXP_GOBY</importFromPlugin>
+        </file>
+    </files>
     <runtime>
         <need scope="PROCESS" key="excl" value="false"/>
         <need scope="PROCESS" key="h_vmem" value="6g"/>
@@ -313,17 +324,6 @@
             <type>BOOLEAN</type>
         </option>
     </options>
-    <files>
-        <file>
-            <id>R_SCRIPT</id>
-            <filename>deAnalysisEdgeR.R</filename>
-        </file>
-        <file>
-            <id>PARALLEL_SCRIPT</id>
-            <filename>parallel.sh</filename>
-            <importFromPlugin>DIFF_EXP_GOBY</importFromPlugin>
-        </file>
-    </files>
     <outputSchema>
         <outputFile>
             <id>STATS_RESULTS_DB</id>

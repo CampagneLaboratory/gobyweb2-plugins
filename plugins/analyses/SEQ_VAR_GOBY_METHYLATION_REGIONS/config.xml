@@ -42,6 +42,12 @@
             <versionAtLeast>1.0</versionAtLeast>
         </resource>
     </requires>
+    <files>
+        <file>
+            <id>SCRIPT</id>
+            <filename>script.sh</filename>
+        </file>
+    </files>
     <runtime>
         <need scope="GLOBAL" key="h_vmem" value="18g"/>
         <need scope="GLOBAL" key="virtual_free" value="20g"/>
@@ -54,52 +60,6 @@
         <need scope="COMBINE" key="virtual_free" value="6g"/>
         <need scope="COMBINE_JVM" value="4g"/>
     </runtime>
-    <files>
-        <file>
-            <id>SCRIPT</id>
-            <filename>script.sh</filename>
-        </file>
-    </files>
-    <outputSchema>
-        <outputFile>
-            <id>STATS_RESULTS_DB</id>
-            <name>table of statistics</name>
-            <required>true</required>
-            <mimeType>application/x-sqlite3</mimeType>
-            <filename>stats.db</filename>
-            <tableName>stats</tableName>
-            <help>View the table of results in the interactive GobyWeb table browser.</help>
-        </outputFile>
-        <outputFile>
-            <id>STATS_RESULTS_LUCENE_INDEX</id>
-            <name>table of statistics</name>
-            <required>true</required>
-            <mimeType>application/lucene-index</mimeType>
-            <filename>stats.lucene.index</filename>
-            <tableName>stats</tableName>
-            <help>View the table of results in the interactive GobyWeb table browser.</help>
-        </outputFile>
-        <outputFile>
-            <id>STATS_RESULTS</id>
-            <name>TSV file</name>
-            <required>true</required>
-            <mimeType>text/tab-separated-values</mimeType>
-            <filename>stats.tsv</filename>
-            <help>Statistics of region methylation rates, in the IGV format (Download file as .tsv, rename to .igv to
-                view in IGV).
-            </help>
-        </outputFile>
-        <outputFile>
-            <id>IGV_OUTPUT</id>
-            <name>IGV file</name>
-            <required>true</required>
-            <mimeType>text/tab-separated-values</mimeType>
-            <filename>methyl-regions.igv</filename>
-            <help>Statistics of region methylation rates, in the IGV format. The file has been sorted and is ready to
-                view in IGV.
-            </help>
-        </outputFile>
-    </outputSchema>
     <options>
         <option>
             <id>OUTPUT_FORMAT</id>
@@ -379,5 +339,44 @@
             <autoFormat>false</autoFormat>
         </option>
     </options>
-
+    <outputSchema>
+        <outputFile>
+            <id>STATS_RESULTS_DB</id>
+            <name>table of statistics</name>
+            <required>true</required>
+            <mimeType>application/x-sqlite3</mimeType>
+            <filename>stats.db</filename>
+            <tableName>stats</tableName>
+            <help>View the table of results in the interactive GobyWeb table browser.</help>
+        </outputFile>
+        <outputFile>
+            <id>STATS_RESULTS_LUCENE_INDEX</id>
+            <name>table of statistics</name>
+            <required>true</required>
+            <mimeType>application/lucene-index</mimeType>
+            <filename>stats.lucene.index</filename>
+            <tableName>stats</tableName>
+            <help>View the table of results in the interactive GobyWeb table browser.</help>
+        </outputFile>
+        <outputFile>
+            <id>STATS_RESULTS</id>
+            <name>TSV file</name>
+            <required>true</required>
+            <mimeType>text/tab-separated-values</mimeType>
+            <filename>stats.tsv</filename>
+            <help>Statistics of region methylation rates, in the IGV format (Download file as .tsv, rename to .igv to
+                view in IGV).
+            </help>
+        </outputFile>
+        <outputFile>
+            <id>IGV_OUTPUT</id>
+            <name>IGV file</name>
+            <required>true</required>
+            <mimeType>text/tab-separated-values</mimeType>
+            <filename>methyl-regions.igv</filename>
+            <help>Statistics of region methylation rates, in the IGV format. The file has been sorted and is ready to
+                view in IGV.
+            </help>
+        </outputFile>
+    </outputSchema>
 </alignmentAnalysisConfig>
