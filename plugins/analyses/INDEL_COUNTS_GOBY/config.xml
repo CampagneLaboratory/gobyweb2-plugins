@@ -46,34 +46,7 @@
         <need scope="COMBINE" key="virtual_free" value="6g"/>
         <need scope="COMBINE_JVM" value="3g"/>
     </runtime>
-    <outputSchema>
-        <outputFile>
-            <id>STATS_RESULTS_DB</id>
-            <name>table of statistics</name>
-            <required>true</required>
-            <mimeType>application/x-sqlite3</mimeType>
-            <tableName>stats</tableName>
-            <filename>stats.db</filename>
-            <help>View the table of results in the interactive GobyWeb table browser. Table contains indel counts generated with Goby discover-sequence-variants mode, indel-counts output format.</help>
-        </outputFile>
-        <outputFile>
-            <id>STATS_RESULTS_LUCENE_INDEX</id>
-            <name>table of statistics</name>
-            <required>true</required>
-            <mimeType>application/lucene-index</mimeType>
-            <tableName>stats</tableName>
-            <filename>stats.lucene.index</filename>
-            <help>View the table of results in the interactive GobyWeb table browser. Table contains indel counts generated with Goby discover-sequence-variants mode, indel-counts output format.</help>
-        </outputFile>
-        <outputFile>
-            <id>STATS_RESULTS</id>
-            <name>TSV file</name>
-            <required>true</required>
-            <mimeType>text/tab-separated-values</mimeType>
-            <filename>stats.tsv</filename>
-            <help>Tab delimited file with counts for called indels.</help>
-        </outputFile>
-    </outputSchema>
+
     <options>
         <option>
             <id>OUTPUT_FORMAT</id>
@@ -128,5 +101,32 @@
         </option>
 
     </options>
-
+    <outputSchema>
+        <outputFile>
+            <id>STATS_RESULTS_DB</id>
+            <name>table of statistics</name>
+            <required>true</required>
+            <mimeType>application/x-sqlite3</mimeType>
+            <tableName>stats</tableName>
+            <filename>stats.db</filename>
+            <help>View the table of results in the interactive GobyWeb table browser. Table contains indel counts generated with Goby discover-sequence-variants mode, indel-counts output format.</help>
+        </outputFile>
+        <outputFile>
+            <id>STATS_RESULTS_LUCENE_INDEX</id>
+            <name>table of statistics</name>
+            <required>true</required>
+            <mimeType>application/lucene-index</mimeType>
+            <tableName>stats</tableName>
+            <filename>stats.lucene.index</filename>
+            <help>View the table of results in the interactive GobyWeb table browser. Table contains indel counts generated with Goby discover-sequence-variants mode, indel-counts output format.</help>
+        </outputFile>
+        <outputFile>
+            <id>STATS_RESULTS</id>
+            <name>TSV file</name>
+            <required>true</required>
+            <mimeType>text/tab-separated-values</mimeType>
+            <filename>stats.tsv</filename>
+            <help>Tab delimited file with counts for called indels.</help>
+        </outputFile>
+    </outputSchema>
 </alignmentAnalysisConfig>

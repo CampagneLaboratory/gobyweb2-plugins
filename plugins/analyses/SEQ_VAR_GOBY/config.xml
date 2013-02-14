@@ -61,56 +61,7 @@
         <need scope="COMBINE" key="virtual_free" value="50g"/>
         <need scope="COMBINE_JVM" value="45g"/>
     </runtime>
-    <outputSchema>
-        <outputFile>
-            <id>STATS_RESULTS_DB</id>
-            <name>table of statistics</name>
-            <required>true</required>
-            <mimeType>application/x-sqlite3</mimeType>
-            <tableName>stats</tableName>
-            <filename>stats.db</filename>
-            <help>View the table of results in the interactive GobyWeb table browser. Table contains called
-                variations.
-            </help>
-        </outputFile>
-        <outputFile>
-            <id>VARIANT_ANNOTATION_PREDICTOR_OUTPUT</id>
-            <name>variant annotation predictor output</name>
-            <required>true</required>
-            <mimeType>application/lucene-index</mimeType>
-            <tableName>vep</tableName>
-            <filename>vep.lucene.index</filename>
-            <help>View the table of results in the interactive GobyWeb table browser. Table contains output form the
-                Variant Annotation Predictor tool (VEP).
-            </help>
-        </outputFile>
-        <outputFile>
-            <id>STATS_RESULTS_LUCENE_INDEX</id>
-            <name>table of statistics</name>
-            <required>true</required>
-            <mimeType>application/lucene-index</mimeType>
-            <tableName>stats</tableName>
-            <filename>stats.lucene.index</filename>
-            <help>View the table of results in the interactive GobyWeb table browser. Table contains called variations.
-            </help>
-        </outputFile>
-        <outputFile>
-            <id>STATS_RESULTS</id>
-            <name>VCF file</name>
-            <required>true</required>
-            <mimeType>text/variant-calling-format</mimeType>
-            <filename>stats.vcf.gz</filename>
-            <help>VCF file with results of called variations.</help>
-        </outputFile>
-        <outputFile>
-            <id>STATS_RESULTS_INDEX</id>
-            <name>VCF file index</name>
-            <required>true</required>
-            <mimeType>text/variant-calling-format-index</mimeType>
-            <filename>stats.vcf.gz.tbi</filename>
-            <help>VCF file index (produced with tabix).</help>
-        </outputFile>
-    </outputSchema>
+
     <options>
         <option>
             <id>OUTPUT_FORMAT</id>
@@ -250,4 +201,55 @@
             <autoFormat>false</autoFormat>
         </option>
     </options>
+
+    <outputSchema>
+        <outputFile>
+            <id>STATS_RESULTS_DB</id>
+            <name>table of statistics</name>
+            <required>true</required>
+            <mimeType>application/x-sqlite3</mimeType>
+            <tableName>stats</tableName>
+            <filename>stats.db</filename>
+            <help>View the table of results in the interactive GobyWeb table browser. Table contains called
+                variations.
+            </help>
+        </outputFile>
+        <outputFile>
+            <id>VARIANT_ANNOTATION_PREDICTOR_OUTPUT</id>
+            <name>variant annotation predictor output</name>
+            <required>true</required>
+            <mimeType>application/lucene-index</mimeType>
+            <tableName>vep</tableName>
+            <filename>vep.lucene.index</filename>
+            <help>View the table of results in the interactive GobyWeb table browser. Table contains output form the
+                Variant Annotation Predictor tool (VEP).
+            </help>
+        </outputFile>
+        <outputFile>
+            <id>STATS_RESULTS_LUCENE_INDEX</id>
+            <name>table of statistics</name>
+            <required>true</required>
+            <mimeType>application/lucene-index</mimeType>
+            <tableName>stats</tableName>
+            <filename>stats.lucene.index</filename>
+            <help>View the table of results in the interactive GobyWeb table browser. Table contains called variations.
+            </help>
+        </outputFile>
+        <outputFile>
+            <id>STATS_RESULTS</id>
+            <name>VCF file</name>
+            <required>true</required>
+            <mimeType>text/variant-calling-format</mimeType>
+            <filename>stats.vcf.gz</filename>
+            <help>VCF file with results of called variations.</help>
+        </outputFile>
+        <outputFile>
+            <id>STATS_RESULTS_INDEX</id>
+            <name>VCF file index</name>
+            <required>true</required>
+            <mimeType>text/variant-calling-format-index</mimeType>
+            <filename>stats.vcf.gz.tbi</filename>
+            <help>VCF file index (produced with tabix).</help>
+        </outputFile>
+    </outputSchema>
 </alignmentAnalysisConfig>

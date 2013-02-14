@@ -64,147 +64,6 @@
         <need scope="COMBINE" key="virtual_free" value="60g"/>
         <need scope="COMBINE_JVM" value="55g"/>
     </runtime>
-
-    <outputSchema>
-        <outputFile>
-            <id>STATS_RESULTS_DB</id>
-            <name>table of statistics</name>
-            <required>true</required>
-            <mimeType>application/x-sqlite3</mimeType>
-            <!-- note that filename and table name must match: removing the extension from filename and replacing sequences of
-            special characters with _ must yield the tableName. This convention is implemented in the tool
-            TsvVcfToSqlite.groovy -->
-            <filename>stats.db</filename>
-            <tableName>stats</tableName>
-            <help>View the table of results in the interactive GobyWeb table browser. Table contains methylation rates
-                for individual genomic bases.
-            </help>
-        </outputFile>
-        <outputFile>
-            <id>STATS_RESULTS_LUCENE_INDEX</id>
-            <name>table of statistics</name>
-            <required>true</required>
-            <mimeType>application/lucene-index</mimeType>
-            <!-- note that filename and table name must match: removing the extension from filename and replacing sequences of
-           special characters with _ must yield the tableName. This convention is implemented in the tool
-           TsvVcfToSqlite.groovy -->
-            <filename>stats.lucene.index</filename>
-            <tableName>stats</tableName>
-            <help>View the table of results in the interactive GobyWeb table browser. Table contains methylation rates
-                for individual genomic bases.
-            </help>
-        </outputFile>
-        <outputFile>
-            <id>STATS_RESULTS</id>
-            <name>VCF file</name>
-            <required>true</required>
-            <mimeType>text/variant-calling-format</mimeType>
-            <filename>stats.vcf.gz</filename>
-            <help>VCF file with called methylation rates.</help>
-        </outputFile>
-        <outputFile>
-            <id>STATS_RESULTS_INDEX</id>
-            <name>VCF file index</name>
-            <required>true</required>
-            <mimeType>text/variant-calling-format-index</mimeType>
-            <filename>stats.vcf.gz.tbi</filename>
-            <help>VCF file index (produced with tabix).</help>
-        </outputFile>
-        <outputFile>
-            <id>DEPTH_RESULTS_DB</id>
-            <name>depths of coverage</name>
-            <required>true</required>
-            <mimeType>application/x-sqlite3</mimeType>
-            <filename>depths.db</filename>
-            <tableName>depths</tableName>
-            <help>Data in tab-delimited format about the depth of coverage of the measured cytosines.</help>
-        </outputFile>
-        <outputFile>
-            <id>DEPTH_RESULTS_LUCENE_INDEX</id>
-            <name>depths of coverage</name>
-            <required>true</required>
-            <mimeType>application/lucene-index</mimeType>
-            <filename>depths.lucene.index</filename>
-            <tableName>depths</tableName>
-            <help>Data in tab-delimited format about the depth of coverage of the measured cytosines.</help>
-        </outputFile>
-        <outputFile>
-            <id>CONVERSION_RATES_RESULTS_DB</id>
-            <name>bisulfite conversion rates</name>
-            <required>true</required>
-            <mimeType>application/x-sqlite3</mimeType>
-            <filename>conversion-rates.db</filename>
-            <tableName>conversion_rates</tableName>
-            <help>Data in tab-delimited format about rate of conversion of cytosines in a non-CpG context.</help>
-        </outputFile>
-        <outputFile>
-            <id>CONVERSION_RATES_RESULTS_LUCENE_INDEX</id>
-            <name>bisulfite conversion rates</name>
-            <required>true</required>
-            <mimeType>application/lucene-index</mimeType>
-            <filename>conversion-rates.lucene.index</filename>
-            <tableName>conversion_rates</tableName>
-            <help>Data in tab-delimited format about rate of conversion of cytosines in a non-CpG context.</help>
-        </outputFile>
-        <outputFile>
-            <id>NON_CONVERSION_RESULTS_DB</id>
-            <name>non conversion context</name>
-            <required>true</required>
-            <mimeType>application/x-sqlite3</mimeType>
-            <filename>non-conversion.db</filename>
-            <tableName>non_conversion</tableName>
-            <help>Data in tab-delimited format about the contexts observed for non-converted CpG.</help>
-        </outputFile>
-        <outputFile>
-            <id>NON_CONVERSION_RESULTS_LUCENE_INDEX</id>
-            <name>non conversion context</name>
-            <required>true</required>
-            <mimeType>application/lucene-index</mimeType>
-            <filename>non-conversion.lucene-index</filename>
-            <tableName>non_conversion</tableName>
-            <help>Data in tab-delimited format about the contexts observed for non-converted CpG.</help>
-        </outputFile>
-        <outputFile>
-            <id>DEPTH_RESULTS_TSV</id>
-            <name>depths of coverage</name>
-            <required>true</required>
-            <mimeType>text/tab-separated-values</mimeType>
-            <filename>depths.tsv</filename>
-            <help>Data in tab-delimited format about the depth of coverage of the measured cytosines.</help>
-        </outputFile>
-        <outputFile>
-            <id>CONVERSION_RATES_RESULTS_TSV</id>
-            <name>bisulfite conversion rates</name>
-            <required>true</required>
-            <mimeType>text/tab-separated-values</mimeType>
-            <filename>conversion-rates.tsv</filename>
-            <help>Data in tab-delimited format about rate of conversion of cytosines in a non-CpG context.</help>
-        </outputFile>
-        <outputFile>
-            <id>NON_CONVERSION_RESULTS_TSV</id>
-            <name>non conversion context</name>
-            <required>true</required>
-            <mimeType>text/tab-separated-values</mimeType>
-            <filename>non-conversion.tsv</filename>
-            <help>Data in tab-delimited format about the contexts observed for non-converted CpG.</help>
-        </outputFile>
-        <outputFile>
-            <id>SAMPLE_COVERAGE_PLOT</id>
-            <required>true</required>
-            <name>Sample coverage plot</name>
-            <mimeType>image/png</mimeType>
-            <filename>coverage.png</filename>
-            <help>QC plots showing read coverage density across samples.</help>
-        </outputFile>
-        <outputFile>
-            <id>BISULFITE_CONVERSION_PLOT</id>
-            <name>Bisulfite conversion plot</name>
-            <required>true</required>
-            <mimeType>image/png</mimeType>
-            <filename>conversion.png</filename>
-            <help>Histogram showing Non CpG bisulfite conversion rates across all samples in the analysis.</help>
-        </outputFile>
-    </outputSchema>
     <options>
         <option>
             <id>OUTPUT_FORMAT</id>
@@ -384,4 +243,145 @@
             <autoFormat>false</autoFormat>
         </option>
     </options>
+    <outputSchema>
+        <outputFile>
+            <id>STATS_RESULTS_DB</id>
+            <name>table of statistics</name>
+            <required>true</required>
+            <mimeType>application/x-sqlite3</mimeType>
+            <!-- note that filename and table name must match: removing the extension from filename and replacing sequences of
+            special characters with _ must yield the tableName. This convention is implemented in the tool
+            TsvVcfToSqlite.groovy -->
+            <filename>stats.db</filename>
+            <tableName>stats</tableName>
+            <help>View the table of results in the interactive GobyWeb table browser. Table contains methylation rates
+                for individual genomic bases.
+            </help>
+        </outputFile>
+        <outputFile>
+            <id>STATS_RESULTS_LUCENE_INDEX</id>
+            <name>table of statistics</name>
+            <required>true</required>
+            <mimeType>application/lucene-index</mimeType>
+            <!-- note that filename and table name must match: removing the extension from filename and replacing sequences of
+           special characters with _ must yield the tableName. This convention is implemented in the tool
+           TsvVcfToSqlite.groovy -->
+            <filename>stats.lucene.index</filename>
+            <tableName>stats</tableName>
+            <help>View the table of results in the interactive GobyWeb table browser. Table contains methylation rates
+                for individual genomic bases.
+            </help>
+        </outputFile>
+        <outputFile>
+            <id>STATS_RESULTS</id>
+            <name>VCF file</name>
+            <required>true</required>
+            <mimeType>text/variant-calling-format</mimeType>
+            <filename>stats.vcf.gz</filename>
+            <help>VCF file with called methylation rates.</help>
+        </outputFile>
+        <outputFile>
+            <id>STATS_RESULTS_INDEX</id>
+            <name>VCF file index</name>
+            <required>true</required>
+            <mimeType>text/variant-calling-format-index</mimeType>
+            <filename>stats.vcf.gz.tbi</filename>
+            <help>VCF file index (produced with tabix).</help>
+        </outputFile>
+        <outputFile>
+            <id>DEPTH_RESULTS_DB</id>
+            <name>depths of coverage</name>
+            <required>true</required>
+            <mimeType>application/x-sqlite3</mimeType>
+            <filename>depths.db</filename>
+            <tableName>depths</tableName>
+            <help>Data in tab-delimited format about the depth of coverage of the measured cytosines.</help>
+        </outputFile>
+        <outputFile>
+            <id>DEPTH_RESULTS_LUCENE_INDEX</id>
+            <name>depths of coverage</name>
+            <required>true</required>
+            <mimeType>application/lucene-index</mimeType>
+            <filename>depths.lucene.index</filename>
+            <tableName>depths</tableName>
+            <help>Data in tab-delimited format about the depth of coverage of the measured cytosines.</help>
+        </outputFile>
+        <outputFile>
+            <id>CONVERSION_RATES_RESULTS_DB</id>
+            <name>bisulfite conversion rates</name>
+            <required>true</required>
+            <mimeType>application/x-sqlite3</mimeType>
+            <filename>conversion-rates.db</filename>
+            <tableName>conversion_rates</tableName>
+            <help>Data in tab-delimited format about rate of conversion of cytosines in a non-CpG context.</help>
+        </outputFile>
+        <outputFile>
+            <id>CONVERSION_RATES_RESULTS_LUCENE_INDEX</id>
+            <name>bisulfite conversion rates</name>
+            <required>true</required>
+            <mimeType>application/lucene-index</mimeType>
+            <filename>conversion-rates.lucene.index</filename>
+            <tableName>conversion_rates</tableName>
+            <help>Data in tab-delimited format about rate of conversion of cytosines in a non-CpG context.</help>
+        </outputFile>
+        <outputFile>
+            <id>NON_CONVERSION_RESULTS_DB</id>
+            <name>non conversion context</name>
+            <required>true</required>
+            <mimeType>application/x-sqlite3</mimeType>
+            <filename>non-conversion.db</filename>
+            <tableName>non_conversion</tableName>
+            <help>Data in tab-delimited format about the contexts observed for non-converted CpG.</help>
+        </outputFile>
+        <outputFile>
+            <id>NON_CONVERSION_RESULTS_LUCENE_INDEX</id>
+            <name>non conversion context</name>
+            <required>true</required>
+            <mimeType>application/lucene-index</mimeType>
+            <filename>non-conversion.lucene-index</filename>
+            <tableName>non_conversion</tableName>
+            <help>Data in tab-delimited format about the contexts observed for non-converted CpG.</help>
+        </outputFile>
+        <outputFile>
+            <id>DEPTH_RESULTS_TSV</id>
+            <name>depths of coverage</name>
+            <required>true</required>
+            <mimeType>text/tab-separated-values</mimeType>
+            <filename>depths.tsv</filename>
+            <help>Data in tab-delimited format about the depth of coverage of the measured cytosines.</help>
+        </outputFile>
+        <outputFile>
+            <id>CONVERSION_RATES_RESULTS_TSV</id>
+            <name>bisulfite conversion rates</name>
+            <required>true</required>
+            <mimeType>text/tab-separated-values</mimeType>
+            <filename>conversion-rates.tsv</filename>
+            <help>Data in tab-delimited format about rate of conversion of cytosines in a non-CpG context.</help>
+        </outputFile>
+        <outputFile>
+            <id>NON_CONVERSION_RESULTS_TSV</id>
+            <name>non conversion context</name>
+            <required>true</required>
+            <mimeType>text/tab-separated-values</mimeType>
+            <filename>non-conversion.tsv</filename>
+            <help>Data in tab-delimited format about the contexts observed for non-converted CpG.</help>
+        </outputFile>
+        <outputFile>
+            <id>SAMPLE_COVERAGE_PLOT</id>
+            <required>true</required>
+            <name>Sample coverage plot</name>
+            <mimeType>image/png</mimeType>
+            <filename>coverage.png</filename>
+            <help>QC plots showing read coverage density across samples.</help>
+        </outputFile>
+        <outputFile>
+            <id>BISULFITE_CONVERSION_PLOT</id>
+            <name>Bisulfite conversion plot</name>
+            <required>true</required>
+            <mimeType>image/png</mimeType>
+            <filename>conversion.png</filename>
+            <help>Histogram showing Non CpG bisulfite conversion rates across all samples in the analysis.</help>
+        </outputFile>
+    </outputSchema>
+
 </alignmentAnalysisConfig>

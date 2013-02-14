@@ -105,6 +105,122 @@
     <execute>
         <script phase="pre-deployment" language="groovy" filename="makePluginConstants.groovy"/>
     </execute>
+    <options>
+        <option>
+            <id>ASSEMBLER</id>
+            <name>Assembler</name>
+            <help>The assembler to use when combining reads into contigs</help>
+            <required>true</required>
+            <defaultsTo>MINIA</defaultsTo>
+            <type>CATEGORY</type>
+            <categories>
+                <category>
+                    <id>MINIA</id>
+                    <name>Minia</name>
+                    <value>MINIA</value>
+                    <help>http://minia.genouest.org/</help>
+                </category>
+                <category>
+                    <id>TRINITY</id>
+                    <name>Trinity</name>
+                    <value>TRINITY</value>
+                    <help>http://trinityrnaseq.sourceforge.net/</help>
+                </category>
+            </categories>
+        </option>
+        <option>
+            <id>ALIGNER</id>
+            <name>Aligner</name>
+            <help>The aligner to use for realigning reads to contigs</help>
+            <required>true</required>
+            <defaultsTo>LAST</defaultsTo>
+            <type>CATEGORY</type>
+            <categories>
+                <category>
+                    <id>LAST</id>
+                    <name>Last</name>
+                    <value>LAST</value>
+                    <help>http://last.cbrc.jp/</help>
+                </category>
+                <category>
+                    <id>BWA</id>
+                    <name>BWA</name>
+                    <value>BWA</value>
+                    <help>http://bio-bwa.sourceforge.net/</help>
+                </category>
+            </categories>
+        </option>
+        <option>
+            <id>SEARCH_REFERENCE</id>
+            <name>Search Reference</name>
+            <help>The reference of contaminants to search for</help>
+            <required>true</required>
+            <defaultsTo>VIRAL</defaultsTo>
+            <type>CATEGORY</type>
+            <categories>
+                <category>
+                    <id>VIRAL</id>
+                    <name>Viral</name>
+                    <value>VIRAL</value>
+                    <help> </help>
+                </category>
+                <category>
+                    <id>MICROBIAL</id>
+                    <name>Microbial</name>
+                    <value>MICROBIAL</value>
+                    <help> </help>
+                </category>
+                <category>
+                    <id>FUNGAL</id>
+                    <name>Fungal</name>
+                    <value>FUNGAL</value>
+                    <help> </help>
+                </category>
+            </categories>
+        </option>
+        <option>
+            <id>EVALUETHRESHOLD</id>
+            <name>E-value Threshold</name>
+            <help>Matches with an E-value above the threshold will not be considered significant</help>
+            <required>true</required>
+            <defaultsTo>1e-6</defaultsTo>
+            <type>DOUBLE</type>
+        </option>
+        <option>
+            <id>KMER_LENGTH</id>
+            <name>kmer length</name>
+            <help>kmer length to use for assembly (not supported with trinity)</help>
+            <required>true</required>
+            <defaultsTo>25</defaultsTo>
+            <type>DOUBLE</type>
+        </option>
+        <option>
+            <id>IDENTITYTHRESHOLD</id>
+            <name>Percent Identity Threshold</name>
+            <help>Matches with a percent identity below the threshold will not be considered significant</help>
+            <required>true</required>
+            <defaultsTo>90</defaultsTo>
+            <type>DOUBLE</type>
+        </option>
+        <option>
+            <id>TRIM_ADAPTERS</id>
+            <name>Trim Illumina Adapters</name>
+            <help>Illumina Adapters will be trimmed from unmatched reads before assembly</help>
+            <required>true</required>
+            <defaultsTo>true</defaultsTo>
+            <type>BOOLEAN</type>
+            <autoFormat>false</autoFormat>
+        </option>
+        <option>
+            <id>MERGE_GROUPS</id>
+            <name>Merge Groups</name>
+            <help>Combine unmapped reads within each group before assembly</help>
+            <required>true</required>
+            <defaultsTo>false</defaultsTo>
+            <type>BOOLEAN</type>
+            <autoFormat>false</autoFormat>
+        </option>
+    </options>
     <outputSchema>
         <outputFile>
             <id>CONTAMINANT_RESULTS_DB</id>
@@ -168,121 +284,5 @@
             <help>GZIP archive with the assembled reads from each sample</help>
         </outputFile>
     </outputSchema>
-    <options>
-    	<option>
-    		<id>ASSEMBLER</id>
-    		<name>Assembler</name>
-    		<help>The assembler to use when combining reads into contigs</help>
-    		<required>true</required>
-    		<defaultsTo>MINIA</defaultsTo>
-    		<type>CATEGORY</type>
-    		<categories>
-    			<category>
-    				<id>MINIA</id>
-    				<name>Minia</name>
-    				<value>MINIA</value>
-    				<help>http://minia.genouest.org/</help>
-    			</category>
-    			<category>
-    				<id>TRINITY</id>
-    				<name>Trinity</name>
-    				<value>TRINITY</value>
-    				<help>http://trinityrnaseq.sourceforge.net/</help>
-    			</category>
-    		</categories>
-    	</option>
-    	<option>
-    		<id>ALIGNER</id>
-    		<name>Aligner</name>
-    		<help>The aligner to use for realigning reads to contigs</help>
-    		<required>true</required>
-    		<defaultsTo>LAST</defaultsTo>
-    		<type>CATEGORY</type>
-    		<categories>
-    			<category>
-    				<id>LAST</id>
-    				<name>Last</name>
-    				<value>LAST</value>
-    				<help>http://last.cbrc.jp/</help>
-    			</category>
-    			<category>
-    				<id>BWA</id>
-    				<name>BWA</name>
-    				<value>BWA</value>
-    				<help>http://bio-bwa.sourceforge.net/</help>
-    			</category>
-    		</categories>
-    	</option>
-        <option>
-            <id>SEARCH_REFERENCE</id>
-            <name>Search Reference</name>
-            <help>The reference of contaminants to search for</help>
-            <required>true</required>
-            <defaultsTo>VIRAL</defaultsTo>
-            <type>CATEGORY</type>
-            <categories>
-                <category>
-                    <id>VIRAL</id>
-                    <name>Viral</name>
-                    <value>VIRAL</value>
-                    <help> </help>
-                </category>
-                <category>
-                    <id>MICROBIAL</id>
-                    <name>Microbial</name>
-                    <value>MICROBIAL</value>
-                    <help> </help>
-                </category>
-                 <category>
-                    <id>FUNGAL</id>
-                    <name>Fungal</name>
-                    <value>FUNGAL</value>
-                    <help> </help>
-                </category>
-            </categories>
-        </option>
-        <option>
-            <id>EVALUETHRESHOLD</id>
-            <name>E-value Threshold</name>
-            <help>Matches with an E-value above the threshold will not be considered significant</help>
-            <required>true</required>
-            <defaultsTo>1e-6</defaultsTo>
-            <type>DOUBLE</type>
-        </option>
-        <option>
-            <id>KMER_LENGTH</id>
-            <name>kmer length</name>
-            <help>kmer length to use for assembly (not supported with trinity)</help>
-            <required>true</required>
-            <defaultsTo>25</defaultsTo>
-            <type>DOUBLE</type>
-        </option>
-    	<option>
-    		<id>IDENTITYTHRESHOLD</id>
-    		<name>Percent Identity Threshold</name>
-    		<help>Matches with a percent identity below the threshold will not be considered significant</help>
-    		<required>true</required>
-    		<defaultsTo>90</defaultsTo>
-    		<type>DOUBLE</type>
-    	</option>
-        <option>
-            <id>TRIM_ADAPTERS</id>
-            <name>Trim Illumina Adapters</name>
-            <help>Illumina Adapters will be trimmed from unmatched reads before assembly</help>
-            <required>true</required>
-            <defaultsTo>true</defaultsTo>
-            <type>BOOLEAN</type>
-            <autoFormat>false</autoFormat>
-        </option>
-        <option>
-            <id>MERGE_GROUPS</id>
-            <name>Merge Groups</name>
-            <help>Combine unmapped reads within each group before assembly</help>
-            <required>true</required>
-            <defaultsTo>false</defaultsTo>
-            <type>BOOLEAN</type>
-            <autoFormat>false</autoFormat>
-        </option>
-    </options>
 
 </alignmentAnalysisConfig>
