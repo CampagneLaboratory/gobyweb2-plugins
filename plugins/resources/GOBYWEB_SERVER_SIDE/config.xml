@@ -28,6 +28,10 @@
             <filename>icb-groovy-support.jar</filename>
         </file>
         <file>
+            <id>DEPENDENCIES_JAR</id>
+            <filename>serverside-dependencies.jar</filename>
+        </file>
+        <file>
             <id>ARTIFACTS_SCRIPT</id>
             <filename>artifacts.sh</filename>
         </file>
