@@ -27,7 +27,7 @@ function plugin_alignment_analysis_split {
 # This function return the number of parts in the slicing plan. It returns zero if the alignments could not be split.
 function plugin_alignment_analysis_num_parts {
 
-	return ${PLUGIN_NUM_SPLITS}
+	echo "${PLUGIN_NUM_SPLITS}"
 
 }
 

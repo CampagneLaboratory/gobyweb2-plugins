@@ -24,7 +24,7 @@ function plugin_alignment_analysis_split {
   shift
   shift
   goby suggest-position-slices \
-          --number-of-slices 100 \
+          --number-of-bytes 50000000 \
           --output ${SPLICING_PLAN_RESULT} \
           $*
 }
@@ -36,10 +36,10 @@ function plugin_alignment_analysis_num_parts {
 
    if [ $? -eq 0 ]; then
 
-        return `grep -v targetIdStart ${SPLICING_PLAN_FILE} | wc -l `
+        echo `grep -v targetIdStart ${SPLICING_PLAN_FILE} | wc -l `
    fi
 
-   return 0
+   echo 0
 }
 
 function plugin_alignment_analysis_process {

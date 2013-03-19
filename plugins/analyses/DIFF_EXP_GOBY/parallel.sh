@@ -28,7 +28,7 @@ function plugin_alignment_analysis_split {
   setupAnnotationSource
 
   run-goby ${PLUGIN_NEED_SPLIT_JVM} suggest-position-slices \
-          --number-of-slices ${NUMBER_OF_PARTS} \
+          --number-of-bytes 50000000 \
           --output ${SPLICING_PLAN_RESULT} \
           --annotations ${ANNOTATION_SOURCE} \
           $*
@@ -40,10 +40,10 @@ function plugin_alignment_analysis_num_parts {
 
    if [ $? -eq 0 ]; then
 
-        return `grep -v targetIdStart ${SPLICING_PLAN_FILE} | wc -l `
+        echo `grep -v targetIdStart ${SPLICING_PLAN_FILE} | wc -l `
    fi
 
-   return 0
+   return "0"
 }
 
 function plugin_alignment_analysis_process {
