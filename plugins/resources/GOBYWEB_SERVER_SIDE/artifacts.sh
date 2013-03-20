@@ -15,7 +15,7 @@ function install_plugin_artifacts {
             --install
 
     if [ $? != 0 ]; then
-         ${QUEUE_WRITER} --tag ${TAG} --status ${JOB_PART_FAILED_STATUS} --description "Job failed: unable to install required software/data artifacts." --index ${CURRENT_PART} --job-type job
+         ${QUEUE_WRITER} --tag ${TAG} --status ${JOB_PART_FAILED_STATUS} --description "Job failed: unable to install required software/data artifacts." --index 1 --job-type job
          exit 120
     fi
     echo "Expose environment variables for artifacts:"
