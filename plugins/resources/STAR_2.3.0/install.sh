@@ -7,10 +7,12 @@ function plugin_install_artifact {
     case ${id} in
 
         'EXECUTABLE' )
-            wget ftp://ftp2.cshl.edu/gingeraslab/tracks/STARrelease/Alpha/STAR_2.2.0g.tgz
-            gzip -c -d  STAR_2.2.0g.tgz |tar -xvf -
-            (cd STAR_2.2.0g; make)
-            cp STAR_2.2.0g/STAR ${installation_path}/
+            VERSION=2.3.0
+            LETTER=e
+            wget ftp://ftp2.cshl.edu/gingeraslab/tracks/STARrelease/${VERSION}/STAR_${VERSION}${LETTER}.tgz
+            gzip -c -d  STAR_${VERSION}${LETTER}.tgz |tar -xvf -
+            (cd STAR_${VERSION}${LETTER}; make)
+            cp STAR_${VERSION}${LETTER}/STAR ${installation_path}/
             return 0
             ;;
 

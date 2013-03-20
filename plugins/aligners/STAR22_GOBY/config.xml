@@ -12,7 +12,7 @@
   -->
 <alignerConfig xsi:noNamespaceSchemaLocation="../../../schemas/plugins.xsd"
                xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
-    <name>STAR 2.20 (Goby output)</name>
+    <name>STAR 2.30 (Goby output)</name>
     <id>STAR22_GOBY</id>
     <dbLegacyId>STAR (Goby native)</dbLegacyId>
     <help>STAR writing to Goby output. See aligner information at http://gingeraslab.cshl.edu/STAR/.</help>
@@ -30,7 +30,7 @@
     <requires>
         <resource>
             <id>STAR</id>
-            <versionAtLeast>2.2.0</versionAtLeast>
+            <versionAtLeast>2.3.0.5</versionAtLeast>
         </resource>
         <resource>
             <id>GOBY</id>

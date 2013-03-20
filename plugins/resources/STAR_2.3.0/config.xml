@@ -15,8 +15,8 @@
     <name>STAR</name>
     <id>STAR</id>
     <help>Version of STAR writing to Goby format.</help>
-    <version>2.2.0</version>
-    <!-- 2.0.0g -->
+    <version>2.3.0.5</version>
+    <!-- 2.3.0e -->
      <requires>
          <resource>
              <id>FAI_INDEXED_GENOMES</id>
