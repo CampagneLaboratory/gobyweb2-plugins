@@ -6,8 +6,8 @@ function install_plugin_artifacts {
     REPO_MANAGER_OPTIONS="--repo-dir-quota  1000000000"
     RUN_ARTIFACT_MANAGER="java -Dlog4j.configuration=file:${GOBY_DIR}/log4j.properties \
              -Djava.io.tmpdir=${TMPDIR} \
-             -cp ${GOBY_DIR}/serverside-dependencies.jar \
-             -jar artifact-manager.jar"
+             -cp ${GOBY_DIR}/serverside-dependencies.jar:artifact-manager.jar \
+             org.campagnelab.gobyweb.artifacts.ArtifactManager "
 
     ${RUN_ARTIFACT_MANAGER} \
             --ssh-requests  ${SGE_O_WORKDIR}/artifacts-install-requests.pb \
