@@ -56,6 +56,20 @@ function plugin_alignment_analysis_process {
    else
      ANNOTATION_OPTION=" "
    fi
+
+
+   if [ ! "${PLUGINS_ALIGNMENT_ANALYSIS_SEQ_VAR_GOBY_COVARIATE_INFO_URL}" == "NONE" ]; then
+        JOB_DIR=${SGE_O_WORKDIR}
+        if [ -e ${JOB_DIR}/results/covariates.tsv ]; then
+             wget ${PLUGINS_ALIGNMENT_ANALYSIS_SEQ_VAR_GOBY_COVARIATE_INFO_URL} \
+             --output-document=covariates.tsv
+             cp covariates.tsv ${JOB_DIR}/results/
+        fi
+        COVARIATES_OPTION=" --covariates `pwd`/covariates.tsv "
+   else
+        ANNOTATION_OPTION=" "
+   fi
+
     set -x
     ORG=` echo ${ORGANISM} | tr [:lower:] [:upper:]  `
     BUILD_NUMBER=`echo ${GENOME_REFERENCE_ID} | awk -F\. '{print $1}' | tr [:lower:] [:upper:] `
@@ -90,6 +104,7 @@ function plugin_alignment_analysis_process {
            --compare ${COMPARE_DEFINITION} \
            --format ${OUTPUT_FORMAT} \
            --eval filter \
+           ${COVARIATES_OPTION} \
            ${REALIGNMENT_ARGS} \
            --genome ${SEQUENCE_CACHE_DIR}/random-access-genome \
            --minimum-variation-support ${MINIMUM_VARIATION_SUPPORT} \

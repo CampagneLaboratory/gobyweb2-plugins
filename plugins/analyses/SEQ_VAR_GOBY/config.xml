@@ -93,6 +93,16 @@
                     <help>Compare groups of samples with allelic association test.</help>
                     <dbLegacyValue>group-comparison</dbLegacyValue>
                 </category>
+                <category>
+                    <id>SOMATIC_VARIATIONS</id>
+                    <name>somatic variations</name>
+                    <value>SOMATIC_VARIATIONS</value>
+                    <help>Discover somatic mutations. This output requires samples with germline DNA and DNA where
+                        somatic changes may have occured. A covariates file must also be provided to indicate which
+                        samples are of which kind. Please see
+                        http://campagnelab.org/software/goby/tutorials/detecting-somatic-variations-with-goby-2-1-3/.
+                    </help>
+                </category>
             </categories>
             <autoFormat>true</autoFormat>
             <flagFormat>--format=%s</flagFormat>
@@ -198,6 +208,15 @@
                     <help>No annotations</help>
                 </category>
             </categories>
+            <autoFormat>false</autoFormat>
+        </option>
+        <option hiddenWhen="NOT matches(OUTPUT_FORMAT,SOMATIC_VARIATIONS)">
+            <id>COVARIATE_INFO_URL</id>
+            <name>Covariate info URL</name>
+            <help>URL of a covariate information file. The URL should be publicly available and serve a TSV file. See http://campagnelab.org/software/goby/tutorials/detecting-somatic-variations-with-goby-2-1-3/ for the format expected in the TSV file. </help>
+            <required>true</required>
+            <defaultsTo>NONE</defaultsTo>
+            <type>STRING</type>
             <autoFormat>false</autoFormat>
         </option>
     </options>
