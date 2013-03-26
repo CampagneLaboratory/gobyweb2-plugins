@@ -18,7 +18,20 @@ function install_plugin_artifacts {
              ${SGE_O_WORKDIR}/groovy ${QUEUE_WRITER} --tag ${TAG} --status ${JOB_PART_FAILED_STATUS} --description "Job failed: unable to install required software/data artifacts." --index 1 --job-type job
              exit 120
         fi
-        echo "Expose environment variables for artifacts:"
+
+        expose_artifact_environment_variables
+
+        cp exports.sh ${TMPDIR}/
+    fi
+
+
+}
+
+function expose_artifact_environment_variables {
+        echo "Expose environment variables for artifacts.."
+        cd ${TMPDIR}
+        . ${SGE_O_WORKDIR}/constants.sh
+        . ${SGE_O_WORKDIR}/auto-options.sh
         rm -f exports.sh
         ${RUN_ARTIFACT_MANAGER} \
             --repository ${ARTIFACT_REPOSITORY_DIR} ${REPO_MANAGER_OPTIONS} \
@@ -27,8 +40,4 @@ function install_plugin_artifacts {
 
         cat exports.sh
         . exports.sh
-        cp exports.sh ${TMPDIR}/
-    fi
-
-
 }

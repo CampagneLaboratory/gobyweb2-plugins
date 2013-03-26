@@ -1,3 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 # Execute the samtools executable from the artifact repository:
+expose_artifact_environment_variables
 ${RESOURCES_ARTIFACTS_SAMTOOLS_BINARIES}/samtools $*

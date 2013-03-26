@@ -34,7 +34,7 @@
         </resource>
         <resource>
             <id>SAMTOOLS</id>
-            <versionAtLeast>0.1.14</versionAtLeast>
+            <versionAtLeast>0.1.18.1</versionAtLeast>
         </resource>
     </requires>
     <runtime>

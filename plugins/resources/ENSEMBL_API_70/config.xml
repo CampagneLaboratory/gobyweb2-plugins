@@ -17,6 +17,12 @@
     <help>Ensembl API. See http://useast.ensembl.org/info/docs/api/api_installation.html. Auto-install with artifacts.
     </help>
     <version>70.0.2</version>
+   <requires>
+       <resource>
+           <id>MAVEN</id>
+           <versionAtLeast>3.0.5</versionAtLeast>
+       </resource>
+   </requires>
     <artifacts>
         <artifact id="INSTALL_DIR" order="1"/>
         <artifact id="VEP_CACHE" order="1">

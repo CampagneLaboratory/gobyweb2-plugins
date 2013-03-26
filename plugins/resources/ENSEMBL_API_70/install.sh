@@ -4,20 +4,21 @@ function plugin_install_artifact {
 
     id=$1
     installation_path=$2
-
+    echo "Processing ${id}"
     case ${id} in
 
         'INSTALL_DIR')
             mkdir src
             cd src
             #wget ftp://ftp.ensembl.org/pub/ensembl-api.tar.gz
+           # ${RESOURCES_ARTIFACTS_MAVEN_DISTRIBUTION}/bin/mvn
             cp ~gobyweb/url-cache/ensembl-api.tar.gz .
-            gzip -c -d ensembl-api.tar.gz| tar -xvf -
+            gzip -c -d ensembl-api.tar.gz| tar -xf -
 
 
             #wget http://bioperl.org/DIST/old_releases/bioperl-1.2.3.tar.gz
             cp ~gobyweb/url-cache/bioperl-1.2.3.tar.gz .
-            gzip -c -d bioperl-1.2.3.tar.gz |tar -xvf -
+            gzip -c -d bioperl-1.2.3.tar.gz |tar -xf -
 
             cd ..
 
@@ -39,9 +40,15 @@ EOF
                 . ${SGE_O_WORKDIR}/constants.sh
                 . ${SGE_O_WORKDIR}/auto-options.sh
                 ORG_LOWERCASE=`echo  ${ORGANISM}| tr '[:upper:]' '[:lower:]'`
-                wget ftp://ftp.ensembl.org/pub/release-70/variation/VEP/${ORG_LOWERCASE}_vep_\*.tar.gz
+
+                if [ -e  ~/url-cache/${ORG_LOWERCASE}_vep_*.tar.gz ]; then
+                    cp ~/url-cache/${ORG_LOWERCASE}_vep_*.tar.gz .
+                else
+                    wget ftp://ftp.ensembl.org/pub/release-70/variation/VEP/${ORG_LOWERCASE}_vep_\*.tar.gz
+                    cp ${ORG_LOWERCASE}_vep_*.tar.gz   ~/url-cache/
+                fi
                 mkdir -p ${installation_path}/VEP_CACHE/
-                gzip -c -d  ${ORG_LOWERCASE}_vep_*.tar.gz | (cd ${installation_path}/ ; tar -xvf -)
+                gzip -c -d  ${ORG_LOWERCASE}_vep_*.tar.gz | (cd ${installation_path}/ ; tar -xf -)
 
                 if [ -e ${installation_path}/${ORG_LOWERCASE} ]; then
                     return 0
