@@ -28,7 +28,7 @@ function install_plugin_artifacts {
 }
 
 function expose_artifact_environment_variables {
-        echo "Expose environment variables for artifacts.."
+        #echo "Expose environment variables for artifacts.."
         cd ${TMPDIR}
         . ${SGE_O_WORKDIR}/constants.sh
         . ${SGE_O_WORKDIR}/auto-options.sh
@@ -38,6 +38,6 @@ function expose_artifact_environment_variables {
             --bash-exports --ssh-requests  ${SGE_O_WORKDIR}/artifacts-install-requests.pb \
             --output exports.sh
 
-        cat exports.sh
+        #cat exports.sh
         . exports.sh
 }
