@@ -19,25 +19,28 @@ function install_plugin_artifacts {
              exit 120
         fi
 
-        expose_artifact_environment_variables
+       echo "Expose environment variables for artifacts.."
+       cd ${TMPDIR}
+       . ${SGE_O_WORKDIR}/constants.sh
+       . ${SGE_O_WORKDIR}/auto-options.sh
+       rm -f exports.sh
+       ${RUN_ARTIFACT_MANAGER} \
+           --repository ${ARTIFACT_REPOSITORY_DIR} ${REPO_MANAGER_OPTIONS} \
+           --bash-exports --ssh-requests  ${SGE_O_WORKDIR}/artifacts-install-requests.pb \
+           --output exports.sh
 
+               #cat exports.sh
         cp exports.sh ${TMPDIR}/
-    fi
+        cp exports.sh ${SGE_O_WORKDIR}/
 
+        expose_artifact_environment_variables
+    fi
 
 }
 
 function expose_artifact_environment_variables {
-        #echo "Expose environment variables for artifacts.."
-        cd ${TMPDIR}
+
         . ${SGE_O_WORKDIR}/constants.sh
         . ${SGE_O_WORKDIR}/auto-options.sh
-        rm -f exports.sh
-        ${RUN_ARTIFACT_MANAGER} \
-            --repository ${ARTIFACT_REPOSITORY_DIR} ${REPO_MANAGER_OPTIONS} \
-            --bash-exports --ssh-requests  ${SGE_O_WORKDIR}/artifacts-install-requests.pb \
-            --output exports.sh
-
-        #cat exports.sh
-        . exports.sh
+        . ${SGE_O_WORKDIR}/exports.sh
 }
