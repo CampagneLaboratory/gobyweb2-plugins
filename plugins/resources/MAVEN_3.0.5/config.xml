@@ -15,7 +15,12 @@
     <id>MAVEN</id>
     <help>Apache Maven, dependency management tool. Auto-install with artifacts.</help>
     <version>3.0.5</version>
-
+    <requires>
+        <resource>
+            <id>FETCH_URL</id>
+            <versionAtLeast>1.0</versionAtLeast>
+        </resource>
+    </requires>
     <artifacts>
         <artifact id="DISTRIBUTION" order="1"/>
     </artifacts>
