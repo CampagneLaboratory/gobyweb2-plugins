@@ -16,7 +16,12 @@
     <id>ENSEMBL_GENOMES</id>
     <help>Genome sequences obtained from Ensembl</help>
     <version>1.1</version>
-
+    <requires>
+        <resource>
+            <id>FETCH_URL</id>
+            <versionAtLeast>1.0</versionAtLeast>
+        </resource>
+    </requires>
     <artifacts>
 
         <artifact order="1" id="TOPLEVEL">

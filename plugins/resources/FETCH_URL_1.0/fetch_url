@@ -1,6 +1,17 @@
 #!/bin/bash
 URL_CACHE_ROOT=~/url-cache
 
+function md5 {
+ url=$1
+ if [[ -x `which md5sum` ]]; then
+
+     return `md5sum`
+
+ fi
+
+
+}
+
 function fetch_url {
    url=$1
    shift
@@ -12,17 +23,37 @@ function fetch_url {
    echo "Fetching url ${url}"
    filename=`basename ${url}`
    echo "Filename: ${filename}"
-   MD5=`md5 -q -s ${url} `
+
+   MD5=`echo ${url} |md5sum |cut -d " " -f 1 `
+
    echo "MD5=${MD5}"
-   if [ -e ${URL_CACHE_ROOT}/${MD5} ]; then
+
+   while [ -e ${URL_CACHE_ROOT}/${MD5}/BUSY ]
+   do
+         # wait until another resource has finished working on cache.
+         echo "Waiting while another process grabs the url. Detected BUSY lock at ${URL_CACHE_ROOT}/${MD5}"
+         sleep 5
+   done
+
+   if [ -e ${URL_CACHE_ROOT}/${MD5} -a ${URL_CACHE_ROOT}/${MD5}/READY  ]; then
      cp ${URL_CACHE_ROOT}/${MD5}/${filename} ./${filename}
-     return
-   else 
-      mkdir ${URL_CACHE_ROOT}/${MD5}
+   else
+
+      mkdir -p ${URL_CACHE_ROOT}/${MD5}
+      touch ${URL_CACHE_ROOT}/${MD5}/BUSY
       echo ${url} >${URL_CACHE_ROOT}/${MD5}/url.txt
       curl ${url} > ${URL_CACHE_ROOT}/${MD5}/${filename}
-      cp ${URL_CACHE_ROOT}/${MD5}/${filename} ./${filename}
+      if [ $? == 0 ]; then
+
+        cp ${URL_CACHE_ROOT}/${MD5}/${filename} ./${filename}
+        touch ${URL_CACHE_ROOT}/${MD5}/READY
+      else
+         rm -fr ${URL_CACHE_ROOT}/${MD5}/${filename}
+         touch  ${URL_CACHE_ROOT}/${MD5}/FAILED
+         echo "Download failed for url ${url}"
+      fi
    fi
-   
+   rm -f ${URL_CACHE_ROOT}/${MD5}/BUSY
 }
-export -f fetch_url
+#export -f fetch_url
+fetch_url "$@"
