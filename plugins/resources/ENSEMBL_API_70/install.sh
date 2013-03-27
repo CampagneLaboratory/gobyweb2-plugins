@@ -5,6 +5,8 @@ function plugin_install_artifact {
     id=$1
     installation_path=$2
     echo "Processing ${id}"
+    . ${SGE_O_WORKDIR}/constants.sh
+    . ${SGE_O_WORKDIR}/auto-options.sh
     case ${id} in
 
         'INSTALL_DIR')

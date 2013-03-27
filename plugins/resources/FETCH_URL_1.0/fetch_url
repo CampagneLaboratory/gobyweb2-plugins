@@ -21,7 +21,14 @@ function fetch_url {
     shift
    fi
    echo "Fetching url ${url}"
-   filename=`basename ${url}`
+   if [ $# -ge 1 ]; then
+       filename=$1
+       echo "Overriding filename from command line."
+       shift
+   else
+       filename=`basename ${url}`
+   fi
+
    echo "Filename: ${filename}"
 
    MD5=`echo ${url} |md5sum |cut -d " " -f 1 `
@@ -31,8 +38,8 @@ function fetch_url {
    while [ -e ${URL_CACHE_ROOT}/${MD5}/BUSY ]
    do
          # wait until another resource has finished working on cache.
-         echo "Waiting while another process grabs the url. Detected BUSY lock at ${URL_CACHE_ROOT}/${MD5}"
-         sleep 5
+         echo "Waiting while another process grabs the url. Detected BUSY lock at ${URL_CACHE_ROOT}/${MD5} for ${url}"
+         sleep 30
    done
 
    if [ -e ${URL_CACHE_ROOT}/${MD5} -a ${URL_CACHE_ROOT}/${MD5}/READY  ]; then
