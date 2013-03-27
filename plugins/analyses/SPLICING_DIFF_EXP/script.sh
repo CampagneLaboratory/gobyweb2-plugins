@@ -14,9 +14,10 @@ function plugin_alignment_analysis_num_parts {
 
 	if [ $? -eq 0 ]; then
 		echo `wc -l < ${SPLICING_PLAN_FILENAME}`
-	fi
+    else
 
-	echo 0
+        echo 0
+    fi
 }
 
 . ${RESOURCES_GOBY_SHELL_SCRIPT}

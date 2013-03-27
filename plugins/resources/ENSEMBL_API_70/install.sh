@@ -41,7 +41,7 @@ EOF
                 . ${SGE_O_WORKDIR}/auto-options.sh
                 ORG_LOWERCASE=`echo  ${ORGANISM}| tr '[:upper:]' '[:lower:]'`
 
-                if [ -e  ~/url-cache/${ORG_LOWERCASE}_vep_*.tar.gz ]; then
+                if [ -e ~/url-cache/${ORG_LOWERCASE}_vep_*.tar.gz ]; then
                     cp ~/url-cache/${ORG_LOWERCASE}_vep_*.tar.gz .
                 else
                 # replace with  ${RESOURCES_FETCH_URL_SCRIPT} ftp://ftp.ensembl.org/pub/release-70/variation/VEP/${ORG_LOWERCASE}_vep_\*.tar.gz
@@ -77,7 +77,6 @@ function get_attribute_values() {
     out=$2
 
        . ${SGE_O_WORKDIR}/constants.sh
-       set -xv
 
        BUILD_NUMBER=`echo ${GENOME_REFERENCE_ID} | awk -F\. '{print $1}'`
        ENSEMBL_VERSION_NUMBER=`echo ${GENOME_REFERENCE_ID} | awk -F\. '{print $(NF)}'`

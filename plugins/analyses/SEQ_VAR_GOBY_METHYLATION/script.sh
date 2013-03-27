@@ -39,9 +39,10 @@ function plugin_alignment_analysis_num_parts {
    if [ $? -eq 0 ]; then
 
         echo `grep -v targetIdStart ${SPLICING_PLAN_FILE} | wc -l `
-   fi
+   else
 
-   echo 0
+    echo 0
+   fi
 }
 
 function plugin_alignment_analysis_process {
