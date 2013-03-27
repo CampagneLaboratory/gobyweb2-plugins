@@ -12,7 +12,7 @@
   -->
 <resourceConfig xsi:noNamespaceSchemaLocation="../../../schemas/plugins.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
     <name>Fetch and cache URL content</name>
-    <id>FETCH</id>
+    <id>FETCH_URL</id>
     <help>Fetch and cache URL content. This resource uses curl to download data from URLs. It then caches the content in a configurable
     cache directory. The cache is used whenever the same URL needs to be fetched again.</help>
     <version>1.0</version>
