@@ -66,7 +66,7 @@ GENOME_DIR=$(eval echo \${RESOURCES_ARTIFACTS_ENSEMBL_GENOMES_TOPLEVEL_${ORGANIS
 if [ ! -e ${TOPLEVEL_IDS_FILE} ]; then
     echo "Creating toplevel ids file"
 
-    java -Xmx8G -jar ${GOBY_JAR} --mode fasta-to-compact -n 1 --include-identifiers  \
+    java -Xmx6G -jar ${GOBY_JAR} --mode fasta-to-compact -n 1 --include-identifiers  \
         --exclude-sequences -o ${TOPLEVEL_IDS_FILE} ${GENOME_DIR}/genome-toplevel.fasta.gz
     if [ "$?" != "0" ]; then
        exit 1;
@@ -75,7 +75,7 @@ fi
 if [ ! -e ${CHROMOSOME_LIST_FILE} ]; then
     CHROMOSOME_LIST_FILE_TEMP=chromosome.list.txt.tmp
 
-    java -Xmx8G -jar ${GOBY_JAR} --mode compact-to-fasta \
+    java -Xmx6G -jar ${GOBY_JAR} --mode compact-to-fasta \
         --identifier-to-header \
         -i ${TOPLEVEL_IDS_FILE} -o ${CHROMOSOME_LIST_FILE_TEMP}
         if [ "$?" != "0" ]; then
