@@ -5,8 +5,6 @@ function plugin_install_artifact {
     id=$1
     installation_path=$2
 
-    . ${SGE_O_WORKDIR}/constants.sh
-    . ${SGE_O_WORKDIR}/auto-options.sh
     set -e
 
     GOBY_JAR=${RESOURCES_GOBYWEB_SERVER_SIDE_GLOBAL_GOBY_JAR}
@@ -97,9 +95,6 @@ function get_attribute_values() {
 
     echo "get_attribute_values for ID=${id}"
     set +xv
-    # get environment variables for GobyWeb job from SGE work directory:
-    . ${SGE_O_WORKDIR}/constants.sh
-    . ${SGE_O_WORKDIR}/auto-options.sh
 
     BUILD_NUMBER=`echo ${GENOME_REFERENCE_ID} | awk -F\. '{print $1}'`
     ENSEMBL_VERSION_NUMBER=`echo ${GENOME_REFERENCE_ID} | awk -F\. '{print $(NF)}'`

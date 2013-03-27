@@ -79,8 +79,6 @@ function get_attribute_values() {
 
     echo "get_attribute_values for ID=${id}"
     set +xv
-    echo # get environment variables for GobyWeb job from SGE work directory:
-    . ${SGE_O_WORKDIR}/constants.sh
 
     BUILD_NUMBER=`echo ${GENOME_REFERENCE_ID} | awk -F\. '{print $1}'`
     ENSEMBL_VERSION_NUMBER=`echo ${GENOME_REFERENCE_ID} | awk -F\. '{print $(NF)}'`

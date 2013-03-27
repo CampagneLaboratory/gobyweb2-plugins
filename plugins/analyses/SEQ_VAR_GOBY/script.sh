@@ -62,15 +62,10 @@ function plugin_alignment_analysis_process {
 
 
    if [ ! "${PLUGINS_ALIGNMENT_ANALYSIS_SEQ_VAR_GOBY_COVARIATE_INFO_URL}" == "NONE" ]; then
-        JOB_DIR=${SGE_O_WORKDIR}
-        if [ ! -e ${JOB_DIR}/results/covariates.tsv ]; then
-             wget ${PLUGINS_ALIGNMENT_ANALYSIS_SEQ_VAR_GOBY_COVARIATE_INFO_URL} \
-             --output-document=covariates.tsv
-             cp covariates.tsv ${JOB_DIR}/results/
-        fi
-        COVARIATES_OPTION=" --covariates `pwd`/covariates.tsv "
+       ${RESOURCES_FETCH_URL_SCRIPT} ${PLUGINS_ALIGNMENT_ANALYSIS_SEQ_VAR_GOBY_COVARIATE_INFO_URL} ${JOB_DIR}/results/ covariates.tsv
+       COVARIATES_OPTION=" --covariates `pwd`/covariates.tsv "
    else
-        ANNOTATION_OPTION=" "
+        COVARIATES_OPTION=" "
    fi
 
     set -x

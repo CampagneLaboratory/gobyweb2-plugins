@@ -1,5 +1,5 @@
 #!/bin/bash
-# Execute the samtools executable from the artifact repository:
+# Execute the groovy executable from the artifact repository:
 . ${SGE_O_WORKDIR}/artifacts.sh
 expose_artifact_environment_variables
 export GROOVY_HOME=${RESOURCES_ARTIFACTS_GROOVY_DISTRIBUTION}

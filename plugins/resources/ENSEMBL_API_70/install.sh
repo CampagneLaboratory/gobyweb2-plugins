@@ -5,8 +5,7 @@ function plugin_install_artifact {
     id=$1
     installation_path=$2
     echo "Processing ${id}"
-    . ${SGE_O_WORKDIR}/constants.sh
-    . ${SGE_O_WORKDIR}/auto-options.sh
+
     case ${id} in
 
         'INSTALL_DIR')
@@ -36,8 +35,7 @@ EOF
 
            'VEP_CACHE')
                 VERSION="70"
-                . ${SGE_O_WORKDIR}/constants.sh
-                . ${SGE_O_WORKDIR}/auto-options.sh
+
                 ORG_LOWERCASE=`echo  ${ORGANISM}| tr '[:upper:]' '[:lower:]'`
 
                 ${RESOURCES_FETCH_URL_SCRIPT} ftp://ftp.ensembl.org/pub/release-70/variation/VEP/${ORG_LOWERCASE}_vep_${VERSION}.tar.gz
@@ -68,8 +66,6 @@ function get_attribute_values() {
 
     id=$1
     out=$2
-
-       . ${SGE_O_WORKDIR}/constants.sh
 
        BUILD_NUMBER=`echo ${GENOME_REFERENCE_ID} | awk -F\. '{print $1}'`
        ENSEMBL_VERSION_NUMBER=`echo ${GENOME_REFERENCE_ID} | awk -F\. '{print $(NF)}'`

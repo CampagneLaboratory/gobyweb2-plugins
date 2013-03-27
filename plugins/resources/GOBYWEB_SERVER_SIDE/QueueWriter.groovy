@@ -1,5 +1,3 @@
-#!/usr/bin/env ./groovy
-
 /*
  * Copyright (c) 2011  by Cornell University and the Cornell Research
  * Foundation, Inc.  All Rights Reserved.
