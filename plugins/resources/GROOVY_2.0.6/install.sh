@@ -10,7 +10,7 @@ function plugin_install_artifact {
         'DISTRIBUTION' )
 
             VERSION="2.0.6"
-            wget http://dist.groovy.codehaus.org/distributions/groovy-binary-${VERSION}.zip
+            ${RESOURCES_FETCH_URL_SCRIPT} http://dist.groovy.codehaus.org/distributions/groovy-binary-${VERSION}.zip
             unzip groovy-binary-${VERSION}.zip
             cp -r groovy-${VERSION}/* ${installation_path}/
 

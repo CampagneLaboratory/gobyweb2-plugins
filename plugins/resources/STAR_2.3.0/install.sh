@@ -9,7 +9,7 @@ function plugin_install_artifact {
         'EXECUTABLE' )
             VERSION=2.3.0
             LETTER=e
-            wget ftp://ftp2.cshl.edu/gingeraslab/tracks/STARrelease/${VERSION}/STAR_${VERSION}${LETTER}.tgz
+            ${RESOURCES_FETCH_URL_SCRIPT} ftp://ftp2.cshl.edu/gingeraslab/tracks/STARrelease/${VERSION}/STAR_${VERSION}${LETTER}.tgz
             gzip -c -d  STAR_${VERSION}${LETTER}.tgz |tar -xvf -
             (cd STAR_${VERSION}${LETTER}; make)
             cp STAR_${VERSION}${LETTER}/STAR ${installation_path}/
@@ -35,12 +35,12 @@ function plugin_install_artifact {
             if [ "$ORGANISM" = "HOMO_SAPIENS" ]; then
 
                 rm -f ${SJDB}
-                wget ftp://ftp2.cshl.edu/gingeraslab/tracks/STARrelease/STARgenomes/SpliceJunctionDatabases/${SJDB}
+                ${RESOURCES_FETCH_URL_SCRIPT} ftp://ftp2.cshl.edu/gingeraslab/tracks/STARrelease/STARgenomes/SpliceJunctionDatabases/${SJDB}
                 sed -e 's/^chr//' ${SJDB}  >${SJDB}.fixed
                 SPLICE_SITES_OPTION=" --sjdbFileChrStartEnd ${SJDB}.fixed --sjdbOverhang 49"
             elif [ "$ORGANISM" = "MUS_MUSCULUS" ]; then
                 rm -f ${SJDB}
-                wget ftp://ftp2.cshl.edu/gingeraslab/tracks/STARrelease/STARgenomes/SpliceJunctionDatabases/${SJDB}
+                ${RESOURCES_FETCH_URL_SCRIPT} ftp://ftp2.cshl.edu/gingeraslab/tracks/STARrelease/STARgenomes/SpliceJunctionDatabases/${SJDB}
                 cp ${SJDB}  >${SJDB}.fixed
                 SPLICE_SITES_OPTION=" --sjdbFileChrStartEnd ${SJDB}.fixed --sjdbOverhang 49"
             fi

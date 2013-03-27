@@ -9,7 +9,7 @@ function plugin_install_artifact {
 
         'JAR' )
             VERSION="1.84"
-            wget http://sourceforge.net/projects/picard/files/sam-jdk/${VERSION}/sam-${VERSION}.jar/download
+            ${RESOURCES_FETCH_URL_SCRIPT} http://sourceforge.net/projects/picard/files/sam-jdk/${VERSION}/sam-${VERSION}.jar/download
 
             cp sam-${VERSION}.jar ${installation_path}/sam-jdk.jar
             return 0

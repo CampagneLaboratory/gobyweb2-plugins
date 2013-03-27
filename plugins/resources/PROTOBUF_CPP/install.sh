@@ -20,21 +20,21 @@ EOT
                 mkdir -p ${installation_path}/lib/pkgconfig/
                 mkdir -p ${installation_path}/bin/
 
-                (wget http://ftp.gnu.org/gnu/autoconf/autoconf-2.68.tar.gz
+                (${RESOURCES_FETCH_URL_SCRIPT} http://ftp.gnu.org/gnu/autoconf/autoconf-2.68.tar.gz
                     tar zxvf autoconf-2.68.tar.gz
                     cd autoconf-2.68
                     ./configure --prefix=${installation_path}
                     make
                     make install)
 
-                (wget http://protobuf.googlecode.com/files/protobuf-2.4.1.tar.gz
+                (${RESOURCES_FETCH_URL_SCRIPT} http://protobuf.googlecode.com/files/protobuf-2.4.1.tar.gz
                       tar zxvf protobuf-2.4.1.tar.gz
                       cd protobuf-2.4.1
                       ./configure --prefix=${installation_path}
                       make
                       make install)
 
-                (wget ftp://ftp.csx.cam.ac.uk/pub/software/programming/pcre/pcre-8.21.tar.gz
+                (${RESOURCES_FETCH_URL_SCRIPT} ftp://ftp.csx.cam.ac.uk/pub/software/programming/pcre/pcre-8.21.tar.gz
                       tar zxvf pcre-8.21.tar.gz
                       cd pcre-8.21
                       ./configure --prefix=${installation_path}

@@ -9,7 +9,7 @@ function plugin_install_artifact {
         'EXECUTABLE' )
             . ${RESOURCES_ARTIFACTS_GOBY_CPP_API_LIBRARIES}/setup.sh
 
-            (wget http://campagnelab.org/files/20111230-bwa-0.5.9-r16-icb.tgz
+            (${RESOURCES_FETCH_URL_SCRIPT} http://campagnelab.org/files/20111230-bwa-0.5.9-r16-icb.tgz
 
                 gzip -c -d 20111230-bwa-0.5.9-r16-icb.tgz |tar -xvf -
                 cd bwa-icb/;

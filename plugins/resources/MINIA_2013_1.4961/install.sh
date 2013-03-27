@@ -8,7 +8,7 @@ function plugin_install_artifact {
 
         'EXECUTABLE' )
             VERSION=1.4961
-            wget http://minia.genouest.org/files/minia-${VERSION}.tar.gz
+            ${RESOURCES_FETCH_URL_SCRIPT} http://minia.genouest.org/files/minia-${VERSION}.tar.gz
             gzip -c -d  minia-1.4961.tar.gz |tar -xvf -
             (cd minia-${VERSION}; make)
             cp minia-${VERSION}/minia ${installation_path}/

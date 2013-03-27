@@ -11,7 +11,7 @@ function plugin_install_artifact {
                 . ${RESOURCES_ARTIFACTS_PROTOBUF_CPP_LIBRARIES}/setup.sh
                 (
                 VERSION="2.1.2"
-                    wget http://chagall.med.cornell.edu/goby/releases/archive/release-goby_${VERSION}/goby-cpp.zip
+                    ${RESOURCES_FETCH_URL_SCRIPT} http://chagall.med.cornell.edu/goby/releases/archive/release-goby_${VERSION}/goby-cpp.zip
 
                     unzip goby-cpp.zip
 

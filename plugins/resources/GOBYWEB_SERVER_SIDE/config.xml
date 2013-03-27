@@ -21,6 +21,10 @@
             <id>GROOVY</id>
             <versionAtLeast>2.0.6</versionAtLeast>
         </resource>
+        <resource>
+            <id>FETCH_URL</id>
+            <versionAtLeast>1.0</versionAtLeast>
+        </resource>
     </requires>
     <files>
         <file>

@@ -10,14 +10,11 @@ function plugin_install_artifact {
         'INSTALL_DIR')
             mkdir src
             cd src
-            #wget ftp://ftp.ensembl.org/pub/ensembl-api.tar.gz
-           # ${RESOURCES_ARTIFACTS_MAVEN_DISTRIBUTION}/bin/mvn
+
             ${RESOURCES_FETCH_URL_SCRIPT} ftp://ftp.ensembl.org/pub/ensembl-api.tar.gz
             gzip -c -d ensembl-api.tar.gz| tar -xf -
 
-
             ${RESOURCES_FETCH_URL_SCRIPT} http://bioperl.org/DIST/old_releases/bioperl-1.2.3.tar.gz
-            #cp ~gobyweb/url-cache/bioperl-1.2.3.tar.gz .
             gzip -c -d bioperl-1.2.3.tar.gz |tar -xf -
 
             cd ..
