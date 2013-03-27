@@ -1,0 +1,26 @@
+#!/bin/bash
+URL_CACHE_ROOT=~/url-cache
+
+function fetch_url {
+   url=$1
+   shift
+   if [ $# -ge 1 ]; then
+    URL_CACHE_ROOT=$1
+    echo "URL_CACHE_ROOT=${URL_CACHE_ROOT}"
+    shift
+   fi
+   filename=`basename ${url}`
+   echo "Filename: ${filename}"
+   MD5=`md5 -q -s ${url} `
+   echo "MD5=${MD5}"
+   if [ -e ${URL_CACHE_ROOT}/${MD5} ]; then
+     cp ${URL_CACHE_ROOT}/${MD5}/${filename} ./${filename}
+     return
+   else 
+      mkdir ${URL_CACHE_ROOT}/${MD5}
+      curl ${url} > ${URL_CACHE_ROOT}/${MD5}/${filename}
+      cp ${URL_CACHE_ROOT}/${MD5}/${filename} ./${filename}
+   fi
+   
+}
+export -f fetch_url

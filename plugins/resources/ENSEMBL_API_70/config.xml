@@ -19,8 +19,8 @@
     <version>70.0.2</version>
    <requires>
        <resource>
-           <id>MAVEN</id>
-           <versionAtLeast>3.0.5</versionAtLeast>
+           <id>FETCH_URL</id>
+           <versionAtLeast>1.0</versionAtLeast>
        </resource>
    </requires>
     <artifacts>
