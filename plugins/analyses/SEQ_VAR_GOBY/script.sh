@@ -60,7 +60,7 @@ function plugin_alignment_analysis_process {
 
    if [ ! "${PLUGINS_ALIGNMENT_ANALYSIS_SEQ_VAR_GOBY_COVARIATE_INFO_URL}" == "NONE" ]; then
         JOB_DIR=${SGE_O_WORKDIR}
-        if [ -e ${JOB_DIR}/results/covariates.tsv ]; then
+        if [ ! -e ${JOB_DIR}/results/covariates.tsv ]; then
              wget ${PLUGINS_ALIGNMENT_ANALYSIS_SEQ_VAR_GOBY_COVARIATE_INFO_URL} \
              --output-document=covariates.tsv
              cp covariates.tsv ${JOB_DIR}/results/
