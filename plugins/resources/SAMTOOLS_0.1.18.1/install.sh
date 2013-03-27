@@ -9,7 +9,7 @@ function plugin_install_artifact {
 
         'BINARIES' )
             VERSION="0.1.18"
-            ${RESOURCES_FETCH_URL_SCRIPT} http://sourceforge.net/projects/samtools/files/samtools/0.1.18/samtools-0.1.18.tar.bz2/download
+            ${RESOURCES_FETCH_URL_SCRIPT} http://sourceforge.net/projects/samtools/files/samtools/0.1.18/samtools-0.1.18.tar.bz2/download samtools-0.1.18.tar.bz2
             bunzip2  samtools-${VERSION}.tar.bz2
             tar -xvf samtools-${VERSION}.tar
             cd samtools-${VERSION}

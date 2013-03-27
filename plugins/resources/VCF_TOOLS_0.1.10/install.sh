@@ -9,7 +9,7 @@ function plugin_install_artifact {
 
         'BINARIES' )
             VERSION="0.1.10"
-            ${RESOURCES_FETCH_URL_SCRIPT} http://sourceforge.net/projects/vcftools/files/vcftools_${VERSION}.tar.gz/download
+            ${RESOURCES_FETCH_URL_SCRIPT} http://sourceforge.net/projects/vcftools/files/vcftools_${VERSION}.tar.gz/download vcftools_${VERSION}.tar.gz
             gunzip  vcftools_${VERSION}.tar.gz
             tar -xvf vcftools_${VERSION}.tar
             cd vcftools_${VERSION}

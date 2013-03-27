@@ -9,7 +9,7 @@ function plugin_install_artifact {
 
         'BINARIES' )
             VERSION="0.2.6"
-            ${RESOURCES_FETCH_URL_SCRIPT} http://sourceforge.net/projects/samtools/files/tabix/tabix-0.2.6.tar.bz2/download
+            ${RESOURCES_FETCH_URL_SCRIPT} http://sourceforge.net/projects/samtools/files/tabix/tabix-0.2.6.tar.bz2/download tabix-0.2.6.tar.bz2
             bunzip2  tabix-${VERSION}.tar.bz2
             tar -xvf tabix-${VERSION}.tar
             cd tabix-${VERSION}
