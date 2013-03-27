@@ -9,6 +9,7 @@ function fetch_url {
     echo "URL_CACHE_ROOT=${URL_CACHE_ROOT}"
     shift
    fi
+   echo "Fetching url ${url}"
    filename=`basename ${url}`
    echo "Filename: ${filename}"
    MD5=`md5 -q -s ${url} `
@@ -18,6 +19,7 @@ function fetch_url {
      return
    else 
       mkdir ${URL_CACHE_ROOT}/${MD5}
+      echo ${url} >${URL_CACHE_ROOT}/${MD5}/url.txt
       curl ${url} > ${URL_CACHE_ROOT}/${MD5}/${filename}
       cp ${URL_CACHE_ROOT}/${MD5}/${filename} ./${filename}
    fi

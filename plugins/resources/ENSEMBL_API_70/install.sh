@@ -41,14 +41,8 @@ EOF
                 . ${SGE_O_WORKDIR}/auto-options.sh
                 ORG_LOWERCASE=`echo  ${ORGANISM}| tr '[:upper:]' '[:lower:]'`
 
-                if [ -e ~/url-cache/${ORG_LOWERCASE}_vep_*.tar.gz ]; then
-                    cp ~/url-cache/${ORG_LOWERCASE}_vep_*.tar.gz .
-                else
-                # replace with  ${RESOURCES_FETCH_URL_SCRIPT} ftp://ftp.ensembl.org/pub/release-70/variation/VEP/${ORG_LOWERCASE}_vep_\*.tar.gz
+                ${RESOURCES_FETCH_URL_SCRIPT} ftp://ftp.ensembl.org/pub/release-70/variation/VEP/${ORG_LOWERCASE}_vep_${VERSION}.tar.gz
 
-                    wget ftp://ftp.ensembl.org/pub/release-70/variation/VEP/${ORG_LOWERCASE}_vep_\*.tar.gz
-                    cp ${ORG_LOWERCASE}_vep_*.tar.gz   ~/url-cache/
-                fi
                 mkdir -p ${installation_path}/VEP_CACHE/
                 gzip -c -d  ${ORG_LOWERCASE}_vep_*.tar.gz | (cd ${installation_path}/ ; tar -xf -)
 
