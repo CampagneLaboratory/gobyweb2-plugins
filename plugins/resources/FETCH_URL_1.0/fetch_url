@@ -14,20 +14,18 @@ function md5 {
 
 function fetch_url {
    url=$1
-   shift
-   if [ $# -ge 1 ]; then
-    URL_CACHE_ROOT=$1
-    echo "URL_CACHE_ROOT=${URL_CACHE_ROOT}"
-    shift
+   if [ $# -ge 2 ]; then
+          filename=$2
+          echo "Overriding filename from command line."
+      else
+          filename=`basename ${url}`
+   fi
+   if [ $# -ge 3 ]; then
+      URL_CACHE_ROOT=$3
+      echo "URL_CACHE_ROOT=${URL_CACHE_ROOT}"
    fi
    echo "Fetching url ${url}"
-   if [ $# -ge 1 ]; then
-       filename=$1
-       echo "Overriding filename from command line."
-       shift
-   else
-       filename=`basename ${url}`
-   fi
+
 
    echo "Filename: ${filename}"
 

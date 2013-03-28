@@ -62,7 +62,7 @@ function plugin_alignment_analysis_process {
 
 
    if [ ! "${PLUGINS_ALIGNMENT_ANALYSIS_SEQ_VAR_GOBY_COVARIATE_INFO_URL}" == "NONE" ]; then
-       ${RESOURCES_FETCH_URL_SCRIPT} ${PLUGINS_ALIGNMENT_ANALYSIS_SEQ_VAR_GOBY_COVARIATE_INFO_URL} ${JOB_DIR}/results/ covariates.tsv
+       ${RESOURCES_FETCH_URL_SCRIPT} ${PLUGINS_ALIGNMENT_ANALYSIS_SEQ_VAR_GOBY_COVARIATE_INFO_URL} covariates.tsv ${JOB_DIR}/results/
        COVARIATES_OPTION=" --covariates `pwd`/covariates.tsv "
    else
         COVARIATES_OPTION=" "
