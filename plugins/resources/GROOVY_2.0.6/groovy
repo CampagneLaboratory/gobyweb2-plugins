@@ -1,6 +1,6 @@
 #!/bin/bash
 # Execute the groovy executable from the artifact repository:
-. ${SGE_O_WORKDIR}/artifacts.sh
+. ${JOB_DIR}/artifacts.sh
 expose_artifact_environment_variables
 export GROOVY_HOME=${RESOURCES_ARTIFACTS_GROOVY_DISTRIBUTION}
 ${RESOURCES_ARTIFACTS_GROOVY_DISTRIBUTION}/bin/groovy "$@"

@@ -29,10 +29,6 @@ function install_plugin_artifacts {
            --bash-exports --ssh-requests  ${SGE_O_WORKDIR}/artifacts-install-requests.pb \
            --output exports.sh
 
-               #cat exports.sh
-        cp exports.sh ${TMPDIR}/
-        cp exports.sh ${SGE_O_WORKDIR}/
-
         expose_artifact_environment_variables
     fi
 
@@ -42,5 +38,5 @@ function expose_artifact_environment_variables {
 
         . ${SGE_O_WORKDIR}/constants.sh
         . ${SGE_O_WORKDIR}/auto-options.sh
-        . ${SGE_O_WORKDIR}/exports.sh
+        . ${TMPDIR}/exports.sh
 }
