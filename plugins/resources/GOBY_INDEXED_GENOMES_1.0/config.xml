@@ -19,10 +19,10 @@
     <requires>
         <resource>
             <id>GOBY</id>
-            <versionAtLeast>2.1.2</versionAtLeast>
+            <versionAtLeast>2.1.2.1</versionAtLeast>
         </resource>
         <resource>
-            <id>ENSEMBL_GENOMES_TOPLEVEL</id>
+            <id>ENSEMBL_GENOMES</id>
             <versionAtLeast>1.1</versionAtLeast>
         </resource>
     </requires>
