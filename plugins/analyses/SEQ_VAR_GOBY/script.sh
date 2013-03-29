@@ -164,8 +164,17 @@ function plugin_alignment_analysis_combine {
     done
 
    echo "Adjusting P-value columns: $COLUMNS"
-   if [ "${OUTPUT_FORMAT}" == "GENOTYPES" -o ${NUM_GROUPS} == 1 ]; then
+   USE_FDR_MODE="TRUE"
 
+   if [  "${OUTPUT_FORMAT}" == "GENOTYPES" -o ${NUM_GROUPS} == 1  ]; then
+       USE_FDR_MODE="FALSE"
+   fi
+   if [ "${OUTPUT_FORMAT}" == "SOMATIC_VARIATIONS" ]; then
+      # Use FDR mode to adjust p-values even when there is a single group.
+          USE_FDR_MODE="TRUE"
+   fi
+
+   if [ "${USE_FDR_MODE}" == "FALSE" ]; then
         # Do not attempt FDR adjustment when there is no p-value, just concat the split files and sort:
 
         ${RESOURCES_ARTIFACTS_VCF_TOOLS_BINARIES}/bin/vcf-concat ${PART_RESULT_FILES} | \
