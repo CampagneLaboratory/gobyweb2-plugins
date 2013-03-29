@@ -192,7 +192,7 @@ function plugin_alignment_analysis_combine {
           ${COLUMNS} \
           --output ${TMPDIR}/${TAG}-pre.vcf.gz
 
-        gunzip -c -d ${TMPDIR}/${TAG}-pre.vcf.gz | ${RESOURCES_ARTIFACTS_VCF_TOOLS_BINARIES}/vcf-sort | ${RESOURCES_TABIX_BGZIP_EXEC_PATH} -c > ${RESULT_FILE}
+        gunzip -c -d ${TMPDIR}/${TAG}-pre.vcf.gz | ${RESOURCES_ARTIFACTS_VCF_TOOLS_BINARIES}/bin/vcf-sort | ${RESOURCES_TABIX_BGZIP_EXEC_PATH} -c > ${RESULT_FILE}
    fi
 
    ${TABIX_EXEC_PATH} -f -p vcf ${RESULT_FILE}
