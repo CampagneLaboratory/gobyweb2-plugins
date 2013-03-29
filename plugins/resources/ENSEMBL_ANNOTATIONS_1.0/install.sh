@@ -38,8 +38,10 @@ function plugin_install_artifact {
             --chromosome-list-file ${CHROMOSOME_LIST_FILE} \
             --exports exon-annotations,ref-start-end-gene,gene-id-description,ref-start-end-gene-hgnc
 
+
             if [ "$?" -eq "0" ]; then
              # Make sure tabix indices have a more recent timestamp than tabix data files:
+             sleep 3
              touch   ${installation_path}/*.tbi
              return 0
             else

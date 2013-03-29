@@ -61,9 +61,6 @@ function annotate_ensembl_genes {
     input=$2
     output=$3
     outputNoGzExtension="${output%.gz}"
-   # . ${SGE_O_WORKDIR}/constants.sh
-   # . ${SGE_O_WORKDIR}/auto-options.sh
-   # . ${TMPDIR}/exports.sh
 
     if [ "${doAnnotate}" == "true" ]; then
 
@@ -76,10 +73,10 @@ EOF
        | ${RESOURCES_ARTIFACTS_VCF_TOOLS_BINARIES}/bin/vcf-annotate -a ${RESOURCES_ARTIFACTS_ENSEMBL_ANNOTATIONS_ANNOTATIONS}/ref-start-end-gene-hgnc-sorted.tsv.gz \
                       -d ${TMPDIR}/attributes.lst -c CHROM,FROM,TO,INFO/GENE,INFO/GENE_NAME >${outputNoGzExtension}
 
-        dieUponError
+     dieUponError
 
-       compressWhenNeeded ${output}
-       dieUponError
+     compressWhenNeeded ${output}
+     dieUponError
 
 
     else
