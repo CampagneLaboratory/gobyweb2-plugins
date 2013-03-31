@@ -14,7 +14,7 @@
     <name>Goby (fixed indels)</name>
     <id>GOBY</id>
     <help>Goby framework and toolbox. See http://goby.campagnelab.org.</help>
-    <version>20130331121940</version>
+    <version>20130331125328</version>
     <files>
         <file>
             <id>GOBY_JAR</id>
