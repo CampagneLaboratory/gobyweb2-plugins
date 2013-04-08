@@ -1,0 +1,3 @@
+. ${TMPDIR}/exports.sh
+# Execute mutect from the artifact repository:
+java -Xmx2g -jar ${RESOURCES_ARTIFACTS_MUTECT_BINARIES}/muTect.jar "$@"
