@@ -10,7 +10,8 @@
   ~ When a plugin is not released under the LGPL3 license,  the comments  at the top  of
   ~ the plugin's config.xml will indicate how that specific plugin is released/licensed.
   -->
-<alignerConfig xsi:noNamespaceSchemaLocation="../../../schemas/plugins.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+<alignerConfig xsi:noNamespaceSchemaLocation="../../../schemas/plugins.xsd"
+               xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
     <name>BWA with Goby support (auto-install)</name>
     <id>BWA_GOBY_ARTIFACT</id>
     <help>Version of BWA that supports Goby formats natively, auto-install version of the plugin.</help>
@@ -44,19 +45,22 @@
         <option>
             <id>ALIGNER_OPTIONS</id>
             <dbLegacyId>alignerAdvancedOptions</dbLegacyId>
-            <name>Other aligner options</name>
-            <help>Provide any additional BWA option here following the syntax expected by BWA.</help>
+            <name>Other aligner options (aln phase)</name>
+            <help>Provide any additional BWA option here following the syntax expected by bwa aln.</help>
             <required>false</required>
             <defaultsTo></defaultsTo>
             <type>STRING</type>
             <flagFormat>%s</flagFormat>
             <includeSpaces>true</includeSpaces>
+            <autoFormat>false</autoFormat>
         </option>
         <option>
             <id>AMBIGUITY_THRESHOLD</id>
             <dbLegacyId>ambiguityThreshold</dbLegacyId>
             <name>Ambiguity threshold</name>
-            <help>The maximum number of reference sequence locations that can be matched for a read to be considered non-ambiguous.</help>
+            <help>The maximum number of reference sequence locations that can be matched for a read to be considered
+                non-ambiguous.
+            </help>
             <required>true</required>
             <defaultsTo>1</defaultsTo>
             <type>INTEGER</type>

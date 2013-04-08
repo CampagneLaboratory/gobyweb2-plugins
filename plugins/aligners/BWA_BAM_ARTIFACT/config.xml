@@ -10,22 +10,24 @@
   ~ When a plugin is not released under the LGPL3 license,  the comments  at the top  of
   ~ the plugin's config.xml will indicate how that specific plugin is released/licensed.
   -->
-<alignerConfig xsi:noNamespaceSchemaLocation="../../../schemas/plugins.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+<alignerConfig xsi:noNamespaceSchemaLocation="../../../schemas/plugins.xsd"
+               xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
     <name>BWA BAM output (auto-install)</name>
     <id>BWA_BAM_ARTIFACT</id>
     <help>BWA writing to BAM output. This aligner requests exclusive access to a server node and run parallel on this
-                node against a single reads file. This plugin auto-installs on the cluster (executable and index files).</help>
-        <version>1.0</version>
-        <supportsColorSpace>true</supportsColorSpace>
-        <supportsGobyAlignments>false</supportsGobyAlignments>
-        <supportsPairedEndAlignments>true</supportsPairedEndAlignments>
-        <supportsBAMAlignments>true</supportsBAMAlignments>
-        <supportsBisulfiteConvertedReads>false</supportsBisulfiteConvertedReads>
-        <supportsGobyReads>true</supportsGobyReads>
-        <supportsFastqReads>false</supportsFastqReads>
-        <supportsFastaReads>false</supportsFastaReads>
+        node against a single reads file. This plugin auto-installs on the cluster (executable and index files).
+    </help>
+    <version>1.1</version>
+    <supportsColorSpace>true</supportsColorSpace>
+    <supportsGobyAlignments>false</supportsGobyAlignments>
+    <supportsPairedEndAlignments>true</supportsPairedEndAlignments>
+    <supportsBAMAlignments>true</supportsBAMAlignments>
+    <supportsBisulfiteConvertedReads>false</supportsBisulfiteConvertedReads>
+    <supportsGobyReads>true</supportsGobyReads>
+    <supportsFastqReads>false</supportsFastqReads>
+    <supportsFastaReads>false</supportsFastaReads>
     <!-- indexDirectory is no longuer used -->
-        <indexDirectory>%NODE_LOCAL_DATA_ROOT%/%VERSION%/%ORGANISM%/%SPACE%/bwa</indexDirectory>
+    <indexDirectory>%NODE_LOCAL_DATA_ROOT%/%VERSION%/%ORGANISM%/%SPACE%/bwa</indexDirectory>
     <requires>
         <resource>
             <id>BWA_WITH_GOBY_ARTIFACT</id>
@@ -33,22 +35,23 @@
         </resource>
     </requires>
     <runtime>
-            <need scope="ALIGN" key="excl" value="false"/>
-            <need scope="ALIGN" key="h_vmem" value="12g"/>
-            <need scope="ALIGN" key="virtual_free" value="16g"/>
-            <need scope="ALIGN_JVM" value="4g"/>
-        </runtime>
-        <options>
-            <option>
-                <id>ALIGNER_OPTIONS</id>
-                <dbLegacyId>alignerAdvancedOptions</dbLegacyId>
-                <name>Other aligner options</name>
-                <help>Provide any additional BWA option here following the syntax expected by BWA.</help>
-                <required>false</required>
-                <defaultsTo></defaultsTo>
-                <type>STRING</type>
-                <flagFormat>%s</flagFormat>
-                <includeSpaces>true</includeSpaces>
-            </option>
-        </options>
+        <need scope="ALIGN" key="excl" value="false"/>
+        <need scope="ALIGN" key="h_vmem" value="12g"/>
+        <need scope="ALIGN" key="virtual_free" value="16g"/>
+        <need scope="ALIGN_JVM" value="4g"/>
+    </runtime>
+    <options>
+        <option>
+            <id>ALIGNER_OPTIONS</id>
+            <dbLegacyId>alignerAdvancedOptions</dbLegacyId>
+            <name>Other aligner options (aln phase)</name>
+            <help>Provide any additional BWA option here following the syntax expected by bwa aln.</help>
+            <required>false</required>
+            <defaultsTo></defaultsTo>
+            <type>STRING</type>
+            <flagFormat>%s</flagFormat>
+            <includeSpaces>true</includeSpaces>
+            <autoFormat>false</autoFormat>
+        </option>
+    </options>
 </alignerConfig>

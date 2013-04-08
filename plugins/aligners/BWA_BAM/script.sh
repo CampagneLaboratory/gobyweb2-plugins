@@ -27,6 +27,8 @@ function plugin_align {
     # set the number of threads to the number of cores available on the server:
     NUM_THREADS=`grep physical  /proc/cpuinfo |grep id|wc -l`
     PARALLEL_OPTION="-t ${NUM_THREADS}"
+    ALIGNER_OPTIONS="${PLUGINS_ALIGNER_BWA_BAM_ALIGNER_OPTIONS}"
+    ALL_OTHER_OPTIONS="${PLUGINS_ALIGNER_BWA_BAM_ALL_OTHER_OPTIONS}"
 
     if [ "${PAIRED_END_ALIGNMENT}" == "true" ]; then
                 # PAIRED END alignment, native aligner
@@ -39,7 +41,7 @@ function plugin_align {
                 dieUponError "bwa aln step failed for second read, sub-task ${CURRENT_PART} of ${NUMBER_OF_PARTS}, failed"
 
                 # aln worked, let's sampe
-                nice ${RESOURCES_BWA_WITH_GOBY_EXEC_PATH} sampe ${COLOR_SPACE_OPTION} -f pre-sort-${TAG} ${INDEX_DIRECTORY}/${INDEX_PREFIX} ${SAI_FILE_0} ${SAI_FILE_1} ${READS} ${READS}
+                nice ${RESOURCES_BWA_WITH_GOBY_EXEC_PATH} sampe ${COLOR_SPACE_OPTION} -f pre-sort-${TAG}  ${ALL_OTHER_OPTIONS} ${INDEX_DIRECTORY}/${INDEX_PREFIX} ${SAI_FILE_0} ${SAI_FILE_1} ${READS} ${READS}
                 dieUponError "bwa sampe step failed, sub-task ${CURRENT_PART} of ${NUMBER_OF_PARTS}, failed"
 
     else
@@ -49,7 +51,7 @@ function plugin_align {
                 dieUponError "bwa aln step failed (single end), sub-task ${CURRENT_PART} of ${NUMBER_OF_PARTS}, failed"
 
                 # aln worked, let's samse
-                nice ${RESOURCES_BWA_WITH_GOBY_EXEC_PATH} samse ${COLOR_SPACE_OPTION} -f pre-sort-${TAG}  ${INDEX_DIRECTORY}/${INDEX_PREFIX} ${SAI_FILE_0} ${READS}
+                nice ${RESOURCES_BWA_WITH_GOBY_EXEC_PATH} samse ${COLOR_SPACE_OPTION} -f pre-sort-${TAG} ${ALL_OTHER_OPTIONS} ${INDEX_DIRECTORY}/${INDEX_PREFIX} ${SAI_FILE_0} ${READS}
                 dieUponError "bwa samse step failed (single end), sub-task ${CURRENT_PART} of ${NUMBER_OF_PARTS}, failed"
     fi
 

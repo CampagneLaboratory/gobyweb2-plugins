@@ -30,6 +30,9 @@ function plugin_align {
     ENSEMBL_RELEASE=`echo ${GENOME_REFERENCE_ID} | awk -F\. '{print $(NF)}'| tr [:lower:] [:upper:] `
 
     INDEX_DIR=$(eval echo \${RESOURCES_ARTIFACTS_BWA_WITH_GOBY_ARTIFACT_INDEX_${ORG}_${BUILD_NUMBER}_${ENSEMBL_RELEASE}})/index
+    ALIGNER_OPTIONS="${PLUGINS_ALIGNER_BWA_BAM_ARTIFACT_ALIGNER_OPTIONS}"
+    ALL_OTHER_OPTIONS="${PLUGINS_ALIGNER_BWA_BAM_ARTIFACT_ALL_OTHER_OPTIONS}"
+
     set -x
     if [ "${PAIRED_END_ALIGNMENT}" == "true" ]; then
         # PAIRED END alignment, native aligner
@@ -43,7 +46,7 @@ function plugin_align {
             RETURN_STATUS=$?
             if [ $RETURN_STATUS -eq 0 ]; then
                 # aln worked, let's sampe
-                nice ${BWA_GOBY_EXEC_PATH} sampe ${COLOR_SPACE_OPTION} -F sam -f ${OUTPUT} ${INDEX_DIR} ${SAI_FILE_0} ${SAI_FILE_1} ${READS} ${READS}
+                nice ${BWA_GOBY_EXEC_PATH} sampe ${COLOR_SPACE_OPTION}  ${ALL_OTHER_OPTIONS}  -F sam -f ${OUTPUT} ${INDEX_DIR} ${SAI_FILE_0} ${SAI_FILE_1} ${READS} ${READS}
                 RETURN_STATUS=$?
             fi
         fi
@@ -54,7 +57,7 @@ function plugin_align {
         RETURN_STATUS=$?
         if [ $RETURN_STATUS -eq 0 ]; then
             # aln worked, let's samse
-            nice ${BWA_GOBY_EXEC_PATH} samse ${COLOR_SPACE_OPTION} -F sam -f ${OUTPUT} ${INDEX_DIR} ${SAI_FILE_0} ${READS}
+            nice ${BWA_GOBY_EXEC_PATH} samse ${COLOR_SPACE_OPTION}  ${ALL_OTHER_OPTIONS}  -F sam -f ${OUTPUT} ${INDEX_DIR} ${SAI_FILE_0} ${READS}
             RETURN_STATUS=$?
         fi
     fi

@@ -24,6 +24,8 @@ function plugin_align {
     if [ "${COLOR_SPACE}" == "true" ]; then
         COLOR_SPACE_OPTION="-c"
     fi
+    ALIGNER_OPTIONS="${PLUGINS_ALIGNER_BWA_GOBY_ALIGNER_OPTIONS}"
+    ALL_OTHER_OPTIONS="${PLUGINS_ALIGNER_BWA_GOBY_ALL_OTHER_OPTIONS}"
 
     if [ "${PAIRED_END_ALIGNMENT}" == "true" ]; then
         # PAIRED END alignment, native aligner
@@ -36,7 +38,7 @@ function plugin_align {
             RETURN_STATUS=$?
             if [ $RETURN_STATUS -eq 0 ]; then
                 # aln worked, let's sampe
-                nice ${BWA_GOBY_EXEC_PATH} sampe ${COLOR_SPACE_OPTION} -F goby -f ${OUTPUT} -x ${START_POSITION} -y ${END_POSITION} ${INDEX_DIRECTORY}/${INDEX_PREFIX} ${SAI_FILE_0} ${SAI_FILE_1} ${READS_FILE} ${READS_FILE}
+                nice ${BWA_GOBY_EXEC_PATH} sampe ${COLOR_SPACE_OPTION} -F goby -f ${OUTPUT}  ${ALL_OTHER_OPTIONS}  -x ${START_POSITION} -y ${END_POSITION} ${INDEX_DIRECTORY}/${INDEX_PREFIX} ${SAI_FILE_0} ${SAI_FILE_1} ${READS_FILE} ${READS_FILE}
                 RETURN_STATUS=$?
             fi
         fi
@@ -47,7 +49,7 @@ function plugin_align {
         RETURN_STATUS=$?
         if [ $RETURN_STATUS -eq 0 ]; then
             # aln worked, let's samse
-            nice ${BWA_GOBY_EXEC_PATH} samse ${COLOR_SPACE_OPTION} -F goby -f ${OUTPUT} -x ${START_POSITION} -y ${END_POSITION} ${INDEX_DIRECTORY}/${INDEX_PREFIX} ${SAI_FILE_0} ${READS_FILE}
+            nice ${BWA_GOBY_EXEC_PATH} samse ${COLOR_SPACE_OPTION} -F goby -f ${OUTPUT}  ${ALL_OTHER_OPTIONS}  -x ${START_POSITION} -y ${END_POSITION} ${INDEX_DIRECTORY}/${INDEX_PREFIX} ${SAI_FILE_0} ${READS_FILE}
             RETURN_STATUS=$?
         fi
     fi
