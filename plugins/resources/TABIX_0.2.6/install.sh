@@ -1,4 +1,4 @@
-# Installation script for STAR version 2.2.0g
+# Installation script for Tabix version 0.2.6
 function plugin_install_artifact {
 
     id=$1
@@ -9,7 +9,7 @@ function plugin_install_artifact {
 
         'BINARIES' )
             VERSION="0.2.6"
-            ${RESOURCES_FETCH_URL_SCRIPT} "http://downloads.sourceforge.net/project/samtools/tabix/tabix-0.2.6.tar.bz2?r=http%3A%2F%2Fsourceforge.net%2Fprojects%2Fsamtools%2Ffiles%2Ftabix%2F&ts=1364484044&use_mirror=iweb" tabix-0.2.6.tar.bz2
+            ${RESOURCES_FETCH_URL_SCRIPT} "http://downloads.sourceforge.net/project/samtools/tabix/tabix-0.2.6.tar.bz2?r=http%3A%2F%2Fsourceforge.net%2Fprojects%2Fsamtools%2Ffiles%2Ftabix%2F&ts=1364484044&use_mirror=iweb" tabix-${VERSION}.tar.bz2
             bunzip2  tabix-${VERSION}.tar.bz2
             tar -xvf tabix-${VERSION}.tar
             cd tabix-${VERSION}
