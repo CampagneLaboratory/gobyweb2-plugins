@@ -13,7 +13,6 @@ function plugin_install_artifact {
             unzip muTect-${VERSION}-bin.zip
             cp muTect-${VERSION}.jar muTect.jar
             cp muTect.jar ${installation_path}/
-            cp unzip ${installation_path}/
             return 0
             ;;
 

@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<!--
+  ~ Copyright (c) 2011-2012  by Cornell University  and the  Cornell Research Foundation,
+  ~ Inc. All Rights Reserved.
+  ~
+  ~ GobyWeb plugins  are released  under the LGPL3 license,  unless  otherwise specified
+  ~ by the license of a specific plugin. See the file LGPL3.license in this distribution
+  ~ for a copy of the LGPL license.
+  ~
+  ~ When a plugin is not released under the LGPL3 license,  the comments  at the top  of
+  ~ the plugin's config.xml will indicate how that specific plugin is released/licensed.
+  -->
+<alignmentAnalysisConfig xsi:noNamespaceSchemaLocation="../../../schemas/plugins.xsd"
+                         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <name>Somatic Mutations with MuTect</name>
+    <id>MUTECT_SOMATIC_MUTATIONS</id>
+    <dbLegacyId>Somatic Mutations</dbLegacyId>
+    <help>Detection of somatic mutations with MuTect.
+    </help>
+    <version>1.0</version>
+    <analysisType>SequenceVariants</analysisType>
+    <minimumNumberOfGroups>1</minimumNumberOfGroups>
+    <maximumNumberOfGroups>50</maximumNumberOfGroups>
+    <supportsTranscriptAlignments>false</supportsTranscriptAlignments>
+    <splitProcessCombine>true</splitProcessCombine>
+    <producesVariantCallingFormatOutput>true</producesVariantCallingFormatOutput>
+    <supportsGobyAlignments>true</supportsGobyAlignments>
+    <copyWeightFiles>false</copyWeightFiles>
+    <requires>
+        <resource>
+            <id>MUTECT</id>
+            <versionAtLeast>1.1.4</versionAtLeast>
+        </resource>
+        <resource>
+            <id>GOBY</id>
+            <versionAtLeast>20130404182251</versionAtLeast>
+        </resource>
+        <resource>
+            <id>GOBY_INDEXED_GENOMES</id>
+            <versionAtLeast>1.0</versionAtLeast>
+        </resource>
+        <resource>
+            <id>FAI_INDEXED_GENOMES</id>
+            <versionAtLeast>1.1</versionAtLeast>
+        </resource>
+    </requires>
+    <runtime>
+        <need scope="GLOBAL" key="h_vmem" value="18g"/>
+        <need scope="GLOBAL" key="virtual_free" value="20g"/>
+        <need scope="PROCESS" key="excl" value="false"/>
+        <need scope="PROCESS" key="h_vmem" value="8g"/>
+        <need scope="PROCESS" key="virtual_free" value="8g"/>
+        <need scope="PROCESS_JVM" value="6g"/>
+        <need scope="COMBINE" key="excl" value="false"/>
+        <need scope="COMBINE" key="h_vmem" value="50g"/>
+        <need scope="COMBINE" key="virtual_free" value="50g"/>
+        <need scope="COMBINE_JVM" value="45g"/>
+    </runtime>
+    <options>
+        <option>
+            <id>COVARIATE_INFO_URL</id>
+            <name>Covariate info URL</name>
+            <help>URL of a covariate information file. The URL should be publicly available and serve a TSV file. See http://campagnelab.org/software/goby/tutorials/detecting-tumor-normal-pair-for-mutect-1-1-4/ for the format expected in the TSV file. </help>
+            <required>true</required>
+            <defaultsTo>NONE</defaultsTo>
+            <type>STRING</type>
+            <autoFormat>false</autoFormat>
+        </option>
+    </options>
+    <outputSchema>
+        <outputFile>
+            <id>RESULTS</id>
+            <name>Mutations</name>
+            <required>true</required>
+            <mimeType>text/tab-separated-values</mimeType>
+            <filename>results.tsv</filename>
+            <help>Somatic Mutations....
+            </help>
+        </outputFile>
+    </outputSchema>
+</alignmentAnalysisConfig>

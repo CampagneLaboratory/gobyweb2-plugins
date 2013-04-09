@@ -24,7 +24,7 @@
     <files>
         <file>
             <id>EXEC_PATH</id>
-            <filename>mutect</filename>
+            <filename>run-mutect</filename>
         </file>
     </files>
 </resourceConfig>
