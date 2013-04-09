@@ -69,7 +69,7 @@ function plugin_alignment_analysis_process {
         echo patient_id=$patient, kind_of_sample=$kind
         kind_lc=`echo ${kind} | tr [:upper:] [:lower:]`
         case "${kind_lc}" in
-                "Germline")
+                "germline")
                         FILES=(`ls source/${sample}.*`)
                         if [ ${#FILES[@]} -gt 0 ]; then
                             GermlineDetails[$patient]="$sample"
@@ -77,7 +77,7 @@ function plugin_alignment_analysis_process {
                             echo "ERROR: Germline sample was not provided for patient ${patient}"
                         fi
                         ;;
-                "Somatic")
+                "somatic")
                          FILES=(`ls source/${sample}.*`)
                          if [ ${#FILES[@]} -gt 0 ]; then
                             SomaticDetails[$patient]="$sample"
