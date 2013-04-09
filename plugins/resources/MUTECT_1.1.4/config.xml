@@ -26,9 +26,5 @@
             <id>EXEC_PATH</id>
             <filename>mutect</filename>
         </file>
-        <file>
-            <id>UNZIP_EXEC_PATH</id>
-            <filename>unzip</filename>
-        </file>
     </files>
 </resourceConfig>
