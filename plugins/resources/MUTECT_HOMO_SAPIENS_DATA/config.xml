@@ -14,20 +14,10 @@
                 xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
     <name>MuTect Homo Sapiens Data</name>
     <id>MUTECT_HOMO_SAPIENS_DATA</id>
-    <help>Auxiliary files for running MuTect with human genome.
+    <help>Auxiliary files for running MuTect with human genome (somatic variations from COSMIC and polymorphisms from dbSNP).
     </help>
     <version>1.0</version>
     <artifacts>
-        <artifact id="DATA" order="1"/>
+        <artifact id="FILES" order="1"/>
     </artifacts>
-    <files>
-        <file>
-            <id>COSMIC</id>
-            <filename>b37_cosmic_v54_120711.vcf</filename>
-        </file>
-        <file>
-            <id>DBSNP</id>
-            <filename>dbsnp_132_b37.leftAligned.vcf</filename>
-        </file>
-    </files>
 </resourceConfig>

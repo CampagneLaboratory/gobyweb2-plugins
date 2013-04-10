@@ -51,11 +51,6 @@ function plugin_alignment_analysis_process {
         echo "ERROR: covariates URL not specified"
    fi
 
-   #only the first part will unzip
-   if [ ! -e ${JOB_DIR}/dbsnp_132_b37.leftAligned.vcf ]; then
-        gunzip ${JOB_DIR}/dbsnp_132_b37.leftAligned.vcf.gz
-   fi
-
    BUILD_NUMBER=`echo ${GENOME_REFERENCE_ID} | awk -F\. '{print $1}' | tr [:lower:] [:upper:] `
    ENSEMBL_RELEASE=`echo ${GENOME_REFERENCE_ID} | awk -F\. '{print $(NF)}'| tr [:lower:] [:upper:] `
    SEQUENCE_CACHE_DIR=$(eval echo \${RESOURCES_ARTIFACTS_GOBY_INDEXED_GENOMES_SEQUENCE_CACHE_${ORG}_${BUILD_NUMBER}_${ENSEMBL_RELEASE}})
@@ -63,8 +58,10 @@ function plugin_alignment_analysis_process {
 
    WINDOW_LIMITS=`awk -v arrayJobIndex=${ARRAY_JOB_INDEX} '{ if (lineNumber==arrayJobIndex) print " -s "$3" -e "$6; lineNumber++; }' ${SLICING_PLAN_FILENAME}`
 
+   # Copy cosmic.vcf and dbsnp.vcf to TMPDIR:
+   cp ${RESOURCES_ARTIFACTS_MUTECT_HOMO_SAPIENS_DATA_FILES}/* ${TMDIR}/
+
    ls -l
-   pwd
    tail -n +2 covariates.tsv > covariates_no_header.tsv
 
    ls -l 
@@ -144,7 +141,6 @@ function plugin_alignment_analysis_process {
                     ${TMPDIR}/somatic-ca-${SomaticDetails[id]}
                 dieUponError "Convertion of goby alignment to BAM  for somatic sample of ${id}, failed, sub-task ${CURRENT_PART} of ${NUMBER_OF_PARTS}, failed"
 
-
                 #3) index Bam files
                 ${RESOURCES_SAMTOOLS_EXEC_PATH} sort ${TMPDIR}/germline-ca-${GermlineDetails[id]}.bam
                 ${RESOURCES_SAMTOOLS_EXEC_PATH} index ${TMPDIR}/germline-ca-${GermlineDetails[id]}.bam
@@ -163,8 +159,9 @@ function plugin_alignment_analysis_process {
                     --input_file:tumor ${TMPDIR}/somatic-ca-${SomaticDetails[id]}.bam \
                     --out ${id}-stats.tsv  \
                     --reference_sequence ${INDEXED_GENOME_DIR}/*toplevel.fasta \
-                    --cosmic ${JOB_DIR}/b37_cosmic_v54_120711.vcf \
-                    --dbsnp ${JOB_DIR}/dbsnp_132_b37.leftAligned.vcf
+                    --cosmic ${TMPDIR}/cosmic.vcf \
+                    --dbsnp ${TMPDIR}/dbsnp.vcf
+
                     #--intervals <intervals_to_process>  #may need to convert the WINDOW_LIMITS to mutect syntax
                     #--coverage_file <coverage.wig.txt>
                  dieUponError "MuTect analysis on  ${id}, failed, sub-task ${CURRENT_PART} of ${NUMBER_OF_PARTS}, failed"

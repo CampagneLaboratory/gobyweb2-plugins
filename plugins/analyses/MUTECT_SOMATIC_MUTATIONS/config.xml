@@ -14,7 +14,6 @@
                          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
     <name>Somatic Mutations with MuTect</name>
     <id>MUTECT_SOMATIC_MUTATIONS</id>
-    <dbLegacyId>Somatic Mutations</dbLegacyId>
     <help>Detection of somatic mutations with MuTect.
     </help>
     <version>1.0</version>
@@ -22,14 +21,20 @@
     <minimumNumberOfGroups>1</minimumNumberOfGroups>
     <maximumNumberOfGroups>2</maximumNumberOfGroups>
     <supportsTranscriptAlignments>false</supportsTranscriptAlignments>
+    <supportsBAMAlignments>false</supportsBAMAlignments>
     <splitProcessCombine>true</splitProcessCombine>
     <producesVariantCallingFormatOutput>true</producesVariantCallingFormatOutput>
     <supportsGobyAlignments>true</supportsGobyAlignments>
     <copyWeightFiles>false</copyWeightFiles>
+
     <requires>
         <resource>
             <id>MUTECT</id>
             <versionAtLeast>1.1.4</versionAtLeast>
+        </resource>
+        <resource>
+            <id>MUTECT_HOMO_SAPIENS_DATA</id>
+            <versionAtLeast>1.0</versionAtLeast>
         </resource>
         <resource>
             <id>GOBY</id>
@@ -64,7 +69,10 @@
         <option>
             <id>COVARIATE_INFO_URL</id>
             <name>Covariate info URL</name>
-            <help>URL of a covariate information file. The URL should be publicly available and serve a TSV file. See http://campagnelab.org/software/goby/tutorials/detecting-tumor-normal-pair-for-mutect-1-1-4/ for the format expected in the TSV file. </help>
+            <help>URL of a covariate information file. The URL should be publicly available and serve a TSV file. See
+                http://campagnelab.org/software/goby/tutorials/detecting-tumor-normal-pair-for-mutect-1-1-4/ for the
+                format expected in the TSV file.
+            </help>
             <required>true</required>
             <defaultsTo>NONE</defaultsTo>
             <type>STRING</type>
