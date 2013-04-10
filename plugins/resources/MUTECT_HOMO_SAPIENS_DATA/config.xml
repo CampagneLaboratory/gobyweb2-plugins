@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<!--
+  ~ Copyright (c) 2011-2013  by Cornell University  and the  Cornell Research Foundation,
+  ~ Inc. All Rights Reserved.
+  ~
+  ~ GobyWeb plugins  are released  under the LGPL3 license,  unless  otherwise specified
+  ~ by the license of a specific plugin. See the file LGPL3.license in this distribution
+  ~ for a copy of the LGPL license.
+  ~
+  ~ When a plugin is not released under the LGPL3 license,  the comments  at the top  of
+  ~ the plugin's config.xml will indicate how that specific plugin is released/licensed.
+  -->
+<resourceConfig xsi:noNamespaceSchemaLocation="../../../schemas/plugins.xsd"
+                xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <name>MuTect Homo Sapiens Data</name>
+    <id>MUTECT_HOMO_SAPIENS_DATA</id>
+    <help>Auxiliary files for running MuTect with human genome.
+    </help>
+    <version>1.0</version>
+    <artifacts>
+        <artifact id="DATA" order="1"/>
+    </artifacts>
+    <files>
+        <file>
+            <id>COSMIC</id>
+            <filename>b37_cosmic_v54_120711.vcf</filename>
+        </file>
+        <file>
+            <id>DBSNP</id>
+            <filename>dbsnp_132_b37.leftAligned.vcf</filename>
+        </file>
+    </files>
+</resourceConfig>
