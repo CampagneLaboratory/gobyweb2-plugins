@@ -16,7 +16,7 @@
     <id>BWA_GOBY</id>
     <dbLegacyId>bwa (Goby native)</dbLegacyId>
     <help>Version of BWA that supports Goby formats natively.</help>
-    <version>1.1</version>
+    <version>1.2</version>
     <supportsColorSpace>true</supportsColorSpace>
     <supportsGobyAlignments>true</supportsGobyAlignments>
     <supportsPairedEndAlignments>true</supportsPairedEndAlignments>
@@ -43,10 +43,9 @@
     <options>
 
         <option>
-            <id>ALIGNER_OPTIONS</id>
-            <dbLegacyId>alignerAdvancedOptions</dbLegacyId>
-            <name>Other aligner options (aln phase)</name>
-            <help>Provide any additional BWA option here following the syntax expected by bwa aln.</help>
+            <id>SAMPE_SAMSE_OPTIONS</id>
+            <name>Options for samse/sampe phase</name>
+            <help>Provide any additional BWA option here following the syntax expected by bwa samse/sampe.</help>
             <required>false</required>
             <defaultsTo></defaultsTo>
             <type>STRING</type>

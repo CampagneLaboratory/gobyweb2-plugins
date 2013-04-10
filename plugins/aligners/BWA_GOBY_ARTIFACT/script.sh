@@ -28,34 +28,37 @@ function plugin_align {
     ORG=` echo ${ORGANISM} | tr [:lower:] [:upper:]  `
     BUILD_NUMBER=`echo ${GENOME_REFERENCE_ID} | awk -F\. '{print $1}' | tr [:lower:] [:upper:] `
     ENSEMBL_RELEASE=`echo ${GENOME_REFERENCE_ID} | awk -F\. '{print $(NF)}'| tr [:lower:] [:upper:] `
-    ALIGNER_OPTIONS="${PLUGINS_ALIGNER_BWA_GOBY_ARTIFACT_ALIGNER_OPTIONS}"
+    SAMPE_SAMSE_OPTIONS="${PLUGINS_ALIGNER_BWA_GOBY_ARTIFACT_SAMPE_SAMSE_OPTIONS}"
     ALL_OTHER_OPTIONS="${PLUGINS_ALIGNER_BWA_GOBY_ARTIFACT_ALL_OTHER_OPTIONS}"
     INDEX_DIR=$(eval echo \${RESOURCES_ARTIFACTS_BWA_WITH_GOBY_ARTIFACT_INDEX_${ORG}_${BUILD_NUMBER}_${ENSEMBL_RELEASE}})/index
 
+    SAMPLE_NAME=`basename ${READS_FILE}`
+    PLATFORM_NAME=${READS_PLATFORM}
+    READ_GROUPS="@RG\tID:1\tSM:${SAMPLE_NAME}\tPL:${PLATFORM_NAME}\tPU:1"
     if [ "${PAIRED_END_ALIGNMENT}" == "true" ]; then
         # PAIRED END alignment, native aligner
         SAI_FILE_0=${READS##*/}-0.sai
         SAI_FILE_1=${READS##*/}-1.sai
 
-        nice ${BWA_GOBY_EXEC_PATH} aln -w 0 -t ${BWA_GOBY_NUM_THREADS} ${COLOR_SPACE_OPTION} -f ${SAI_FILE_0} -l ${INPUT_READ_LENGTH} ${ALIGNER_OPTIONS} -x ${START_POSITION} -y ${END_POSITION} ${INDEX_DIR} ${READS_FILE}
+        nice ${BWA_GOBY_EXEC_PATH} aln -w 0 -t ${BWA_GOBY_NUM_THREADS} ${COLOR_SPACE_OPTION} -f ${SAI_FILE_0} -l ${INPUT_READ_LENGTH} ${ALL_OTHER_OPTIONS} -x ${START_POSITION} -y ${END_POSITION} ${INDEX_DIR} ${READS_FILE}
         RETURN_STATUS=$?
         if [ $RETURN_STATUS -eq 0 ]; then
-            nice ${BWA_GOBY_EXEC_PATH} aln -w 1 -t ${BWA_GOBY_NUM_THREADS} ${COLOR_SPACE_OPTION} -f ${SAI_FILE_1} -l ${INPUT_READ_LENGTH} ${ALIGNER_OPTIONS} -x ${START_POSITION} -y ${END_POSITION} ${INDEX_DIR} ${READS_FILE}
+            nice ${BWA_GOBY_EXEC_PATH} aln -w 1 -t ${BWA_GOBY_NUM_THREADS} ${COLOR_SPACE_OPTION} -f ${SAI_FILE_1}  ${ALL_OTHER_OPTIONS} -l ${INPUT_READ_LENGTH}  -x ${START_POSITION} -y ${END_POSITION} ${INDEX_DIR} ${READS_FILE}
             RETURN_STATUS=$?
             if [ $RETURN_STATUS -eq 0 ]; then
                 # aln worked, let's sampe
-                nice ${BWA_GOBY_EXEC_PATH} sampe ${COLOR_SPACE_OPTION} ${ALL_OTHER_OPTIONS}  -F goby -f ${OUTPUT} -x ${START_POSITION} -y ${END_POSITION} ${INDEX_DIR} ${SAI_FILE_0} ${SAI_FILE_1} ${READS_FILE} ${READS_FILE}
+                nice ${BWA_GOBY_EXEC_PATH} sampe ${COLOR_SPACE_OPTION}  -F goby -f ${OUTPUT} ${SAMPE_SAMSE_OPTIONS} -x ${START_POSITION} -y ${END_POSITION} ${INDEX_DIR} ${SAI_FILE_0} ${SAI_FILE_1} ${READS_FILE} ${READS_FILE} -r ${READ_GROUPS}
                 RETURN_STATUS=$?
             fi
         fi
     else
         # Single end alignment, native aligner
         SAI_FILE_0=${READS##*/}.sai
-        nice ${BWA_GOBY_EXEC_PATH} aln ${COLOR_SPACE_OPTION} -t ${BWA_GOBY_NUM_THREADS} -f ${SAI_FILE_0} -l ${INPUT_READ_LENGTH} ${ALIGNER_OPTIONS} -x ${START_POSITION} -y ${END_POSITION} ${INDEX_DIR} ${READS_FILE}
+        nice ${BWA_GOBY_EXEC_PATH} aln ${COLOR_SPACE_OPTION} -t ${BWA_GOBY_NUM_THREADS} -f ${SAI_FILE_0} -l ${INPUT_READ_LENGTH}   ${ALL_OTHER_OPTIONS} -x ${START_POSITION} -y ${END_POSITION} ${INDEX_DIR} ${READS_FILE}
         RETURN_STATUS=$?
         if [ $RETURN_STATUS -eq 0 ]; then
             # aln worked, let's samse
-            nice ${BWA_GOBY_EXEC_PATH} samse ${COLOR_SPACE_OPTION}  ${ALL_OTHER_OPTIONS}  -F goby -f ${OUTPUT} -x ${START_POSITION} -y ${END_POSITION} ${INDEX_DIR} ${SAI_FILE_0} ${READS_FILE}
+            nice ${BWA_GOBY_EXEC_PATH} samse ${COLOR_SPACE_OPTION} ${SAMPE_SAMSE_OPTIONS}  -F goby -f ${OUTPUT} -x ${START_POSITION} -y ${END_POSITION} ${INDEX_DIR} ${SAI_FILE_0} ${READS_FILE} -r ${READ_GROUPS}
             RETURN_STATUS=$?
         fi
     fi
