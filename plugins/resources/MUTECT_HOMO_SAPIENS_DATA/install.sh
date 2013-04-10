@@ -9,10 +9,12 @@ function plugin_install_artifact {
 
         'FILES' )
 
-            ${RESOURCES_FETCH_URL_SCRIPT} "http://www.broadinstitute.org/cancer/cga/sites/default/files/data/tools/mutect/b37_cosmic_v54_120711.vcf" cosmic.vcf
+            ${RESOURCES_FETCH_URL_SCRIPT} "http://www.broadinstitute.org/cancer/cga/sites/default/files/data/tools/mutect/b37_cosmic_v54_120711.vcf"
+            mv *cosmic*.vcf cosmic.vcf
             cp cosmic.vcf ${installation_path}/cosmic.vcf
 
-            ${RESOURCES_FETCH_URL_SCRIPT} "http://www.broadinstitute.org/cancer/cga/sites/default/files/data/tools/mutect/dbsnp_132_b37.leftAligned.vcf.gz" dbsnp.vcf.gz
+            ${RESOURCES_FETCH_URL_SCRIPT} "http://www.broadinstitute.org/cancer/cga/sites/default/files/data/tools/mutect/dbsnp_132_b37.leftAligned.vcf.gz"
+            mv dbsnp*.vcf.gz dbsnp.vcf.gz
             gunzip dbsnp.vcf.gz
             cp dbsnp.vcf ${installation_path}/dbsnp.vcf
 

@@ -18,12 +18,6 @@
         identification of somatic point mutations in next generation sequencing data of cancer genomes.
     </help>
     <version>1.1.4</version>
-    <requires>
-        <resource>
-            <id>MUTECT_DATA</id>
-            <versionAtLeast>1.0</versionAtLeast>
-        </resource>
-    </requires>
     <artifacts>
         <artifact id="BINARIES" order="1"/>
     </artifacts>
