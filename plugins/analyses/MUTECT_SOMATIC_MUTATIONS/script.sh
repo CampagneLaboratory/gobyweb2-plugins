@@ -59,9 +59,8 @@ function plugin_alignment_analysis_process {
 
    tail -n +2 covariates.tsv > ${TMPDIR}/covariates_no_header.tsv
 
-
-   declare -a GermlineDetails
-   declare -a SomaticDetails
+   declare -a GermlineDetails='()'
+   declare -a SomaticDetails='()'
 
    #loads the samples' details and checks if they exist
     while IFS=$'\t' read sample patient gender type kind tissue parents
@@ -72,7 +71,7 @@ function plugin_alignment_analysis_process {
                 "germline")
                         FILES=(`ls source/${sample}.*`)
                         if [ ${#FILES[@]} -gt 0 ]; then
-                            GermlineDetails[$patient]="$sample"
+                            GermlineDetails["id-${patient}"]="$sample"
                         else
                             echo "ERROR: Germline sample was not provided for patient ${patient}"
                         fi
@@ -80,7 +79,7 @@ function plugin_alignment_analysis_process {
                 "somatic")
                          FILES=(`ls source/${sample}.*`)
                          if [ ${#FILES[@]} -gt 0 ]; then
-                            SomaticDetails[$patient]="$sample"
+                            SomaticDetails["id-${patient}"]="$sample"
                           else
                             echo "ERROR: Somatic sample was not provided for patient ${patient}"
                         fi
