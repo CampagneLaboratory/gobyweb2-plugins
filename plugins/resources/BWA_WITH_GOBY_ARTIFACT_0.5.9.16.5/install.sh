@@ -9,10 +9,10 @@ function plugin_install_artifact {
         'EXECUTABLE' )
             . ${RESOURCES_ARTIFACTS_GOBY_CPP_API_LIBRARIES}/setup.sh
 
-            (${RESOURCES_FETCH_URL_SCRIPT} http://campagnelab.org/files/20111230-bwa-0.5.9-r16-icb.tgz
+            (${RESOURCES_FETCH_URL_SCRIPT} http://campagnelab.org/files/bwa-0.5.9-goby-2.3.zip  bwa-goby-support.zip
 
-                gzip -c -d 20111230-bwa-0.5.9-r16-icb.tgz |tar -xvf -
-                cd bwa-icb/;
+                unzip bwa-goby-support.zip
+                cd bwa-goby-support/
                 chmod +x autogen.sh
                 ./autogen.sh
                 ./configure --with-goby --prefix=${installation_path}

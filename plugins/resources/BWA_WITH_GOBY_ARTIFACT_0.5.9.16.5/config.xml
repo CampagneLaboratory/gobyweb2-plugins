@@ -15,7 +15,7 @@
     <name>BWA with Goby support</name>
     <id>BWA_WITH_GOBY_ARTIFACT</id>
     <help>Version of BWA that supports Goby file format.</help>
-    <version>0.5.9.16.6</version>
+    <version>0.5.9.16.7</version>
     <requires>
         <resource>
             <id>GOBY_CPP_API</id>
