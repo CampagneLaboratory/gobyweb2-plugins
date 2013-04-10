@@ -43,6 +43,10 @@
             <id>FAI_INDEXED_GENOMES</id>
             <versionAtLeast>1.1</versionAtLeast>
         </resource>
+        <resource>
+            <id>SAMTOOLS</id>
+            <versionAtLeast>0.1.18.1</versionAtLeast>
+        </resource>
     </requires>
     <runtime>
         <need scope="GLOBAL" key="h_vmem" value="18g"/>
