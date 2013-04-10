@@ -48,11 +48,11 @@ function plugin_alignment_analysis_process {
    INDEXED_GENOME_DIR=$(eval echo \${RESOURCES_ARTIFACTS_FAI_INDEXED_GENOMES_SAMTOOLS_FAI_INDEX_${ORG}_${BUILD_NUMBER}_${ENSEMBL_RELEASE}})
 
    WINDOW_LIMITS=`awk -v arrayJobIndex=${ARRAY_JOB_INDEX} '{ if (lineNumber==arrayJobIndex) print " -s "$3" -e "$6; lineNumber++; }' ${SLICING_PLAN_FILENAME}`
-
+   echo "Fetching covariates' details at ${PLUGINS_ALIGNMENT_ANALYSIS_MUTECT_COVARIATE_INFO_URL}"
    ${RESOURCES_FETCH_URL_SCRIPT} ${PLUGINS_ALIGNMENT_ANALYSIS_MUTECT_COVARIATE_INFO_URL} covariates.tsv ${JOB_DIR}/results/
-
+   echo "Fetching b37_cosmic_v54_120711.vcf "
    ${RESOURCES_FETCH_URL_SCRIPT} http://www.broadinstitute.org/cancer/cga/sites/default/files/data/tools/mutect/b37_cosmic_v54_120711.vcf b37_cosmic_v54_120711.vcf ${JOB_DIR}/
-
+   echo "Fetching dbsnp_132_b37.leftAligned.vcf.gz "
    ${RESOURCES_FETCH_URL_SCRIPT} http://www.broadinstitute.org/cancer/cga/sites/default/files/data/tools/mutect/dbsnp_132_b37.leftAligned.vcf.gz dbsnp_132_b37.leftAligned.vcf.gz ${JOB_DIR}/
 
    gunzip ${JOB_DIR}/dbsnp_132_b37.leftAligned.vcf.gz
@@ -65,7 +65,7 @@ function plugin_alignment_analysis_process {
    #loads the samples' details and checks if they exist
     while IFS=$'\t' read sample patient gender type kind tissue parents
     do
-        echo patient_id=$patient, kind_of_sample=$kind
+        echo reading patient_id=$patient, kind_of_sample=$kind
         kind_lc=`echo ${kind} | tr [:upper:] [:lower:]`
         case "${kind_lc}" in
                 "germline")
@@ -97,12 +97,14 @@ function plugin_alignment_analysis_process {
         if [[ ${SomaticDetails[id]} ]]; then
 
                #1) concatenate-alignments and produce a slice of Goby Alignments (GA) + add-read-origin-info to GA
+               echo "Concatenating and slicing germline sample ${GermlineDetails[id]} "
                run-goby concatenate-alignments \
                     ${WINDOW_LIMITS} \
                     ---add-read-origin-info
                     --output ${TMPDIR}/germline-ca-${GermlineDetails[id]} \
                     ${TMPDIR}/${GermlineDetails[id]}.entries
 
+               echo "Concatenating and slicing somatic sample ${SomaticDetails[id]} "
                run-goby concatenate-alignments \
                     ${WINDOW_LIMITS} \
                     ---add-read-origin-info
@@ -112,19 +114,24 @@ function plugin_alignment_analysis_process {
                #2)convert the GA to BAM
 
                #convert the Germline slice
+               echo "Converting Goby alignment ${TMPDIR}/germline-ca-${GermlineDetails[id]} to BAM"
                run-goby ${PLUGIN_NEED_PROCESS_JVM} compact-to-sam \
                     --genome ${SEQUENCE_CACHE_DIR}/random-access-genome \
                     --output ${TMPDIR}/germline-ca-${GermlineDetails[id]}.bam \
                     ${TMPDIR}/germline-ca-${GermlineDetails[id]}
 
                #convert the Somatic slice
+               echo "Converting Goby alignment ${TMPDIR}/somatic-ca-${SomaticDetails[id]} to BAM"
                run-goby ${PLUGIN_NEED_PROCESS_JVM} compact-to-sam \
                     --genome ${SEQUENCE_CACHE_DIR}/random-access-genome \
                     --output ${TMPDIR}/somatic-ca-${SomaticDetails[id]}.bam \
                     ${TMPDIR}/somatic-ca-${SomaticDetails[id]}
 
                #3) run MuTect
-
+               echo "Running MuTect with \
+                 --input_file:normal ${TMPDIR}/germline-ca-${GermlineDetails[id]}.bam  \
+                 --input_file:tumor ${TMPDIR}/somatic-ca-${SomaticDetails[id]}.bam  \
+                 --out ${id}-stats.tsv"
                ${MUTECT_EXEC_PATH} \
                     --analysis_type MuTect \
                     --input_file:normal ${TMPDIR}/germline-ca-${GermlineDetails[id]}.bam  \
@@ -151,6 +158,7 @@ function plugin_alignment_analysis_combine {
    PART_RESULT_FILES=$*
 
     # use goby in fdr mode. To concatenate TSVs produced by Mutect in a single file
+    echo "Concating TSVs with Goby in results.tsv"
     run-goby ${PLUGIN_NEED_COMBINE_JVM} fdr \
         --output results.tsv \
         *-stats.tsv
