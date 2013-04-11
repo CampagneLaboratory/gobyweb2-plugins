@@ -142,11 +142,11 @@ function plugin_alignment_analysis_process {
                 dieUponError "Convertion of goby alignment to BAM  for somatic sample of ${id}, failed, sub-task ${CURRENT_PART} of ${NUMBER_OF_PARTS}, failed"
 
                 #3) index Bam files
-                ${RESOURCES_SAMTOOLS_EXEC_PATH} sort ${TMPDIR}/germline-ca-${GermlineDetails[id]}.bam
-                ${RESOURCES_SAMTOOLS_EXEC_PATH} index ${TMPDIR}/germline-ca-${GermlineDetails[id]}.bam
+                ${RESOURCES_SAMTOOLS_EXEC_PATH} sort ${TMPDIR}/germline-ca-${GermlineDetails[id]}.bam ${TMPDIR}/germline-ca-${GermlineDetails[id]}-sorted.bam
+                ${RESOURCES_SAMTOOLS_EXEC_PATH} index ${TMPDIR}/germline-ca-${GermlineDetails[id]}-sorted.bam
 
-                ${RESOURCES_SAMTOOLS_EXEC_PATH} sort ${TMPDIR}/somatic-ca-${SomaticDetails[id]}.bam
-                ${RESOURCES_SAMTOOLS_EXEC_PATH} index ${TMPDIR}/somatic-ca-${SomaticDetails[id]}.bam
+                ${RESOURCES_SAMTOOLS_EXEC_PATH} sort ${TMPDIR}/somatic-ca-${SomaticDetails[id]}.bam ${TMPDIR}/somatic-ca-${SomaticDetails[id]}-sorted.bam
+                ${RESOURCES_SAMTOOLS_EXEC_PATH} index ${TMPDIR}/somatic-ca-${SomaticDetails[id]}-sorted.bam
 
                #4) run MuTect
                echo "Running MuTect with \
@@ -155,8 +155,8 @@ function plugin_alignment_analysis_process {
                  --out ${id}-stats.tsv"
                ${RESOURCES_MUTECT_EXEC_PATH} \
                     --analysis_type MuTect \
-                    --input_file:normal ${TMPDIR}/germline-ca-${GermlineDetails[id]}.bam  \
-                    --input_file:tumor ${TMPDIR}/somatic-ca-${SomaticDetails[id]}.bam \
+                    --input_file:normal ${TMPDIR}/germline-ca-${GermlineDetails[id]}-sorted.bam  \
+                    --input_file:tumor ${TMPDIR}/somatic-ca-${SomaticDetails[id]}-sorted.bam \
                     --out ${id}-stats.tsv  \
                     --reference_sequence ${INDEXED_GENOME_DIR}/*toplevel.fasta \
                     --cosmic ${TMPDIR}/cosmic.vcf \

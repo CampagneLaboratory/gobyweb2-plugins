@@ -16,7 +16,7 @@
     <id>MUTECT_HOMO_SAPIENS_DATA</id>
     <help>Auxiliary files for running MuTect with human genome (somatic variations from COSMIC and polymorphisms from dbSNP).
     </help>
-    <version>1.1</version>
+    <version>1.2</version>
     <artifacts>
         <artifact id="FILES" order="1"/>
     </artifacts>
