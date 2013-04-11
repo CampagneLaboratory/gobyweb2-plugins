@@ -38,7 +38,7 @@
         </resource>
         <resource>
             <id>GOBY</id>
-            <versionAtLeast>20130410095335</versionAtLeast>
+            <versionAtLeast>20130411170529</versionAtLeast>
         </resource>
         <resource>
             <id>GOBY_INDEXED_GENOMES</id>

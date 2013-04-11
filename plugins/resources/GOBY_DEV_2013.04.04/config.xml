@@ -14,7 +14,7 @@
     <name>Goby (for MuTect)</name>
     <id>GOBY</id>
     <help>Goby framework and toolbox. See http://goby.campagnelab.org.</help>
-    <version>20130411130007</version>
+    <version>20130411170529</version>
     <files>
         <file>
             <id>GOBY_JAR</id>

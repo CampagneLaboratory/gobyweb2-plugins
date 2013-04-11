@@ -15,6 +15,7 @@ function plugin_alignment_analysis_split {
 
   goby suggest-position-slices \
           --number-of-bytes 50000000 \
+          --restrict-per-chromosome \
           --output ${SPLICING_PLAN_RESULT} \
           $*
 
