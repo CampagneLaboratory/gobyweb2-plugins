@@ -186,15 +186,14 @@ function plugin_alignment_analysis_process {
 
 
 function plugin_alignment_analysis_combine {
-   RESULT_FILE=stats.vcf.gz
+   RESULT_FILE=results.tsv
    shift
    PART_RESULT_FILES=$*
 
     # use goby in fdr mode. To concatenate TSVs produced by Mutect in a single file
     echo "Concating TSVs with Goby in results.tsv"
     run-goby ${PLUGIN_NEED_COMBINE_JVM} fdr \
-        --output ${JOBDIR}/results/results.tsv \
+        --output ${RESULT_FILE} \
         *-stats.tsv
      dieUponError "Concatenation of TSV files with Goby failed" 
-
 }
