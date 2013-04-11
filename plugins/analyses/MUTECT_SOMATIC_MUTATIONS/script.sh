@@ -64,7 +64,7 @@ function plugin_alignment_analysis_process {
    WINDOW_LIMITS=`awk -v arrayJobIndex=${ARRAY_JOB_INDEX} '{ if (lineNumber==arrayJobIndex) print " -s "$3" -e "$6; lineNumber++; }' ${SLICING_PLAN_FILENAME}`
 
    # Copy cosmic.vcf and dbsnp.vcf to TMPDIR:
-   cp ${RESOURCES_ARTIFACTS_MUTECT_HOMO_SAPIENS_DATA_FILES}/* ${TMDIR}/
+   cp ${RESOURCES_ARTIFACTS_MUTECT_HOMO_SAPIENS_DATA_FILES}/* ${TMPDIR}/
 
    ls -l
    tail -n +2 covariates.tsv > covariates_no_header.tsv
