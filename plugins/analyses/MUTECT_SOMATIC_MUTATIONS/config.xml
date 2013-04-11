@@ -23,7 +23,7 @@
     <supportsTranscriptAlignments>false</supportsTranscriptAlignments>
     <supportsBAMAlignments>false</supportsBAMAlignments>
     <splitProcessCombine>true</splitProcessCombine>
-    <producesVariantCallingFormatOutput>true</producesVariantCallingFormatOutput>
+    <producesTabDelimitedOutput>true</producesTabDelimitedOutput>
     <supportsGobyAlignments>true</supportsGobyAlignments>
     <copyWeightFiles>false</copyWeightFiles>
 
