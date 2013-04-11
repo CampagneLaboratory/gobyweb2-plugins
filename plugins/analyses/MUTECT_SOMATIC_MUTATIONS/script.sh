@@ -8,6 +8,11 @@ function plugin_alignment_analysis_split {
   SPLICING_PLAN_RESULT=$2
   shift
   shift
+
+  # Remove .tmh for all alignments. We don't need them for this type of processing and loading .tmh
+  # can slow down loading of alignments whenever we need to make a slice.
+  rm ${JOB_DIR}/source/*.tmh
+
   goby suggest-position-slices \
           --number-of-bytes 50000000 \
           --output ${SPLICING_PLAN_RESULT} \
