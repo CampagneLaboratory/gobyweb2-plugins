@@ -45,9 +45,9 @@ function plugin_alignment_analysis_process {
    shift
 
 
-  # Remove .tmh for all alignments. We don't need them for this type of processing and loading .tmh
-  # can slow down loading of alignments whenever we need to make a slice.
-  rm ${JOB_DIR}/source/*.tmh
+   # Remove .tmh for all alignments. We don't need them for this type of processing and loading .tmh
+   # can slow down loading of alignments whenever we need to make a slice.
+   rm ${JOB_DIR}/source/*.tmh
 
    ORG=` echo ${ORGANISM} | tr [:lower:] [:upper:]  `
    if [ ! "${ORG}" == "HOMO_SAPIENS" ]; then
@@ -74,10 +74,6 @@ function plugin_alignment_analysis_process {
 
    ls -l
    tail -n +2 covariates.tsv > covariates_no_header.tsv
-
-   ls -l 
-
-   cat covariates_no_header.tsv
 
    declare -a GermlineDetails='()'
    declare -a SomaticDetails='()'
