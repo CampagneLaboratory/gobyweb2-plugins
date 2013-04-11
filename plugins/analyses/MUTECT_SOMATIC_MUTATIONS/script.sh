@@ -147,10 +147,10 @@ function plugin_alignment_analysis_process {
                 dieUponError "Convertion of goby alignment to BAM  for somatic sample of ${id}, failed, sub-task ${CURRENT_PART} of ${NUMBER_OF_PARTS}, failed"
 
                 #3) index Bam files
-                ${RESOURCES_SAMTOOLS_EXEC_PATH} sort ${TMPDIR}/germline-ca-${GermlineDetails[id]}.bam ${TMPDIR}/germline-ca-${GermlineDetails[id]}-sorted.bam
+                ${RESOURCES_SAMTOOLS_EXEC_PATH} sort ${TMPDIR}/germline-ca-${GermlineDetails[id]}.bam ${TMPDIR}/germline-ca-${GermlineDetails[id]}-sorted
                 ${RESOURCES_SAMTOOLS_EXEC_PATH} index ${TMPDIR}/germline-ca-${GermlineDetails[id]}-sorted.bam
 
-                ${RESOURCES_SAMTOOLS_EXEC_PATH} sort ${TMPDIR}/somatic-ca-${SomaticDetails[id]}.bam ${TMPDIR}/somatic-ca-${SomaticDetails[id]}-sorted.bam
+                ${RESOURCES_SAMTOOLS_EXEC_PATH} sort ${TMPDIR}/somatic-ca-${SomaticDetails[id]}.bam ${TMPDIR}/somatic-ca-${SomaticDetails[id]}-sorted
                 ${RESOURCES_SAMTOOLS_EXEC_PATH} index ${TMPDIR}/somatic-ca-${SomaticDetails[id]}-sorted.bam
 
                #4) run MuTect
