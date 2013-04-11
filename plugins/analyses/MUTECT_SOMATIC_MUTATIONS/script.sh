@@ -168,7 +168,7 @@ function plugin_alignment_analysis_process {
                     --analysis_type MuTect \
                     --input_file:normal ${TMPDIR}/germline-ca-${GermlineDetails[id]}-sorted.bam  \
                     --input_file:tumor ${TMPDIR}/somatic-ca-${SomaticDetails[id]}-sorted.bam \
-                    --out ${id}-stats.tsv  \
+                    --out ${TAG}-${id}-stats-${ARRAY_JOB_INDEX}.tsv  \
                     --reference_sequence ${INDEXED_GENOME_DIR}/*toplevel.fasta \
                     --cosmic ${TMPDIR}/cosmic.vcf \
                     --dbsnp ${TMPDIR}/dbsnp.vcf \
@@ -194,6 +194,6 @@ function plugin_alignment_analysis_combine {
     echo "Concating TSVs with Goby in results.tsv"
     run-goby ${PLUGIN_NEED_COMBINE_JVM} fdr \
         --output ${RESULT_FILE} \
-        *-stats.tsv
+        ${PART_RESULT_FILES}
      dieUponError "Concatenation of TSV files with Goby failed" 
 }
