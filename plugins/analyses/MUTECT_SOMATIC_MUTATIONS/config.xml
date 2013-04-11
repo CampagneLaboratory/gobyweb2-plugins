@@ -89,5 +89,15 @@
             <help>Somatic Mutations....
             </help>
         </outputFile>
+        <outputFile>
+            <id>RESULTS_LUCENE_INDEX</id>
+            <name>table of statistics</name>
+            <required>true</required>
+            <mimeType>application/lucene-index</mimeType>
+            <tableName>results</tableName>
+            <filename>results.lucene.index</filename>
+            <help>View the table of results in the interactive GobyWeb table browser. Table contains Mutect results.
+            </help>
+        </outputFile>
     </outputSchema>
 </alignmentAnalysisConfig>
