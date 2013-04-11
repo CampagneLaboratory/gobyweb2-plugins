@@ -67,6 +67,7 @@ function plugin_alignment_analysis_process {
    INDEXED_GENOME_DIR=$(eval echo \${RESOURCES_ARTIFACTS_FAI_INDEXED_GENOMES_SAMTOOLS_FAI_INDEX_${ORG}_${BUILD_NUMBER}_${ENSEMBL_RELEASE}})
 
    WINDOW_LIMITS=`awk -v arrayJobIndex=${ARRAY_JOB_INDEX} '{ if (lineNumber==arrayJobIndex) print " -s "$3" -e "$6; lineNumber++; }' ${SLICING_PLAN_FILENAME}`
+   INTERVAL=`awk -v arrayJobIndex=${ARRAY_JOB_INDEX} '{ if (lineNumber==arrayJobIndex) print $1":"$2"-"$3"; lineNumber++; }' ${SLICING_PLAN_FILENAME}`
 
    # Copy cosmic.vcf and dbsnp.vcf to TMPDIR:
    cp ${RESOURCES_ARTIFACTS_MUTECT_HOMO_SAPIENS_DATA_FILES}/* ${TMPDIR}/
@@ -171,8 +172,7 @@ function plugin_alignment_analysis_process {
                     --reference_sequence ${INDEXED_GENOME_DIR}/*toplevel.fasta \
                     --cosmic ${TMPDIR}/cosmic.vcf \
                     --dbsnp ${TMPDIR}/dbsnp.vcf
-
-                    #--intervals <intervals_to_process>  #may need to convert the WINDOW_LIMITS to mutect syntax
+                    --intervals ${INTERVAL}  #may need to convert the WINDOW_LIMITS to mutect syntax
                     #--coverage_file <coverage.wig.txt>
                  dieUponError "MuTect analysis on  ${id}, failed, sub-task ${CURRENT_PART} of ${NUMBER_OF_PARTS}, failed"
 
