@@ -190,6 +190,12 @@ function plugin_alignment_analysis_combine {
    shift
    PART_RESULT_FILES=$*
 
+   for FILE in `ls ${PART_RESULT_FILES}`
+    do
+       tail -n +2 ${FILE} > ${FILE}_no_header
+       mv -f ${FILE}_no_header ${FILE}
+    done
+
     # use goby in fdr mode. To concatenate TSVs produced by Mutect in a single file
     echo "Concating TSVs with Goby in results.tsv"
     run-goby ${PLUGIN_NEED_COMBINE_JVM} fdr \
