@@ -44,6 +44,11 @@ function plugin_alignment_analysis_process {
    shift
    shift
 
+
+  # Remove .tmh for all alignments. We don't need them for this type of processing and loading .tmh
+  # can slow down loading of alignments whenever we need to make a slice.
+  rm ${JOB_DIR}/source/*.tmh
+
    ORG=` echo ${ORGANISM} | tr [:lower:] [:upper:]  `
    if [ ! "${ORG}" == "HOMO_SAPIENS" ]; then
         dieUponError "Invalid organism ${ORG}"
