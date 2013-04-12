@@ -69,7 +69,7 @@ function plugin_alignment_analysis_process {
    INDEXED_GENOME_DIR=$(eval echo \${RESOURCES_ARTIFACTS_FAI_INDEXED_GENOMES_SAMTOOLS_FAI_INDEX_${ORG}_${BUILD_NUMBER}_${ENSEMBL_RELEASE}})
 
    WINDOW_LIMITS=`awk -v arrayJobIndex=${ARRAY_JOB_INDEX} '{ if (lineNumber==arrayJobIndex) print " -s "$3" -e "$6; lineNumber++; }' ${SLICING_PLAN_FILENAME}`
-   INTERVAL=`awk -v arrayJobIndex=${ARRAY_JOB_INDEX} '{ if (lineNumber==arrayJobIndex) print ""$1":"$2"-"$5; lineNumber++; }' ${SLICING_PLAN_FILENAME}`
+   INTERVAL=`awk -v arrayJobIndex=${ARRAY_JOB_INDEX} '{ if (lineNumber==arrayJobIndex) print ""$1":"($2+1)"-"($5+1); lineNumber++; }' ${SLICING_PLAN_FILENAME}`
 
    # Copy cosmic.vcf and dbsnp.vcf to TMPDIR:
    cp ${RESOURCES_ARTIFACTS_MUTECT_HOMO_SAPIENS_DATA_FILES}/* ${TMPDIR}/
