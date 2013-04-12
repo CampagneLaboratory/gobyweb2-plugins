@@ -1,7 +1,7 @@
 #!/bin/sh
 
 . ${RESOURCES_GOBY_SHELL_SCRIPT}
-. maps_in_bash3.sh
+. ${PLUGINS_ALIGNMENT_ANALYSIS_MUTECT_SOMATIC_MUTATIONS_FILES_MAPS_IN_BASH3}
 
 function plugin_alignment_analysis_split {
 
