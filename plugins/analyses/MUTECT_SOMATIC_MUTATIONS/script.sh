@@ -1,6 +1,7 @@
 #!/bin/sh
 
 . ${RESOURCES_GOBY_SHELL_SCRIPT}
+. maps_in_bash3.sh
 
 function plugin_alignment_analysis_split {
 
@@ -76,8 +77,6 @@ function plugin_alignment_analysis_process {
    ls -l
    tail -n +2 covariates.tsv > covariates_no_header.tsv
 
-   declare -a GermlineDetails='()'
-   declare -a SomaticDetails='()'
    
    #loads the samples' details and checks if they exist
     while IFS=$'\t' read sample patient gender type kind tissue parents
@@ -88,7 +87,7 @@ function plugin_alignment_analysis_process {
                 "germline")
                         FILES=(`ls ${JOB_DIR}/source/${sample}.*`)
                         if [ ${#FILES[@]} -gt 0 ]; then
-                            GermlineDetails["id-${patient}"]="$sample"
+                            put "GermlineDetails" "${patient}" "$sample"
                         else
                             echo "ERROR: Germline sample was not provided for patient ${patient}"
                         fi
@@ -96,7 +95,8 @@ function plugin_alignment_analysis_process {
                 "somatic")
                          FILES=(`ls ${JOB_DIR}/source/${sample}.*`)
                          if [ ${#FILES[@]} -gt 0 ]; then
-                            SomaticDetails["id-${patient}"]="$sample"
+                            put "SomaticDetails" "${patient}" "$sample"
+
                           else
                             echo "ERROR: Somatic sample was not provided for patient ${patient}"
                         fi
@@ -107,64 +107,66 @@ function plugin_alignment_analysis_process {
     done < covariates_no_header.tsv
 
     #for each pair...
-    for id in "${!GermlineDetails[@]}"
+    getKeySet "GermlineDetails"
+    for id in $keySet
     do
-        echo $id ${GermlineDetails[id]} ${SomaticDetails[id]}
+        get "GermlineDetails" "key2"
+        GERMLINE_FILE=$value
+        get "SomaticDetails" "key2"
+        SOMATIC_FILE=$value
 
-        if [[ ${SomaticDetails[id]} ]]; then
-
-               #1) concatenate-alignments and produce a slice of Goby Alignments (GA) + add-read-origin-info to GA
-               echo "Concatenating and slicing germline sample ${GermlineDetails[id]} "
+        #1) concatenate-alignments and produce a slice of Goby Alignments (GA) + add-read-origin-info to GA
+               echo "Concatenating and slicing germline sample ${GERMLINE_FILE} "
                run-goby ${PLUGIN_NEED_PROCESS_JVM} concatenate-alignments \
                     ${WINDOW_LIMITS} \
                     --add-read-origin-info \
-                    --output ${TMPDIR}/germline-ca-${GermlineDetails[id]} \
-                    ${JOB_DIR}/source/${GermlineDetails[id]}.entries
+                    --output ${TMPDIR}/germline-ca-${GERMLINE_FILE} \
+                    ${JOB_DIR}/source/${GERMLINE_FILE}.entries
 	           dieUponError "Concatenate of goby alignment for germline sample of ${id}, failed, sub-task ${CURRENT_PART} of ${NUMBER_OF_PARTS}, failed"
 	
 		
-               echo "Concatenating and slicing somatic sample ${SomaticDetails[id]} "
+               echo "Concatenating and slicing somatic sample ${SOMATIC_FILE} "
                run-goby ${PLUGIN_NEED_PROCESS_JVM} concatenate-alignments \
                     ${WINDOW_LIMITS} \
                     --add-read-origin-info \
-                    --output ${TMPDIR}/somatic-ca-${SomaticDetails[id]} \
-                    ${JOB_DIR}/source/${SomaticDetails[id]}.entries
+                    --output ${TMPDIR}/somatic-ca-${SOMATIC_FILE} \
+                    ${JOB_DIR}/source/${SOMATIC_FILE}.entries
                dieUponError "Concatenate of goby alignment for somatic sample of ${id}, failed, sub-task ${CURRENT_PART} of ${NUMBER_OF_PARTS}, failed"
 	
-               #2)convert the GA to BAM
+        #2)convert the GA to BAM
 
                #convert the Germline slice
-               echo "Converting Goby alignment ${TMPDIR}/germline-ca-${GermlineDetails[id]} to BAM"
+               echo "Converting Goby alignment ${TMPDIR}/germline-ca-${GERMLINE_FILE} to BAM"
                run-goby ${PLUGIN_NEED_PROCESS_JVM} compact-to-sam \
                     --genome ${SEQUENCE_CACHE_DIR}/random-access-genome \
-                    --output ${TMPDIR}/germline-ca-${GermlineDetails[id]}.bam \
-                    ${TMPDIR}/germline-ca-${GermlineDetails[id]}
+                    --output ${TMPDIR}/germline-ca-${GERMLINE_FILE}.bam \
+                    ${TMPDIR}/germline-ca-${GERMLINE_FILE}
                 dieUponError "Convertion of goby alignment to BAM for germline sample of ${id}, failed, sub-task ${CURRENT_PART} of ${NUMBER_OF_PARTS}, failed"
 
                #convert the Somatic slice
-               echo "Converting Goby alignment ${TMPDIR}/somatic-ca-${SomaticDetails[id]} to BAM"
+               echo "Converting Goby alignment ${TMPDIR}/somatic-ca-${SOMATIC_FILE} to BAM"
                run-goby ${PLUGIN_NEED_PROCESS_JVM} compact-to-sam \
                     --genome ${SEQUENCE_CACHE_DIR}/random-access-genome \
-                    --output ${TMPDIR}/somatic-ca-${SomaticDetails[id]}.bam \
-                    ${TMPDIR}/somatic-ca-${SomaticDetails[id]}
+                    --output ${TMPDIR}/somatic-ca-${SOMATIC_FILE}.bam \
+                    ${TMPDIR}/somatic-ca-${SOMATIC_FILE}
                 dieUponError "Convertion of goby alignment to BAM  for somatic sample of ${id}, failed, sub-task ${CURRENT_PART} of ${NUMBER_OF_PARTS}, failed"
 
-                #3) index Bam files
-                ${RESOURCES_SAMTOOLS_EXEC_PATH} sort ${TMPDIR}/germline-ca-${GermlineDetails[id]}.bam ${TMPDIR}/germline-ca-${GermlineDetails[id]}-sorted
-                ${RESOURCES_SAMTOOLS_EXEC_PATH} index ${TMPDIR}/germline-ca-${GermlineDetails[id]}-sorted.bam
+        #3) index Bam files
+                ${RESOURCES_SAMTOOLS_EXEC_PATH} sort ${TMPDIR}/germline-ca-${GERMLINE_FILE}.bam ${TMPDIR}/germline-ca-${GERMLINE_FILE}-sorted
+                ${RESOURCES_SAMTOOLS_EXEC_PATH} index ${TMPDIR}/germline-ca-${GERMLINE_FILE}-sorted.bam
 
-                ${RESOURCES_SAMTOOLS_EXEC_PATH} sort ${TMPDIR}/somatic-ca-${SomaticDetails[id]}.bam ${TMPDIR}/somatic-ca-${SomaticDetails[id]}-sorted
-                ${RESOURCES_SAMTOOLS_EXEC_PATH} index ${TMPDIR}/somatic-ca-${SomaticDetails[id]}-sorted.bam
+                ${RESOURCES_SAMTOOLS_EXEC_PATH} sort ${TMPDIR}/somatic-ca-${SOMATIC_FILE}.bam ${TMPDIR}/somatic-ca-${SOMATIC_FILE}-sorted
+                ${RESOURCES_SAMTOOLS_EXEC_PATH} index ${TMPDIR}/somatic-ca-${SOMATIC_FILE}-sorted.bam
 
-               #4) run MuTect
+        #4) run MuTect
                echo "Running MuTect with \
-                 --input_file:normal ${TMPDIR}/germline-ca-${GermlineDetails[id]}.bam  \
-                 --input_file:tumor ${TMPDIR}/somatic-ca-${SomaticDetails[id]}.bam  \
+                 --input_file:normal ${TMPDIR}/germline-ca-${GERMLINE_FILE}.bam  \
+                 --input_file:tumor ${TMPDIR}/somatic-ca-${SOMATIC_FILE}.bam  \
                  --out ${id}-stats.tsv"
                ${RESOURCES_MUTECT_EXEC_PATH} \
                     --analysis_type MuTect \
-                    --input_file:normal ${TMPDIR}/germline-ca-${GermlineDetails[id]}-sorted.bam  \
-                    --input_file:tumor ${TMPDIR}/somatic-ca-${SomaticDetails[id]}-sorted.bam \
+                    --input_file:normal ${TMPDIR}/germline-ca-${GERMLINE_FILE}-sorted.bam  \
+                    --input_file:tumor ${TMPDIR}/somatic-ca-${SOMATIC_FILE}-sorted.bam \
                     --out ${TAG}-${id}-stats-${ARRAY_JOB_INDEX}.tsv  \
                     --reference_sequence ${INDEXED_GENOME_DIR}/*toplevel.fasta \
                     --cosmic ${TMPDIR}/cosmic.vcf \
@@ -173,10 +175,6 @@ function plugin_alignment_analysis_process {
                     #--coverage_file <coverage.wig.txt>
                  dieUponError "MuTect analysis on  ${id}, failed, sub-task ${CURRENT_PART} of ${NUMBER_OF_PARTS}, failed"
 
-
-        else
-                echo "ERROR: Tumor sample was not provided for patient ${id}"
-        fi
     done
 
 }

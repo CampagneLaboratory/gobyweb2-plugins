@@ -53,6 +53,12 @@
             <versionAtLeast>0.1.18.1</versionAtLeast>
         </resource>
     </requires>
+    <files>
+        <file>
+            <id>MAPS_IN_BASH3</id>
+            <filename>maps_in_bash3.sh</filename>
+        </file>
+    </files>
     <runtime>
         <need scope="GLOBAL" key="h_vmem" value="18g"/>
         <need scope="GLOBAL" key="virtual_free" value="20g"/>
