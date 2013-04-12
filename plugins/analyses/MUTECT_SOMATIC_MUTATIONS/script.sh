@@ -110,9 +110,9 @@ function plugin_alignment_analysis_process {
     getKeySet "GermlineDetails"
     for id in $keySet
     do
-        get "GermlineDetails" "key2"
+        get "GermlineDetails" $id
         GERMLINE_FILE=$value
-        get "SomaticDetails" "key2"
+        get "SomaticDetails" $id
         SOMATIC_FILE=$value
 
         #1) concatenate-alignments and produce a slice of Goby Alignments (GA) + add-read-origin-info to GA
