@@ -151,22 +151,22 @@ function plugin_alignment_analysis_process {
                     ${TMPDIR}/somatic-ca-${SOMATIC_FILE}
                 dieUponError "Convertion of goby alignment to BAM  for somatic sample of ${id}, failed, sub-task ${CURRENT_PART} of ${NUMBER_OF_PARTS}, failed"
 
-        #3) index Bam files
+        #3) sort, remove potential PCR duplicates and index Bam files
                 ${RESOURCES_SAMTOOLS_EXEC_PATH} sort ${TMPDIR}/germline-ca-${GERMLINE_FILE}.bam ${TMPDIR}/germline-ca-${GERMLINE_FILE}-sorted
-                ${RESOURCES_SAMTOOLS_EXEC_PATH} index ${TMPDIR}/germline-ca-${GERMLINE_FILE}-sorted.bam
+                ${RESOURCES_SAMTOOLS_EXEC_PATH} rmdup ${TMPDIR}/germline-ca-${GERMLINE_FILE}-sorted.bam ${TMPDIR}/germline-ca-${GERMLINE_FILE}-sorted-nodup.bam
+                ${RESOURCES_SAMTOOLS_EXEC_PATH} index ${TMPDIR}/germline-ca-${GERMLINE_FILE}-sorted-nodup.bam
 
                 ${RESOURCES_SAMTOOLS_EXEC_PATH} sort ${TMPDIR}/somatic-ca-${SOMATIC_FILE}.bam ${TMPDIR}/somatic-ca-${SOMATIC_FILE}-sorted
-                ${RESOURCES_SAMTOOLS_EXEC_PATH} index ${TMPDIR}/somatic-ca-${SOMATIC_FILE}-sorted.bam
+                ${RESOURCES_SAMTOOLS_EXEC_PATH} rmdup ${TMPDIR}/germline-ca-${SOMATIC_FILE}-sorted.bam ${TMPDIR}/germline-ca-${SOMATIC_FILE}-sorted-nodup.bam
+                ${RESOURCES_SAMTOOLS_EXEC_PATH} index ${TMPDIR}/germline-ca-${SOMATIC_FILE}-sorted-nodup.bam
+
 
         #4) run MuTect
-               echo "Running MuTect with \
-                 --input_file:normal ${TMPDIR}/germline-ca-${GERMLINE_FILE}.bam  \
-                 --input_file:tumor ${TMPDIR}/somatic-ca-${SOMATIC_FILE}.bam  \
-                 --out ${id}-stats.tsv"
+               echo "Running MuTect..."
                ${RESOURCES_MUTECT_EXEC_PATH} \
                     --analysis_type MuTect \
-                    --input_file:normal ${TMPDIR}/germline-ca-${GERMLINE_FILE}-sorted.bam  \
-                    --input_file:tumor ${TMPDIR}/somatic-ca-${SOMATIC_FILE}-sorted.bam \
+                    --input_file:normal ${TMPDIR}/germline-ca-${GERMLINE_FILE}-sorted-nodup.bam  \
+                    --input_file:tumor ${TMPDIR}/somatic-ca-${SOMATIC_FILE}-sorted-nodup.bam \
                     --out ${TAG}-${id}-stats-${ARRAY_JOB_INDEX}.tsv  \
                     --reference_sequence ${INDEXED_GENOME_DIR}/*toplevel.fasta \
                     --cosmic ${TMPDIR}/cosmic.vcf \
