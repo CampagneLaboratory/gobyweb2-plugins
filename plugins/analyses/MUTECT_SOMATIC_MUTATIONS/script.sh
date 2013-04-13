@@ -157,8 +157,8 @@ function plugin_alignment_analysis_process {
                 ${RESOURCES_SAMTOOLS_EXEC_PATH} index ${TMPDIR}/germline-ca-${GERMLINE_FILE}-sorted-nodup.bam
 
                 ${RESOURCES_SAMTOOLS_EXEC_PATH} sort ${TMPDIR}/somatic-ca-${SOMATIC_FILE}.bam ${TMPDIR}/somatic-ca-${SOMATIC_FILE}-sorted
-                ${RESOURCES_SAMTOOLS_EXEC_PATH} rmdup ${TMPDIR}/germline-ca-${SOMATIC_FILE}-sorted.bam ${TMPDIR}/germline-ca-${SOMATIC_FILE}-sorted-nodup.bam
-                ${RESOURCES_SAMTOOLS_EXEC_PATH} index ${TMPDIR}/germline-ca-${SOMATIC_FILE}-sorted-nodup.bam
+                ${RESOURCES_SAMTOOLS_EXEC_PATH} rmdup ${TMPDIR}/somatic-ca-${SOMATIC_FILE}-sorted.bam ${TMPDIR}/somatic-ca-${SOMATIC_FILE}-sorted-nodup.bam
+                ${RESOURCES_SAMTOOLS_EXEC_PATH} index ${TMPDIR}/somatic-ca-${SOMATIC_FILE}-sorted-nodup.bam
 
 
         #4) run MuTect
