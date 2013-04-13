@@ -70,7 +70,7 @@ function plugin_alignment_analysis_process {
 
    WINDOW_LIMITS=`awk -v arrayJobIndex=${ARRAY_JOB_INDEX} '{ if (lineNumber==arrayJobIndex) print " -s "$3" -e "$6; lineNumber++; }' ${SLICING_PLAN_FILENAME}`
    INTERVAL=`awk -v arrayJobIndex=${ARRAY_JOB_INDEX} '{ if (lineNumber==arrayJobIndex) print ""$1":"($2+1)"-"($5+1); lineNumber++; }' ${SLICING_PLAN_FILENAME}`
-
+   IS_PAIRED_END_MATCH="All Compact-Reads files were paired-end = true"
    # Copy cosmic.vcf and dbsnp.vcf to TMPDIR:
    cp ${RESOURCES_ARTIFACTS_MUTECT_HOMO_SAPIENS_DATA_FILES}/* ${TMPDIR}/
 
@@ -153,11 +153,25 @@ function plugin_alignment_analysis_process {
 
         #3) sort, remove potential PCR duplicates and index Bam files
                 ${RESOURCES_SAMTOOLS_EXEC_PATH} sort ${TMPDIR}/germline-ca-${GERMLINE_FILE}.bam ${TMPDIR}/germline-ca-${GERMLINE_FILE}-sorted
-                ${RESOURCES_SAMTOOLS_EXEC_PATH} rmdup ${TMPDIR}/germline-ca-${GERMLINE_FILE}-sorted.bam ${TMPDIR}/germline-ca-${GERMLINE_FILE}-sorted-nodup.bam
+                GOBY_OUTPUT=`run-goby 1g cfs \
+                 --header-only  ${JOB_DIR}/source/${GERMLINE_FILE}.entries`
+                echo ${GOBY_OUTPUT}
+                RMDUP_OPTION="-s"
+                if echo "$GOBY_OUTPUT" | grep -q "$IS_PAIRED_END_MATCH"; then
+                    RMDUP_OPTION="-S"
+                fi
+                ${RESOURCES_SAMTOOLS_EXEC_PATH} rmdup ${RMDUP_OPTION} ${TMPDIR}/germline-ca-${GERMLINE_FILE}-sorted.bam ${TMPDIR}/germline-ca-${GERMLINE_FILE}-sorted-nodup.bam
                 ${RESOURCES_SAMTOOLS_EXEC_PATH} index ${TMPDIR}/germline-ca-${GERMLINE_FILE}-sorted-nodup.bam
 
                 ${RESOURCES_SAMTOOLS_EXEC_PATH} sort ${TMPDIR}/somatic-ca-${SOMATIC_FILE}.bam ${TMPDIR}/somatic-ca-${SOMATIC_FILE}-sorted
-                ${RESOURCES_SAMTOOLS_EXEC_PATH} rmdup ${TMPDIR}/somatic-ca-${SOMATIC_FILE}-sorted.bam ${TMPDIR}/somatic-ca-${SOMATIC_FILE}-sorted-nodup.bam
+                 GOBY_OUTPUT=`run-goby 1g cfs \
+                 --header-only  ${JOB_DIR}/source/${SOMATIC_FILE}.entries`
+                echo ${GOBY_OUTPUT}
+                RMDUP_OPTION="-s"
+                if echo "$GOBY_OUTPUT" | grep -q "$IS_PAIRED_END_MATCH"; then
+                    RMDUP_OPTION="-S"
+                fi
+                ${RESOURCES_SAMTOOLS_EXEC_PATH} rmdup ${RMDUP_OPTION} ${TMPDIR}/somatic-ca-${SOMATIC_FILE}-sorted.bam ${TMPDIR}/somatic-ca-${SOMATIC_FILE}-sorted-nodup.bam
                 ${RESOURCES_SAMTOOLS_EXEC_PATH} index ${TMPDIR}/somatic-ca-${SOMATIC_FILE}-sorted-nodup.bam
 
 
