@@ -31,9 +31,10 @@ function annotate_vep {
     if [ "${doAnnotate}" == "true" ]; then
 
         org=`echo ${ORGANISM} | tr '[:upper:]' '[:lower:]'`
+        # Disable  --allow_non_variant on April 15 2013 because it produced invalid VCF for sites without annotated variants
         # Retrieve annotations from vep and rewrite the VCF:
         ${RESOURCES_VARIANT_EFFECT_PREDICTOR_SCRIPT} --format vcf -i ${input} -o ${outputNoGzExtension} --species ${org} \
-           --force_overwrite --host useastdb.ensembl.org --vcf --allow_non_variant --hgnc
+           --force_overwrite --host useastdb.ensembl.org --vcf --hgnc
         dieUponError
 
         if [ ! -e ${outputNoGzExtension} ]; then
