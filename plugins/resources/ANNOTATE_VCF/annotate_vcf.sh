@@ -37,7 +37,8 @@ function annotate_vep {
 
         org=`echo ${ORGANISM} | tr '[:upper:]' '[:lower:]'`
         # Disable  --allow_non_variant on April 15 2013 because it produced invalid VCF for sites without annotated variants
-        # Retrieve annotations from vep and rewrite the VCF:
+        # Instead, we retrieve annotations from vep, extract these annotations to a TSV format, and annotate the original
+        # VCF with the new column from the TSV.
         ${RESOURCES_VARIANT_EFFECT_PREDICTOR_SCRIPT} --format vcf -i ${input} -o annotatedInput.vcf --species ${org} \
            --force_overwrite --host useastdb.ensembl.org --vcf --fork 8
         dieUponError
@@ -48,7 +49,7 @@ function annotate_vep {
         # VCF-query refuses to print the same column twice, we need to add this column manually with awk..
         ${RESOURCES_ARTIFACTS_VCF_TOOLS_BINARIES}/bin/vcf-query sorted.vcf.gz -f '%CHROM\t%POS\t%INFO/CSQ\n' >output-dumb.tsv
         awk '{print $1"\t"$2"\t"($2+1)"\t"$3}' output-dumb.tsv >output.tsv;
-        cp output.tsv ${SGE_O_WORKDIR}/
+        #cp output.tsv ${SGE_O_WORKDIR}/
         ${RESOURCES_TABIX_BGZIP_EXEC_PATH} output.tsv
         ${RESOURCES_TABIX_EXEC_PATH} -p vcf output.tsv.gz
 
