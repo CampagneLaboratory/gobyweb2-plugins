@@ -5,7 +5,7 @@ function dieUponError {
         ls -lat
         # remove the file so that fdr adjustment can proceed (it would fail on an empty file)
         rm $2
-        %QUEUE_WRITER% --tag ${TAG} --status ${JOB_PART_FAILED_STATUS} --description "VCF annotate part, sub-task ${CURRENT_PART} of ${NUMBER_OF_PARTS}, failed" --index ${CURRENT_PART} --job-type job-part
+        ${QUEUE_WRITER} --tag ${TAG} --status ${JOB_PART_FAILED_STATUS} --description "VCF annotate part, sub-task ${CURRENT_PART} of ${NUMBER_OF_PARTS}, failed" --index ${CURRENT_PART} --job-type job-part
     fi
 
 }
@@ -24,6 +24,11 @@ function annotate_vep {
     input=$2
     output=$3
     outputNoGzExtension="${output%.gz}"
+    outputTmpVcf="${output%.vcf.gz}-tmp.vcf"
+    outputTmpTsv="${output%.vcf.gz}-tmp.tsv"
+
+    inputCopy=`basename "${input%.vcf}-copy.vcf"`
+
   #  . ${SGE_O_WORKDIR}/constants.sh
   #  . ${SGE_O_WORKDIR}/auto-options.sh
   #  . ${TMPDIR}/exports.sh
@@ -33,13 +38,40 @@ function annotate_vep {
         org=`echo ${ORGANISM} | tr '[:upper:]' '[:lower:]'`
         # Disable  --allow_non_variant on April 15 2013 because it produced invalid VCF for sites without annotated variants
         # Retrieve annotations from vep and rewrite the VCF:
-        ${RESOURCES_VARIANT_EFFECT_PREDICTOR_SCRIPT} --format vcf -i ${input} -o ${outputNoGzExtension} --species ${org} \
-           --force_overwrite --host useastdb.ensembl.org --vcf --hgnc
+        ${RESOURCES_VARIANT_EFFECT_PREDICTOR_SCRIPT} --format vcf -i ${input} -o annotatedInput.vcf --species ${org} \
+           --force_overwrite --host useastdb.ensembl.org --vcf --fork 8
+        dieUponError
+        export PERL5LIB=${RESOURCES_ARTIFACTS_VCF_TOOLS_BINARIES}/lib/perl5/site_perl:${PERL5LIB}
+        ${RESOURCES_ARTIFACTS_VCF_TOOLS_BINARIES}/bin/vcf-sort annotatedInput.vcf > sorted.vcf
+        ${RESOURCES_TABIX_BGZIP_EXEC_PATH} sorted.vcf
+        ${RESOURCES_TABIX_EXEC_PATH} -p vcf sorted.vcf.gz
+        # VCF-query refuses to print the same column twice, we need to add this column manually with awk..
+        ${RESOURCES_ARTIFACTS_VCF_TOOLS_BINARIES}/bin/vcf-query sorted.vcf.gz -f '%CHROM\t%POS\t%INFO/CSQ\n' >output-dumb.tsv
+        awk '{print $1"\t"$2"\t"($2+1)"\t"$3}' output-dumb.tsv >output.tsv;
+        cp output.tsv ${SGE_O_WORKDIR}/
+        ${RESOURCES_TABIX_BGZIP_EXEC_PATH} output.tsv
+        ${RESOURCES_TABIX_EXEC_PATH} -p vcf output.tsv.gz
+
+        cp ${input} input.vcf
+        ${RESOURCES_TABIX_BGZIP_EXEC_PATH} input.vcf
+        ${RESOURCES_TABIX_EXEC_PATH} -p vcf input.vcf.gz
+
+        ${RESOURCES_ARTIFACTS_VCF_TOOLS_BINARIES}/bin/vcf-sort ${input} > raw-input-sorted.vcf
+        cat >${TMPDIR}/attributes.lst <<EOF
+key=INFO,ID=VariantEffectPrediction,Number=1,Type=String,Description="Variant Effect Predictions"
+EOF
+
+         cat raw-input-sorted.vcf | ${RESOURCES_ARTIFACTS_VCF_TOOLS_BINARIES}/bin/vcf-annotate -a output.tsv.gz \
+                      -d ${TMPDIR}/attributes.lst \
+                      -c CHROM,FROM,TO,INFO/VariantEffectPrediction >${outputNoGzExtension}
         dieUponError
 
         if [ ! -e ${outputNoGzExtension} ]; then
-              # No file was produced by VEP, we replace that non-existent output with the input:
-              cp ${input} ${outputNoGzExtension}
+            #
+
+              # No file was produced by VEP, write only a header to the output:
+              grep '^#' ${input}  >${outputNoGzExtension}
+              #   cp ${input} ${outputNoGzExtension}
         fi
 
         compressWhenNeeded ${output}
@@ -64,6 +96,10 @@ function annotate_ensembl_genes {
     outputNoGzExtension="${output%.gz}"
 
     if [ "${doAnnotate}" == "true" ]; then
+       ORG=` echo ${ORGANISM} | tr [:lower:] [:upper:]  `
+       BUILD_NUMBER=`echo ${GENOME_REFERENCE_ID} | awk -F\. '{print $1}' | tr [:lower:] [:upper:] `
+       ENSEMBL_RELEASE=`echo ${GENOME_REFERENCE_ID} | awk -F\. '{print $(NF)}'| tr [:lower:] [:upper:] `
+       ANNOTATION_PATH=$(eval echo \${RESOURCES_ARTIFACTS_ENSEMBL_ANNOTATIONS_ANNOTATIONS_${ORG}_${BUILD_NUMBER}_${ENSEMBL_RELEASE}})
 
            cat >${TMPDIR}/attributes.lst <<EOF
 key=INFO,ID=GENE,Number=1,Type=String,Description="Ensembl gene identifier"
@@ -71,7 +107,7 @@ key=INFO,ID=GENE_NAME,Number=1,Type=String,Description="Gene name"
 EOF
 
      ${RESOURCES_ARTIFACTS_VCF_TOOLS_BINARIES}/bin/vcf-sort ${input} \
-       | ${RESOURCES_ARTIFACTS_VCF_TOOLS_BINARIES}/bin/vcf-annotate -a ${RESOURCES_ARTIFACTS_ENSEMBL_ANNOTATIONS_ANNOTATIONS}/ref-start-end-gene-hgnc-sorted.tsv.gz \
+       | ${RESOURCES_ARTIFACTS_VCF_TOOLS_BINARIES}/bin/vcf-annotate -a ${ANNOTATION_PATH}/ref-start-end-gene-hgnc-sorted.tsv.gz \
                       -d ${TMPDIR}/attributes.lst -c CHROM,FROM,TO,INFO/GENE,INFO/GENE_NAME >${outputNoGzExtension}
 
      dieUponError

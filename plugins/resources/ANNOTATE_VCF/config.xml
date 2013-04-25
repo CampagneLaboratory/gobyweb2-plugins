@@ -19,7 +19,7 @@
     <requires>
         <resource>
             <id>VARIANT_EFFECT_PREDICTOR</id>
-            <versionAtLeast>2.8</versionAtLeast>
+            <versionAtLeast>71</versionAtLeast>
         </resource>
         <resource>
             <id>ENSEMBL_ANNOTATIONS</id>
@@ -29,10 +29,10 @@
             <id>TABIX</id>
             <versionAtLeast>0.2.6</versionAtLeast>
         </resource>
-        <!--resource>
+        <resource>
             <id>VCF_TOOLS</id>
             <versionAtLeast>0.1.10</versionAtLeast>
-        </resource-->
+        </resource>
 
     </requires>
     <files>
