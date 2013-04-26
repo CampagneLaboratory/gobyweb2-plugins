@@ -210,7 +210,7 @@
             </categories>
             <autoFormat>false</autoFormat>
         </option>
-        <option>
+        <!--option>
             <id>ONLY_NON_SYNONYMOUS</id>
             <name>Only non synonymous</name>
             <help>Report only non synonymous variations. When this option is checked, variations that do not
@@ -220,7 +220,7 @@
             <required>true</required>
             <defaultsTo>false</defaultsTo>
             <type>BOOLEAN</type>
-        </option>
+        </option-->
         <option hiddenWhen="NOT matches(OUTPUT_FORMAT,SOMATIC_VARIATIONS)">
             <id>COVARIATE_INFO_URL</id>
             <name>Covariate info URL</name>

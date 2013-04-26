@@ -117,6 +117,8 @@ function plugin_alignment_analysis_process {
 
       ${QUEUE_WRITER} --tag ${TAG} --status ${JOB_PART_DIFF_EXP_STATUS} --description "End discover-sequence-variations for part # ${ARRAY_JOB_INDEX}." --index ${CURRENT_PART} --job-type job-part
 
+     # Disable for GobyWeb 2.1.1
+     PLUGINS_ALIGNMENT_ANALYSIS_SEQ_VAR_GOBY_ONLY_NON_SYNONYMOUS=false
      . ${RESOURCES_ANNOTATE_VCF_EXEC_PATH}
      annotate_vep ${PLUGINS_ALIGNMENT_ANALYSIS_SEQ_VAR_GOBY_ANNOTATE_VARIATIONS} \
             ${TAG}-dsv-${ARRAY_JOB_INDEX}.vcf ${TAG}-dsv-${ARRAY_JOB_INDEX}-vep.vcf ${PLUGINS_ALIGNMENT_ANALYSIS_SEQ_VAR_GOBY_ONLY_NON_SYNONYMOUS}
