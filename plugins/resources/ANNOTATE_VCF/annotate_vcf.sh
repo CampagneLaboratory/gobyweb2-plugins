@@ -23,6 +23,7 @@ function annotate_vep {
     doAnnotate=$1
     input=$2
     output=$3
+    doKeepOnlyNonSynonymous=$4
     outputNoGzExtension="${output%.gz}"
     outputTmpVcf="${output%.vcf.gz}-tmp.vcf"
     outputTmpTsv="${output%.vcf.gz}-tmp.tsv"
@@ -40,7 +41,7 @@ function annotate_vep {
         # Instead, we retrieve annotations from vep, extract these annotations to a TSV format, and annotate the original
         # VCF with the new column from the TSV.
         ${RESOURCES_VARIANT_EFFECT_PREDICTOR_SCRIPT} --format vcf -i ${input} -o annotatedInput.vcf --species ${org} \
-           --force_overwrite --host useastdb.ensembl.org --vcf --fork 8
+           --force_overwrite --host useastdb.ensembl.org --vcf
         dieUponError
         export PERL5LIB=${RESOURCES_ARTIFACTS_VCF_TOOLS_BINARIES}/lib/perl5/site_perl:${PERL5LIB}
         ${RESOURCES_ARTIFACTS_VCF_TOOLS_BINARIES}/bin/vcf-sort annotatedInput.vcf > sorted.vcf
@@ -62,18 +63,43 @@ function annotate_vep {
 key=INFO,ID=VariantEffectPrediction,Number=1,Type=String,Description="Variant Effect Predictions"
 EOF
 
-         cat raw-input-sorted.vcf | ${RESOURCES_ARTIFACTS_VCF_TOOLS_BINARIES}/bin/vcf-annotate -a output.tsv.gz \
+
+         cat raw-input-sorted.vcf | ${RESOURCES_ARTIFACTS_VCF_TOOLS_BINARIES}/bin/vcf-annotate  \
+                      -a output.tsv.gz \
                       -d ${TMPDIR}/attributes.lst \
-                      -c CHROM,FROM,TO,INFO/VariantEffectPrediction >${outputNoGzExtension}
-        dieUponError
+                      -c CHROM,FROM,TO,INFO/VariantEffectPrediction >output-with-vep-info.vcf
+         dieUponError
+         cp output-with-vep-info.vcf ${SGE_O_WORKDIR}/
+cat >${TMPDIR}/nonSynomymousFilter.pl   <<EOF
 
-        if [ ! -e ${outputNoGzExtension} ]; then
-            #
+# Filter all variants that do not change the coding sequence according to the Variant Effect Prediction Info column.
+{
+  tag      => 'INFO/VariantEffectPrediction',
+  name     => 'NonSynonymousVEP',
+  desc     => 'Keep only variants if they are predicted to change a protein sequence',
+  apply_to => 'SNPs',
+  test     => sub {
+                         local \$_ = \$MATCH;
+                         if ( /initiator_codon_variant/ ) {return \$PASS; }
+                         if ( /inframe_insertion/ ) {return \$PASS; }
+                         if ( /inframe_deletion/ ) {return \$PASS; }
+                         if ( /missense_variant/ ) {return \$PASS; }
+                         if ( /frameshift_variant/ ) {return \$PASS; }
+                         if ( /stop_gained/ ) {return \$PASS; }
 
-              # No file was produced by VEP, write only a header to the output:
-              grep '^#' ${input}  >${outputNoGzExtension}
-              #   cp ${input} ${outputNoGzExtension}
-        fi
+                         return \$FAIL;
+
+  }
+}
+EOF
+         if [ "${doKeepOnlyNonSynonymous}" == "true" ]; then
+            cat output-with-vep-info.vcf | ${RESOURCES_ARTIFACTS_VCF_TOOLS_BINARIES}/bin/vcf-annotate \
+                      -f nonSynomymousFilter.pl \
+                      >${outputNoGzExtension}
+            dieUponError
+         else
+           cp output-with-vep-info.vcf ${outputNoGzExtension}
+         fi
 
         compressWhenNeeded ${output}
         dieUponError

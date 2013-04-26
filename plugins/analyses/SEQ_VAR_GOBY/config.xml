@@ -210,10 +210,24 @@
             </categories>
             <autoFormat>false</autoFormat>
         </option>
+        <option>
+            <id>ONLY_NON_SYNONYMOUS</id>
+            <name>Only non synonymous</name>
+            <help>Report only non synonymous variations. When this option is checked, variations that do not
+                change the protein sequence are not reported.
+            </help>
+
+            <required>true</required>
+            <defaultsTo>false</defaultsTo>
+            <type>BOOLEAN</type>
+        </option>
         <option hiddenWhen="NOT matches(OUTPUT_FORMAT,SOMATIC_VARIATIONS)">
             <id>COVARIATE_INFO_URL</id>
             <name>Covariate info URL</name>
-            <help>URL of a covariate information file. The URL should be publicly available and serve a TSV file. See http://campagnelab.org/software/goby/tutorials/detecting-somatic-variations-with-goby-2-1-3/ for the format expected in the TSV file. </help>
+            <help>URL of a covariate information file. The URL should be publicly available and serve a TSV file. See
+                http://campagnelab.org/software/goby/tutorials/detecting-somatic-variations-with-goby-2-1-3/ for the
+                format expected in the TSV file.
+            </help>
             <required>true</required>
             <defaultsTo>NONE</defaultsTo>
             <type>STRING</type>

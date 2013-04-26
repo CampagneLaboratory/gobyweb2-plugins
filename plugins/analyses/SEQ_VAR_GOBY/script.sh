@@ -119,7 +119,7 @@ function plugin_alignment_analysis_process {
 
      . ${RESOURCES_ANNOTATE_VCF_EXEC_PATH}
      annotate_vep ${PLUGINS_ALIGNMENT_ANALYSIS_SEQ_VAR_GOBY_ANNOTATE_VARIATIONS} \
-            ${TAG}-dsv-${ARRAY_JOB_INDEX}.vcf ${TAG}-dsv-${ARRAY_JOB_INDEX}-vep.vcf
+            ${TAG}-dsv-${ARRAY_JOB_INDEX}.vcf ${TAG}-dsv-${ARRAY_JOB_INDEX}-vep.vcf ${PLUGINS_ALIGNMENT_ANALYSIS_SEQ_VAR_GOBY_ONLY_NON_SYNONYMOUS}
 
      annotate_ensembl_genes ${PLUGINS_ALIGNMENT_ANALYSIS_SEQ_VAR_GOBY_ANNOTATE_VARIATIONS} \
                  ${TAG}-dsv-${ARRAY_JOB_INDEX}-vep.vcf ${TAG}-discover-sequence-variants-output-${ARRAY_JOB_INDEX}.vcf.gz
