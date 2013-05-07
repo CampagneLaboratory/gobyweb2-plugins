@@ -28,8 +28,11 @@ function install_plugin_artifacts {
            --repository ${ARTIFACT_REPOSITORY_DIR} ${REPO_MANAGER_OPTIONS} \
            --bash-exports --ssh-requests  ${SGE_O_WORKDIR}/artifacts-install-requests.pb \
            --output exports.sh
-
-        expose_artifact_environment_variables
+       if [ $? != 0 ]; then
+             ${QUEUE_WRITER} --tag ${TAG} --status ${JOB_PART_FAILED_STATUS} --description "Job failed: unable to expose artifact environment." --index 1 --job-type job
+             exit 121
+       fi
+       expose_artifact_environment_variables
     fi
 
 }
