@@ -1,21 +1,9 @@
 #!/bin/bash
 URL_CACHE_ROOT=~/url-cache
 
-function calculateMD5 {
- md5url=$1
- RESULT=
+#. {RESOURCES_FETCH_URL_CALCULATE_MD5}
 
- #the following should work on linux
- if [[ -x `which md5sum` ]]; then
-     RESULT=`echo ${md5url} | md5sum |cut -d " " -f 1`
- fi
-
- #the following should work on Mac OS X
- if [[ -x `which md5` ]]; then
-     RESULT=`echo ${md5url} | md5`
- fi
-
-}
+. ${JOB_DIR}/calculateMD5.sh
 
 function fetch_url {
    url=$1
@@ -45,6 +33,7 @@ function fetch_url {
    done
 
    if [ -e ${URL_CACHE_ROOT}/${MD5} -a ${URL_CACHE_ROOT}/${MD5}/READY  ]; then
+     echo "cp ${URL_CACHE_ROOT}/${MD5}/${filename} ./${filename}"
      cp ${URL_CACHE_ROOT}/${MD5}/${filename} ./${filename}
    else
 
@@ -53,7 +42,7 @@ function fetch_url {
       echo ${url} >${URL_CACHE_ROOT}/${MD5}/url.txt
       curl --location ${url} > ${URL_CACHE_ROOT}/${MD5}/${filename}
       if [ $? == 0 ]; then
-
+        echo "cp ${URL_CACHE_ROOT}/${MD5}/${filename} ./${filename}"
         cp ${URL_CACHE_ROOT}/${MD5}/${filename} ./${filename}
         touch ${URL_CACHE_ROOT}/${MD5}/READY
       else

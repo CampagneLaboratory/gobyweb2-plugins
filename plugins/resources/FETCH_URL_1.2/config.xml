@@ -26,5 +26,9 @@
             <id>SCRIPT_PATTERN</id>
             <filename>fetch_url_pattern</filename>
         </file>
+        <file>
+            <id>CALCULATE_MD5</id>
+            <filename>calculateMD5.sh</filename>
+        </file>
     </files>
 </resourceConfig>
