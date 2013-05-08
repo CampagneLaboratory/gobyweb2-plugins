@@ -16,11 +16,16 @@
     <id>SCALA</id>
     <help>Scala runtime.</help>
     <version>2.9.2</version>
+    <requires>
+        <resource>
+            <id>FETCH_URL</id>
+            <versionAtLeast>1.2</versionAtLeast>
+        </resource>
+    </requires>
+    <artifacts>
+        <artifact id="SCALA_RUNTIME_2_9_2" order="1"/>
+    </artifacts>
     <files>
-        <file>
-            <id>TGZ_ARCHIVE</id>
-            <filename>scala-2.9.2.tgz</filename>
-        </file>
         <file>
             <id>SHELL_SCRIPT</id>
             <filename>scala-script.sh</filename>
