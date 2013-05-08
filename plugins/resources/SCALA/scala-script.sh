@@ -6,7 +6,7 @@
 function scala {
  # arg 1: amount of memory (e.g., 3g)
  # arg 2: classpath
-     export SCALA_HOME="${RESOURCES_ARTIFACTS_SCALA_2_9_2}"
+     export SCALA_HOME="${RESOURCES_ARTIFACTS_SCALA_SCALA_RUNTIME_2_9_2}"
      local MEM=$1
      local CLASSPATH_SCALA=$2
      shift 2
