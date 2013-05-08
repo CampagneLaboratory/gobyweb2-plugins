@@ -65,30 +65,6 @@
             <id>OUTPUT_FORMATTER</id>
             <filename>OutputFormatter.groovy</filename>
         </file>
-        <file>
-        	<id>VIRAL_REF</id>
-        	<filename>viralref.tar.gz</filename>
-        </file>
-        <file>
-        	<id>VIRAL_NAMES</id>
-        	<filename>viral-names.map</filename>
-        </file>
-        <file>
-            <id>MICRO_REF</id>
-            <filename>microref.tar.gz</filename>
-        </file>
-        <file>
-            <id>MICRO_NAMES</id>
-            <filename>micro-names.map</filename>
-        </file>
-        <file>
-            <id>FUNGAL_REF</id>
-            <filename>fungalref.tar.gz</filename>
-        </file>
-        <file>
-            <id>FUNGAL_NAMES</id>
-            <filename>fungal-names.map</filename>
-        </file>
     </files>
 
     <runtime>
