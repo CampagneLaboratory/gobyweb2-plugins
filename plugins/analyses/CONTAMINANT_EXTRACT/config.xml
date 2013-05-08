@@ -55,6 +55,10 @@
             <id>ILLUMINA_ADAPTERS</id>
             <versionAtLeast>1.0</versionAtLeast>
         </resource>
+        <resource>
+            <id>PATHOGEN_DATA</id>
+            <versionAtLeast>1.0</versionAtLeast>
+        </resource>
     </requires>
     <files>
         <file>
