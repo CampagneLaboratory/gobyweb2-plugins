@@ -13,19 +13,22 @@
 <resourceConfig xsi:noNamespaceSchemaLocation="../../../schemas/plugins.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
     <name>Trinity</name>
     <id>TRINITY</id>
-    <help>Trinity de novo assembler. See http://trinityrnaseq.sourceforge.net/.</help>
+        <help>Trinity de novo assembler. See http://trinityrnaseq.sourceforge.net/.</help>
     <version>20120518</version>
     <requires>
+        <resource>
+            <id>FETCH_URL</id>
+            <versionAtLeast>1.2</versionAtLeast>
+        </resource>
         <resource>
             <id>GOBY</id>
             <versionAtLeast>20120605173944</versionAtLeast>
         </resource>
     </requires>
+    <artifacts>
+        <artifact id="TRINITY_2012_05_18" order="1"/>
+    </artifacts>
     <files>
-        <file>
-            <id>TRINITY_TAR</id>
-            <filename>trinity.tar</filename>
-        </file>
          <file>
             <id>SHELL_SCRIPT</id>
             <filename>script-trinity.sh</filename>
