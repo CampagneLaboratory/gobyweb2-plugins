@@ -22,6 +22,10 @@
             <id>FETCH_URL</id>
             <versionAtLeast>1.2</versionAtLeast>
         </resource>
+        <resource>
+            <id>LAST</id>
+            <versionAtLeast>230</versionAtLeast>
+        </resource>
     </requires>
     <artifacts>
         <artifact id="FUNGI" order="1"/>
