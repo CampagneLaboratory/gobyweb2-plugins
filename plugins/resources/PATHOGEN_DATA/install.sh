@@ -16,19 +16,17 @@ function plugin_install_artifact {
 
             echo working dir `pwd`
             #Concatenate them
-            cat *.fna.gz > joined.fa.gz
-            #Extract them to one big fasta file
             cat *.fna.gz > fungi.all.fna.gz
+            #Extract them to one big fasta file
             gunzip fungi.all.fna.gz
             #Grep fasta file for lines starting with '>' and write the output to another file
             grep -a ">" fungi.all.fna > fungi.all.names.map
             #Cut the first character from each of those lines (the >)
             cat fungi.all.names.map | cut -c2- > fungi.all.names.edited.map
-            awk '{print "\t"$0}' fungi.all.names.edited.map
-            awk '{print $1"\t"$1=""; print $0}' fungi.all.names.edited.map  | more
+
             awk '{$1=$1"\t"; print $0}' fungi.all.names.edited.map  > fungal-names.map
             #${RESOURCES_LAST_INDEXER} -Q 0 -v fungiref fungi.all.rna.fna
-            ${JOB_DIR}/lastdb -Q 0 -v fungiref fungi.all.fna
+            ${JOB_DIR}/lastdb -Q 0 -v fungalref fungi.all.fna
 
             tar -cvzf fungalref.tar.gz fungalref*
 
@@ -48,16 +46,14 @@ function plugin_install_artifact {
             ${JOB_DIR}/fetch_url_pattern "ftp://ftp.ncbi.nlm.nih.gov/refseq/release/microbial/" "microbial.*.genomic.fna.gz"
 
             #Concatenate them
-            cat *.fna.gz > joined.fa.gz
-            #Extract them to one big fasta file
             cat *.fna.gz > micro.all.fna.gz
+            #Extract them to one big fasta file
             gunzip micro.all.fna.gz
             #Grep fasta file for lines starting with '>' and write the output to another file
             grep -a ">" micro.all.fna > micro.all.names.map
             #Cut the first character from each of those lines (the >)
             cat micro.all.names.map | cut -c2- > micro.all.names.edited.map
-            awk '{print "\t"$0}' micro.all.names.edited.map
-            awk '{print $1"\t"$1=""; print $0}' micro.all.names.edited.map  | more
+
             awk '{$1=$1"\t"; print $0}' micro.all.names.edited.map  > micro-names.map
             #${RESOURCES_LAST_INDEXER} -Q 0 -v microref micro.all.rna.fna
             ${JOB_DIR}/lastdb -Q 0 -v microref micro.all.fna
@@ -79,16 +75,14 @@ function plugin_install_artifact {
             ${JOB_DIR}/fetch_url_pattern "ftp://ftp.ncbi.nlm.nih.gov/refseq/release/viral/" "viral.*.genomic.fna.gz"
             echo working dir `pwd`
             #Concatenate them
-            cat *.fna.gz > joined.fa.gz
-            #Extract them to one big fasta file
             cat *.fna.gz > viral.all.fna.gz
+            #Extract them to one big fasta file
             gunzip viral.all.fna.gz
             #Grep fasta file for lines starting with '>' and write the output to another file
             grep -a ">" viral.all.fna > viral.all.names.map
             #Cut the first character from each of those lines (the >)
             cat viral.all.names.map | cut -c2- > viral.all.names.edited.map
-            awk '{print "\t"$0}' viral.all.names.edited.map
-            awk '{print $1"\t"$1=""; print $0}' viral.all.names.edited.map  | more
+
             awk '{$1=$1"\t"; print $0}' viral.all.names.edited.map  > viral-names.map
             #${RESOURCES_LAST_INDEXER} -Q 0 -v viralref viral.all.rna.fna
             ${JOB_DIR}/lastdb -Q 0 -v viralref viral.all.fna
