@@ -9,10 +9,8 @@ function plugin_install_artifact {
 
         'FUNGI' )
 
-            #${RESOURCES_FETCH_URL_SCRIPT_PATTERN} "ftp://ftp.ncbi.nlm.nih.gov/refseq/release/fungi/" "fungi.*.rna.fna.gz"
-            #${RESOURCES_FETCH_URL_SCRIPT_PATTERN} "ftp://ftp.ncbi.nlm.nih.gov/refseq/release/fungi/" "fungi.*.rna.fna.gz"
-            ${JOB_DIR}/fetch_url_pattern "ftp://ftp.ncbi.nlm.nih.gov/refseq/release/fungi/" "fungi.*.rna.fna.gz"
-            ${JOB_DIR}/fetch_url_pattern "ftp://ftp.ncbi.nlm.nih.gov/refseq/release/fungi/" "fungi.*.genomic.fna.gz"
+            ${RESOURCES_FETCH_URL_SCRIPT_PATTERN} "ftp://ftp.ncbi.nlm.nih.gov/refseq/release/fungi/" "fungi.*.rna.fna.gz"
+            ${RESOURCES_FETCH_URL_SCRIPT_PATTERN} "ftp://ftp.ncbi.nlm.nih.gov/refseq/release/fungi/" "fungi.*.genomic.fna.gz"
 
             echo working dir `pwd`
             #Concatenate them
@@ -25,8 +23,7 @@ function plugin_install_artifact {
             cat fungi.all.names.map | cut -c2- > fungi.all.names.edited.map
 
             awk '{$1=$1"\t"; print $0}' fungi.all.names.edited.map  > fungal-names.map
-            #${RESOURCES_LAST_INDEXER} -Q 0 -v fungiref fungi.all.rna.fna
-            ${JOB_DIR}/lastdb -Q 0 -s 2G fungalref fungi.all.fna
+            ${RESOURCES_LAST_INDEXER} -Q 0 -s 2G fungalref fungi.all.fna
 
             mkdir -p "${installation_path}/fungal"
             cp -r fungalref* "${installation_path}/fungal/"
@@ -38,10 +35,8 @@ function plugin_install_artifact {
             ;;
 
         'MICROBIAL' )
-            #${RESOURCES_FETCH_URL_SCRIPT_PATTERN} "ftp://ftp.ncbi.nlm.nih.gov/refseq/release/microbial/" "microbial.*.rna.fna.gz"
-            #${RESOURCES_FETCH_URL_SCRIPT_PATTERN} "ftp://ftp.ncbi.nlm.nih.gov/refseq/release/microbial/" "microbial.*.rna.fna.gz"
-            ${JOB_DIR}/fetch_url_pattern "ftp://ftp.ncbi.nlm.nih.gov/refseq/release/microbial/" "microbial.*.rna.fna.gz"
-            ${JOB_DIR}/fetch_url_pattern "ftp://ftp.ncbi.nlm.nih.gov/refseq/release/microbial/" "microbial.*.genomic.fna.gz"
+            ${RESOURCES_FETCH_URL_SCRIPT_PATTERN} "ftp://ftp.ncbi.nlm.nih.gov/refseq/release/microbial/" "microbial.*.rna.fna.gz"
+            ${RESOURCES_FETCH_URL_SCRIPT_PATTERN} "ftp://ftp.ncbi.nlm.nih.gov/refseq/release/microbial/" "microbial.*.genomic.fna.gz"
 
             #Concatenate them
             cat *.fna.gz > micro.all.fna.gz
@@ -53,8 +48,7 @@ function plugin_install_artifact {
             cat micro.all.names.map | cut -c2- > micro.all.names.edited.map
 
             awk '{$1=$1"\t"; print $0}' micro.all.names.edited.map  > micro-names.map
-            #${RESOURCES_LAST_INDEXER} -Q 0 -v microref micro.all.rna.fna
-            ${JOB_DIR}/lastdb -Q 0 -s 2G microref micro.all.fna
+            ${RESOURCES_LAST_INDEXER} -Q 0 -s 2G microref micro.all.fna
 
             mkdir -p "${installation_path}/bacterial"
             cp -r microref* "${installation_path}/bacterial/"
@@ -65,10 +59,9 @@ function plugin_install_artifact {
             return 0
             ;;
         'VIRAL' )
-            #${RESOURCES_FETCH_URL_SCRIPT_PATTERN} "ftp://ftp.ncbi.nlm.nih.gov/refseq/release/viral/" "viral.*.rna.fna.gz"
-            #${RESOURCES_FETCH_URL_SCRIPT_PATTERN} "ftp://ftp.ncbi.nlm.nih.gov/refseq/release/viral/" "viral.*.rna.fna.gz"
-            ${JOB_DIR}/fetch_url_pattern "ftp://ftp.ncbi.nlm.nih.gov/refseq/release/viral/" "viral.*.rna.fna.gz"
-            ${JOB_DIR}/fetch_url_pattern "ftp://ftp.ncbi.nlm.nih.gov/refseq/release/viral/" "viral.*.genomic.fna.gz"
+
+            ${RESOURCES_FETCH_URL_SCRIPT_PATTERN} "ftp://ftp.ncbi.nlm.nih.gov/refseq/release/viral/" "viral.*.rna.fna.gz"
+            ${RESOURCES_FETCH_URL_SCRIPT_PATTERN} "ftp://ftp.ncbi.nlm.nih.gov/refseq/release/viral/" "viral.*.genomic.fna.gz"
             echo working dir `pwd`
             #Concatenate them
             cat *.fna.gz > viral.all.fna.gz
@@ -80,8 +73,7 @@ function plugin_install_artifact {
             cat viral.all.names.map | cut -c2- > viral.all.names.edited.map
 
             awk '{$1=$1"\t"; print $0}' viral.all.names.edited.map  > viral-names.map
-            #${RESOURCES_LAST_INDEXER} -Q 0 -v viralref viral.all.rna.fna
-            ${JOB_DIR}/lastdb -Q 0 -s 2G viralref viral.all.fna
+            ${RESOURCES_LAST_INDEXER} -Q 0 -s 2G viralref viral.all.fna
 
             mkdir -p "${installation_path}/viral"
             cp -r viralref* "${installation_path}/viral/"
