@@ -84,7 +84,7 @@ function plugin_install_artifact {
             ${JOB_DIR}/lastdb -Q 0 -v viralref viral.all.fna
 
             mkdir -p "${installation_path}/viral"
-            cp -r viral* "${installation_path}/viral/"
+            cp -r viralref* "${installation_path}/viral/"
             cp viral-names.map "${installation_path}/viral/"
 
             rm -rf *.*
