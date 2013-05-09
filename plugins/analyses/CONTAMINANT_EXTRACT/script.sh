@@ -105,19 +105,16 @@ function plugin_alignment_analysis_process {
 
 
 	if [ "${PLUGINS_ALIGNMENT_ANALYSIS_CONTAMINANT_EXTRACT_SEARCH_REFERENCE}" == "VIRAL" ]; then
-        #extract viral ref tarball
-        #tar -zxvf ${NODE_LOCAL_DATA_ROOT}../pathogen-db/viral/viralref.tar.gz
-        tar -zxvf ${RESOURCES_ARTIFACTS_PATHOGEN_DATA_VIRAL}/viral/viralref.tar.gz
+        #link viral ref, apparently, last requires that the reference db is in the local folder (no options for that)
+        ln -s ${RESOURCES_ARTIFACTS_PATHOGEN_DATA_VIRAL}/viral/viralref* .
         local REF_BASENAME="viralref"
     elif [ "${PLUGINS_ALIGNMENT_ANALYSIS_CONTAMINANT_EXTRACT_SEARCH_REFERENCE}" == "MICROBIAL" ]; then
-        #extract microbial ref tarball
-        #tar -zxvf ${NODE_LOCAL_DATA_ROOT}../pathogen-db/bacterial/microref.tar.gz
-        tar -zxvf ${RESOURCES_ARTIFACTS_PATHOGEN_DATA_MICROBIAL}/bacterial/microref.tar.gz
+        #link micro ref, apparently, last requires that the reference db is in the local folder (no options for that)
+        ln -s ${RESOURCES_ARTIFACTS_PATHOGEN_DATA_MICROBIAL}/bacterial/microref* .
         local REF_BASENAME="microref"
     else
-         #extract fungal ref tarball
-        #tar -zxvf ${NODE_LOCAL_DATA_ROOT}../pathogen-db/fungal/fungalref.tar.gz
-        tar -zxvf ${RESOURCES_ARTIFACTS_PATHOGEN_DATA_FUNGI}/fungal/fungalref.tar.gz
+        #link fungal ref, apparently, last requires that the reference db is in the local folder (no options for that)
+        ln -s ${RESOURCES_ARTIFACTS_PATHOGEN_DATA_FUNGI}/fungal/fungalref* .
         local REF_BASENAME="fungalref"
     fi
 
@@ -208,13 +205,10 @@ function plugin_alignment_analysis_combine {
 	dieUponError "Could not combine realigned output files"
 	
 	if [ "${PLUGINS_ALIGNMENT_ANALYSIS_CONTAMINANT_EXTRACT_SEARCH_REFERENCE}" == "VIRAL" ]; then
-        #ACCESSION_NAME_MAP="${NODE_LOCAL_DATA_ROOT}../pathogen-db/viral/viral-names.map"
         ACCESSION_NAME_MAP="${RESOURCES_ARTIFACTS_PATHOGEN_DATA_VIRAL}/viral/viral-names.map"
     elif [ "${PLUGINS_ALIGNMENT_ANALYSIS_CONTAMINANT_EXTRACT_SEARCH_REFERENCE}" == "MICROBIAL" ]; then
-        #ACCESSION_NAME_MAP="${NODE_LOCAL_DATA_ROOT}../pathogen-db/bacterial/micro-names.map"
         ACCESSION_NAME_MAP="${RESOURCES_ARTIFACTS_PATHOGEN_DATA_MICROBIAL}/bacterial/micro-names.map"
     else
-        #ACCESSION_NAME_MAP="${NODE_LOCAL_DATA_ROOT}../pathogen-db/fungal/fungal-names.map"
         ACCESSION_NAME_MAP="${RESOURCES_ARTIFACTS_PATHOGEN_DATA_FUNGI}/fungal/fungal-names.map"
     fi
 
