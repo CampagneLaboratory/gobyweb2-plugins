@@ -28,10 +28,8 @@ function plugin_install_artifact {
             #${RESOURCES_LAST_INDEXER} -Q 0 -v fungiref fungi.all.rna.fna
             ${JOB_DIR}/lastdb -Q 0 -v fungalref fungi.all.fna
 
-            tar -cvzf fungalref.tar.gz fungalref*
-
             mkdir -p "${installation_path}/fungal"
-            cp fungalref.tar.gz "${installation_path}/fungal/"
+            cp -r fungalref* "${installation_path}/fungal/"
             cp fungal-names.map "${installation_path}/fungal/"
 
             rm -rf *.*
@@ -58,10 +56,8 @@ function plugin_install_artifact {
             #${RESOURCES_LAST_INDEXER} -Q 0 -v microref micro.all.rna.fna
             ${JOB_DIR}/lastdb -Q 0 -v microref micro.all.fna
 
-            tar -cvzf microref.tar.gz microref*
-
             mkdir -p "${installation_path}/bacterial"
-            cp microref.tar.gz "${installation_path}/bacterial/"
+            cp -r microref* "${installation_path}/bacterial/"
             cp micro-names.map "${installation_path}/bacterial/"
 
             rm -rf *.*
@@ -87,10 +83,8 @@ function plugin_install_artifact {
             #${RESOURCES_LAST_INDEXER} -Q 0 -v viralref viral.all.rna.fna
             ${JOB_DIR}/lastdb -Q 0 -v viralref viral.all.fna
 
-            tar -cvzf viralref.tar.gz viral*
-
             mkdir -p "${installation_path}/viral"
-            cp viralref.tar.gz "${installation_path}/viral/"
+            cp -r viral* "${installation_path}/viral/"
             cp viral-names.map "${installation_path}/viral/"
 
             rm -rf *.*
