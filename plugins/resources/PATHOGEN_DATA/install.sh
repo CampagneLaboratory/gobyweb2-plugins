@@ -26,7 +26,7 @@ function plugin_install_artifact {
 
             awk '{$1=$1"\t"; print $0}' fungi.all.names.edited.map  > fungal-names.map
             #${RESOURCES_LAST_INDEXER} -Q 0 -v fungiref fungi.all.rna.fna
-            ${JOB_DIR}/lastdb -Q 0 -v fungalref fungi.all.fna
+            ${JOB_DIR}/lastdb -Q 0 -s 2G fungalref fungi.all.fna
 
             mkdir -p "${installation_path}/fungal"
             cp -r fungalref* "${installation_path}/fungal/"
@@ -54,7 +54,7 @@ function plugin_install_artifact {
 
             awk '{$1=$1"\t"; print $0}' micro.all.names.edited.map  > micro-names.map
             #${RESOURCES_LAST_INDEXER} -Q 0 -v microref micro.all.rna.fna
-            ${JOB_DIR}/lastdb -Q 0 -v microref micro.all.fna
+            ${JOB_DIR}/lastdb -Q 0 -s 2G microref micro.all.fna
 
             mkdir -p "${installation_path}/bacterial"
             cp -r microref* "${installation_path}/bacterial/"
@@ -81,7 +81,7 @@ function plugin_install_artifact {
 
             awk '{$1=$1"\t"; print $0}' viral.all.names.edited.map  > viral-names.map
             #${RESOURCES_LAST_INDEXER} -Q 0 -v viralref viral.all.rna.fna
-            ${JOB_DIR}/lastdb -Q 0 -v viralref viral.all.fna
+            ${JOB_DIR}/lastdb -Q 0 -s 2G viralref viral.all.fna
 
             mkdir -p "${installation_path}/viral"
             cp -r viralref* "${installation_path}/viral/"
