@@ -8,11 +8,8 @@ function plugin_install_artifact {
 
 
         'FUNGI' )
-
+            #fetch RNA sequences
             ${RESOURCES_FETCH_URL_SCRIPT_PATTERN} "ftp://ftp.ncbi.nlm.nih.gov/refseq/release/fungi/" "fungi.*.rna.fna.gz"
-            ${RESOURCES_FETCH_URL_SCRIPT_PATTERN} "ftp://ftp.ncbi.nlm.nih.gov/refseq/release/fungi/" "fungi.*.genomic.fna.gz"
-
-            echo working dir `pwd`
             #Concatenate them
             cat *.fna.gz > fungi.all.fna.gz
             #Extract them to one big fasta file
@@ -35,9 +32,8 @@ function plugin_install_artifact {
             ;;
 
         'MICROBIAL' )
+            #fetch RNA sequences
             ${RESOURCES_FETCH_URL_SCRIPT_PATTERN} "ftp://ftp.ncbi.nlm.nih.gov/refseq/release/microbial/" "microbial.*.rna.fna.gz"
-            ${RESOURCES_FETCH_URL_SCRIPT_PATTERN} "ftp://ftp.ncbi.nlm.nih.gov/refseq/release/microbial/" "microbial.*.genomic.fna.gz"
-
             #Concatenate them
             cat *.fna.gz > micro.all.fna.gz
             #Extract them to one big fasta file
@@ -59,10 +55,8 @@ function plugin_install_artifact {
             return 0
             ;;
         'VIRAL' )
-
+            #fetch RNA sequences
             ${RESOURCES_FETCH_URL_SCRIPT_PATTERN} "ftp://ftp.ncbi.nlm.nih.gov/refseq/release/viral/" "viral.*.rna.fna.gz"
-            ${RESOURCES_FETCH_URL_SCRIPT_PATTERN} "ftp://ftp.ncbi.nlm.nih.gov/refseq/release/viral/" "viral.*.genomic.fna.gz"
-            echo working dir `pwd`
             #Concatenate them
             cat *.fna.gz > viral.all.fna.gz
             #Extract them to one big fasta file
