@@ -55,8 +55,8 @@ function plugin_install_artifact {
             return 0
             ;;
         'VIRAL' )
-            #fetch RNA sequences
-            ${RESOURCES_FETCH_URL_SCRIPT_PATTERN} "ftp://ftp.ncbi.nlm.nih.gov/refseq/release/viral/" "viral.*.rna.fna.gz"
+            #fetch genome sequences
+            ${RESOURCES_FETCH_URL_SCRIPT_PATTERN} "ftp://ftp.ncbi.nlm.nih.gov/refseq/release/viral/" "viral.*.genomic.fna.gz"
             #Concatenate them
             cat *.fna.gz > viral.all.fna.gz
             #Extract them to one big fasta file
