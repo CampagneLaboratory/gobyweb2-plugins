@@ -11,25 +11,18 @@
   ~ the plugin's config.xml will indicate how that specific plugin is released/licensed.
   -->
 <resourceConfig xsi:noNamespaceSchemaLocation="../../../schemas/plugins.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
-    <name>Fetch and cache URL content</name>
-    <id>FETCH_URL</id>
-    <help>Fetch and cache URL content. This resource uses curl to download data from URLs. It then caches the content in a configurable
-    cache directory. The cache is used whenever the same URL needs to be fetched again.</help>
-    <version>1.2</version>
-    <requires>
-        <resource>
-            <id>BASH_LIBRARY</id>
-            <versionAtLeast>1.0</versionAtLeast>
-        </resource>
-    </requires>
+    <name>Library of Functions for the Bash Shell</name>
+    <id>BASH_LIBRARY</id>
+    <help>Group of common and reusable functions for the bash hell.</help>
+    <version>1.0</version>
     <files>
         <file>
-            <id>SCRIPT</id>
-            <filename>fetch_url</filename>
+            <id>CALCULATE_MD5</id>
+            <filename>calculateMD5.sh</filename>
         </file>
         <file>
-            <id>SCRIPT_PATTERN</id>
-            <filename>fetch_url_pattern</filename>
+            <id>MAPS_IN_BASH3</id>
+            <filename>maps_in_bash3.sh</filename>
         </file>
     </files>
 </resourceConfig>

@@ -1,9 +1,7 @@
 #!/bin/bash
 URL_CACHE_ROOT=~/url-cache
 
-#. {RESOURCES_FETCH_URL_CALCULATE_MD5}
-
-. ${JOB_DIR}/calculateMD5.sh
+. {RESOURCES_BASH_LIBRARY_CALCULATE_MD5}
 
 
 function fetch_url_pattern {
