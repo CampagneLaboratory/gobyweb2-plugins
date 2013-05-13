@@ -23,7 +23,7 @@
         </resource>
         <resource>
             <id>FETCH_URL</id>
-            <versionAtLeast>1.0</versionAtLeast>
+            <versionAtLeast>1.2</versionAtLeast>
         </resource>
     </requires>
     <files>
