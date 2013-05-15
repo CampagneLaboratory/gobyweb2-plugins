@@ -1,8 +1,9 @@
 #!/bin/bash
 URL_CACHE_ROOT=~/url-cache
 
-. {RESOURCES_BASH_LIBRARY_CALCULATE_MD5}
+. ${JOB_DIR}/auto-options.sh
 
+. $RESOURCES_BASH_LIBRARY_CALCULATE_MD5
 
 function fetch_url {
    url=$1
