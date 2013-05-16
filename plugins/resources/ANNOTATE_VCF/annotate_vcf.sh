@@ -30,9 +30,6 @@ function annotate_vep {
 
     inputCopy=`basename "${input%.vcf}-copy.vcf"`
 
-  #  . ${JOB_DIR}/constants.sh
-  #  . ${JOB_DIR}/auto-options.sh
-  #  . ${TMPDIR}/exports.sh
 
     if [ "${doAnnotate}" == "true" ]; then
 

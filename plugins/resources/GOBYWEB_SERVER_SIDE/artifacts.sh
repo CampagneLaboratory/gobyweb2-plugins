@@ -2,13 +2,15 @@
 function install_plugin_artifacts {
     echo "Installing plugin resources"
     if [ -e ${JOB_DIR}/artifacts-install-requests.pb ]; then
+         set +xv
          . ${JOB_DIR}/constants.sh
          . ${JOB_DIR}/auto-options.sh
 
         if [ ! -z "${CURRENT_PART}" ]; then
           CURRENT_PART=1
         fi
-        ${RESOURCES_GOBYWEB_SERVER_SIDE_QUEUE_WRITER_WRAPPER} --tag ${TAG} --status u --description "Installing artifacts on `hostname`" --index ${CURRENT_PART} --job-type job
+        # Groovy is not available before artifact installation..
+        # ${RESOURCES_GOBYWEB_SERVER_SIDE_QUEUE_WRITER_WRAPPER} --tag ${TAG} --status u --description "Installing artifacts on `hostname`" --index ${CURRENT_PART} --job-type job
 
         ${JOB_DIR}/artifact-manager.sh \
                 --ssh-requests  ${JOB_DIR}/artifacts-install-requests.pb \
@@ -24,7 +26,7 @@ function install_plugin_artifacts {
        rm -f exports.sh
        ${JOB_DIR}/artifact-manager.sh \
            --bash-exports --ssh-requests  ${JOB_DIR}/artifacts-install-requests.pb \
-           --output exports.sh
+           --output ${TMPDIR}/exports.sh
        if [ $? != 0 ]; then
              ${RESOURCES_GOBYWEB_SERVER_SIDE_QUEUE_WRITER_WRAPPER} --tag ${TAG} --status ${JOB_PART_FAILED_STATUS} --description "Job failed: unable to expose artifact environment." --index ${CURRENT_PART} --job-type job
              exit 121
@@ -35,8 +37,9 @@ function install_plugin_artifacts {
 }
 
 function expose_artifact_environment_variables {
-
+        set +x
         . ${JOB_DIR}/constants.sh
         . ${JOB_DIR}/auto-options.sh
         . ${TMPDIR}/exports.sh
+        set -x
 }
