@@ -7,8 +7,7 @@ function plugin_install_artifact {
     case ${id} in
 
         'BINARIES' )
-                set -x
-                . ${RESOURCES_ARTIFACTS_PROTOBUF_CPP_LIBRARIES}/setup.sh
+
                 (
                 VERSION="286"
                     ${RESOURCES_FETCH_URL_SCRIPT} http://last.cbrc.jp/archive/last-${VERSION}.zip

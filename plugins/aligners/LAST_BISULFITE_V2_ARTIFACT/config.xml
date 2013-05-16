@@ -12,16 +12,16 @@
   -->
 <alignerConfig xsi:noNamespaceSchemaLocation="../../../schemas/plugins.xsd"
                xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
-    <name>Last bisulfite</name>
-    <id>LAST_BISULFITE</id>
+    <name>Last bisulfite v2 (auto-install)</name>
+    <id>LAST_BISULFITE_V2_ARTIFACT</id>
     <help>Version of Last (official release) that aligns bisulfite converted reads. This plugin uses the alignment
-        strategy discussed at http://last.cbrc.jp/doc/bisulfite.txt.
+        strategy discussed at http://last.cbrc.jp/doc/bisulfite.txt, updated to avoid biased methylation estimates
+        and to eliminate alignments that are top scoring but very close to the next best score (probabilistic model
+        implemented in last-map-probs.py.
         Please note that this aligner does not generate TooManyHits information, and therefore is unable to distinguish
         between reads that do not match and reads that match in too many locations.
     </help>
-
-    <version>1.1</version>
-    <disabled>true</disabled>
+    <version>2.0</version>
     <supportsColorSpace>false</supportsColorSpace>
     <supportsGobyAlignments>true</supportsGobyAlignments>
     <supportsBAMAlignments>false</supportsBAMAlignments>
@@ -29,32 +29,29 @@
     <supportsGobyReads>true</supportsGobyReads>
     <supportsFastqReads>false</supportsFastqReads>
     <supportsFastaReads>false</supportsFastaReads>
-    <indexDirectory>/scratchLocal/gobyweb/input-data/reference-db/%VERSION%/%ORGANISM%/%SPACE%/last-bisulfite</indexDirectory>
+    <indexDirectory>NOT_REQUIRED_WITH_ARTIFACTS</indexDirectory>
     <requires>
         <resource>
             <id>GOBY</id>
-            <versionAtLeast>20111122122303</versionAtLeast>
+            <versionAtLeast>20120608105135</versionAtLeast>
         </resource>
         <resource>
-            <id>LAST</id>
-            <versionExactly>189</versionExactly>
+            <id>LAST_ARTIFACT</id>
+            <versionExactly>286</versionExactly>
+        </resource>
+        <resource>
+            <id>LAST_BISULFITE_INDEX</id>
+            <versionExactly>286</versionExactly>
         </resource>
         <resource>
             <id>PLAST</id>
             <versionAtLeast>1.1</versionAtLeast>
         </resource>
     </requires>
-    <!-- This plugin assumes that forward and reverse strands have been indexed separately and put into the indexDirectory
-    with the names index_f and index_r
-     -->
     <files>
         <file>
-            <id>ALIGN_FORWARD</id>
-            <filename>align-bisulfite-forward.sh</filename>
-        </file>
-        <file>
-            <id>ALIGN_REVERSE</id>
-            <filename>align-bisulfite-reverse.sh</filename>
+            <id>ALIGN_BOTH_STRANDS</id>
+            <filename>align-bisulfite-both-strands.sh</filename>
         </file>
     </files>
     <runtime>
@@ -64,11 +61,13 @@
         <need scope="ALIGN" key="virtual_free" value="25g"/>
         <need scope="ALIGN_JVM" value="4g"/>
         <need scope="ALIGNMENT_POST_PROCESSING" key="excl" value="false"/>
-        <need scope="ALIGNMENT_POST_PROCESSING" key="h_vmem" value="12g" />
-        <need scope="ALIGNMENT_POST_PROCESSING" key="virtual_free" value="12g" />
+        <need scope="ALIGNMENT_POST_PROCESSING" key="h_vmem" value="12g"/>
+        <need scope="ALIGNMENT_POST_PROCESSING" key="virtual_free" value="12g"/>
     </runtime>
 
-
+    <!-- This plugin assumes that forward and reverse strands have been indexed separately and put into the indexDirectory
+    with the names index_f and index_r
+    -->
 
     <options>
         <option>
