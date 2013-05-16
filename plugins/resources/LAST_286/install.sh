@@ -18,18 +18,18 @@ function plugin_install_artifact {
                     cd  last-${VERSION}
                     make
                     mkdir ${installation_path}/bin/
-                    cp lastdb ${installation_path}/bin/
-                    cp lastal ${installation_path}/bin/
-                    cp lastex ${installation_path}/bin/
+                    cp src/lastdb ${installation_path}/bin/
+                    cp src/lastal ${installation_path}/bin/
+                    cp src/lastex ${installation_path}/bin/
                     cp -r scripts ${installation_path}/
                     cp -r examples ${installation_path}/
                 )
             if [ -e ${installation_path}/bin/lastal ]; then
-                return 0
+               return 0
             else
                return 127
             fi
-
+            return 127
             ;;
 
 
