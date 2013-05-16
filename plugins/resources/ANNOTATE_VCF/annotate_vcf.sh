@@ -30,8 +30,8 @@ function annotate_vep {
 
     inputCopy=`basename "${input%.vcf}-copy.vcf"`
 
-  #  . ${SGE_O_WORKDIR}/constants.sh
-  #  . ${SGE_O_WORKDIR}/auto-options.sh
+  #  . ${JOB_DIR}/constants.sh
+  #  . ${JOB_DIR}/auto-options.sh
   #  . ${TMPDIR}/exports.sh
 
     if [ "${doAnnotate}" == "true" ]; then
@@ -50,7 +50,7 @@ function annotate_vep {
         # VCF-query refuses to print the same column twice, we need to add this column manually with awk..
         ${RESOURCES_ARTIFACTS_VCF_TOOLS_BINARIES}/bin/vcf-query sorted.vcf.gz -f '%CHROM\t%POS\t%INFO/CSQ\n' >output-dumb.tsv
         awk '{print $1"\t"$2"\t"($2+1)"\t"$3}' output-dumb.tsv >output.tsv;
-        #cp output.tsv ${SGE_O_WORKDIR}/
+        #cp output.tsv ${JOB_DIR}/
         ${RESOURCES_TABIX_BGZIP_EXEC_PATH} output.tsv
         ${RESOURCES_TABIX_EXEC_PATH} -p vcf output.tsv.gz
 
@@ -69,7 +69,7 @@ EOF
                       -d ${TMPDIR}/attributes.lst \
                       -c CHROM,FROM,TO,INFO/VariantEffectPrediction >output-with-vep-info.vcf
          dieUponError
-         cp output-with-vep-info.vcf ${SGE_O_WORKDIR}/
+         cp output-with-vep-info.vcf ${JOB_DIR}/
 cat >${TMPDIR}/nonSynomymousFilter.pl   <<EOF
 
 # Filter all variants that do not change the coding sequence according to the Variant Effect Prediction Info column.

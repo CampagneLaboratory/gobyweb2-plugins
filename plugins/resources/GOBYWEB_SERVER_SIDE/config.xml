@@ -52,8 +52,16 @@
             <filename>artifact-manager.jar</filename>
         </file>
         <file>
+            <id>ARTIFACTS_MANAGER_JAR</id>
+            <filename>artifact-manager.sh</filename>
+        </file>
+        <file>
             <id>QUEUE_WRITER</id>
             <filename>QueueWriter.groovy</filename>
+        </file>
+        <file>
+            <id>QUEUE_WRITER_WRAPPER</id>
+            <filename>queue-writer.sh</filename>
         </file>
         <file>
             <id>TSV_VCF_TO_SQLITE</id>

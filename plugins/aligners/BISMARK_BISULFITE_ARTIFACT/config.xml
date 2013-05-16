@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<!--
+  ~ Copyright (c) 2011-2012  by Cornell University  and the  Cornell Research Foundation,
+  ~ Inc. All Rights Reserved.
+  ~
+  ~ GobyWeb plugins  are released  under the LGPL3 license,  unless  otherwise specified
+  ~ by the license of a specific plugin. See the file LGPL3.license in this distribution
+  ~ for a copy of the LGPL license.
+  ~
+  ~ When a plugin is not released under the LGPL3 license,  the comments  at the top  of
+  ~ the plugin's config.xml will indicate how that specific plugin is released/licensed.
+  -->
+<alignerConfig xsi:noNamespaceSchemaLocation="../../../schemas/plugins.xsd"
+               xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <name>Bismark Bisulfite Mapper (auto-install)</name>
+    <id>BISMARK_BISULFITE_ARTIFACT</id>
+    <help>Align bisulfite converted reads with Bismark.</help>
+    <version>1.1</version>
+    <supportsColorSpace>false</supportsColorSpace>
+    <supportsGobyAlignments>true</supportsGobyAlignments>
+    <supportsPairedEndAlignments>true</supportsPairedEndAlignments>
+    <supportsBAMAlignments>false</supportsBAMAlignments>
+    <supportsBisulfiteConvertedReads>true</supportsBisulfiteConvertedReads>
+    <supportsGobyReads>true</supportsGobyReads>
+    <supportsFastqReads>false</supportsFastqReads>
+    <supportsFastaReads>false</supportsFastaReads>
+    <indexDirectory>%NODE_LOCAL_DATA_ROOT%/%VERSION%/%ORGANISM%/%SPACE%/bismark</indexDirectory>
+    <requires>
+        <resource>
+            <id>GOBY</id>
+            <versionAtLeast>20120620120930</versionAtLeast>
+        </resource>
+        <resource>
+            <id>BISMARK_ARTIFACT</id>
+            <versionAtLeast>0.7.12</versionAtLeast>
+        </resource>
+        <resource>
+            <id>SAMTOOLS</id>
+            <versionAtLeast>0.1.18</versionAtLeast>
+        </resource>
+        <resource>
+            <id>ILLUMINA_ADAPTERS</id>
+            <versionAtLeast>1.0</versionAtLeast>
+        </resource>
+    </requires>
+    <runtime>
+        <need scope="ALIGN" key="excl" value="false"/>
+        <need scope="ALIGN" key="h_vmem" value="20g"/>
+        <need scope="ALIGN" key="virtual_free" value="20g"/>
+        <need scope="ALIGN_JVM" value="15g"/>
+        <need scope="ALIGNMENT_POST_PROCESSING" key="excl" value="false"/>
+        <need scope="ALIGNMENT_POST_PROCESSING" key="h_vmem" value="12g" />
+        <need scope="ALIGNMENT_POST_PROCESSING" key="virtual_free" value="12g" />
+    </runtime>
+    <options>
+        <option>
+            <id>ALIGNER_OPTIONS</id>
+            <dbLegacyId>alignerAdvancedOptions</dbLegacyId>
+            <name>Other aligner options</name>
+            <help>Provide any additional Bismark option here following the syntax expected by the Goby align mode with last
+                aligner.
+            </help>
+            <required>false</required>
+            <defaultsTo></defaultsTo>
+            <type>STRING</type>
+            <flagFormat>%s</flagFormat>
+            <includeSpaces>true</includeSpaces>
+        </option>
+    </options>
+</alignerConfig>

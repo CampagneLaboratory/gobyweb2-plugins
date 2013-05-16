@@ -28,7 +28,7 @@ function plugin_install_artifact {
             echo "SCRIPT="${RESOURCES_ENSEMBL_ANNOTATIONS_BIOMART_SCRIPT}
 
             ${RESOURCES_GROOVY_EXECUTABLE} \
-            -cp ${RESOURCES_GOBYWEB_SERVER_SIDE_ICB_GROOVY_SUPPORT_JAR}:${RESOURCES_ARTIFACTS_SAM_JDK_JAR}/sam-jdk.jar:${SGE_O_WORKDIR} \
+            -cp ${RESOURCES_GOBYWEB_SERVER_SIDE_ICB_GROOVY_SUPPORT_JAR}:${RESOURCES_ARTIFACTS_SAM_JDK_JAR}/sam-jdk.jar:${JOB_DIR} \
                         ${RESOURCES_ENSEMBL_ANNOTATIONS_BIOMART_SCRIPT} \
             --virtual-schema-name ${VIRTUAL_SCHEMA_NAME} --url-prefix ${BIOMART_SERVER_PREFIX} \
             --tabix-executable ${RESOURCES_ARTIFACTS_TABIX_BINARIES}/tabix \
