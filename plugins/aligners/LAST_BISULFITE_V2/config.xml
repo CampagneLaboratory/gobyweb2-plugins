@@ -22,6 +22,7 @@
         between reads that do not match and reads that match in too many locations.
     </help>
     <version>2.0</version>
+    <disabled>true</disabled>
     <supportsColorSpace>false</supportsColorSpace>
     <supportsGobyAlignments>true</supportsGobyAlignments>
     <supportsBAMAlignments>false</supportsBAMAlignments>
