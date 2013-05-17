@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <!--
-  ~ Copyright (c) 2011-2012  by Cornell University  and the  Cornell Research Foundation,
+  ~ Copyright (c) 2011-2013  by Cornell University  and the  Cornell Research Foundation,
   ~ Inc. All Rights Reserved.
   ~
   ~ GobyWeb plugins  are released  under the LGPL3 license,  unless  otherwise specified
@@ -11,20 +11,18 @@
   ~ the plugin's config.xml will indicate how that specific plugin is released/licensed.
   -->
 <resourceConfig xsi:noNamespaceSchemaLocation="../../../schemas/plugins.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
-    <name>EdgeR script</name>
-    <id>EDGE_R_SCRIPT</id>
-    <help>Script that helps run EdgeR on table of counts data with group information.</help>
-    <version>2013.05.17</version>
-    <requires>
-           <resource>
-               <id>EDGER</id>
-               <versionAtLeast>2.6.12</versionAtLeast>
-           </resource>
-       </requires>
+    <name>Bedtools</name>
+    <id>BEDTOOLS</id>
+    <help>Bedtools. Genome arithmetic suite - allows intersect, merge, count, complement and shuffle of genomic intervals from widely
+        used genomic file fortmats (BAM, BED, GFF/GTF, VCF). Auto-install with artifacts.</help>
+    <version>2.17.0</version>
+    <artifacts>
+        <artifact id="BINARIES" order="1"/>
+    </artifacts>
     <files>
-         <file>
-            <id>R_SCRIPT</id>
-            <filename>deAnalysisEdgeR.R</filename>
+        <file>
+            <id>EXEC_PATH</id>
+            <filename>bedtools</filename>
         </file>
     </files>
 </resourceConfig>

@@ -1,0 +1,5 @@
+#!/bin/bash
+# Execute the bedtools executable from the artifact repository:
+. ${JOB_DIR}/artifacts.sh
+#  expose_artifact_environment_variables
+${RESOURCES_ARTIFACTS_BEDTOOLS_BINARIES}/bedtools $*

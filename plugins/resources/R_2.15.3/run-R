@@ -1,0 +1,12 @@
+
+# source setup of R version
+. ${JOB_DIR}/constants.sh
+. ${JOB_DIR}/auto-options.sh
+. ${RESOURCES_ARTIFACTS_R_BINARIES}/setup.sh
+
+function run-R {
+
+R "$@"
+
+}
+
