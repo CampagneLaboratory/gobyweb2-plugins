@@ -32,6 +32,7 @@ function install_plugin_artifacts {
              exit 121
        fi
        expose_artifact_environment_variables
+       cp ${TMPDIR}/exports.sh ${JOB_DIR}/
     fi
 
 }

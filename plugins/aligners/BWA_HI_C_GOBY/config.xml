@@ -16,6 +16,7 @@
     <dbLegacyId>bwa for Hi-C data (Goby native)</dbLegacyId>
     <help>Version of BWA to align Hi-C reads.</help>
     <version>1.0.1</version>
+    <disabled>true</disabled>
     <supportsColorSpace>true</supportsColorSpace>
     <supportsGobyAlignments>true</supportsGobyAlignments>
     <supportsPairedEndAlignments>true</supportsPairedEndAlignments>

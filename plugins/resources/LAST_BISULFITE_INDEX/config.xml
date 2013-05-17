@@ -25,9 +25,20 @@
             <id>FAI_INDEXED_GENOMES</id>
             <versionAtLeast>1.1.1</versionAtLeast>
         </resource>
+        <resource>
+            <id>GOBY</id>
+            <versionAtLeast>20130415153706</versionAtLeast>
+        </resource>
     </requires>
     <artifacts>
         <artifact id="INDEX">
+            <attributes>
+                <attribute name="organism"/>
+                <attribute name="reference-build"/>
+                <attribute name="ensembl-version-number"/>
+            </attributes>
+        </artifact>
+        <artifact id="TOPLEVEL_IDS">
             <attributes>
                 <attribute name="organism"/>
                 <attribute name="reference-build"/>

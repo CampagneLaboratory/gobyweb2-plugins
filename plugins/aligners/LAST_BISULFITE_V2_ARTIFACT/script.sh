@@ -47,16 +47,9 @@ function plugin_align {
       ${QUEUE_WRITER} --tag ${TAG} --status ${JOB_PART_ALIGN_STATUS} --description "Align, sub-task ${CURRENT_PART} of ${NUMBER_OF_PARTS}, starting" --index ${CURRENT_PART} --job-type job-part
 
       # Make sure the scripts we use are executable:
-      chmod +x ${PLUGINS_ALIGNER_LAST_BISULFITE_V2_FILES_ALIGN_BOTH_STRANDS} ${RESOURCES_PLAST_SCRIPT} ${RESOURCES_GOBY_SHELL_SCRIPT}
-      set -x
-      
-      #make sure index exists
-      if [ ! -e ${INDEX_DIRECTORY}/index_f.prj ]; then
-      	false
-      	dieUponError "last-bisulfite index could not be found"
-      fi
-      
-      ${RESOURCES_PLAST_SCRIPT} ${JOB_DIR} ${PLUGINS_ALIGNER_LAST_BISULFITE_V2_FILES_ALIGN_BOTH_STRANDS} ${READS_FILE} ${TAG}-tmp-align
+      chmod +x ${PLUGINS_ALIGNER_LAST_BISULFITE_V2_ARTIFACT_FILES_ALIGN_BOTH_STRANDS} ${RESOURCES_PLAST_SCRIPT} ${RESOURCES_GOBY_SHELL_SCRIPT}
+
+      ${RESOURCES_PLAST_SCRIPT} ${JOB_DIR} ${PLUGINS_ALIGNER_LAST_BISULFITE_V2_ARTIFACT_FILES_ALIGN_BOTH_STRANDS} ${READS_FILE} ${TAG}-tmp-align
       goby merge-compact-alignments  ${TAG}-tmp-align -o ${OUTPUT}
       dieUponError "Aligning forward and reverse strand results failed, sub-task ${CURRENT_PART} of ${NUMBER_OF_PARTS}, failed"
 

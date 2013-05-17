@@ -16,6 +16,7 @@
     <id>GSNAP_GOBY_2011_07_07</id>
     <help>GSNAP writing to Goby output.</help>
     <version>1.0</version>
+    <disabled>true</disabled>
     <supportsColorSpace>false</supportsColorSpace>
     <supportsGobyAlignments>true</supportsGobyAlignments>
     <supportsPairedEndAlignments>true</supportsPairedEndAlignments>

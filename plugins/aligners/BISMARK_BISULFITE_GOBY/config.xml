@@ -16,6 +16,7 @@
     <id>BISMARK_BISULFITE_GOBY</id>
     <help>Align bisulfite converted reads with Bismark.</help>
     <version>1.1</version>
+    <disabled>true</disabled>
     <supportsColorSpace>false</supportsColorSpace>
     <supportsGobyAlignments>true</supportsGobyAlignments>
     <supportsPairedEndAlignments>true</supportsPairedEndAlignments>

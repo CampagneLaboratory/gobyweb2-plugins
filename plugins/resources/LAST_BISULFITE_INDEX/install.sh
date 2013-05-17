@@ -21,7 +21,6 @@ function plugin_install_artifact {
 
 
             NUM_THREADS=`grep physical  /proc/cpuinfo |grep id|wc -l`
-            SJDB=gencode.v14.annotation.gtf.sjdb
 
             INPUT_FASTA_NO_GZ=${FAI_INDEXED_GENOME_DIR}/genome-toplevel.fasta
             ${LASTDB} -u ${BISULFITE_FORWARD_SEED} index_f ${INPUT_FASTA_NO_GZ}
@@ -37,16 +36,40 @@ function plugin_install_artifact {
             cp -r index_r* ${installation_path}/
             ls -l
             ls -l ${installation_path}/
+            if [ ! -e ${installation_path}/index_r.prj ]; then
+                return 127
+            fi
 
-            if [ -e ${installation_path}/index ]; then
+            if [ -e ${installation_path}/index_f.prj ]; then
                return 0
             else
                return 127
             fi
-            return 127
+
             ;;
 
+        'TOPLEVEL_IDS' )
+                    ORGANISM=$3
+                    BUILD_NUMBER=$4
+                    ENSEMBL_RELEASE=$5
+                    echo "Organism=${ORGANISM} Reference-build=${GENOME_REFERENCE_ID}"
 
+                    . ${RESOURCES_GOBY_SHELL_SCRIPT}
+
+                    ORG=` echo ${ORGANISM} | tr [:lower:] [:upper:]  `
+                    BUILD_NUMBER=`echo ${GENOME_REFERENCE_ID} | awk -F\. '{print $1}' | tr [:lower:] [:upper:] `
+                    ENSEMBL_RELEASE=`echo ${GENOME_REFERENCE_ID} | awk -F\. '{print $(NF)}'| tr [:lower:] [:upper:] `
+
+                    INDEXED_GENOME_DIR=$(eval echo \${RESOURCES_ARTIFACTS_FAI_INDEXED_GENOMES_SAMTOOLS_FAI_INDEX_${ORG}_${BUILD_NUMBER}_${ENSEMBL_RELEASE}})
+
+                    goby fasta-to-compact ${INDEXED_GENOME_DIR}/genome-toplevel.fasta  --exclude-sequences  --include-identifiers -o ${installation_path}/toplevel-ids.compact-reads
+
+                    if [ -e ${installation_path}/toplevel-ids.compact-reads ]; then
+                          return 0
+                    else
+                          return 127
+                    fi
+        ;;
 
         *)  echo "Resource artifact id not recognized: "+$id
             exit 99
