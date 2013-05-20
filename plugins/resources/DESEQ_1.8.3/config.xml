@@ -19,7 +19,7 @@
   <requires>
         <resource>
             <id>R</id>
-            <versionAtLeast>2.15.3.1</versionAtLeast>
+            <versionAtLeast>2.15.3</versionAtLeast>
         </resource>
           </requires>
   <artifacts>
