@@ -3,6 +3,7 @@ function plugin_install_artifact {
 
     id=$1
     installation_path=$2
+    LASTDB=${RESOURCES_ARTIFACTS_LAST_ARTIFACT_BINARIES}/bin/lastdb
 
     case ${id} in
 
@@ -20,7 +21,8 @@ function plugin_install_artifact {
             cat fungi.all.names.map | cut -c2- > fungi.all.names.edited.map
 
             awk '{$1=$1"\t"; print $0}' fungi.all.names.edited.map  > fungal-names.map
-            ${RESOURCES_LAST_INDEXER} -Q 0 -s 2G fungalref fungi.all.fna
+
+            ${LASTDB} -Q 0 -s 2G fungalref fungi.all.fna
 
             mkdir -p "${installation_path}/fungal"
             cp -r fungalref* "${installation_path}/fungal/"
@@ -44,7 +46,7 @@ function plugin_install_artifact {
             cat micro.all.names.map | cut -c2- > micro.all.names.edited.map
 
             awk '{$1=$1"\t"; print $0}' micro.all.names.edited.map  > micro-names.map
-            ${RESOURCES_LAST_INDEXER} -Q 0 -s 2G microref micro.all.fna
+            ${LASTDB} -Q 0 -s 2G microref micro.all.fna
 
             mkdir -p "${installation_path}/bacterial"
             cp -r microref* "${installation_path}/bacterial/"
@@ -67,7 +69,7 @@ function plugin_install_artifact {
             cat viral.all.names.map | cut -c2- > viral.all.names.edited.map
 
             awk '{$1=$1"\t"; print $0}' viral.all.names.edited.map  > viral-names.map
-            ${RESOURCES_LAST_INDEXER} -Q 0 -s 2G viralref viral.all.fna
+            ${LASTDB} -Q 0 -s 2G viralref viral.all.fna
 
             mkdir -p "${installation_path}/viral"
             cp -r viralref* "${installation_path}/viral/"

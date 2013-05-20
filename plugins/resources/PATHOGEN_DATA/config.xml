@@ -23,8 +23,8 @@
             <versionAtLeast>1.2</versionAtLeast>
         </resource>
         <resource>
-            <id>LAST</id>
-            <versionAtLeast>230</versionAtLeast>
+            <id>LAST_ARTIFACT</id>
+            <versionAtLeast>286</versionAtLeast>
         </resource>
     </requires>
     <artifacts>
