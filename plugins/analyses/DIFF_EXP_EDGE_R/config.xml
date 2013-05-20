@@ -41,7 +41,7 @@
         </resource>
         <resource>
             <id>EDGE_R_SCRIPT</id>
-            <versionAtLeast>2012.08.24</versionAtLeast>
+            <versionAtLeast>2013.05.17</versionAtLeast>
         </resource>
     </requires>
     <files>
