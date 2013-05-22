@@ -24,10 +24,5 @@
     <artifacts>
         <artifact id="DISTRIBUTION" order="1"/>
     </artifacts>
-    <files>
-        <file>
-            <id>SCRIPT</id>
-            <filename>vep</filename>
-        </file>
-    </files>
+
 </resourceConfig>
