@@ -27,7 +27,7 @@
         </resource>
         <resource>
             <id>GOBY</id>
-            <versionAtLeast>20130415153706</versionAtLeast>
+            <versionAtLeast>20130413162635</versionAtLeast>
         </resource>
     </requires>
     <artifacts>

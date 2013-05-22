@@ -33,7 +33,7 @@
     <requires>
         <resource>
             <id>GOBY</id>
-            <versionAtLeast>20120608105135</versionAtLeast>
+            <versionAtLeast>20130413162635</versionAtLeast>
         </resource>
         <resource>
             <id>LAST_ARTIFACT</id>
