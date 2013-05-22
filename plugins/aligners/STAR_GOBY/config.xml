@@ -30,7 +30,7 @@
     <requires>
         <resource>
             <id>STAR</id>
-            <versionAtLeast>2.1.4</versionAtLeast>
+            <versionExactly>2.1.4</versionExactly>
         </resource>
         <resource>
             <id>GOBY</id>
