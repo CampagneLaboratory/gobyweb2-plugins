@@ -32,7 +32,7 @@
         </resource>
         <resource>
             <id>BISMARK_ARTIFACT</id>
-            <versionAtLeast>0.7.12</versionAtLeast>
+            <versionAtLeast>0.7.12.1</versionAtLeast>
         </resource>
         <resource>
             <id>SAMTOOLS</id>
