@@ -15,7 +15,7 @@
     <name>Bismark Bisulfite Mapper (auto-install)</name>
     <id>BISMARK_BISULFITE_ARTIFACT</id>
     <help>Align bisulfite converted reads with Bismark.</help>
-    <version>1.1</version>
+    <version>1.2</version>
     <supportsColorSpace>false</supportsColorSpace>
     <supportsGobyAlignments>true</supportsGobyAlignments>
     <supportsPairedEndAlignments>true</supportsPairedEndAlignments>
@@ -32,7 +32,7 @@
         </resource>
         <resource>
             <id>BISMARK_ARTIFACT</id>
-            <versionAtLeast>0.7.12.1</versionAtLeast>
+            <versionAtLeast>0.7.12.2</versionAtLeast>
         </resource>
         <resource>
             <id>SAMTOOLS</id>
@@ -67,4 +67,5 @@
             <includeSpaces>true</includeSpaces>
         </option>
     </options>
+
 </alignerConfig>

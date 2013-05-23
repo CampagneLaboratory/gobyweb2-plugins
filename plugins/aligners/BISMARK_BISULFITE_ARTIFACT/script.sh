@@ -46,8 +46,11 @@ function plugin_align {
     		--adapters  ${RESOURCES_ILLUMINA_ADAPTERS_FILE_PATH}  --min-left-length 4
     dieUponError "trim reads failed, sub-task ${CURRENT_PART} of ${NUMBER_OF_PARTS}, failed"
     
-    
-    
+    ORG=` echo ${ORGANISM} | tr [:lower:] [:upper:]  `
+    BUILD_NUMBER=`echo ${GENOME_REFERENCE_ID} | awk -F\. '{print $1}' | tr [:lower:] [:upper:] `
+    ENSEMBL_RELEASE=`echo ${GENOME_REFERENCE_ID} | awk -F\. '{print $(NF)}'| tr [:lower:] [:upper:] `
+    INDEX_DIRECTORY=$(eval echo \${RESOURCES_ARTIFACTS_BISMARK_ARTIFACT_INDEX_${ORG}_${BUILD_NUMBER}_${ENSEMBL_RELEASE}})/
+
     #convert to fastq and set input options
     FASTQ_READS='trimmed-reads-sanger.fastq'
 	INPUT_OPTIONS="${INDEX_DIRECTORY}"

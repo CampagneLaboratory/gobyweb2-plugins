@@ -17,7 +17,7 @@
     <help>A tool to map bisulfite converted sequence reads and determine cytosine methylation states. See
         http://www.bioinformatics.babraham.ac.uk/projects/bismark/.
     </help>
-    <version>0.7.12.1</version>
+    <version>0.7.12.2</version>
     <requires>
         <resource>
             <id>BOWTIE2_ARTIFACT</id>
