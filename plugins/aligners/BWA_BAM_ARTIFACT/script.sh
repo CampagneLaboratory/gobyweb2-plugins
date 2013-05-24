@@ -61,4 +61,13 @@ function plugin_align {
             RETURN_STATUS=$?
         fi
     fi
+     # aln worked, let's convert to BAM and sort on the fly:
+
+    nice ${RESOURCES_SAMTOOLS_EXEC_PATH}  view -uS ${OUTPUT}  | ${RESOURCES_SAMTOOLS_EXEC_PATH}  sort - ${BASENAME}
+    dieUponError "samtools view|sort step failed, sub-task ${CURRENT_PART} of ${NUMBER_OF_PARTS}, failed"
+
+    # sort worked. We index the BAM file. If this works, the return code will be 0, indicating no problem with plugin_align
+    nice ${RESOURCES_SAMTOOLS_EXEC_PATH} index ${BASENAME}.bam
+    dieUponError "samtools index step failed, sub-task ${CURRENT_PART} of ${NUMBER_OF_PARTS}, failed"
+
 }
