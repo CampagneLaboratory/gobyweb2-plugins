@@ -15,42 +15,45 @@
 # OTHER.png
 # TRANSCRIPT.png
 
+#set -o errexit
+#set -o nounset
+
 function eval {
 EVAL=raw-counts
 }
 
 function setupWeights {
 
-   if [ "${PLUGINS_ALIGNMENT_ANALYSIS_DIFF_EXP_GOBY_WEIGHT_ADJUSTMENT}" == "NONE" ]; then
+   if [ "${PLUGINS_ALIGNMENT_ANALYSIS_DIFF_EXP_GOBY_ARTIFACT_WEIGHT_ADJUSTMENT}" == "NONE" ]; then
 
        USE_WEIGHTS_DIRECTIVE=" "
 
-   elif [ "${PLUGINS_ALIGNMENT_ANALYSIS_DIFF_EXP_GOBY_WEIGHT_ADJUSTMENT}" == "GC_CONTENT" ]; then
+   elif [ "${PLUGINS_ALIGNMENT_ANALYSIS_DIFF_EXP_GOBY_ARTIFACT_WEIGHT_ADJUSTMENT}" == "GC_CONTENT" ]; then
 
-       USE_WEIGHTS_DIRECTIVE="--use-weights gc --adjust-gc-bias ${PLUGINS_ALIGNMENT_ANALYSIS_DIFF_EXP_GOBY_BIAS_ADJUSTMENT_FORMULA} "
+       USE_WEIGHTS_DIRECTIVE="--use-weights gc --adjust-gc-bias ${PLUGINS_ALIGNMENT_ANALYSIS_DIFF_EXP_GOBY_ARTIFACT_BIAS_ADJUSTMENT_FORMULA} "
 
-   elif [ "${PLUGINS_ALIGNMENT_ANALYSIS_DIFF_EXP_GOBY_WEIGHT_ADJUSTMENT}" == "HEPTAMERS" ]; then
+   elif [ "${PLUGINS_ALIGNMENT_ANALYSIS_DIFF_EXP_GOBY_ARTIFACT_WEIGHT_ADJUSTMENT}" == "HEPTAMERS" ]; then
 
        USE_WEIGHTS_DIRECTIVE="--use-weights heptamers "
    else
-     dieUponError "weight adjustment  not supported: ${PLUGINS_ALIGNMENT_ANALYSIS_DIFF_EXP_GOBY_WEIGHT_ADJUSTMENT}"
+     dieUponError "weight adjustment  not supported: ${PLUGINS_ALIGNMENT_ANALYSIS_DIFF_EXP_GOBY_ARTIFACT_WEIGHT_ADJUSTMENT}"
    fi
 
 }
 
 function setupAnnotationTypes {
    ANNOTATION_TYPES=""
-   if [ "${PLUGINS_ALIGNMENT_ANALYSIS_DIFF_EXP_GOBY_ESTIMATE_COUNTS_GENE}" == "true" ]; then
+   if [ "${PLUGINS_ALIGNMENT_ANALYSIS_DIFF_EXP_GOBY_ARTIFACT_ESTIMATE_COUNTS_GENE}" == "true" ]; then
 
        ANNOTATION_TYPES="${ANNOTATION_TYPES}gene"
    fi
-   if [ "${PLUGINS_ALIGNMENT_ANALYSIS_DIFF_EXP_GOBY_ESTIMATE_COUNTS_EXON}" == "true" ]; then
+   if [ "${PLUGINS_ALIGNMENT_ANALYSIS_DIFF_EXP_GOBY_ARTIFACT_ESTIMATE_COUNTS_EXON}" == "true" ]; then
        if [ "${ANNOTATION_TYPES}" != "" ]; then
           ANNOTATION_TYPES="${ANNOTATION_TYPES},"
        fi
        ANNOTATION_TYPES="${ANNOTATION_TYPES}exon"
    fi
-   if [ "${PLUGINS_ALIGNMENT_ANALYSIS_DIFF_EXP_GOBY_ESTIMATE_COUNTS_OTHER}" == "true" ]; then
+   if [ "${PLUGINS_ALIGNMENT_ANALYSIS_DIFF_EXP_GOBY_ARTIFACT_ESTIMATE_COUNTS_OTHER}" == "true" ]; then
        if [ "${ANNOTATION_TYPES}" != "" ]; then
           ANNOTATION_TYPES="${ANNOTATION_TYPES},"
        fi
@@ -64,13 +67,15 @@ function setupAnnotationTypes {
 }
 
 function setupAnnotationSource {
+    . ${JOB_DIR}/artifacts.sh
+    expose_artifact_environment_variables
     ORG=` echo ${ORGANISM} | tr [:lower:] [:upper:]  `
     BUILD_NUMBER=`echo ${GENOME_REFERENCE_ID} | awk -F\. '{print $1}' | tr [:lower:] [:upper:] `
     ENSEMBL_RELEASE=`echo ${GENOME_REFERENCE_ID} | awk -F\. '{print $(NF)}'| tr [:lower:] [:upper:] `
-    ANNOTATION_PATH=$(eval echo \${RESOURCES_ARTIFACTS_ENSEMBL_ANNOTATIONS_ANNOTATIONS_${ORG}_${BUILD_NUMBER}_${ENSEMBL_RELEASE}})
+    ANNOTATION_PATH="$(eval echo \${RESOURCES_ARTIFACTS_ENSEMBL_ANNOTATIONS_ANNOTATIONS_${ORG}_${BUILD_NUMBER}_${ENSEMBL_RELEASE}})"
 
-  ANNOTATION_SOURCE=""
-  if [ "${PLUGINS_ALIGNMENT_ANALYSIS_DIFF_EXP_GOBY_ANNOTATION_SOURCE}" == "GENE_EXON_OTHER" ]; then
+
+  if [ "${PLUGINS_ALIGNMENT_ANALYSIS_DIFF_EXP_GOBY_ARTIFACT_ANNOTATION_SOURCE}" == "GENE_EXON_OTHER" ]; then
     # gene exon annotation file.
     ANNOTATION_SOURCE="${ANNOTATION_PATH}/exon-annotations.tsv"
   else
@@ -79,7 +84,7 @@ function setupAnnotationSource {
   fi
 }
 
-. ${PLUGINS_ALIGNMENT_ANALYSIS_DIFF_EXP_GOBY_FILES_PARALLEL_SCRIPT}
+. ${PLUGINS_ALIGNMENT_ANALYSIS_DIFF_EXP_GOBY_ARTIFACT_FILES_PARALLEL_SCRIPT}
 
 function plugin_alignment_analysis_combine {
    set -x
@@ -88,13 +93,13 @@ function plugin_alignment_analysis_combine {
    shift
    PART_RESULT_FILES=$*
 
-   NUM_TOP_HITS=${PLUGINS_ALIGNMENT_ANALYSIS_DIFF_EXP_GOBY_NUM_TOP_HITS}
-   Q_VALUE_THRESHOLD=${PLUGINS_ALIGNMENT_ANALYSIS_DIFF_EXP_GOBY_Q_VALUE_THRESHOLD}
+   NUM_TOP_HITS=${PLUGINS_ALIGNMENT_ANALYSIS_DIFF_EXP_GOBY_ARTIFACT_NUM_TOP_HITS}
+   Q_VALUE_THRESHOLD=${PLUGINS_ALIGNMENT_ANALYSIS_DIFF_EXP_GOBY_ARTIFACT_Q_VALUE_THRESHOLD}
 
    run_fdr
 
    # Estimate stats on complete file
-   NORMALIZATION_METHOD="${PLUGINS_ALIGNMENT_ANALYSIS_DIFF_EXP_GOBY_NORMALIZATION_METHOD}"
+   NORMALIZATION_METHOD="${PLUGINS_ALIGNMENT_ANALYSIS_DIFF_EXP_GOBY_ARTIFACT_NORMALIZATION_METHOD}"
    if [ -z "${NORMALIZATION_METHOD}" ]; then
         NORMALIZATION_METHOD="aligned-count"
    fi
@@ -113,7 +118,7 @@ function plugin_alignment_analysis_combine {
 
    if [ $RETURN_STATUS -eq 0 ]; then
             IMAGE_OUTPUT_PNG=
-            R -f ${PLUGINS_ALIGNMENT_ANALYSIS_DIFF_EXP_GOBY_FILES_R_SCRIPT} --slave --quiet --no-restore --no-save --no-readline --args input=stats.tsv graphOutput=.png
+            R -f ${PLUGINS_ALIGNMENT_ANALYSIS_DIFF_EXP_GOBY_ARTIFACT_FILES_R_SCRIPT} --slave --quiet --no-restore --no-save --no-readline --args input=stats.tsv graphOutput=.png
    fi
 
 }

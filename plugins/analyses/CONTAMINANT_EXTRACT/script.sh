@@ -23,13 +23,22 @@
 . ${JOB_DIR}/plugin-constants.sh
 
 function plugin_alignment_analysis_split {
+	NUMBER_OF_PARTS=$1
+	SPLICING_PLAN_RESULT=$2
 	local SPLICING_PLAN_RESULT=$2
-	echo ;
+	ls -l $* >${SPLICING_PLAN_RESULT}
 }
 
 # This function return the number of parts in the slicing plan. It returns zero if the alignments could not be split.
 function plugin_alignment_analysis_num_parts {
-	echo "$NUM_SPLITS"
+  SPLICING_PLAN_FILE=$1
+
+  if [ $? -eq 0 ]; then
+
+	        echo `grep -v targetIdStart ${SPLICING_PLAN_FILE} | wc -l `
+  fi
+
+  echo 0
 }
 
 function plugin_alignment_analysis_process {

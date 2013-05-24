@@ -14,12 +14,11 @@
                          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
     <name>Differential Expression Analysis with Goby (auto-install)</name>
     <id>DIFF_EXP_GOBY_ARTIFACT</id>
-    <dbLegacyId>Goby</dbLegacyId>
     <help>Compares groups of samples to determine set of gene/exon or other annotations differentially expressed across
         groups. Counts and statistics are estimated with Goby.
     </help>
     <version>1.1</version>
-    <disabled>true</disabled>
+    <disabled>false</disabled>
     <analysisType>DiffExp</analysisType>
     <minimumNumberOfGroups>1</minimumNumberOfGroups>
     <maximumNumberOfGroups>50</maximumNumberOfGroups>

@@ -19,6 +19,7 @@
         groups. Counts and statistics are estimated with Goby.
     </help>
     <version>1.1</version>
+    <disabled>true</disabled>
     <analysisType>DiffExp</analysisType>
     <minimumNumberOfGroups>1</minimumNumberOfGroups>
     <maximumNumberOfGroups>50</maximumNumberOfGroups>

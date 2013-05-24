@@ -43,7 +43,7 @@ function plugin_alignment_analysis_num_parts {
         echo `grep -v targetIdStart ${SPLICING_PLAN_FILE} | wc -l `
    fi
 
-   return "0"
+   echo 0
 }
 
 function plugin_alignment_analysis_process {
@@ -57,7 +57,7 @@ function plugin_alignment_analysis_process {
    REMOVE_SHARED_SEGMENTS=${PLUGINS_ALIGNMENT_ANALYSIS_SEQ_VAR_GOBY_REMOVE_SHARED_SEGMENTS}
    ALL_OTHER_OPTIONS=${PLUGINS_ALIGNMENT_ANALYSIS_SEQ_VAR_GOBY_ALL_OTHER_OPTIONS}
 
-   NORMALIZATION_METHOD="${PLUGINS_ALIGNMENT_ANALYSIS_DIFF_EXP_GOBY_NORMALIZATION_METHOD}"
+   NORMALIZATION_METHOD="${PLUGINS_ALIGNMENT_ANALYSIS_DIFF_EXP_GOBY_ARTIFACT_NORMALIZATION_METHOD}"
    if [ -z "${NORMALIZATION_METHOD}" ]; then
        NORMALIZATION_METHOD="aligned-count"
    fi
