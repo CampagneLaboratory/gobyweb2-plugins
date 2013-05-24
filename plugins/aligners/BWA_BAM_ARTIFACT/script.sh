@@ -11,7 +11,6 @@
 # INDEX_PREFIX = name of the indexed database to search
 
 # BWA_GOBY_EXEC_PATH = path to BWA, obtained from environment.sh
-# BWA_GOBY_NUM_THREADS = number of threads to run with, obtained from environment.sh
 
 # ALIGNER_OPTIONS = any BWA options the end-user would like to set
 
@@ -32,6 +31,8 @@ function plugin_align {
     INDEX_DIR=$(eval echo \${RESOURCES_ARTIFACTS_BWA_WITH_GOBY_ARTIFACT_INDEX_${ORG}_${BUILD_NUMBER}_${ENSEMBL_RELEASE}})/index
     ALIGNER_OPTIONS="${PLUGINS_ALIGNER_BWA_BAM_ARTIFACT_ALIGNER_OPTIONS}"
     ALL_OTHER_OPTIONS="${PLUGINS_ALIGNER_BWA_BAM_ARTIFACT_ALL_OTHER_OPTIONS}"
+    # set the number of threads to the number of cores available on the server:
+    NUM_THREADS=`grep physical  /proc/cpuinfo |grep id|wc -l`
 
     set -x
     if [ "${PAIRED_END_ALIGNMENT}" == "true" ]; then

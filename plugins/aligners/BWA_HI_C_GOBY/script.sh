@@ -10,9 +10,6 @@
 # INDEX_DIRECTORY = directory that contains the indexed database
 # INDEX_PREFIX = name of the indexed database to search
 
-# BWA_GOBY_EXEC_PATH = path to BWA, obtained from environment.sh
-# BWA_GOBY_NUM_THREADS = number of threads to run with, obtained from environment.sh
-
 # ALIGNER_OPTIONS = any BWA options the end-user would like to set
 . ${RESOURCES_GOBY_SHELL_SCRIPT}
 
@@ -25,6 +22,7 @@ function plugin_align {
     if [ "${COLOR_SPACE}" == "true" ]; then
         COLOR_SPACE_OPTION="-c"
     fi
+    BWA_GOBY_NUM_THREADS=4
 
     if [ "${PAIRED_END_ALIGNMENT}" == "true" ]; then
 
