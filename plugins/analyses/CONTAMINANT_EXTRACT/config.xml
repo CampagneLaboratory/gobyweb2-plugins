@@ -12,10 +12,11 @@
   -->
 <alignmentAnalysisConfig xsi:noNamespaceSchemaLocation="../../../schemas/plugins.xsd"
                          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
-    <name>Contaminant identification</name>
+    <name>Pathogen identification</name>
     <id>CONTAMINANT_EXTRACT</id>
-    <dbLegacyId>Extract Contaminants</dbLegacyId>
-    <help>Finds potential contaminants based on the unmapped reads in the alignments. This plugin will create contigs from unmapped reads, and try to align these contigs to viral and bacterial nucleotide sequences to identify potential sample contaminants.
+    <help>Finds sequence contamination from other organism in alignments. This plugin considers reads that could not be
+        mapped to the organism of origin. This plugin will create contigs from unmapped reads, and try to align these
+        contigs to viral, fungal or bacterial nucleotide sequences to identify potential sample contaminants/pathogens.
     </help>
     <version>1.7</version>
     <analysisType>DiffExp</analysisType>
