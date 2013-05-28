@@ -19,7 +19,7 @@
         Bioconductor package.
     </help>
     <version>1.0</version>
-    <disabled>true</disabled>
+    <disabled>false</disabled>
     <analysisType>DiffExp</analysisType>
     <minimumNumberOfGroups>2</minimumNumberOfGroups>
     <maximumNumberOfGroups>2</maximumNumberOfGroups>
@@ -45,9 +45,9 @@
             <versionAtLeast>2013.05.17</versionAtLeast>
         </resource>
         <resource>
-              <id>ENSEMBL_ANNOTATIONS</id>
-              <versionAtLeast>1.1</versionAtLeast>
-          </resource>
+            <id>ENSEMBL_ANNOTATIONS</id>
+            <versionAtLeast>1.1</versionAtLeast>
+        </resource>
     </requires>
     <files>
         <file>
@@ -57,7 +57,7 @@
         <file>
             <id>PARALLEL_SCRIPT</id>
             <filename>parallel.sh</filename>
-            <importFromPlugin>DIFF_EXP_GOBY</importFromPlugin>
+            <importFromPlugin>DIFF_EXP_GOBY_ARTIFACT</importFromPlugin>
         </file>
     </files>
     <runtime>
@@ -224,7 +224,8 @@
                     <name>RLE</name>
                     <value>RLE</value>
                     <help>The scaling factor method proposed by Anders and Huber (2010) -the median library is
-                        calculated from the geometric mean of all columns and the median ratio of each sample to the median library
+                        calculated from the geometric mean of all columns and the median ratio of each sample to the
+                        median library
                         is taken as the scale factor.
                     </help>
                     <dbLegacyValue>rle</dbLegacyValue>
@@ -387,7 +388,7 @@
             <mimeType>text/tab-separated-values</mimeType>
             <filename>counts-table.tsv</filename>
             <help>Output reads counts for each annotation(tag) across all samples</help>
-            </outputFile>
+        </outputFile>
         <outputFile>
             <id>EDGE_R_SCRIPT</id>
             <name>Analysis Script</name>
