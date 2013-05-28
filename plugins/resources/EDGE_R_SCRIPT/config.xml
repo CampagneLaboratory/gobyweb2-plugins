@@ -19,7 +19,7 @@
     <requires>
         <resource>
             <id>EDGER</id>
-            <versionAtLeast>2.6.12</versionAtLeast>
+            <versionAtLeast>2.6.12.1</versionAtLeast>
         </resource>
     </requires>
     <files>

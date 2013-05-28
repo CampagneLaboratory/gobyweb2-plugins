@@ -29,26 +29,23 @@ function plugin_install_artifact {
 cat>${installation_path}/setup.sh<<EOT
 export R_LIBS=${installation_path}:${R_LIBS}
 EOT
-
+       chmod +x ${installation_path}/setup.sh
        # check package installation by checking that all index files exist
 
-        fileList="${installation_path}/Cairo/DESCRIPTION ${installation_path}/limma/DESCRIPTION ${installation_path}/edgeR/DESCRIPTION"
+       fileList="${installation_path}/Cairo/DESCRIPTION ${installation_path}/limma/DESCRIPTION ${installation_path}/edgeR/DESCRIPTION"
 
-        for file in $fileList; do
+       for file in $fileList; do
            if [ ! -e $file ]; then
                echo "${file} does not exist"
                return 127
-            fi
-          done
-          return 0
+           fi
+       done
+        return 0
+       ;;
 
-
-
-            ;;
-
-        *)  echo "Resource artifact id not recognized: "+$id
+       *)  echo "Resource artifact id not recognized: "+$id
             return 99
-            ;;
+       ;;
 
     esac
 

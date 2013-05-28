@@ -75,6 +75,7 @@ function setupAnnotationSource {
 
 . ${PLUGINS_ALIGNMENT_ANALYSIS_DIFF_EXP_EDGE_R_ARTIFACT_FILES_PARALLEL_SCRIPT}
 . ${RESOURCES_R_SHELL_SCRIPT}
+. ${RESOURCES_EDGE_R_SCRIPT_SETUP}
 
 function plugin_alignment_analysis_combine {
    set -x

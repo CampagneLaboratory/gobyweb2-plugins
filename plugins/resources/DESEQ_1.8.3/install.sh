@@ -94,6 +94,9 @@ function plugin_install_artifact {
             cat>${installation_path}/setup.sh<<EOT
 export R_LIBS=${installation_path}:${R_LIBS}
 EOT
+
+            chmod +x ${installation_path}/setup.sh
+
        # check package installation by checking that all index files exist
            fileList="${installation_path}/Cairo/DESCRIPTION ${installation_path}/BiocGenerics/DESCRIPTION ${installation_path}/Biobase/DESCRIPTION
   ${installation_path}/locfit/DESCRIPTION  ${installation_path}/DBI/DESCRIPTION  ${installation_path}/RSQLite/DESCRIPTION  ${installation_path}/IRanges/DESCRIPTION
@@ -101,17 +104,18 @@ EOT
    ${installation_path}/annotate/DESCRIPTION ${installation_path}/genefilter/DESCRIPTION ${installation_path}/RColorBrewer/DESCRIPTION
    ${installation_path}/geneplotter/DESCRIPTION ${installation_path}/DESeq/DESCRIPTION"
 
-              for file in $fileList; do
-                 if [ ! -e $file ]; then
-                     echo "${file} does not exist"
-                     return 127
-                  fi
-                done
-                return 0
+        for file in $fileList; do
+            if [ ! -e $file ]; then
+                echo "${file} does not exist"
+                return 127
+            fi
+        done
+        return 0
         ;;
+
         *)  echo "Resource artifact id not recognized: "+$id
-            return 99
-            ;;
+        return 99
+        ;;
 
     esac
 

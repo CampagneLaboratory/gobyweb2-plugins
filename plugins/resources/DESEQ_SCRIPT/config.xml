@@ -15,6 +15,12 @@
     <id>DESEQ_SCRIPT</id>
     <help>Script that helps run DESeq on table of counts data with group information.</help>
     <version>2012.07.25</version>
+    <requires>
+        <resource>
+            <id>DESEQ</id>
+            <versionAtLeast>1.8.3.1</versionAtLeast>
+        </resource>
+    </requires>
     <files>
          <file>
             <id>R_SCRIPT</id>

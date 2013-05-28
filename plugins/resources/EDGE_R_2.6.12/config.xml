@@ -15,7 +15,7 @@
     <name>EdgeR</name>
     <id>EDGER</id>
     <help>EdgeR package from Bioconductor</help>
-    <version>2.6.12</version>
+    <version>2.6.12.2</version>
     <requires>
         <resource>
             <id>R</id>
