@@ -19,6 +19,7 @@
         groups. Counts are calculated with Goby, statistics of diffential expression are estimated with DESeq.
     </help>
     <version>1.1</version>
+    <disabled>true</disabled>
     <analysisType>DiffExp</analysisType>
     <minimumNumberOfGroups>2</minimumNumberOfGroups>
     <maximumNumberOfGroups>2</maximumNumberOfGroups>

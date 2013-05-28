@@ -19,6 +19,7 @@
         Bioconductor package.
     </help>
     <version>1.0</version>
+    <disabled>true</disabled>
     <analysisType>DiffExp</analysisType>
     <minimumNumberOfGroups>2</minimumNumberOfGroups>
     <maximumNumberOfGroups>2</maximumNumberOfGroups>
