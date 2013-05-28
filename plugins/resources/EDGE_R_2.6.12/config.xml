@@ -21,9 +21,10 @@
             <id>R</id>
             <versionAtLeast>2.15.3</versionAtLeast>
         </resource>
+
     </requires>
     <artifacts>
-    <artifact id="BINARIES" order="1">
-           </artifact>
+        <artifact id="BINARIES" order="1">
+        </artifact>
     </artifacts>
 </resourceConfig>

@@ -35,7 +35,7 @@
     <files>
         <file>
             <id>SETUP</id>
-            <filename>setup.sh</filename>
+            <filename>ensembl-api-setup.sh</filename>
         </file>
     </files>
 

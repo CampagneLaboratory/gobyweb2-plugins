@@ -10,21 +10,26 @@
   ~ When a plugin is not released under the LGPL3 license,  the comments  at the top  of
   ~ the plugin's config.xml will indicate how that specific plugin is released/licensed.
   -->
-<resourceConfig xsi:noNamespaceSchemaLocation="../../../schemas/plugins.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+<resourceConfig xsi:noNamespaceSchemaLocation="../../../schemas/plugins.xsd"
+                xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
     <name>EdgeR script</name>
     <id>EDGE_R_SCRIPT</id>
     <help>Script that helps run EdgeR on table of counts data with group information.</help>
     <version>2013.05.17</version>
     <requires>
-           <resource>
-               <id>EDGER</id>
-               <versionAtLeast>2.6.12</versionAtLeast>
-           </resource>
-       </requires>
+        <resource>
+            <id>EDGER</id>
+            <versionAtLeast>2.6.12</versionAtLeast>
+        </resource>
+    </requires>
     <files>
-         <file>
+        <file>
             <id>R_SCRIPT</id>
             <filename>deAnalysisEdgeR.R</filename>
+        </file>
+        <file>
+            <id>SETUP</id>
+            <filename>edgeR-setup.sh</filename>
         </file>
     </files>
 </resourceConfig>
