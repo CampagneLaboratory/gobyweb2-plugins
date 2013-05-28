@@ -2,24 +2,30 @@
 function install_plugin_artifacts {
     echo "Installing plugin resources"
     if [ -e ${JOB_DIR}/artifacts-install-requests.pb ]; then
-         set +xv
-         . ${JOB_DIR}/constants.sh
-         . ${JOB_DIR}/auto-options.sh
+       set +xv
+       . ${JOB_DIR}/constants.sh
+       . ${JOB_DIR}/auto-options.sh
 
-        if [ ! -z "${CURRENT_PART}" ]; then
+       if [ ! -z "${CURRENT_PART}" ]; then
           CURRENT_PART=1
-        fi
+       fi
         # Groovy is not available before artifact installation..
         # ${RESOURCES_GOBYWEB_SERVER_SIDE_QUEUE_WRITER_WRAPPER} --tag ${TAG} --status u --description "Installing artifacts on `hostname`" --index ${CURRENT_PART} --job-type job
-
-        ${JOB_DIR}/artifact-manager.sh \
+       mkdir -p ${TMPDIR}/steplogs
+       ${JOB_DIR}/artifact-manager.sh \
                 --ssh-requests  ${JOB_DIR}/artifacts-install-requests.pb \
-                --install
+                --install  --log-dir ${TMPDIR}/steplogs
+       local STATUS=$?
+       if [ ${STATUS} != 0 ]; then
 
-        if [ $? != 0 ]; then
-             ${QUEUE_WRITER} --tag ${TAG} --status ${JOB_PART_FAILED_STATUS} --description "Job failed: unable to install required software/data artifacts." --index ${CURRENT_PART} --job-type job
-             exit 120
-        fi
+            ${QUEUE_WRITER} --tag ${TAG} --status ${JOB_PART_FAILED_STATUS} --description "Job failed: unable to install required software/data artifacts." --index ${CURRENT_PART} --job-type job
+            exit 120
+       fi
+
+       java   -cp ${JOB_DIR}/goby/serverside-dependencies.jar \
+                       org.campagnelab.stepslogger.StepsLogTool \
+                       --action view \
+                       --log-file ${TMPDIR}/steplogs/*
 
        echo "Expose environment variables for artifacts.."
        cd ${TMPDIR}
