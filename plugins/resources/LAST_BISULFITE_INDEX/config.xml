@@ -15,11 +15,11 @@
     <name>Last (auto-install)</name>
     <id>LAST_BISULFITE_INDEX</id>
     <help>Bisulfite indices for the Last aligner.</help>
-    <version>286</version>
+    <version>287</version>
     <requires>
         <resource>
             <id>LAST_ARTIFACT</id>
-            <versionAtLeast>286</versionAtLeast>
+            <versionAtLeast>287</versionAtLeast>
         </resource>
         <resource>
             <id>FAI_INDEXED_GENOMES</id>

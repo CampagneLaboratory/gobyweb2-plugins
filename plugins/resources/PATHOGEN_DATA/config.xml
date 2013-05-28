@@ -24,7 +24,7 @@
         </resource>
         <resource>
             <id>LAST_ARTIFACT</id>
-            <versionAtLeast>286</versionAtLeast>
+            <versionAtLeast>287</versionAtLeast>
         </resource>
     </requires>
     <artifacts>
