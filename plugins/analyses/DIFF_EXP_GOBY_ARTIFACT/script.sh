@@ -18,7 +18,7 @@
 #set -o errexit
 #set -o nounset
 
-function eval {
+function evaluate {
 EVAL=raw-counts
 }
 
@@ -72,8 +72,7 @@ function setupAnnotationSource {
     ORG=` echo ${ORGANISM} | tr [:lower:] [:upper:]  `
     BUILD_NUMBER=`echo ${GENOME_REFERENCE_ID} | awk -F\. '{print $1}' | tr [:lower:] [:upper:] `
     ENSEMBL_RELEASE=`echo ${GENOME_REFERENCE_ID} | awk -F\. '{print $(NF)}'| tr [:lower:] [:upper:] `
-    ANNOTATION_PATH="$(eval echo \${RESOURCES_ARTIFACTS_ENSEMBL_ANNOTATIONS_ANNOTATIONS_${ORG}_${BUILD_NUMBER}_${ENSEMBL_RELEASE}})"
-
+    ANNOTATION_PATH=$(eval echo \${RESOURCES_ARTIFACTS_ENSEMBL_ANNOTATIONS_ANNOTATIONS_${ORG}_${BUILD_NUMBER}_${ENSEMBL_RELEASE}})
 
   if [ "${PLUGINS_ALIGNMENT_ANALYSIS_DIFF_EXP_GOBY_ARTIFACT_ANNOTATION_SOURCE}" == "GENE_EXON_OTHER" ]; then
     # gene exon annotation file.

@@ -63,7 +63,7 @@ function plugin_alignment_analysis_process {
    fi
 
    # fetch the type statistics to evaluate from the main script:
-   eval
+   evaluate
 
    WINDOW_LIMITS=`awk -v arrayJobIndex=${ARRAY_JOB_INDEX} '{ if (lineNumber==arrayJobIndex) print " --start-position "$3" --end-position "$6; lineNumber++; }' ${SLICING_PLAN_FILENAME}`
    if [ "${ARRAY_JOB_INDEX}" == "1" ]; then
