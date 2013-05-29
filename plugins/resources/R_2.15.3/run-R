@@ -1,7 +1,8 @@
 
-# source setup of R version
-. ${JOB_DIR}/constants.sh
-. ${JOB_DIR}/auto-options.sh
+  # source setup of R version
+    . ${JOB_DIR}/artifacts.sh
+    expose_artifact_environment_variables
+
 . ${RESOURCES_ARTIFACTS_R_BINARIES}/setup.sh
 
 function run-R {
