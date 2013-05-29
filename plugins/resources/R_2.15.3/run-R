@@ -1,13 +1,12 @@
 
-  # source setup of R version
-    . ${JOB_DIR}/artifacts.sh
-    expose_artifact_environment_variables
-
+# source setup of R version
+. ${JOB_DIR}/artifacts.sh
+expose_artifact_environment_variables
 . ${RESOURCES_ARTIFACTS_R_BINARIES}/setup.sh
 
 function run-R {
 
-R "$@"
+${RESOURCES_ARTIFACTS_R_BINARIES}/bin/R "$@"
 
 }
 

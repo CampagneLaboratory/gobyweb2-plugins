@@ -11,19 +11,20 @@ function plugin_install_artifact {
 
 
         'BINARIES' )
-            . ${RESOURCES_R_SHELL_SCRIPT}
+            . ${RESOURCES_ARTIFACTS_R_BINARIES}/setup.sh
+            RUN_R=${RESOURCES_ARTIFACTS_R_BINARIES}/bin/R
 
             VERSION="1.5-2"
             ${RESOURCES_FETCH_URL_SCRIPT} http://cran.r-project.org/src/contrib/Cairo_1.5-2.tar.gz
-            run-R CMD INSTALL Cairo_${VERSION}.tar.gz --library=${installation_path}/
+            ${RUN_R} CMD INSTALL Cairo_${VERSION}.tar.gz --library=${installation_path}/
 
             VERSION="3.12.3"
             ${RESOURCES_FETCH_URL_SCRIPT} http://www.bioconductor.org/packages/2.10/bioc/src/contrib/limma_${VERSION}.tar.gz
-            run-R CMD INSTALL limma_${VERSION}.tar.gz --library=${installation_path}/
+            ${RUN_R} CMD INSTALL limma_${VERSION}.tar.gz --library=${installation_path}/
 
             VERSION="2.6.12"
             ${RESOURCES_FETCH_URL_SCRIPT} http://bioconductor.org/packages/2.10/bioc/src/contrib/edgeR_${VERSION}.tar.gz
-            run-R CMD INSTALL edgeR_${VERSION}.tar.gz --library=${installation_path}/
+            ${RUN_R} CMD INSTALL edgeR_${VERSION}.tar.gz --library=${installation_path}/
 
 
 cat>${installation_path}/setup.sh<<EOT
