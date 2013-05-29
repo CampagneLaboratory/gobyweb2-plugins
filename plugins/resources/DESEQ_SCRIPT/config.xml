@@ -10,7 +10,8 @@
   ~ When a plugin is not released under the LGPL3 license,  the comments  at the top  of
   ~ the plugin's config.xml will indicate how that specific plugin is released/licensed.
   -->
-<resourceConfig xsi:noNamespaceSchemaLocation="../../../schemas/plugins.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+<resourceConfig xsi:noNamespaceSchemaLocation="../../../schemas/plugins.xsd"
+                xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
     <name>DESeq script</name>
     <id>DESEQ_SCRIPT</id>
     <help>Script that helps run DESeq on table of counts data with group information.</help>
@@ -18,13 +19,14 @@
     <requires>
         <resource>
             <id>DESEQ</id>
-            <versionAtLeast>1.8.3.1</versionAtLeast>
+            <versionAtLeast>1.8.3.2</versionAtLeast>
         </resource>
     </requires>
     <files>
-         <file>
+        <file>
             <id>R_SCRIPT</id>
             <filename>geneDESeqAnalysis.R</filename>
         </file>
+
     </files>
 </resourceConfig>

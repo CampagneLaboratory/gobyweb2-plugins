@@ -75,6 +75,8 @@ function setupAnnotationSource {
 
 . ${PLUGINS_ALIGNMENT_ANALYSIS_DIFF_EXP_DESEQ_ARTIFACT_FILES_PARALLEL_SCRIPT}
 . ${RESOURCES_R_SHELL_SCRIPT}
+. ${RESOURCES_DESEQ_SETUP}
+
 
 function plugin_alignment_analysis_combine {
    set -x

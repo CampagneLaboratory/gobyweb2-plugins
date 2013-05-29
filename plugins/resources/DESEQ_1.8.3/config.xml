@@ -15,15 +15,21 @@
     <name>DESeq</name>
     <id>DESEQ</id>
     <help>DESEQ package from Bioconductor</help>
-    <version>1.8.3.1</version>
-  <requires>
+    <version>1.8.3.2</version>
+    <requires>
         <resource>
             <id>R</id>
             <versionAtLeast>2.15.3</versionAtLeast>
         </resource>
-          </requires>
-  <artifacts>
-    <artifact id="BINARIES" order="1">
-           </artifact>
+    </requires>
+    <artifacts>
+        <artifact id="BINARIES" order="1">
+        </artifact>
     </artifacts>
+    <files>
+        <file>
+            <id>SETUP</id>
+            <filename>deseq-setup.sh</filename>
+        </file>
+    </files>
 </resourceConfig>
