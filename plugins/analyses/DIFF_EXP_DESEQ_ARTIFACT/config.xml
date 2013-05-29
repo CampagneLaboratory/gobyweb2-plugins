@@ -39,10 +39,7 @@
             <id>DESEQ</id>
             <versionAtLeast>1.8.3.2</versionAtLeast>
         </resource>
-        <resource>
-            <id>R</id>
-            <versionExactly>2.14.1</versionExactly>
-        </resource>
+
         <resource>
             <id>ENSEMBL_ANNOTATIONS</id>
             <versionAtLeast>1.1</versionAtLeast>
