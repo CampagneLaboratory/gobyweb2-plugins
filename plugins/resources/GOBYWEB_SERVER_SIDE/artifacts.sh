@@ -16,16 +16,17 @@ function install_plugin_artifacts {
                 --ssh-requests  ${JOB_DIR}/artifacts-install-requests.pb \
                 --install  --log-dir ${TMPDIR}/steplogs
        local STATUS=$?
+       java   -cp ${JOB_DIR}/goby/serverside-dependencies.jar \
+                              org.campagnelab.stepslogger.StepsLogTool \
+                              --action view \
+                              ${TMPDIR}/steplogs/*
        if [ ${STATUS} != 0 ]; then
 
             ${QUEUE_WRITER} --tag ${TAG} --status ${JOB_PART_FAILED_STATUS} --description "Job failed: unable to install required software/data artifacts." --index ${CURRENT_PART} --job-type job
             exit 120
        fi
 
-       java   -cp ${JOB_DIR}/goby/serverside-dependencies.jar \
-                       org.campagnelab.stepslogger.StepsLogTool \
-                       --action view \
-                       --log-file ${TMPDIR}/steplogs/*
+
 
        echo "Expose environment variables for artifacts.."
        cd ${TMPDIR}
