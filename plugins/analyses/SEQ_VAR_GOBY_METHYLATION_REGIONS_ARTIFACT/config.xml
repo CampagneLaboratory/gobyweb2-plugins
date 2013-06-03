@@ -42,7 +42,7 @@
             <versionAtLeast>1.0</versionAtLeast>
         </resource>
         <resource>
-            <id>ENSEMBL_ANNOTATIONS></id>
+            <id>ENSEMBL_ANNOTATIONS</id>
             <versionAtLeast>1.0</versionAtLeast>
         </resource>
     </requires>
