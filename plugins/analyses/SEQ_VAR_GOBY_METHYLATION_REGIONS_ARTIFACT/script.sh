@@ -51,14 +51,44 @@ function setupAnnotationSource {
     BUILD_NUMBER=`echo ${GENOME_REFERENCE_ID} | awk -F\. '{print $1}' | tr [:lower:] [:upper:] `
     ENSEMBL_RELEASE=`echo ${GENOME_REFERENCE_ID} | awk -F\. '{print $(NF)}'| tr [:lower:] [:upper:] `
     ANNOTATION_PATH=$(eval echo \${RESOURCES_ARTIFACTS_ENSEMBL_ANNOTATIONS_ANNOTATIONS_${ORG}_${BUILD_NUMBER}_${ENSEMBL_RELEASE}})
+    ANNOTATION_CLASS=${PLUGINS_ALIGNMENT_ANALYSIS_SEQ_VAR_GOBY_METHYLATION_REGIONS_ARTIFACT_ANNOTATION_TYPE}
 
-if [ "${PLUGINS_ALIGNMENT_ANALYSIS_SEQ_VAR_GOBY_METHYLATION_REGIONS_ARTIFACT_ANNOTATION_SOURCE_GENE_MODEL_BASED}" == "true" ]; then
-    # gene exon annotation file.
-    ANNOTATION_SOURCE="${ANNOTATION_PATH}/exon-annotations.tsv"
-  #else
-    # CNV annotation file.
-   # ANNOTATION_SOURCE="${ANNOTATION_PATH}/cnv-annotations.tsv"
-  fi
+    echo "Summarizing methylation over ${ANNOTATION_CLASS}"
+
+    local ANNOTATION_SOURCE=""
+    case "${ANNOTATION_CLASS}" in
+                  "ENSEMBL_PROMOTER")
+                         ANNOTATION_SOURCE="${ANNOTATION_PATH}/promoter-annotations.tsv"
+                  ;;
+                  "GENES")
+                         ANNOTATION_SOURCE="${ANNOTATION_PATH}/gene-annotations.tsv"
+                        ;;
+                  "EXONS")
+                         ANNOTATION_SOURCE="${ANNOTATION_PATH}/exon-annotations.tsv"
+                  ;;
+                  "INTRONS")
+                         ANNOTATION_SOURCE="${ANNOTATION_PATH}/intron-annotations.tsv"
+                  ;;
+                  "5_UTR")
+                         ANNOTATION_SOURCE="${ANNOTATION_PATH}/5_utrs-annotations.tsv"
+                  ;;
+                  "3_UTR")
+                         ANNOTATION_SOURCE="${ANNOTATION_PATH}/3_utr-annotations.tsv"
+                  ;;
+                  "CPG_ISLAND")
+                         ANNOTATION_SOURCE="${ANNOTATION_PATH}/promoter-annotations.tsv"
+                  ;;
+                  "INTERGENIC")
+                         ANNOTATION_SOURCE="${ANNOTATION_PATH}/intergenic-annotations.tsv"
+                  ;;
+                  "1KB_TILE")
+                         ANNOTATION_SOURCE="${ANNOTATION_PATH}/tile-annotations.tsv"
+                  ;;
+                  *)
+                          echo "ERROR: Invalid type of annotation class: ${ANNOTATION_CLASS}"
+    esac
+
+    echo ${ANNOTATION_SOURCE}
 }
 
 function plugin_alignment_analysis_process {
@@ -70,9 +100,9 @@ function plugin_alignment_analysis_process {
    THRESHOLD_DISTINCT_READ_INDICES=${PLUGINS_ALIGNMENT_ANALYSIS_SEQ_VAR_GOBY_METHYLATION_REGIONS_THRESHOLD_DISTINCT_READ_INDICES}
    OUTPUT_FORMAT=${PLUGINS_ALIGNMENT_ANALYSIS_SEQ_VAR_GOBY_METHYLATION_REGIONS_OUTPUT_FORMAT}
 
-   setupAnnotationSource
+    ANNOTATION_SOURCE=$(setupAnnotationSource)
 
-   if [ ! "${ANNOTATION_SOURCE}" == "NONE" ]; then
+   if [ ! "${ANNOTATION_TYPE}" == "NONE" ]; then
      ANNOTATION_OPTION=" -x MethylationRegionsOutputFormat:annotations=${ANNOTATION_SOURCE} "
    else
      ANNOTATION_OPTION=" "

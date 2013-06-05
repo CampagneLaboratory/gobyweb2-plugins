@@ -147,101 +147,78 @@
             <autoFormat>false</autoFormat>
         </option>
         <option>
-            <id>ANNOTATION_SOURCE</id>
+            <id>ANNOTATION_TYPE</id>
             <dbLegacyId>annotation_types</dbLegacyId>
             <name>Source of annotations</name>
             <help>Select the source of annotations and type of analysis to perform.
             </help>
-            <defaultsTo>GENE_MODEL_BASED</defaultsTo>
-            <type>CATEGORY</type>
+            <defaultsTo>NONE</defaultsTo>
             <categories>
                 <category>
-                    <id>GENE_MODEL_BASED</id>
-                    <name>Gene model based annotation</name>
-                    <value>GENE_MODEL_BASED</value>
-                    <help>Summarized methylation over gene-model based annotations.</help>
-                    <dbLegacyValue>gene_model_based</dbLegacyValue>
+                    <id>ENSEMBL_PROMOTER</id>
+                    <name>Ensembl Promoters</name>
+                    <value>ENSEMBL_PROMOTER</value>
+                    <help>Regions 2kb upstream of transcription start site of ensembl transcripts.</help>
+                    <dbLegacyValue>ENSpromoters</dbLegacyValue>
                 </category>
                 <category>
-                    <id>SEQUENCE_CONTEXT_BASED</id>
-                    <name>Annotations based on sequence characteristics</name>
-                    <value>SEQUENCE_CONTEXT_BASED</value>
-                    <help>Summarized methylation over genomic annotations of interest</help>
-                    <dbLegacyValue>sequence_context_based</dbLegacyValue>
+                    <id>GENES</id>
+                    <name>Genes</name>
+                    <value>GENES</value>
+                    <help>Regions over gene boundaries.</help>
+                    <dbLegacyValue>genes</dbLegacyValue>
+                </category>
+                <category>
+                    <id>5_UTR</id>
+                    <name>5' Untranslated Region</name>
+                    <value>5_UTR</value>
+                    <help>5' Untranslated Region.</help>
+                    <dbLegacyValue>5utr</dbLegacyValue>
+                </category>
+                <category>
+                    <id>EXONS</id>
+                    <name>Exons</name>
+                    <value>EXONS</value>
+                    <help>Regions over exon boundaries.</help>
+                    <dbLegacyValue>exons</dbLegacyValue>
+                </category>
+                <category>
+                    <id>INTRONS</id>
+                    <name>Introns</name>
+                    <value>INTRONS</value>
+                    <help>Regions over intron boundaries.</help>
+                    <dbLegacyValue>introns</dbLegacyValue>
+                </category>
+                <category>
+                    <id>3_UTR</id>
+                    <name>3' Untranslated Region</name>
+                    <value>3_UTR</value>
+                    <help>3' Untranslated Region.</help>
+                    <dbLegacyValue>3utr</dbLegacyValue>
+                </category>
+                <category>
+                    <id>INTERGENIC</id>
+                    <name>intergenic</name>
+                    <value>INTERGENIC</value>
+                    <help>Intergenic regions of the genome. Complement of promoters, 5'UTRs, exons, introns and 3'UTRs.</help>
+                    <dbLegacyValue>intergenic</dbLegacyValue>
+                </category>
+                <category>
+                    <id>CPG_ISLANDS</id>
+                    <name>Cpg Islands</name>
+                    <value>CPG_ISLANDS</value>
+                    <help>Regions over CpG island boundaries.</help>
+                    <dbLegacyValue>cpgs</dbLegacyValue>
+                </category>
+                <category>
+                    <id>1KB_Tile</id>
+                    <name>1KB Genome Tiles</name>
+                    <value>1KB_Tile</value>
+                    <help>1KB sliding windows across the genome</help>
+                    <dbLegacyValue>1kbTiles</dbLegacyValue>
                 </category>
             </categories>
-        </option>
-        <option hiddenWhen="NOT matches(ANNOTATION_SOURCE,GENE_MODEL_BASED)">
-            <id>GENES</id>
-            <dbLegacyId>analysisType_gene</dbLegacyId>
-            <name>Genes</name>
-            <help>Regions over intron boundaries.</help>
-            <type>BOOLEAN</type>
-            <defaultsTo>true</defaultsTo>
-        </option>
-        <option hiddenWhen="NOT matches(ANNOTATION_SOURCE,GENE_MODEL_BASED)">
-            <id>ENSEMBL_PROMOTER</id>
-            <dbLegacyId>analysisType_ENSpromoters</dbLegacyId>
-            <name>Ensembl Promoters</name>
-            <help>Regions over 2kb upstream of transcription start site of ensembl transcripts.</help>
-            <type>BOOLEAN</type>
-            <defaultsTo>false</defaultsTo>
-        </option>
-        <option hiddenWhen="NOT matches(ANNOTATION_SOURCE,GENE_MODEL_BASED)">
-            <id>FIVE_prime_UTR</id>
-            <dbLegacyId>analysisType_5utr</dbLegacyId>
-            <name>5' Untranslated Region</name>
-            <help>Regions over 5' Untranslated Region boundaries.</help>
-            <type>BOOLEAN</type>
-            <defaultsTo>false</defaultsTo>
-        </option>
-        <option hiddenWhen="NOT matches(ANNOTATION_SOURCE,GENE_MODEL_BASED)">
-            <id>EXONS</id>
-            <dbLegacyId>analysisType_exon</dbLegacyId>
-            <name>Exons</name>
-            <help>Regions over exonic boundaries.</help>
-            <type>BOOLEAN</type>
-            <defaultsTo>false</defaultsTo>
-        </option>
-        <option hiddenWhen="NOT matches(ANNOTATION_SOURCE,GENE_MODEL_BASED)">
-            <id>INTRONS</id>
-            <dbLegacyId>analysisType_intron</dbLegacyId>
-            <name>Introns</name>
-            <help>Regions over gene boundaries.</help>
-            <type>BOOLEAN</type>
-            <defaultsTo>false</defaultsTo>
-        </option>
-        <option hiddenWhen="NOT matches(ANNOTATION_SOURCE,GENE_MODEL_BASED)">
-            <id>THREE_prime_UTR</id>
-            <dbLegacyId>analysisType_3utr</dbLegacyId>
-            <name>3' Untranslated Region</name>
-            <help>Regions over 3' Untranslated Region boundaries.</help>
-            <type>BOOLEAN</type>
-            <defaultsTo>false</defaultsTo>
-        </option>
-        <option hiddenWhen="NOT matches(ANNOTATION_SOURCE,GENE_MODEL_BASED)">
-            <id>INTERGENIC</id>
-            <dbLegacyId>analysisType_intergenic</dbLegacyId>
-            <name>Genes</name>
-            <help>Regions over intergenic boundaries. Complement of promoters, 5'UTRs, exons, introns and 3'UTRs.</help>
-            <type>BOOLEAN</type>
-            <defaultsTo>false</defaultsTo>
-        </option>
-        <option hiddenWhen="NOT matches(ANNOTATION_SOURCE,SEQUENCE_CONTEXT_BASED)">
-            <id>CPG_ISLANDS</id>
-            <dbLegacyId>analysisType_CpGIsland</dbLegacyId>
-            <name>Cpg Islands</name>
-            <help>Regions over CpG island boundaries.</help>
-            <type>BOOLEAN</type>
-            <defaultsTo>false</defaultsTo>
-        </option>
-        <option hiddenWhen="NOT matches(ANNOTATION_SOURCE,SEQUENCE_CONTEXT_BASED)">
-            <id>ONE_KB_Tile</id>
-            <dbLegacyId>analysisType_1KBTiles</dbLegacyId>
-            <name>1KB Genome Tiles</name>
-            <help>Regions over 1KB sliding windows across the genome</help>
-            <type>BOOLEAN</type>
-            <defaultsTo>false</defaultsTo>
+            <autoFormat>false</autoFormat>
         </option>
         <option>
             <id>INDEL_RATE</id>
