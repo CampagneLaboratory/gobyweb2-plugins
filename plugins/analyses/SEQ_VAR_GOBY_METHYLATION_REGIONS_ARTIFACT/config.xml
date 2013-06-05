@@ -14,7 +14,6 @@
                          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
     <name>Methylation analysis over annotated regions (auto-install)</name>
     <id>SEQ_VAR_GOBY_METHYLATION_REGIONS_ARTIFACT</id>
-    <dbLegacyId>GobyMethylationRegions</dbLegacyId>
     <help>Compares groups of samples and produce methylation rate output and statistics for annotated regions of the
         genome. Implemented with Goby 1.9.2.2+.
     </help>
@@ -150,8 +149,8 @@
             <id>ANNOTATION_TYPE</id>
             <dbLegacyId>annotation_types</dbLegacyId>
             <name>Source of annotations</name>
-            <help>Select the source of annotations and type of analysis to perform.
-            </help>
+            <help>Select the source of annotations and type of analysis to perform.</help>
+            <required>true</required>
             <defaultsTo>NONE</defaultsTo>
             <categories>
                 <category>
@@ -218,6 +217,7 @@
                     <dbLegacyValue>1kbTiles</dbLegacyValue>
                 </category>
             </categories>
+            <type>CATEGORY</type>
             <autoFormat>false</autoFormat>
         </option>
         <option>
