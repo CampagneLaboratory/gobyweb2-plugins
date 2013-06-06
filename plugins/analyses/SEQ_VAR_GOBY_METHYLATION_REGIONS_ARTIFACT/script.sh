@@ -45,14 +45,11 @@ function plugin_alignment_analysis_num_parts {
 
 
 function setupAnnotationSource {
-    . ${JOB_DIR}/artifacts.sh
-    expose_artifact_environment_variables
     ORG=` echo ${ORGANISM} | tr [:lower:] [:upper:]  `
     BUILD_NUMBER=`echo ${GENOME_REFERENCE_ID} | awk -F\. '{print $1}' | tr [:lower:] [:upper:] `
     ENSEMBL_RELEASE=`echo ${GENOME_REFERENCE_ID} | awk -F\. '{print $(NF)}'| tr [:lower:] [:upper:] `
     ANNOTATION_PATH=$(eval echo \${RESOURCES_ARTIFACTS_ENSEMBL_ANNOTATIONS_ANNOTATIONS_${ORG}_${BUILD_NUMBER}_${ENSEMBL_RELEASE}})
     ANNOTATION_CLASS=${PLUGINS_ALIGNMENT_ANALYSIS_SEQ_VAR_GOBY_METHYLATION_REGIONS_ARTIFACT_ANNOTATION_TYPE}
-
     local ANNOTATION_SOURCE=""
     case "${ANNOTATION_CLASS}" in
                   "ENSEMBL_PROMOTER")
@@ -89,16 +86,14 @@ function setupAnnotationSource {
     echo ${ANNOTATION_SOURCE}
 }
 
-function setupGenomeCache{
-    set -x
+function setupGenomeCache {
     ORG=` echo ${ORGANISM} | tr [:lower:] [:upper:]  `
     BUILD_NUMBER=`echo ${GENOME_REFERENCE_ID} | awk -F\. '{print $1}' | tr [:lower:] [:upper:] `
     ENSEMBL_RELEASE=`echo ${GENOME_REFERENCE_ID} | awk -F\. '{print $(NF)}'| tr [:lower:] [:upper:] `
-
     SEQUENCE_CACHE_DIR=$(eval echo \${RESOURCES_ARTIFACTS_GOBY_INDEXED_GENOMES_SEQUENCE_CACHE_${ORG}_${BUILD_NUMBER}_${ENSEMBL_RELEASE}})
-
     echo ${SEQUENCE_CACHE_DIR}
 }
+
 function plugin_alignment_analysis_process {
    SLICING_PLAN_FILENAME=$1
    ARRAY_JOB_INDEX=$2

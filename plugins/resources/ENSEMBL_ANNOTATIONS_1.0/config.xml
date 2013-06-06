@@ -15,7 +15,7 @@
     <name>Ensembl Annotations</name>
     <id>ENSEMBL_ANNOTATIONS</id>
     <help>Annotations obtained from Ensembl/Biomart</help>
-    <version>1.1</version>
+    <version>1.2</version>
     <requires>
         <resource>
             <id>ENSEMBL_GENOMES</id>
@@ -43,7 +43,6 @@
         </resource>
     </requires>
     <artifacts>
-
         <artifact order="1" id="ANNOTATIONS">
             <attributes>
                 <attribute name="organism"/>
