@@ -12,7 +12,7 @@ function plugin_install_artifact {
                 VERSION="287"
                     ${RESOURCES_FETCH_URL_SCRIPT} http://last.cbrc.jp/last/index.cgi/archive/${VERSION}.zip
 
-                    unzip ${VERSION}.zip
+                    unzip last-${VERSION}.zip
 
                     cd  last-${VERSION}
                     echo "${VERSION}" > src/version.hh
