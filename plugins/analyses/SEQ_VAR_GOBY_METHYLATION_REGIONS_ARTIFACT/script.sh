@@ -53,8 +53,6 @@ function setupAnnotationSource {
     ANNOTATION_PATH=$(eval echo \${RESOURCES_ARTIFACTS_ENSEMBL_ANNOTATIONS_ANNOTATIONS_${ORG}_${BUILD_NUMBER}_${ENSEMBL_RELEASE}})
     ANNOTATION_CLASS=${PLUGINS_ALIGNMENT_ANALYSIS_SEQ_VAR_GOBY_METHYLATION_REGIONS_ARTIFACT_ANNOTATION_TYPE}
 
-    echo "Summarizing methylation over ${ANNOTATION_CLASS}"
-
     local ANNOTATION_SOURCE=""
     case "${ANNOTATION_CLASS}" in
                   "ENSEMBL_PROMOTER")
@@ -91,6 +89,16 @@ function setupAnnotationSource {
     echo ${ANNOTATION_SOURCE}
 }
 
+function setupGenomeCache{
+    set -x
+    ORG=` echo ${ORGANISM} | tr [:lower:] [:upper:]  `
+    BUILD_NUMBER=`echo ${GENOME_REFERENCE_ID} | awk -F\. '{print $1}' | tr [:lower:] [:upper:] `
+    ENSEMBL_RELEASE=`echo ${GENOME_REFERENCE_ID} | awk -F\. '{print $(NF)}'| tr [:lower:] [:upper:] `
+
+    SEQUENCE_CACHE_DIR=$(eval echo \${RESOURCES_ARTIFACTS_GOBY_INDEXED_GENOMES_SEQUENCE_CACHE_${ORG}_${BUILD_NUMBER}_${ENSEMBL_RELEASE}})
+
+    echo ${SEQUENCE_CACHE_DIR}
+}
 function plugin_alignment_analysis_process {
    SLICING_PLAN_FILENAME=$1
    ARRAY_JOB_INDEX=$2
@@ -163,6 +171,8 @@ function run_methyl_regions {
     output="$1"
     shift
 
+    SEQUENCE_CACHE_DIR=$(setupGenomeCache)
+
     run-goby ${PLUGIN_NEED_PROCESS_JVM} discover-sequence-variants \
            ${WINDOW_LIMITS} \
            --groups ${GROUPS_DEFINITION} \
@@ -170,7 +180,7 @@ function run_methyl_regions {
            --format ${OUTPUT_FORMAT} \
            --eval filter \
            ${REALIGNMENT_ARGS} \
-           --genome ${REFERENCE_DIRECTORY}/random-access-genome \
+           --genome ${SEQUENCE_CACHE_DIR}/random-access-genome \
            --minimum-variation-support ${MINIMUM_VARIATION_SUPPORT} \
            --threshold-distinct-read-indices ${THRESHOLD_DISTINCT_READ_INDICES} \
            --output ${output}  \
