@@ -184,6 +184,8 @@ public class Biomart {
             "rattus_norvegicus": "rnorvegicus",
             "xenopus_tropicalis": "xtropicalis",
             "Oryctolagus_cuniculus": "ocuniculus",
+            "Caenorhabditis_elegans":"celegans",
+
     ]
 
     static exportTypeToDataMap = [
@@ -200,6 +202,45 @@ public class Biomart {
                             "exon_chrom_end": "Exon Chr End (bp)",
                     ]
             ],
+            "gene-annotations": [
+                                          outputFilename: "gene-annotations.tsv",
+                                          sort: "-k 1,1 -k 5,5n -k 6,6n",
+                                          dataset: "gene_ensembl",
+                                          fields: [
+                                                  "chromosome_name": "Chromosome Name",
+                                                  "strand": "Strand",
+                                                  "ensembl_gene_id": "Ensembl Gene ID",
+                                                  "ensembl_gene_id": "Ensembl Gene ID",
+                                                  "start_position": "FROM",
+                                                  "end_position": "TO",
+                                          ]
+                                  ],
+           "five-prime-annotations": [
+                               outputFilename: "five-prime-annotations.tsv",
+                               sort: "-k 1,1 -k 5,5n -k 6,6n",
+                               dataset: "gene_ensembl",
+                               fields: [
+                                       "chromosome_name": "Chromosome Name",
+                                       "strand": "Strand",
+                                       "ensembl_gene_id": "Ensembl Gene ID",
+                                       "ensembl_transcript_id": "Ensembl Transcript ID",
+                                       "5_utr_start": "FROM",
+                                       "5_utr_end": "TO",
+                                ]
+                       ],
+            "three-prime-annotations": [
+                                           outputFilename: "three-prime-annotations.tsv",
+                                           sort: "-k 1,1 -k 5,5n -k 6,6n",
+                                           dataset: "gene_ensembl",
+                                           fields: [
+                                                   "chromosome_name": "Chromosome Name",
+                                                   "strand": "Strand",
+                                                   "ensembl_gene_id": "Ensembl Gene ID",
+                                                   "ensembl_transcript_id": "Ensembl Transcript ID",
+                                                   "3_utr_start": "FROM",
+                                                   "3_utr_end": "TO",
+                                            ]
+                                   ],
             "ref-start-end-gene": [
                     outputFilename: "ref-start-end-gene-sorted.tsv",
                     sort: "-k 1,1 -k 2,2n -k 3,3n",

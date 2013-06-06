@@ -36,7 +36,8 @@ function plugin_install_artifact {
             --organism ${ORG_LOWERCASE} \
             --output-folder ${installation_path}   \
             --chromosome-list-file ${CHROMOSOME_LIST_FILE} \
-            --exports exon-annotations,ref-start-end-gene,gene-id-description,ref-start-end-gene-hgnc
+            --exports exon-annotations, gene-annotations, five-prime-annotations
+            #ref-start-end-gene,gene-id-description,ref-start-end-gene-hgnc
 
 
             if [ "$?" -eq "0" ]; then
