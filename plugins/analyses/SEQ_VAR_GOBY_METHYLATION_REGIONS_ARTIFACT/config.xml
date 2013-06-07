@@ -17,7 +17,7 @@
     <help>Compares groups of samples and produce methylation rate output and statistics for annotated regions of the
         genome. Implemented with Goby 1.9.2.2+.
     </help>
-    <version>1.6.3.4.2</version>
+    <version>1.6.3.4.3</version>
     <analysisType>Methylation</analysisType>
     <minimumNumberOfGroups>1</minimumNumberOfGroups>
     <maximumNumberOfGroups>50</maximumNumberOfGroups>
@@ -42,7 +42,7 @@
         </resource>
         <resource>
             <id>ENSEMBL_ANNOTATIONS</id>
-            <versionAtLeast>1.0</versionAtLeast>
+            <versionAtLeast>2.0</versionAtLeast>
         </resource>
         <resource>
                    <id>GOBY_INDEXED_GENOMES</id>
