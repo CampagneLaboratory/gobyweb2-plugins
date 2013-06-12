@@ -33,7 +33,7 @@ int execute(final Object gobywebObj, final File tempDir, final Map bindings) {
             writer.println "PLUGIN_GROUPS[${index + 1}]=${gobywebObj.grpToAligns.find {k, v -> v == alignment}.key}"
         }
         (1..(gobywebObj.numberOfGroups)).each {
-            writer.println "PLUGIN_GROUP_ALIGNMENTS[${it + 1}]='${gobywebObj.alignmentsListForGroupNumber(it).collect {alignmentFullPath(it, bindings)}.join(" ")}'"
+            writer.println "PLUGIN_GROUP_ALIGNMENTS[${it}]='${gobywebObj.alignmentsListForGroupNumber(it-1).collect {alignmentFullPath(it, bindings)}.join(" ")}'"
         }
         def numSplits = gobywebObj.attributes["CONTAMINANT_EXTRACT_MERGE_GROUPS"] == 'true' ? gobywebObj.numberOfGroups : gobywebObj.allAlignments().size()
         writer.println "NUM_SPLITS=${numSplits}"
