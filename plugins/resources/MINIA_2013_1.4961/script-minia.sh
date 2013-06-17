@@ -19,7 +19,7 @@ function run_minia {
 	
 	#run minia on converted file
 	#./minia input kmer_length min_abundance estimated_genome_size prefix
-	${RESOURCES_ARTIFACTS_MINIA_EXECUTABLE} ${TEMPFILE} 25 3 3000000000 unused
+	${RESOURCES_ARTIFACTS_MINIA_EXECUTABLE}/minia ${TEMPFILE} 25 3 3000000000 unused
 	
 	# copy minia output file to specified location
 	cp contigs.fa ${OUTPUT}
