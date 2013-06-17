@@ -215,6 +215,17 @@
             </help>
         </outputFile>
         <outputFile>
+            <id>CONTAMINANT_RESULTS__LUCENE_INDEX</id>
+            <name>table with full results of analysis</name>
+            <required>true</required>
+            <mimeType>application/lucene-index</mimeType>
+            <filename>contaminants.lucene.index</filename>
+            <tableName>contaminants</tableName>
+            <help>View the table of results in the interactive GobyWeb table browser. Table contains found
+                contaminants.
+            </help>
+        </outputFile>
+        <outputFile>
             <id>CONTAMINANT_RESULTS</id>
             <name>TSV file with full results of analysis</name>
             <required>true</required>
@@ -232,6 +243,15 @@
             <help>View the table of results in the interactive GobyWeb table browser. Table contains summary of found contaminants.</help>
         </outputFile>
         <outputFile>
+            <id>CONTAMINANT_SUMMARY__LUCENE_INDEX</id>
+            <name>table with summary of analysis</name>
+            <required>true</required>
+            <mimeType>application/lucene-index</mimeType>
+            <filename>summary.lucene.index</filename>
+            <tableName>summary</tableName>
+            <help>View the table of results in the interactive GobyWeb table browser. Table contains summary of found contaminants.</help>
+        </outputFile>
+        <outputFile>
             <id>CONTAMINANT_SUMMARY</id>
             <name>TSV file with summary results of analysis</name>
             <required>true</required>
@@ -245,6 +265,15 @@
             <required>true</required>
             <mimeType>application/x-sqlite3</mimeType>
             <filename>realigned.db</filename>
+            <tableName>realigned</tableName>
+            <help>View the table of results in the interactive GobyWeb table browser. Table contains counts of contigs matched to unmapped reads.</help>
+        </outputFile>
+        <outputFile>
+            <id>REALIGNED_UNMAPPED_LUCENE_INDEX</id>
+            <name>table with match counts of contigs to unmapped reads</name>
+            <required>true</required>
+            <mimeType>application/lucene-index</mimeType>
+            <filename>realigned.lucene.index</filename>
             <tableName>realigned</tableName>
             <help>View the table of results in the interactive GobyWeb table browser. Table contains counts of contigs matched to unmapped reads.</help>
         </outputFile>
