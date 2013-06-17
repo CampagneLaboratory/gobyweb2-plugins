@@ -22,7 +22,7 @@ function run_minia {
 	${RESOURCES_ARTIFACTS_MINIA_EXECUTABLE}/minia ${TEMPFILE} 25 3 3000000000 unused
 	
 	# copy minia output file to specified location
-	cp contigs.fa ${OUTPUT}
+	cp unused.contigs.fa ${OUTPUT}
 	
 }
 
