@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<fileSetConfig xsi:noNamespaceSchemaLocation="../../../../../schemas/plugins.xsd"
+               xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <name>Compact-Reads</name>
+    <id>COMPACT_READS</id>
+    <help>compact reads format</help>
+    <version>1.0</version>
+    <files>
+        <selector matchAttribute="basename">
+            <id>READS_FILE</id>
+            <pattern>*.compact-reads</pattern>
+            <mandatory>true</mandatory>
+        </selector>
+    </files>
+    <attributes>
+        <attribute name="basename"/>
+    </attributes>
+</fileSetConfig>

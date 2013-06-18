@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<fileSetConfig xsi:noNamespaceSchemaLocation="../../../../../schemas/plugins.xsd"
+               xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <name>Tab-separated values</name>
+    <id>TSV</id>
+    <help>A tab-separated values file is a simple text format for a database table.
+        Each record in the table is one line of the text file. Each field value of a record is separated from the next by a tab stop character.</help>
+    <version>1.0</version>
+    <files>
+        <selector matchAttribute="basename">
+            <id>TSV</id>
+            <pattern>*.tsv</pattern>
+            <mandatory>true</mandatory>
+        </selector>
+    </files>
+    <attributes>
+        <attribute name="basename"/>
+    </attributes>
+</fileSetConfig>
