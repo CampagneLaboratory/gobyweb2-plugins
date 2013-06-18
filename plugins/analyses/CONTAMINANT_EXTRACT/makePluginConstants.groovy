@@ -26,14 +26,12 @@ int execute(final Object gobywebObj, final File tempDir, final Map bindings) {
     final PrintWriter writer = outputFile.newPrintWriter()
     try {
         gobywebObj.allAlignments().eachWithIndex {alignment, index ->
-            def object = (alignment.alignJob.sample.compactReads as List)[0].url.split(":")[1]
-
-            writer.println "PLUGIN_READS[${index + 1}]=${bindings.pathTransformationService.actualValue(object)}"
+            writer.println "PLUGIN_READS[${index + 1}]=${(alignment.alignJob.sample.compactReads as List)[0].url.split(":")[1]}"
             writer.println "PLUGIN_BASENAMES[${index + 1}]=${alignmentFilename(alignment)}"
             writer.println "PLUGIN_GROUPS[${index + 1}]=${gobywebObj.grpToAligns.find {k, v -> v == alignment}.key}"
         }
-        (1..(gobywebObj.numberOfGroups)).each {
-            writer.println "PLUGIN_GROUP_ALIGNMENTS[${it}]='${gobywebObj.alignmentsListForGroupNumber(it-1).collect {alignmentFullPath(it, bindings)}.join(" ")}'"
+        (0..<gobywebObj.numberOfGroups).each {
+            writer.println "PLUGIN_GROUP_ALIGNMENTS[${it + 1}]='${gobywebObj.alignmentsListForGroupNumber(it).collect {alignmentFullPath(it, bindings)}.join(" ")}'"
         }
         def numSplits = gobywebObj.attributes["CONTAMINANT_EXTRACT_MERGE_GROUPS"] == 'true' ? gobywebObj.numberOfGroups : gobywebObj.allAlignments().size()
         writer.println "NUM_SPLITS=${numSplits}"
