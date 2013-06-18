@@ -23,22 +23,13 @@
 . ${JOB_DIR}/plugin-constants.sh
 
 function plugin_alignment_analysis_split {
-	NUMBER_OF_PARTS=$1
-	SPLICING_PLAN_RESULT=$2
 	local SPLICING_PLAN_RESULT=$2
-	ls -l $* >${SPLICING_PLAN_RESULT}
+	echo ;
 }
 
 # This function return the number of parts in the slicing plan. It returns zero if the alignments could not be split.
 function plugin_alignment_analysis_num_parts {
-  SPLICING_PLAN_FILE=$1
-
-  if [ $? -eq 0 ]; then
-
-	        echo `grep -v targetIdStart ${SPLICING_PLAN_FILE} | wc -l `
-  fi
-
-  echo 0
+	return $NUM_SPLITS
 }
 
 function plugin_alignment_analysis_process {
@@ -114,16 +105,16 @@ function plugin_alignment_analysis_process {
 
 
 	if [ "${PLUGINS_ALIGNMENT_ANALYSIS_CONTAMINANT_EXTRACT_SEARCH_REFERENCE}" == "VIRAL" ]; then
-        #link viral ref, apparently, last requires that the reference db is in the local folder (no options for that)
-        ln -s ${RESOURCES_ARTIFACTS_PATHOGEN_DATA_VIRAL}/viral/viralref* .
+        #extract viral ref tarball
+        tar -zxvf ${NODE_LOCAL_DATA_ROOT}../pathogen-db/viral/viralref.tar.gz
         local REF_BASENAME="viralref"
     elif [ "${PLUGINS_ALIGNMENT_ANALYSIS_CONTAMINANT_EXTRACT_SEARCH_REFERENCE}" == "MICROBIAL" ]; then
-        #link micro ref, apparently, last requires that the reference db is in the local folder (no options for that)
-        ln -s ${RESOURCES_ARTIFACTS_PATHOGEN_DATA_MICROBIAL}/bacterial/microref* .
+        #extract microbial ref tarball
+        tar -zxvf ${NODE_LOCAL_DATA_ROOT}../pathogen-db/bacterial/microref.tar.gz
         local REF_BASENAME="microref"
     else
-        #link fungal ref, apparently, last requires that the reference db is in the local folder (no options for that)
-        ln -s ${RESOURCES_ARTIFACTS_PATHOGEN_DATA_FUNGI}/fungal/fungalref* .
+         #extract fungal ref tarball
+        tar -zxvf ${NODE_LOCAL_DATA_ROOT}../pathogen-db/fungal/fungalref.tar.gz
         local REF_BASENAME="fungalref"
     fi
 
@@ -214,11 +205,11 @@ function plugin_alignment_analysis_combine {
 	dieUponError "Could not combine realigned output files"
 	
 	if [ "${PLUGINS_ALIGNMENT_ANALYSIS_CONTAMINANT_EXTRACT_SEARCH_REFERENCE}" == "VIRAL" ]; then
-        ACCESSION_NAME_MAP="${RESOURCES_ARTIFACTS_PATHOGEN_DATA_VIRAL}/viral/viral-names.map"
+        ACCESSION_NAME_MAP="${NODE_LOCAL_DATA_ROOT}../pathogen-db/viral/viral-names.map"
     elif [ "${PLUGINS_ALIGNMENT_ANALYSIS_CONTAMINANT_EXTRACT_SEARCH_REFERENCE}" == "MICROBIAL" ]; then
-        ACCESSION_NAME_MAP="${RESOURCES_ARTIFACTS_PATHOGEN_DATA_MICROBIAL}/bacterial/micro-names.map"
+        ACCESSION_NAME_MAP="${NODE_LOCAL_DATA_ROOT}../pathogen-db/bacterial/micro-names.map"
     else
-        ACCESSION_NAME_MAP="${RESOURCES_ARTIFACTS_PATHOGEN_DATA_FUNGI}/fungal/fungal-names.map"
+        ACCESSION_NAME_MAP="${NODE_LOCAL_DATA_ROOT}../pathogen-db/fungal/fungal-names.map"
     fi
 
 	
