@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<taskConfig xsi:noNamespaceSchemaLocation="../../../schemas/plugins.xsd"
+            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <name>Tar compression utility</name>
+    <id>TARBALLER</id>
+    <help>Use GNU tar for creating TAR archives from TEXT or IMAGES files</help>
+    <version>1.0</version>
+    <executableIOSchema>
+    <input>
+        <inputSlot>
+            <name>TEXT</name>
+            <type>
+                <id>TEXT</id>
+                <versionAtMost>2.0</versionAtMost>
+            </type>
+        </inputSlot>
+        <inputSlot>
+            <name>IMAGE</name>
+            <type>
+                <id>JPEG</id>
+                <versionAtMost>3.0</versionAtMost>
+            </type>
+        </inputSlot>
+    </input>
+    <output>
+        <outputSlot>
+            <name>STATS</name>
+            <type>
+                <id>TAR</id>
+                <versionExactly>1.0</versionExactly>
+            </type>
+        </outputSlot>
+    </output>
+    </executableIOSchema>
+</taskConfig>
