@@ -38,6 +38,7 @@
 
     <xs:include schemaLocation="common.xsd"/>
     <xs:include schemaLocation="fileSetConfig.xsd"/>
+    <xs:include schemaLocation="taskConfig.xsd"/>
     <xs:include schemaLocation="resourceConfig.xsd"/>
     <xs:include schemaLocation="alignerConfig.xsd"/>
     <xs:include schemaLocation="alignmentAnalysisConf.xsd"/>
@@ -48,13 +49,16 @@
             <xs:element ref="alignmentAnalysisConfig"/>
             <xs:element ref="resourceConfig"/>
             <xs:element ref="fileSetConfig"/>
+            <xs:element ref="taskConfig"/>
         </xs:choice>
     </xs:complexType>
 
     <xs:element name="resourceConfig" type="T_resourceConfig"/>
-    <xs:element name="plugin" type="T_plugin"/>
     <xs:element name="alignmentAnalysisConfig" type="T_alignmentAnalysisConfig"/>
     <xs:element name="alignerConfig" type="T_alignerConfig"/>
     <xs:element name="fileSetConfig" type="T_fileSetConfig"/>
+    <xs:element name="taskConfig" type="T_taskConfig"/>
+    <xs:element name="plugin" type="T_plugin"/>
+
 
 </xs:schema>

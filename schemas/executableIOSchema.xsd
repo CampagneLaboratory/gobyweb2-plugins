@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema">
+
+    <xs:include schemaLocation="config.xsd"/>
+
+    <xs:include schemaLocation="common.xsd"/>
+
+    <xs:complexType name="T_fileSetRef">
+        <xs:sequence>
+            <xs:element name="id" type="xs:string"/>
+            <xs:choice minOccurs="1" maxOccurs="2">
+                <xs:element ref="versionAtLeast"/>
+                <xs:element ref="versionExactly"/>
+                <xs:element ref="versionAtMost"/>
+            </xs:choice>
+        </xs:sequence>
+        <xs:attribute name="minOccurs" type="xs:nonNegativeInteger" use="optional" default="1"/>
+        <xs:attribute name="maxOccurs" type="T_occurs" use="optional" default="1"/>
+    </xs:complexType>
+
+    <xs:complexType name="T_slot">
+        <xs:sequence>
+            <xs:element name="name" type="xs:string"/>
+            <xs:element name="type" type="T_fileSetRef"/>
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:complexType name="T_executableOutputSchema">
+        <xs:sequence>
+            <xs:element name="outputSlot" type="T_slot" maxOccurs="unbounded"/>
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:complexType name="T_executableInputSchema">
+        <xs:sequence>
+            <xs:element name="inputSlot" type="T_slot" maxOccurs="unbounded"/>
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:complexType name="T_executableIOSchema">
+        <xs:sequence>
+            <xs:element name="input" type="T_executableInputSchema" minOccurs="0" maxOccurs="1"/>
+            <xs:element name="output" type="T_executableOutputSchema" minOccurs="0" maxOccurs="1"/>
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:element name="executableIOSchema" type="T_executableIOSchema"/>
+
+</xs:schema>
