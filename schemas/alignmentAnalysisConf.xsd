@@ -3,6 +3,7 @@
 
     <xs:include schemaLocation="common.xsd"/>
     <xs:include schemaLocation="config.xsd"/>
+    <xs:include schemaLocation="executableIOSchema.xsd"/>
 
     <xs:simpleType name="T_analysisType">
         <xs:restriction base="xs:string">
@@ -55,6 +56,8 @@
             <xs:element ref="execute" minOccurs="0" maxOccurs="1"/>
             <xs:element ref="options" minOccurs="0"/>
             <xs:element name="outputSchema" type="T_output-schema" minOccurs="0"/>
+            <xs:element ref="executableIOSchema" minOccurs="0" maxOccurs="1"/>
+
         </xs:sequence>
         </xs:extension>
         </xs:complexContent>

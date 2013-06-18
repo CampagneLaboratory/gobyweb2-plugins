@@ -7,13 +7,13 @@
 
     <xs:complexType name="T_resourceConfig">
         <xs:complexContent>
-        <xs:extension base="BasePluginConfig">
-        <xs:sequence>
-            <xs:element ref="requires" minOccurs="0" maxOccurs="1"/>
-            <xs:element name="artifacts" type="T_artifacts" minOccurs="0" maxOccurs="1"/>
-            <xs:element ref="files" minOccurs="0" maxOccurs="1"/>
-        </xs:sequence>
-        </xs:extension>
+            <xs:extension base="BasePluginConfig">
+                <xs:sequence>
+                    <xs:element ref="requires" minOccurs="0" maxOccurs="1"/>
+                    <xs:element name="artifacts" type="T_artifacts" minOccurs="0" maxOccurs="1"/>
+                    <xs:element ref="files" minOccurs="0" maxOccurs="1"/>
+                </xs:sequence>
+            </xs:extension>
         </xs:complexContent>
     </xs:complexType>
 
