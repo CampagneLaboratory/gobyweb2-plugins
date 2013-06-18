@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<fileSetConfig xsi:noNamespaceSchemaLocation="../../../../../schemas/plugins.xsd"
+               xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <name>STATS</name>
+    <id>STATS</id>
+    <help>Statistics about files in one of the compact Goby formats</help>
+    <version>1.0</version>
+    <files>
+        <selector matchAttribute="basename">
+            <id>STATS</id>
+            <pattern>*.stats</pattern>
+            <mandatory>true</mandatory>
+        </selector>
+    </files>
+    <attributes>
+        <attribute name="basename"/>
+    </attributes>
+</fileSetConfig>

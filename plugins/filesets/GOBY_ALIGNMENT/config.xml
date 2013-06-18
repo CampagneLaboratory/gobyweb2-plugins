@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<fileSetConfig xsi:noNamespaceSchemaLocation="../../../../../schemas/plugins.xsd"
+               xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <name>Goby Alignment</name>
+    <id>GOBY_ALIGNMENT</id>
+    <help>Goby alignment format</help>
+    <version>1.0</version>
+    <files>
+        <selector matchAttribute="basename">
+            <id>INDEX</id>
+            <pattern>*.index</pattern>
+            <mandatory>true</mandatory>
+        </selector>
+        <selector matchAttribute="basename">
+            <id>HEADER</id>
+            <pattern>*.header</pattern>
+            <mandatory>true</mandatory>
+        </selector>
+        <selector matchAttribute="basename">
+            <id>ENTRIES</id>
+            <pattern>*.entries</pattern>
+            <mandatory>true</mandatory>
+        </selector>
+        <selector matchAttribute="basename">
+            <id>STATS</id>
+            <pattern>*.alignment-stats.txt</pattern>
+            <mandatory>false</mandatory>
+        </selector>
+        <selector matchAttribute="basename">
+            <id>TMH</id>
+            <pattern>*.tmh</pattern>
+            <mandatory>false</mandatory>
+        </selector>
+    </files>
+    <attributes>
+        <attribute name="basename"/>
+        <attribute name="tag"/>
+        <attribute name="organism"/>
+    </attributes>
+</fileSetConfig>

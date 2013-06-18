@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<fileSetConfig xsi:noNamespaceSchemaLocation="../../../../../schemas/plugins.xsd"
+               xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <name>BAM Alignment</name>
+    <id>BAM_ALIGNMENT</id>
+    <help>BAM alignment format</help>
+    <version>1.0</version>
+    <files>
+        <selector matchAttribute="basename">
+            <id>BAM</id>
+            <pattern>*.bam</pattern>
+            <mandatory>true</mandatory>
+        </selector>
+        <selector matchAttribute="basename">
+            <id>INDEX</id>
+            <pattern>*.bam.bai</pattern>
+            <mandatory>false</mandatory>
+        </selector>
+        <selector matchAttribute="basename">
+            <id>STATS</id>
+            <pattern>*.alignment-stats.txt</pattern>
+            <mandatory>false</mandatory>
+        </selector>
+        <selector matchAttribute="basename">
+            <id>TMH</id>
+            <pattern>*.tmh</pattern>
+            <mandatory>false</mandatory>
+        </selector>
+    </files>
+    <attributes>
+        <attribute name="basename"/>
+        <attribute name="tag"/>
+        <attribute name="organism"/>
+    </attributes>
+</fileSetConfig>

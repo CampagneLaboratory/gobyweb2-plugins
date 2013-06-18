@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<fileSetConfig xsi:noNamespaceSchemaLocation="../../../../../schemas/plugins.xsd"
+               xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <name>Counts</name>
+    <id>COUNTS</id>
+    <help>Counts converted from a compact alignment.</help>
+    <version>1.0</version>
+    <files>
+        <selector matchAttribute="basename">
+            <id>COUNTS</id>
+            <pattern>*.counts</pattern>
+            <mandatory>true</mandatory>
+        </selector>
+    </files>
+    <attributes>
+        <attribute name="basename"/>
+    </attributes>
+</fileSetConfig>
