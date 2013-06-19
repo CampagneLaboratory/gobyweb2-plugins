@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<!--
+  ~ Copyright (c) 2011-2012  by Cornell University  and the  Cornell Research Foundation,
+  ~ Inc. All Rights Reserved.
+  ~
+  ~ GobyWeb plugins  are released  under the LGPL3 license,  unless  otherwise specified
+  ~ by the license of a specific plugin. See the file LGPL3.license in this distribution
+  ~ for a copy of the LGPL license.
+  ~
+  ~ When a plugin is not released under the LGPL3 license,  the comments  at the top  of
+  ~ the plugin's config.xml will indicate how that specific plugin is released/licensed.
+  -->
+<resourceConfig xsi:noNamespaceSchemaLocation="../../../schemas/plugins.xsd"
+                xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <name>GobyWeb server side tools</name>
+    <id>GOBYWEB_SERVER_SIDE</id>
+    <help>Server side tools used by many GobyWeb plugins.</help>
+    <version>2.2</version>
+    <requires>
+        <resource>
+            <id>GROOVY</id>
+            <versionAtLeast>2.0.6</versionAtLeast>
+        </resource>
+        <resource>
+            <id>FETCH_URL</id>
+            <versionAtLeast>1.2</versionAtLeast>
+        </resource>
+    </requires>
+    <files>
+        <file>
+            <id>ICB_GROOVY_SUPPORT_JAR</id>
+            <filename>icb-groovy-support.jar</filename>
+        </file>
+        <file>
+            <id>DEPENDENCIES_JAR</id>
+            <filename>serverside-dependencies.jar</filename>
+        </file>
+        <file>
+            <id>ARTIFACTS_SCRIPT</id>
+            <filename>artifacts.sh</filename>
+        </file>
+        <file>
+            <id>GLOBAL_GOBY_JAR</id>
+            <filename>global_goby.jar</filename>
+        </file>
+        <file>
+            <id>LOG4J_PROPERTIES</id>
+            <filename>log4j.properties</filename>
+        </file>
+        <file>
+            <id>FILESET_JAR</id>
+            <filename>filesets.jar</filename>
+        </file>
+        <file>
+            <id>ARTIFACTS_MANAGER_JAR</id>
+            <filename>artifact-manager.jar</filename>
+        </file>
+        <file>
+            <id>ARTIFACTS_MANAGER_JAR</id>
+            <filename>artifact-manager.sh</filename>
+        </file>
+        <file>
+            <id>QUEUE_WRITER</id>
+            <filename>QueueWriter.groovy</filename>
+        </file>
+        <file>
+            <id>QUEUE_WRITER_WRAPPER</id>
+            <filename>queue-writer.sh</filename>
+        </file>
+        <file>
+            <id>TSV_VCF_TO_SQLITE</id>
+            <filename>TsvVcfToSqlite.groovy</filename>
+        </file>
+        <file>
+            <id>PROCESS_SAMPLES</id>
+            <filename>ProcessSamples.groovy</filename>
+        </file>
+
+    </files>
+</resourceConfig>
