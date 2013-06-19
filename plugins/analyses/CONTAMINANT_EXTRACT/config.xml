@@ -10,12 +10,13 @@
   ~ When a plugin is not released under the LGPL3 license,  the comments  at the top  of
   ~ the plugin's config.xml will indicate how that specific plugin is released/licensed.
   -->
-<alignmentAnalysisConfig xsi:noNamespaceSchemaLocation="../../../../../schemas/plugins.xsd"
+<alignmentAnalysisConfig xsi:noNamespaceSchemaLocation="../../../schemas/plugins.xsd"
                          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
-    <name>Contaminant identification</name>
+    <name>Pathogen identification</name>
     <id>CONTAMINANT_EXTRACT</id>
-    <dbLegacyId>Extract Contaminants</dbLegacyId>
-    <help>Finds potential contaminants based on the unmapped reads in the alignments. This plugin will create contigs from unmapped reads, and try to align these contigs to viral and bacterial nucleotide sequences to identify potential sample contaminants.
+    <help>Finds sequence contamination from other organism in alignments. This plugin considers reads that could not be
+        mapped to the organism of origin. This plugin will create contigs from unmapped reads, and try to align these
+        contigs to viral, fungal or bacterial nucleotide sequences to identify potential sample contaminants/pathogens.
     </help>
     <version>1.7</version>
     <analysisType>DiffExp</analysisType>
@@ -26,34 +27,44 @@
     <producesTabDelimitedOutput>true</producesTabDelimitedOutput>
     <supportsGobyAlignments>true</supportsGobyAlignments>
     <copyWeightFiles>false</copyWeightFiles>
+    <requires>
+        <resource>
+            <id>GOBY</id>
+            <versionAtLeast>20120723142616</versionAtLeast>
+        </resource>
+        <resource>
+            <id>MINIA</id>
+            <versionAtLeast>1.4961</versionAtLeast>
+        </resource>
+        <resource>
+            <id>TRINITY</id>
+            <versionAtLeast>20120518</versionAtLeast>
+        </resource>
+        <resource>
+            <id>LAST</id>
+            <versionAtLeast>230</versionAtLeast>
+        </resource>
+        <resource>
+            <id>EXTRACT_NONMATCHED</id>
+            <versionAtLeast>2012.06.04</versionAtLeast>
+        </resource>
+        <resource>
+            <id>BWA_WITH_GOBY</id>
+            <versionAtLeast>0.5.9.16</versionAtLeast>
+        </resource>
+        <resource>
+            <id>ILLUMINA_ADAPTERS</id>
+            <versionAtLeast>1.0</versionAtLeast>
+        </resource>
+        <resource>
+            <id>PATHOGEN_DATA</id>
+            <versionAtLeast>1.0</versionAtLeast>
+        </resource>
+    </requires>
     <files>
         <file>
             <id>OUTPUT_FORMATTER</id>
             <filename>OutputFormatter.groovy</filename>
-        </file>
-        <file>
-        	<id>VIRAL_REF</id>
-        	<filename>viralref.tar.gz</filename>
-        </file>
-        <file>
-        	<id>VIRAL_NAMES</id>
-        	<filename>viral-names.map</filename>
-        </file>
-        <file>
-            <id>MICRO_REF</id>
-            <filename>microref.tar.gz</filename>
-        </file>
-        <file>
-            <id>MICRO_NAMES</id>
-            <filename>micro-names.map</filename>
-        </file>
-        <file>
-            <id>FUNGAL_REF</id>
-            <filename>fungalref.tar.gz</filename>
-        </file>
-        <file>
-            <id>FUNGAL_NAMES</id>
-            <filename>fungal-names.map</filename>
         </file>
     </files>
 
@@ -75,52 +86,51 @@
     <execute>
         <script phase="pre-deployment" language="groovy" filename="makePluginConstants.groovy"/>
     </execute>
-
     <options>
-    	<option>
-    		<id>ASSEMBLER</id>
-    		<name>Assembler</name>
-    		<help>The assembler to use when combining reads into contigs</help>
-    		<required>true</required>
-    		<defaultsTo>MINIA</defaultsTo>
-    		<type>CATEGORY</type>
-    		<categories>
-    			<category>
-    				<id>MINIA</id>
-    				<name>Minia</name>
-    				<value>MINIA</value>
-    				<help>http://minia.genouest.org/</help>
-    			</category>
-    			<category>
-    				<id>TRINITY</id>
-    				<name>Trinity</name>
-    				<value>TRINITY</value>
-    				<help>http://trinityrnaseq.sourceforge.net/</help>
-    			</category>
-    		</categories>
-    	</option>
-    	<option>
-    		<id>ALIGNER</id>
-    		<name>Aligner</name>
-    		<help>The aligner to use for realigning reads to contigs</help>
-    		<required>true</required>
-    		<defaultsTo>LAST</defaultsTo>
-    		<type>CATEGORY</type>
-    		<categories>
-    			<category>
-    				<id>LAST</id>
-    				<name>Last</name>
-    				<value>LAST</value>
-    				<help>http://last.cbrc.jp/</help>
-    			</category>
-    			<category>
-    				<id>BWA</id>
-    				<name>BWA</name>
-    				<value>BWA</value>
-    				<help>http://bio-bwa.sourceforge.net/</help>
-    			</category>
-    		</categories>
-    	</option>
+        <option>
+            <id>ASSEMBLER</id>
+            <name>Assembler</name>
+            <help>The assembler to use when combining reads into contigs</help>
+            <required>true</required>
+            <defaultsTo>MINIA</defaultsTo>
+            <type>CATEGORY</type>
+            <categories>
+                <category>
+                    <id>MINIA</id>
+                    <name>Minia</name>
+                    <value>MINIA</value>
+                    <help>http://minia.genouest.org/</help>
+                </category>
+                <category>
+                    <id>TRINITY</id>
+                    <name>Trinity</name>
+                    <value>TRINITY</value>
+                    <help>http://trinityrnaseq.sourceforge.net/</help>
+                </category>
+            </categories>
+        </option>
+        <option>
+            <id>ALIGNER</id>
+            <name>Aligner</name>
+            <help>The aligner to use for realigning reads to contigs</help>
+            <required>true</required>
+            <defaultsTo>LAST</defaultsTo>
+            <type>CATEGORY</type>
+            <categories>
+                <category>
+                    <id>LAST</id>
+                    <name>Last</name>
+                    <value>LAST</value>
+                    <help>http://last.cbrc.jp/</help>
+                </category>
+                <category>
+                    <id>BWA</id>
+                    <name>BWA</name>
+                    <value>BWA</value>
+                    <help>http://bio-bwa.sourceforge.net/</help>
+                </category>
+            </categories>
+        </option>
         <option>
             <id>SEARCH_REFERENCE</id>
             <name>Search Reference</name>
@@ -141,7 +151,7 @@
                     <value>MICROBIAL</value>
                     <help> </help>
                 </category>
-                 <category>
+                <category>
                     <id>FUNGAL</id>
                     <name>Fungal</name>
                     <value>FUNGAL</value>
@@ -165,14 +175,14 @@
             <defaultsTo>25</defaultsTo>
             <type>DOUBLE</type>
         </option>
-    	<option>
-    		<id>IDENTITYTHRESHOLD</id>
-    		<name>Percent Identity Threshold</name>
-    		<help>Matches with a percent identity below the threshold will not be considered significant</help>
-    		<required>true</required>
-    		<defaultsTo>90</defaultsTo>
-    		<type>DOUBLE</type>
-    	</option>
+        <option>
+            <id>IDENTITYTHRESHOLD</id>
+            <name>Percent Identity Threshold</name>
+            <help>Matches with a percent identity below the threshold will not be considered significant</help>
+            <required>true</required>
+            <defaultsTo>90</defaultsTo>
+            <type>DOUBLE</type>
+        </option>
         <option>
             <id>TRIM_ADAPTERS</id>
             <name>Trim Illumina Adapters</name>
@@ -205,6 +215,17 @@
             </help>
         </outputFile>
         <outputFile>
+            <id>CONTAMINANT_RESULTS__LUCENE_INDEX</id>
+            <name>table with full results of analysis</name>
+            <required>true</required>
+            <mimeType>application/lucene-index</mimeType>
+            <filename>contaminants.lucene.index</filename>
+            <tableName>contaminants</tableName>
+            <help>View the table of results in the interactive GobyWeb table browser. Table contains found
+                contaminants.
+            </help>
+        </outputFile>
+        <outputFile>
             <id>CONTAMINANT_RESULTS</id>
             <name>TSV file with full results of analysis</name>
             <required>true</required>
@@ -218,6 +239,15 @@
             <required>true</required>
             <mimeType>application/x-sqlite3</mimeType>
             <filename>summary.db</filename>
+            <tableName>summary</tableName>
+            <help>View the table of results in the interactive GobyWeb table browser. Table contains summary of found contaminants.</help>
+        </outputFile>
+        <outputFile>
+            <id>CONTAMINANT_SUMMARY__LUCENE_INDEX</id>
+            <name>table with summary of analysis</name>
+            <required>true</required>
+            <mimeType>application/lucene-index</mimeType>
+            <filename>summary.lucene.index</filename>
             <tableName>summary</tableName>
             <help>View the table of results in the interactive GobyWeb table browser. Table contains summary of found contaminants.</help>
         </outputFile>
@@ -239,6 +269,15 @@
             <help>View the table of results in the interactive GobyWeb table browser. Table contains counts of contigs matched to unmapped reads.</help>
         </outputFile>
         <outputFile>
+            <id>REALIGNED_UNMAPPED_LUCENE_INDEX</id>
+            <name>table with match counts of contigs to unmapped reads</name>
+            <required>true</required>
+            <mimeType>application/lucene-index</mimeType>
+            <filename>realigned.lucene.index</filename>
+            <tableName>realigned</tableName>
+            <help>View the table of results in the interactive GobyWeb table browser. Table contains counts of contigs matched to unmapped reads.</help>
+        </outputFile>
+        <outputFile>
             <id>REALIGNED_UNMAPPED</id>
             <name>TSV file with match counts of contigs to unmapped reads</name>
             <required>true</required>
@@ -255,4 +294,24 @@
             <help>GZIP archive with the assembled reads from each sample</help>
         </outputFile>
     </outputSchema>
+    <executableIOSchema>
+        <input>
+            <inputSlot>
+                <name>INPUT_READS</name>
+                <type maxOccurs="unbounded" minOccurs="1">
+                    <id>COMPACT_READS</id>
+                    <versionAtLeast>1.0</versionAtLeast>
+                </type>
+            </inputSlot>
+        </input>
+        <output>
+            <outputSlot>
+                <name>OUTPUT_ASSEMBLED_READS</name>
+                <type maxOccurs="1" minOccurs="1">
+                    <id>GZ</id>
+                    <versionAtLeast>1.0</versionAtLeast>
+                </type>
+            </outputSlot>
+        </output>
+    </executableIOSchema>
 </alignmentAnalysisConfig>
