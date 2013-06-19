@@ -23,13 +23,23 @@
 . ${JOB_DIR}/plugin-constants.sh
 
 function plugin_alignment_analysis_split {
+	NUMBER_OF_PARTS=$1
+	SPLICING_PLAN_RESULT=$2
 	local SPLICING_PLAN_RESULT=$2
-	echo ;
+	shift
+	ls -l $* >${SPLICING_PLAN_RESULT}
 }
 
 # This function return the number of parts in the slicing plan. It returns zero if the alignments could not be split.
 function plugin_alignment_analysis_num_parts {
-	return $NUM_SPLITS
+  SPLICING_PLAN_FILE=$1
+
+  if [ $? -eq 0 ]; then
+
+	        echo `grep -v targetIdStart ${SPLICING_PLAN_FILE} | wc -l `
+  fi
+
+  echo 0
 }
 
 function plugin_alignment_analysis_process {
@@ -52,24 +62,27 @@ function plugin_alignment_analysis_process {
     fi
 
 
-    for SOURCE_BASENAME in $PART_BASENAMES
+    for BASENAME in $PART_BASENAMES
     do
-	    local REDUCED_BASENAME=`basename ${SOURCE_BASENAME}`
+	    #local REDUCED_BASENAME=`basename ${SOURCE_BASENAME}`
 
 	    #copy over unmatched reads
-        scp "${SOURCE_BASENAME}-unmatched.compact-reads" "unmatched-part-${REDUCED_BASENAME}.compact-reads" #todo fix name conflicts
-        if [ $? -eq 0 ]; then
-            echo "found the unmapped reads"
-        else
+        #scp "${SOURCE_BASENAME}-unmatched.compact-reads" "unmatched-part-${REDUCED_BASENAME}.compact-reads" #todo fix name conflicts
+        #if [ $? -eq 0 ]; then
+        #    echo "found the unmapped reads"
+        #else
 
-            echo "unmapped reads not found, running extraction now"
+        echo "Running unmapped reads extraction now"
 
-            local READS_FILE=${PLUGIN_READS[$CURRENT_PART]}
-
-            extract_unmatched_reads "${READS_FILE}" "${ENTRIES_DIRECTORY}/${REDUCED_BASENAME}" "unmatched-part-${REDUCED_BASENAME}.compact-reads"
-
+        #local READS_FILE=${PLUGIN_READS[$CURRENT_PART]}
+        local READS_FILE=`${FILESET_COMMAND} --fetch INPUT_READS --filter-attribute BASENAME=${PLUGIN_READS[$CURRENT_PART]}`
+        if [ $? != 0 ]; then
+            dieUponError "Failed to fecth compact reads ${PLUGIN_READS[$CURRENT_PART]}"
         fi
-        dieUponError "Could not retrieve unmapped reads for basename ${REDUCED_BASENAME}"
+        extract_unmatched_reads "${READS_FILE}" "${ENTRIES_DIRECTORY}/${BASENAME}" "unmatched-part-${BASENAME}.compact-reads"
+
+        #fi
+        dieUponError "Could not retrieve unmapped reads for basename ${BASENAME}"
 
     done
 
@@ -105,16 +118,16 @@ function plugin_alignment_analysis_process {
 
 
 	if [ "${PLUGINS_ALIGNMENT_ANALYSIS_CONTAMINANT_EXTRACT_SEARCH_REFERENCE}" == "VIRAL" ]; then
-        #extract viral ref tarball
-        tar -zxvf ${NODE_LOCAL_DATA_ROOT}../pathogen-db/viral/viralref.tar.gz
+        #link viral ref, apparently, last requires that the reference db is in the local folder (no options for that)
+        ln -s ${RESOURCES_ARTIFACTS_PATHOGEN_DATA_VIRAL}/viral/viralref* .
         local REF_BASENAME="viralref"
     elif [ "${PLUGINS_ALIGNMENT_ANALYSIS_CONTAMINANT_EXTRACT_SEARCH_REFERENCE}" == "MICROBIAL" ]; then
-        #extract microbial ref tarball
-        tar -zxvf ${NODE_LOCAL_DATA_ROOT}../pathogen-db/bacterial/microref.tar.gz
+        #link micro ref, apparently, last requires that the reference db is in the local folder (no options for that)
+        ln -s ${RESOURCES_ARTIFACTS_PATHOGEN_DATA_MICROBIAL}/bacterial/microref* .
         local REF_BASENAME="microref"
     else
-         #extract fungal ref tarball
-        tar -zxvf ${NODE_LOCAL_DATA_ROOT}../pathogen-db/fungal/fungalref.tar.gz
+        #link fungal ref, apparently, last requires that the reference db is in the local folder (no options for that)
+        ln -s ${RESOURCES_ARTIFACTS_PATHOGEN_DATA_FUNGI}/fungal/fungalref* .
         local REF_BASENAME="fungalref"
     fi
 
@@ -191,7 +204,11 @@ function plugin_alignment_analysis_combine {
 	tar -zvcf assembled-reads.tar.gz assembled/*
 	
 	dieUponError "Could not tarball assembled reads"
-	
+
+    local OUTPUT=`${FILESET_COMMAND} --push OUTPUT_ASSEMBLED_READS: assembled-reads.tar.gz`
+    dieUponError "Failed to push results: ${OUTPUT}"
+    echo "The following GZ instance has been successfully registered: ${OUTPUT}"
+
 	local TEMPFILE_FULL=`mktemp readsXXXX`
 	local TEMPFILE_REALIGN=`mktemp readsXXXX`
 	
@@ -205,11 +222,11 @@ function plugin_alignment_analysis_combine {
 	dieUponError "Could not combine realigned output files"
 	
 	if [ "${PLUGINS_ALIGNMENT_ANALYSIS_CONTAMINANT_EXTRACT_SEARCH_REFERENCE}" == "VIRAL" ]; then
-        ACCESSION_NAME_MAP="${NODE_LOCAL_DATA_ROOT}../pathogen-db/viral/viral-names.map"
+        ACCESSION_NAME_MAP="${RESOURCES_ARTIFACTS_PATHOGEN_DATA_VIRAL}/viral/viral-names.map"
     elif [ "${PLUGINS_ALIGNMENT_ANALYSIS_CONTAMINANT_EXTRACT_SEARCH_REFERENCE}" == "MICROBIAL" ]; then
-        ACCESSION_NAME_MAP="${NODE_LOCAL_DATA_ROOT}../pathogen-db/bacterial/micro-names.map"
+        ACCESSION_NAME_MAP="${RESOURCES_ARTIFACTS_PATHOGEN_DATA_MICROBIAL}/bacterial/micro-names.map"
     else
-        ACCESSION_NAME_MAP="${NODE_LOCAL_DATA_ROOT}../pathogen-db/fungal/fungal-names.map"
+        ACCESSION_NAME_MAP="${RESOURCES_ARTIFACTS_PATHOGEN_DATA_FUNGI}/fungal/fungal-names.map"
     fi
 
 	
@@ -233,6 +250,4 @@ function plugin_alignment_analysis_combine {
 	
 	cat $TEMPFILE_REALIGN >> $OUTPUT_FILE_REALIGN
 	
-	
-
 }
