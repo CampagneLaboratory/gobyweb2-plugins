@@ -297,8 +297,8 @@
     <executableIOSchema>
         <input>
             <inputSlot>
-                <name>INPUT_READS</name>
-                <type maxOccurs="unbounded" minOccurs="1">
+                <name>ALIGNMENT_SOURCE_READS</name>
+                <type maxOccurs="unbounded" minOccurs="0">
                     <id>COMPACT_READS</id>
                     <versionAtLeast>1.0</versionAtLeast>
                 </type>

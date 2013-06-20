@@ -64,18 +64,11 @@ function plugin_alignment_analysis_process {
 
     for BASENAME in $PART_BASENAMES
     do
-	    #local REDUCED_BASENAME=`basename ${SOURCE_BASENAME}`
-
-	    #copy over unmatched reads
-        #scp "${SOURCE_BASENAME}-unmatched.compact-reads" "unmatched-part-${REDUCED_BASENAME}.compact-reads" #todo fix name conflicts
-        #if [ $? -eq 0 ]; then
-        #    echo "found the unmapped reads"
-        #else
 
         echo "Running unmapped reads extraction now"
 
         #local READS_FILE=${PLUGIN_READS[$CURRENT_PART]}
-        local READS_FILE=`${FILESET_COMMAND} --fetch INPUT_READS --filter-attribute BASENAME=${PLUGIN_READS[$CURRENT_PART]}`
+        local READS_FILE=`${FILESET_COMMAND} --fetch ALIGNMENT_SOURCE_READS --filter-attribute BASENAME=${PLUGIN_READS[$CURRENT_PART]}`
         if [ $? != 0 ]; then
             dieUponError "Failed to fecth compact reads ${PLUGIN_READS[$CURRENT_PART]}"
         fi
