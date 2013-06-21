@@ -50,10 +50,6 @@
         </resource>
     </requires>
     <files>
-        <!--file>
-            <id>R_SCRIPT</id>
-            <filename>deAnalysisEdgeR.R</filename>
-        </file-->
         <file>
             <id>PARALLEL_SCRIPT</id>
             <filename>parallel.sh</filename>
