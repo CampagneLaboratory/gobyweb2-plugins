@@ -304,14 +304,5 @@
                 </type>
             </inputSlot>
         </input>
-        <output>
-            <outputSlot>
-                <name>OUTPUT_ASSEMBLED_READS</name>
-                <type maxOccurs="1" minOccurs="1">
-                    <id>GZ</id>
-                    <versionAtLeast>1.0</versionAtLeast>
-                </type>
-            </outputSlot>
-        </output>
     </executableIOSchema>
 </alignmentAnalysisConfig>
