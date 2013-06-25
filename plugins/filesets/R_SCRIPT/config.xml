@@ -1,15 +1,15 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <fileSetConfig xsi:noNamespaceSchemaLocation="../../../schemas/plugins.xsd"
                xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
-    <name>Lucene Index directory</name>
-    <id>LUCENE_INDEX</id>
-    <help>A directory containing a Lucene Index.</help>
+    <name>R Script</name>
+    <id>R_SCRIPT</id>
+    <help>R Script.</help>
     <version>1.0</version>
-    <mimeType>application/lucene-index</mimeType>
+    <mimeType>text/plain</mimeType>
     <directories>
         <selector>
-            <id>INDEX_DIR</id>
-            <pattern>*.lucene.index</pattern>
+            <id>SCRIPT</id>
+            <pattern>*.R</pattern>
             <mandatory>true</mandatory>
         </selector>
     </directories>

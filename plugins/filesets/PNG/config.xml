@@ -1,19 +1,19 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <fileSetConfig xsi:noNamespaceSchemaLocation="../../../schemas/plugins.xsd"
                xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
-    <name>Compact-Reads</name>
-    <id>COMPACT_READS</id>
-    <help>compact reads format</help>
+    <name>PNG Image</name>
+    <id>PNG</id>
+    <help>Portable Network Graphics</help>
     <version>1.0</version>
-    <mimeType>application/compact-reads</mimeType>
+    <mimeType>image/png</mimeType>
     <files>
-        <selector matchAttribute="basename">
-            <id>READS_FILE</id>
-            <pattern>*.compact-reads</pattern>
+        <selector matchAttribute="BASENAME">
+            <id>PNG</id>
+            <pattern>*.png</pattern>
             <mandatory>true</mandatory>
         </selector>
     </files>
     <attributes>
-        <attribute name="basename"/>
+        <attribute name="BASENAME"/>
     </attributes>
 </fileSetConfig>
