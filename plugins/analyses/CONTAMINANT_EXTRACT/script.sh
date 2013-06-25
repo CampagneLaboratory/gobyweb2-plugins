@@ -198,10 +198,6 @@ function plugin_alignment_analysis_combine {
 	
 	dieUponError "Could not tarball assembled reads"
 
-    local OUTPUT=`${FILESET_COMMAND} --push OUTPUT_ASSEMBLED_READS: assembled-reads.tar.gz`
-    dieUponError "Failed to push results: ${OUTPUT}"
-    echo "The following GZ instance has been successfully registered: ${OUTPUT}"
-
 	local TEMPFILE_FULL=`mktemp readsXXXX`
 	local TEMPFILE_REALIGN=`mktemp readsXXXX`
 	
