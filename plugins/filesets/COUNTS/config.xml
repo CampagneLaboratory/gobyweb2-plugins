@@ -5,6 +5,7 @@
     <id>COUNTS</id>
     <help>Counts converted from a compact alignment.</help>
     <version>1.0</version>
+    <mimeType>text/counts</mimeType>
     <files>
         <selector matchAttribute="basename">
             <id>COUNTS</id>

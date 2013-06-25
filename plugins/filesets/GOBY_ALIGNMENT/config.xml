@@ -5,36 +5,38 @@
     <id>GOBY_ALIGNMENT</id>
     <help>Goby alignment format</help>
     <version>1.0</version>
+    <mimeType>application/goby-alignment</mimeType>
     <files>
-        <selector matchAttribute="basename">
+        <selector matchAttribute="BASENAME">
             <id>INDEX</id>
             <pattern>*.index</pattern>
             <mandatory>true</mandatory>
         </selector>
-        <selector matchAttribute="basename">
+        <selector matchAttribute="BASENAME">
             <id>HEADER</id>
             <pattern>*.header</pattern>
             <mandatory>true</mandatory>
         </selector>
-        <selector matchAttribute="basename">
+        <selector matchAttribute="BASENAME">
             <id>ENTRIES</id>
             <pattern>*.entries</pattern>
             <mandatory>true</mandatory>
         </selector>
-        <selector matchAttribute="basename">
+        <selector matchAttribute="BASENAME">
             <id>STATS</id>
             <pattern>*.alignment-stats.txt</pattern>
             <mandatory>false</mandatory>
         </selector>
-        <selector matchAttribute="basename">
+        <selector matchAttribute="BASENAME">
             <id>TMH</id>
             <pattern>*.tmh</pattern>
             <mandatory>false</mandatory>
         </selector>
     </files>
     <attributes>
-        <attribute name="basename"/>
-        <attribute name="tag"/>
-        <attribute name="organism"/>
+        <attribute name="BASENAME"/>
+        <attribute name="TAG"/>
+        <attribute name="ORGANISM"/>
+        <attribute name="GENOME_REFERENCE_ID"/>
     </attributes>
 </fileSetConfig>

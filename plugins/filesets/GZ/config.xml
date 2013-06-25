@@ -5,14 +5,15 @@
     <id>GZ</id>
     <help>GZ Compressed Archive</help>
     <version>1.0</version>
+    <mimeType>application/x-gzip-compressed</mimeType>
     <files>
-        <selector matchAttribute="basename">
+        <selector matchAttribute="BASENAME">
             <id>GZ</id>
             <pattern>*.gz</pattern>
             <mandatory>true</mandatory>
         </selector>
     </files>
     <attributes>
-        <attribute name="basename"/>
+        <attribute name="BASENAME"/>
     </attributes>
 </fileSetConfig>

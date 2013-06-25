@@ -5,6 +5,7 @@
     <id>STATS</id>
     <help>Statistics about files in one of the compact Goby formats</help>
     <version>1.0</version>
+    <mimeType>text/stats</mimeType>
     <files>
         <selector matchAttribute="basename">
             <id>STATS</id>

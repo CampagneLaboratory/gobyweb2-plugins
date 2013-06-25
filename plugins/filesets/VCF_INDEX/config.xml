@@ -1,27 +1,24 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <fileSetConfig xsi:noNamespaceSchemaLocation="../../../schemas/plugins.xsd"
                xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
-    <name>BAM Alignment</name>
-    <id>BAM_ALIGNMENT</id>
-    <help>BAM alignment format</help>
+    <name>Variant Calling Format Index</name>
+    <id>VCF_INDEX</id>
+    <help>Variant Calling Format Index (produced with tabix).</help>
     <version>1.0</version>
-    <mimeType>application/bam-alignment</mimeType>
+    <mimeType>text/variant-calling-format-index</mimeType>
     <files>
         <selector matchAttribute="BASENAME">
-            <id>BAM</id>
-            <pattern>*.bam</pattern>
-            <mandatory>true</mandatory>
+            <id>VCF_INDEX</id>
+            <pattern>*.vcf.tbi</pattern>
+            <mandatory>false</mandatory>
         </selector>
         <selector matchAttribute="BASENAME">
-            <id>INDEX</id>
-            <pattern>*.bam.bai</pattern>
+            <id>VCF_INDEX_GZ</id>
+            <pattern>*.vcf.gz.tbi</pattern>
             <mandatory>false</mandatory>
         </selector>
     </files>
     <attributes>
         <attribute name="BASENAME"/>
-        <attribute name="TAG"/>
-        <attribute name="ORGANISM"/>
-        <attribute name="GENOME_REFERENCE_ID"/>
     </attributes>
 </fileSetConfig>

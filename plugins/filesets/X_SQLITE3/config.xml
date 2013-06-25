@@ -1,19 +1,19 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <fileSetConfig xsi:noNamespaceSchemaLocation="../../../schemas/plugins.xsd"
                xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
-    <name>Compact-Reads</name>
-    <id>COMPACT_READS</id>
-    <help>compact reads format</help>
+    <name>X SQLITE3</name>
+    <id>X_SQLITE3</id>
+    <help>X_SQLITE3 table.</help>
     <version>1.0</version>
-    <mimeType>application/compact-reads</mimeType>
+    <mimeType>application/x-sqlite3</mimeType>
     <files>
-        <selector matchAttribute="basename">
-            <id>READS_FILE</id>
-            <pattern>*.compact-reads</pattern>
+        <selector>
+            <id>TABLE</id>
+            <pattern>*.db</pattern>
             <mandatory>true</mandatory>
         </selector>
     </files>
     <attributes>
-        <attribute name="basename"/>
+        <attribute name="TABLENAME"/>
     </attributes>
 </fileSetConfig>

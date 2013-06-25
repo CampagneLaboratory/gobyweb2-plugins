@@ -5,11 +5,17 @@
     <id>VCF</id>
     <help>Variant Calling Format.</help>
     <version>1.0</version>
+    <mimeType>text/variant-calling-format</mimeType>
     <files>
         <selector matchAttribute="basename">
             <id>VCF</id>
             <pattern>*.vcf</pattern>
-            <mandatory>true</mandatory>
+            <mandatory>false</mandatory>
+        </selector>
+        <selector matchAttribute="basename">
+            <id>VCF_GZ</id>
+            <pattern>*.vcf.gz</pattern>
+            <mandatory>false</mandatory>
         </selector>
     </files>
     <attributes>
