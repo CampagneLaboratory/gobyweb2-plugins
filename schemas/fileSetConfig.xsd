@@ -24,6 +24,7 @@
         <xs:complexContent>
             <xs:extension base="BasePluginConfig">
                 <xs:sequence>
+                    <xs:element name="mimeType" type="xs:string"/>
                     <xs:element name="files" type="T_selectorList" minOccurs="0"/>
                     <xs:element name="directories" type="T_selectorList" minOccurs="0"/>
                     <xs:element name="attributes" type="T_attributes" minOccurs="0"/>
