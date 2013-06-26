@@ -64,17 +64,14 @@ function plugin_alignment_analysis_process {
 
     for BASENAME in $PART_BASENAMES
     do
-
-        echo "Running unmapped reads extraction now"
-
-        #local READS_FILE=${PLUGIN_READS[$CURRENT_PART]}
-        local READS_FILE=`${FILESET_COMMAND} --fetch ALIGNMENT_SOURCE_READS --filter-attribute BASENAME=${PLUGIN_READS[$CURRENT_PART]}`
+        echo "Running unmapped reads extraction now on source reads for ${BASENAME}"
+        local READS_BASENAME=`get_source_reads ${BASENAME}`
+        local READS_FILE=`${FILESET_COMMAND} --fetch ALIGNMENT_SOURCE_READS --filter-attribute BASENAME=${READS_BASENAME}`
         if [ $? != 0 ]; then
             dieUponError "Failed to fecth compact reads ${PLUGIN_READS[$CURRENT_PART]}"
         fi
         extract_unmatched_reads "${READS_FILE}" "${ENTRIES_DIRECTORY}/${BASENAME}" "unmatched-part-${BASENAME}.compact-reads"
 
-        #fi
         dieUponError "Could not retrieve unmapped reads for basename ${BASENAME}"
 
     done

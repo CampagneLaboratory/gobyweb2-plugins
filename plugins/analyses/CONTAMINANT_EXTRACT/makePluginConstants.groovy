@@ -21,6 +21,8 @@ int execute(final Object gobywebObj, final File tempDir) {
     final File outputFile = new File(tempDir, "plugin-constants.sh")
     final PrintWriter writer = outputFile.newPrintWriter()
     try {
+        writeGetReadsFunction(gobywebObj,writer)
+        writer.println ""
         gobywebObj.allAlignments().eachWithIndex {alignment, index ->
             writer.println "PLUGIN_READS[${index + 1}]=${alignment.getReads().getBasename()}"
             writer.println "PLUGIN_BASENAMES[${index + 1}]=${alignmentFilename(alignment)}"
@@ -34,6 +36,18 @@ int execute(final Object gobywebObj, final File tempDir) {
         writer.close()
     }
     return 0
+}
+
+private void writeGetReadsFunction(Object gobywebObj, PrintWriter writer) {
+    writer.println "function get_source_reads {"
+    writer.println " ALIGNMENT_BASENAME=\$1"
+    gobywebObj.allAlignments().each {alignment ->
+        writer.println " if [ \${ALIGNMENT_BASENAME} == \"${alignment.getBasename()}\" ]; then "
+        writer.println "    echo ${alignment.getReads().getBasename()} "
+        writer.println "    return "
+        writer.println " fi"
+    }
+    writer.println "}"
 }
 
 /**
