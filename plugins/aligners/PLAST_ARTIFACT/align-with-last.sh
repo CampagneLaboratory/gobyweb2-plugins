@@ -1,0 +1,39 @@
+#!/bin/bash
+FULL_READS_INPUT=$1
+READS_FASTQ=$2
+TEMP_FILENAME=$3
+OUTPUT=$4
+JOB_DIR=$5
+# Grab the variables and functions we need:
+. ${JOB_DIR}/artifacts.sh
+expose_artifact_environment_variables
+
+    RESOURCES_LAST_EXEC_PATH=${RESOURCES_ARTIFACTS_LAST_ARTIFACT_BINARIES}/bin/lastal
+    RESOURCES_LAST_MERGE_BATCHES_EXEC=${RESOURCES_ARTIFACTS_LAST_ARTIFACT_BINARIES}/scripts/last-merge-batches.py
+    RESOURCES_LAST_MAP_PROBS_EXEC=${RESOURCES_ARTIFACTS_LAST_ARTIFACT_BINARIES}/scripts/last-map-probs.py
+
+
+    ORG=` echo ${ORGANISM} | tr [:lower:] [:upper:]  `
+    BUILD_NUMBER=`echo ${GENOME_REFERENCE_ID} | awk -F\. '{print $1}' | tr [:lower:] [:upper:] `
+    ENSEMBL_RELEASE=`echo ${GENOME_REFERENCE_ID} | awk -F\. '{print $(NF)}'| tr [:lower:] [:upper:] `
+
+    INDEX_DIRECTORY=$(eval echo \${RESOURCES_ARTIFACTS_LAST_INDEX_INDEX_${ORG}_${BUILD_NUMBER}_${ENSEMBL_RELEASE}}/)
+    TOPLEVEL_DIRECTORY=$(eval echo \${RESOURCES_ARTIFACTS_LAST_INDEX_TOPLEVEL_IDS_${ORG}_${BUILD_NUMBER}_${ENSEMBL_RELEASE}}/)
+
+    #make sure index exists
+    if [ ! -e ${INDEX_DIRECTORY}/index.prj ]; then
+        failThisLine
+      	dieUponError "last index could not be found"
+    fi
+
+    ${RESOURCES_LAST_EXEC_PATH} -v -s1 -Q1 -d${PLUGINS_ALIGNER_PLAST_ARTIFACT_D} \
+        -e${PLUGINS_ALIGNER_PLAST_ARTIFACT_E} ${INDEX_DIRECTORY}/index ${READS_FASTQ} -o ${TEMP_FILENAME}.maf
+
+    cat ${TEMP_FILENAME}.maf | ${RESOURCES_LAST_MAP_PROBS_EXEC} -s${PLUGINS_ALIGNER_PLAST_ARTIFACT_S} > ${TEMP_FILENAME}-2.maf
+    REFERENCE=${TOPLEVEL_DIRECTORY}/toplevel-ids.compact-reads
+
+    java -Xmx${PLUGIN_NEED_ALIGN_JVM} -Dlog4j.debug=true -Dlog4j.configuration=file:${JOB_DIR}/goby/log4j.properties \
+                        -Dgoby.configuration=file:${TMPDIR}/goby.properties \
+                        -jar ${RESOURCES_GOBY_GOBY_JAR} \
+                        --mode last-to-compact -i ${TEMP_FILENAME}-2.maf -o ${OUTPUT} --third-party-input true \
+                        --only-maf -q ${FULL_READS_INPUT} -t ${REFERENCE} --quality-filter-parameters threshold=1.0
