@@ -160,7 +160,7 @@
             </categories>
         </option>
         <option>
-            <id>EVALUETHRESHOLD</id>
+            <id>EVALUE_THRESHOLD</id>
             <name>E-value Threshold</name>
             <help>Matches with an E-value above the threshold will not be considered significant</help>
             <required>true</required>
@@ -176,7 +176,7 @@
             <type>DOUBLE</type>
         </option>
         <option>
-            <id>IDENTITYTHRESHOLD</id>
+            <id>IDENTITY_THRESHOLD</id>
             <name>Percent Identity Threshold</name>
             <help>Matches with a percent identity below the threshold will not be considered significant</help>
             <required>true</required>
@@ -206,7 +206,7 @@
         <outputFile>
             <id>CONTAMINANT_RESULTS_DB</id>
             <name>table with full results of analysis</name>
-            <required>true</required>
+            <required>false</required>
             <mimeType>application/x-sqlite3</mimeType>
             <filename>contaminants.db</filename>
             <tableName>contaminants</tableName>
@@ -215,7 +215,7 @@
             </help>
         </outputFile>
         <outputFile>
-            <id>CONTAMINANT_RESULTS__LUCENE_INDEX</id>
+            <id>CONTAMINANT_RESULTS_LUCENE_INDEX</id>
             <name>table with full results of analysis</name>
             <required>true</required>
             <mimeType>application/lucene-index</mimeType>
@@ -236,14 +236,14 @@
         <outputFile>
             <id>CONTAMINANT_SUMMARY_DB</id>
             <name>table with summary of analysis</name>
-            <required>true</required>
+            <required>false</required>
             <mimeType>application/x-sqlite3</mimeType>
             <filename>summary.db</filename>
             <tableName>summary</tableName>
             <help>View the table of results in the interactive GobyWeb table browser. Table contains summary of found contaminants.</help>
         </outputFile>
         <outputFile>
-            <id>CONTAMINANT_SUMMARY__LUCENE_INDEX</id>
+            <id>CONTAMINANT_SUMMARY_LUCENE_INDEX</id>
             <name>table with summary of analysis</name>
             <required>true</required>
             <mimeType>application/lucene-index</mimeType>
@@ -262,7 +262,7 @@
         <outputFile>
             <id>REALIGNED_UNMAPPED_DB</id>
             <name>table with match counts of contigs to unmapped reads</name>
-            <required>true</required>
+            <required>false</required>
             <mimeType>application/x-sqlite3</mimeType>
             <filename>realigned.db</filename>
             <tableName>realigned</tableName>
