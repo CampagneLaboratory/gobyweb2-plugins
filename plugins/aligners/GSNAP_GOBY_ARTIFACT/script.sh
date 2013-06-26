@@ -4,11 +4,7 @@
 # PAIRED_END_ALIGNMENT = true|false
 # READS = reads file
 
-# INDEX_DIRECTORY = directory that contains the indexed database
-# INDEX_PREFIX = name of the indexed database to search
-
 # ${RESOURCES_ILLUMINA_ADAPTERS_FILE_PATH} = path to adapters.txt, obtained from the ILLUMINA_ADAPTERS resource
-# ${RESOURCES_GSNAP_WITH_GOBY_EXEC_PATH} = path to gsnap, obtained from the GSNAP_GOBY resource
 
 # ALIGNER_OPTIONS = any GSNAP options the end-user would like to set
 
@@ -21,11 +17,18 @@ function plugin_align {
      # set the number of threads to the number of cores available on the server:
      NUM_THREADS=`grep physical  /proc/cpuinfo |grep id|wc -l`
      ALIGNER_OPTIONS="${ALIGNER_OPTIONS} -t ${NUM_THREADS}"
+     RESOURCES_GSNAP_WITH_GOBY_EXEC_PATH=${RESOURCES_ARTIFACTS_GSNAP_WITH_GOBY_ARTIFACT_EXECUTABLE}/bin/gsnap
 
      SPLICED_OPTION=""
      if [ "${PLUGINS_ALIGNER_GSNAP_GOBY_SPLICED_ALIGNMENT}" == "spliced" ]; then
              SPLICED_OPTION="-s ${GSNAP_SPLICE_FILE}"
-    fi
+     fi
+
+    ORG=` echo ${ORGANISM} | tr [:lower:] [:upper:]  `
+    BUILD_NUMBER=`echo ${GENOME_REFERENCE_ID} | awk -F\. '{print $1}' | tr [:lower:] [:upper:] `
+    ENSEMBL_RELEASE=`echo ${GENOME_REFERENCE_ID} | awk -F\. '{print $(NF)}'| tr [:lower:] [:upper:] `
+
+    INDEX_DIRECTORY=$(eval echo \${RESOURCES_ARTIFACTS_GSNAP_WITH_GOBY_ARTIFACT_INDEX_${ORG}_${BUILD_NUMBER}_${ENSEMBL_RELEASE}}/share/index)
 
      BISULFITE_OPTION=""
      if [ "${BISULFITE_SAMPLE}" == "true" ]; then
