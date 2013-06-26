@@ -12,25 +12,24 @@
   -->
 <resourceConfig xsi:noNamespaceSchemaLocation="../../../schemas/plugins.xsd"
                 xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
-    <name>Last bisulfite indices (auto-install)</name>
-    <id>LAST_BISULFITE_INDEX</id>
-    <help>Bisulfite indices for the Last aligner.</help>
-    <version>287</version>
+    <name>GSNAP with Goby support</name>
+    <id>GSNAP_WITH_GOBY_ARTIFACT</id>
+    <help>Version of GSNAP compiled with Goby support (auto-install).</help>
+    <version>2013.06.26</version>
     <requires>
         <resource>
-            <id>LAST_ARTIFACT</id>
-            <versionAtLeast>287</versionAtLeast>
+            <id>GOBY_CPP_API</id>
+            <versionAtLeast>2.1.2</versionAtLeast>
         </resource>
+
         <resource>
             <id>FAI_INDEXED_GENOMES</id>
-            <versionAtLeast>1.1.1</versionAtLeast>
-        </resource>
-        <resource>
-            <id>GOBY</id>
-            <versionAtLeast>20130413162635</versionAtLeast>
+            <versionAtLeast>1.1</versionAtLeast>
         </resource>
     </requires>
+
     <artifacts>
+        <artifact id="EXECUTABLE"/>
         <artifact id="INDEX">
             <attributes>
                 <attribute name="organism"/>
@@ -38,13 +37,5 @@
                 <attribute name="ensembl-version-number"/>
             </attributes>
         </artifact>
-        <artifact id="TOPLEVEL_IDS">
-            <attributes>
-                <attribute name="organism"/>
-                <attribute name="reference-build"/>
-                <attribute name="ensembl-version-number"/>
-            </attributes>
-        </artifact>
     </artifacts>
-
 </resourceConfig>

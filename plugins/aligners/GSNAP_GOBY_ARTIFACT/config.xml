@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<!--
+  ~ Copyright (c) 2011-2012  by Cornell University  and the  Cornell Research Foundation,
+  ~ Inc. All Rights Reserved.
+  ~
+  ~ GobyWeb plugins  are released  under the LGPL3 license,  unless  otherwise specified
+  ~ by the license of a specific plugin. See the file LGPL3.license in this distribution
+  ~ for a copy of the LGPL license.
+  ~
+  ~ When a plugin is not released under the LGPL3 license,  the comments  at the top  of
+  ~ the plugin's config.xml will indicate how that specific plugin is released/licensed.
+  -->
+<alignerConfig xsi:noNamespaceSchemaLocation="../../../schemas/plugins.xsd"
+               xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <name>GSNAP (Goby output)</name>
+    <id>GSNAP_GOBY_ARTIFACT</id>
+    <help>GSNAP writing to Goby output.</help>
+    <version>1.1</version>
+    <supportsColorSpace>false</supportsColorSpace>
+    <supportsGobyAlignments>true</supportsGobyAlignments>
+    <supportsPairedEndAlignments>true</supportsPairedEndAlignments>
+    <supportsBAMAlignments>false</supportsBAMAlignments>
+    <supportsBisulfiteConvertedReads>true</supportsBisulfiteConvertedReads>
+    <supportsGobyReads>true</supportsGobyReads>
+    <supportsFastqReads>false</supportsFastqReads>
+    <supportsFastaReads>false</supportsFastaReads>
+    <indexDirectory>%NODE_LOCAL_DATA_ROOT%/%VERSION%/%ORGANISM%/%SPACE%/gsnap</indexDirectory>
+    <requires>
+        <resource>
+            <id>GSNAP_WITH_GOBY_ARTIFACT</id>
+            <versionAtLeast>2013.06.26</versionAtLeast>
+        </resource>
+        <resource>
+            <id>ILLUMINA_ADAPTERS</id>
+            <versionAtLeast>1.0</versionAtLeast>
+        </resource>
+        <resource>
+            <id>EXTRACT_NONMATCHED</id>
+            <versionAtLeast>2012.06.05</versionAtLeast>
+        </resource>
+    </requires>
+    <runtime>
+        <need scope="ALIGN" key="excl" value="true"/>
+        <need scope="ALIGN" key="h_vmem" value="25g"/>
+        <need scope="ALIGN" key="virtual_free" value="28g"/>
+        <need scope="ALIGN" key="os" value="rhel5.4"/>
+        <need scope="ALIGN_JVM" value="4g"/>
+        <need scope="ALIGNMENT_POST_PROCESSING" key="excl" value="false"/>
+        <need scope="ALIGNMENT_POST_PROCESSING" key="h_vmem" value="10g" />
+        <need scope="ALIGNMENT_POST_PROCESSING" key="virtual_free" value="12g" />
+    </runtime>
+    <options>
+        <option>
+            <id>ALIGNER_OPTIONS</id>
+            <dbLegacyId>alignerAdvancedOptions</dbLegacyId>
+            <name>Other aligner options</name>
+            <help>Provide any additional GSNAP option here following the syntax expected by GSNAP.</help>
+            <required>false</required>
+            <defaultsTo></defaultsTo>
+            <type>STRING</type>
+            <flagFormat>%s</flagFormat>
+            <includeSpaces>true</includeSpaces>
+        </option>
+        <option>
+            <id>AMBIGUITY_THRESHOLD</id>
+            <dbLegacyId>ambiguityThreshold</dbLegacyId>
+            <name>Ambiguity threshold</name>
+            <help>The maximum number of locations a read can match in the reference to not be considered ambiguous. Read
+                is ambiguous if #hits>threshold.
+            </help>
+            <required>true</required>
+            <defaultsTo>1</defaultsTo>
+            <autoFormat>true</autoFormat>
+            <type>INTEGER</type>
+            <flagFormat>-n %s</flagFormat>
+            <includeSpaces>true</includeSpaces>
+        </option>
+        <option>
+            <id>STRANDNESS</id>
+            <name>Standness option</name>
+            <help>Determines whether --cmet-stranded of --cmet-nonstranded or --atoi-stranded or --atoi-nonstranded are
+                used.
+            </help>
+            <required>true</required>
+            <defaultsTo>STRANDED</defaultsTo>
+            <autoFormat>false</autoFormat>
+            <type>CATEGORY</type>
+            <categories>
+                <category>
+                    <id>STRANDED</id>
+                    <name>stranded</name>
+                    <value>stranded</value>
+                    <help>Stranded version of the GSNAP algorithms.</help>
+                </category>
+                <category>
+                    <id>NON_STRANDED</id>
+                    <name>non-stranded</name>
+                    <value>nonstranded</value>
+                    <help>Stranded version of the GSNAP algorithms.</help>
+                </category>
+            </categories>
+        </option>
+
+        <option>
+            <id>SPLICED_ALIGNMENT</id>
+            <name>Spliced alignment</name>
+            <help>Search for splices during alignment</help>
+            <required>true</required>
+            <defaultsTo>NON_SPLICED</defaultsTo>
+            <autoFormat>false</autoFormat>
+            <type>CATEGORY</type>
+            <categories>
+                <category>
+                    <id>NON_SPLICED</id>
+                    <name>Non-spliced</name>
+                    <value>nonspliced</value>
+                    <help>Do no search for splicing during the alignment</help>
+                </category>
+                <category>
+                    <id>SPLICED</id>
+                    <name>Spliced</name>
+                    <value>spliced</value>
+                    <help>Search for splicing during the alignment</help>
+                </category>
+            </categories>
+        </option>
+        <option>
+            <id>NON_MATCHING</id>
+            <name>Export non-matching reads</name>
+            <help>Output unmatched reads after alignment is complete</help>
+            <required>true</required>
+            <defaultsTo>false</defaultsTo>
+            <type>BOOLEAN</type>
+            <autoFormat>false</autoFormat>
+        </option>
+    </options>
+</alignerConfig>

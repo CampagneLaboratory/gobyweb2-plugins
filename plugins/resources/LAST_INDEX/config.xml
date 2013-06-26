@@ -12,9 +12,9 @@
   -->
 <resourceConfig xsi:noNamespaceSchemaLocation="../../../schemas/plugins.xsd"
                 xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
-    <name>Last bisulfite indices (auto-install)</name>
-    <id>LAST_BISULFITE_INDEX</id>
-    <help>Bisulfite indices for the Last aligner.</help>
+    <name>Last base level indices (auto-install)</name>
+    <id>LAST_INDEX</id>
+    <help>Base indices for the Last aligner.</help>
     <version>287</version>
     <requires>
         <resource>
