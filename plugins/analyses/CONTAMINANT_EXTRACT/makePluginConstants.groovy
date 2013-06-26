@@ -25,7 +25,10 @@ int execute(final Object gobywebObj, final File tempDir) {
             writer.println "PLUGIN_READS[${index + 1}]=${alignment.getReads().getBasename()}"
             writer.println "PLUGIN_BASENAMES[${index + 1}]=${alignmentFilename(alignment)}"
         }
-        def numSplits = gobywebObj.options["CONTAMINANT_EXTRACT_MERGE_GROUPS"] == 'true' ? gobywebObj.numberOfGroups : gobywebObj.allAlignments().size()
+        (1..(gobywebObj.numberOfGroups)).each {
+            writer.println "PLUGIN_GROUP_ALIGNMENTS[${it}]='${gobywebObj.alignmentsListForGroupNumber((it)).collect {it}.join(" ")}'"
+        }
+        def numSplits = gobywebObj.options["PLUGINS_ALIGNMENT_ANALYSIS_CONTAMINANT_EXTRACT_MERGE_GROUPS"] == 'true' ? gobywebObj.numberOfGroups : gobywebObj.allAlignments().size()
         writer.println "NUM_SPLITS=${numSplits}"
     } finally {
         writer.close()
