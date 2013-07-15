@@ -23,7 +23,13 @@
     </requires>
     <artifacts>
         <artifact id="DISTRIBUTION" order="1"/>
-        <artifact id="LANGUAGES" order="2"/>
+        <artifact id="SUPPORT_LIBS" order="2"/>
     </artifacts>
+    <files>
+        <file>
+            <id>PATTERN_MATCHER</id>
+            <filename>pattern-matcher.jar</filename>
+        </file>
+    </files>
 
 </resourceConfig>

@@ -14,7 +14,10 @@ function plugin_install_artifact {
             cp -r MPS\ ${VERSION}/* ${installation_path}/
             return 0
             ;;
-         'LANGUAGES' )
+         'SUPPORT_LIBS' )
+                ${RESOURCES_FETCH_URL_SCRIPT} http://wildcard.googlecode.com/files/wildcard-1.03.zip wildcard-1.03.zip
+                unzip wildcard-1.03.zip
+                cp wildcard-1.03/wildcard-1.03.jar ${installation_path}/
                 return 0;
             ;;
         *)  echo "Resource artifact id not recognized: "+$id
