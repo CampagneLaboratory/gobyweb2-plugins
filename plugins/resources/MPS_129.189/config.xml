@@ -30,6 +30,10 @@
             <id>PATTERN_MATCHER</id>
             <filename>pattern-matcher.jar</filename>
         </file>
+        <file>
+            <id>JARS_LIST</id>
+            <filename>mps-jars-required.txt</filename>
+        </file>
     </files>
 
 </resourceConfig>
