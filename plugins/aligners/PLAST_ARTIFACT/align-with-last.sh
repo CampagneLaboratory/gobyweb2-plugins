@@ -54,3 +54,4 @@ expose_artifact_environment_variables
                         -jar ${RESOURCES_GOBY_GOBY_JAR} \
                         --mode last-to-compact -i ${TEMP_FILENAME}-2.maf -o ${OUTPUT} --third-party-input true \
                         --only-maf -q ${FULL_READS_INPUT} -t ${REFERENCE} --quality-filter-parameters threshold=1.0
+    dieUponError "goby could not convert maf to compact alignment format"
