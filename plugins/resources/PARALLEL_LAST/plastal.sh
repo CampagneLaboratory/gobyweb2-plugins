@@ -28,4 +28,4 @@ fi
 java ${GRID_JVM_FLAGS} -Dlog4j.debug=true -Dlog4j.configuration=file:${JOB_DIR}/goby/log4j.properties \
                        -Dgoby.configuration=file:${TMPDIR}/goby.properties \
                        -jar ${RESOURCES_GOBY_GOBY_JAR} \
-                       --mode run-parallel -i "${READS_FOR_SPLIT}" -n "${NUM_THREADS}" ${PAIRED_ARG} -o "${OUTPUT}"  ${ALIGN_COMMAND} ${READS_FOR_SPLIT} ${PAIRED_END_ALIGNMENT} %read.fastq% ${PAIR} %tmp1% %output% ${JOB_DIR}˚
+                       --mode run-parallel -i "${READS_FOR_SPLIT}" -n "${NUM_THREADS}" ${PAIRED_ARG} -o "${OUTPUT}"  ${ALIGN_COMMAND} ${READS_FOR_SPLIT} ${PAIRED_END_ALIGNMENT} %read.fastq% ${PAIR} %tmp1% %output% ${JOB_DIR}
