@@ -49,7 +49,7 @@
         </file>
     </files>
     <runtime>
-        <need scope="ALIGN" key="excl" value="false"/>
+        <need scope="ALIGN" key="excl" value="true"/>
         <need scope="ALIGN" key="h_vmem" value="30g"/>
         <need scope="ALIGN" key="virtual_free" value="32g"/>
         <need scope="ALIGN_JVM" value="4g"/>
