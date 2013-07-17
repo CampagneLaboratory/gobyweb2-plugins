@@ -43,7 +43,8 @@ function plugin_align {
 
        # Make sure the scripts we use are executable:
       chmod +x ${PLUGINS_ALIGNER_PLAST_ARTIFACT_FILES_ALIGN_BOTH_STRANDS} ${RESOURCES_PLAST_SCRIPT} ${RESOURCES_GOBY_SHELL_SCRIPT}
-
+      export PAIRED_END_ALIGNMENT
+      export JOB_DIR
       ${RESOURCES_PLAST_SCRIPT} ${JOB_DIR} ${PLUGINS_ALIGNER_PLAST_ARTIFACT_FILES_ALIGN_BOTH_STRANDS} ${READS_FILE} ${TAG}-tmp-align
       goby merge-compact-alignments  ${TAG}-tmp-align -o ${OUTPUT}
       dieUponError "Aligning forward and reverse strand results failed, sub-task ${CURRENT_PART} of ${NUMBER_OF_PARTS}, failed"
