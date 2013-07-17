@@ -33,13 +33,14 @@
             <id>LAST_ARTIFACT</id>
             <versionExactly>287</versionExactly>
         </resource>
+
         <resource>
             <id>LAST_INDEX</id>
             <versionAtLeast>287</versionAtLeast>
         </resource>
         <resource>
             <id>PLAST</id>
-            <versionAtLeast>1.1</versionAtLeast>
+            <versionAtLeast>1.2</versionAtLeast>
         </resource>
     </requires>
     <files>

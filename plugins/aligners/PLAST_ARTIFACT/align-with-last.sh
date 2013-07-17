@@ -1,18 +1,22 @@
-#!/bin/bash
+set -x
 FULL_READS_INPUT=$1
-READS_FASTQ=$2
+PAIRED_END_ALIGNMENT=$2
+READS_FASTQ=$3
 
 if [ "${PAIRED_END_ALIGNMENT}" == "true" ]; then
-    PAIRS_FASTQ=$3
-    shift
+    PAIRS_FASTQ=$4
+    shift 1
 fi
 
-TEMP_FILENAME=$3
-OUTPUT=$4
-JOB_DIR=$5
+TEMP_FILENAME=$4
+OUTPUT=$5
+JOB_DIR=$6
+
 # Grab the variables and functions we need:
 . ${JOB_DIR}/artifacts.sh
 expose_artifact_environment_variables
+
+
 
     RESOURCES_LAST_EXEC_PATH=${RESOURCES_ARTIFACTS_LAST_ARTIFACT_BINARIES}/bin/lastal
     RESOURCES_LAST_MERGE_BATCHES_EXEC=${RESOURCES_ARTIFACTS_LAST_ARTIFACT_BINARIES}/scripts/last-merge-batches.py
