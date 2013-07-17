@@ -14,9 +14,16 @@ fi
 . ${JOB_DIR}/constants.sh
 . ${JOB_DIR}/auto-options.sh
 . ${RESOURCES_GOBY_SHELL_SCRIPT}
+if [ "${PAIRED_END_ALIGNMENT}" == "true" ]; then
+  PAIR="%pair.fastq%"
+  PAIRED_ARG="--paired"
+else
+  PAIR=" "
+  PAIRED_ARG=" "
+fi
 
 # This script splits a compact-reads file in num-parts (n) and executes ALIGN_COMMAND on each bit. It concatenates alignments that result to produce OUTPUT
 java ${GRID_JVM_FLAGS} -Dlog4j.debug=true -Dlog4j.configuration=file:${JOB_DIR}/goby/log4j.properties \
                        -Dgoby.configuration=file:${TMPDIR}/goby.properties \
                        -jar ${RESOURCES_GOBY_GOBY_JAR} \
-                       --mode run-parallel -i "${READS_FOR_SPLIT}" -n "${NUM_THREADS}" -o "${OUTPUT}"  ${ALIGN_COMMAND} ${READS_FOR_SPLIT} %read.fastq% %tmp1% %output% ${JOB_DIR}
+                       --mode run-parallel -i "${READS_FOR_SPLIT}" -n "${NUM_THREADS}" ${PAIRED_ARG} -o "${OUTPUT}"  ${ALIGN_COMMAND} ${READS_FOR_SPLIT} %read.fastq% ${PAIR} %tmp1% %output% ${JOB_DIR}

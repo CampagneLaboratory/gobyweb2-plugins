@@ -1,6 +1,12 @@
 #!/bin/bash
 FULL_READS_INPUT=$1
 READS_FASTQ=$2
+
+if [ "${PAIRED_END_ALIGNMENT}" == "true" ]; then
+    PAIRS_FASTQ=$3
+    shift
+fi
+
 TEMP_FILENAME=$3
 OUTPUT=$4
 JOB_DIR=$5
@@ -28,8 +34,19 @@ expose_artifact_environment_variables
 
     ${RESOURCES_LAST_EXEC_PATH} -v -s1 -Q1 -d${PLUGINS_ALIGNER_PLAST_ARTIFACT_D} \
         -e${PLUGINS_ALIGNER_PLAST_ARTIFACT_E} ${INDEX_DIRECTORY}/index ${READS_FASTQ} -o ${TEMP_FILENAME}.maf
+     dieUponError "last could not align reads"
 
-    cat ${TEMP_FILENAME}.maf | ${RESOURCES_LAST_MAP_PROBS_EXEC} -s${PLUGINS_ALIGNER_PLAST_ARTIFACT_S} > ${TEMP_FILENAME}-2.maf
+    if [ "${PAIRED_END_ALIGNMENT}" == "true" ]; then
+        ${RESOURCES_LAST_EXEC_PATH} -v -s1 -Q1 -d${PLUGINS_ALIGNER_PLAST_ARTIFACT_D} \
+           -e${PLUGINS_ALIGNER_PLAST_ARTIFACT_E} ${INDEX_DIRECTORY}/index ${PAIRS_FASTQ} -o ${TEMP_FILENAME}-pairs.maf
+        dieUponError "last could not align paired reads"
+        ${RESOURCES_ARTIFACTS_LAST_ARTIFACT_BINARIES}/scripts/last-pair-probs.py ${TEMP_FILENAME}.maf ${TEMP_FILENAME}-pairs.maf > ${TEMP_FILENAME}-2.maf
+        dieUponError "last could not last-pair-probs.py"
+    else
+        cat ${TEMP_FILENAME}.maf | ${RESOURCES_LAST_MAP_PROBS_EXEC} -s${PLUGINS_ALIGNER_PLAST_ARTIFACT_S} > ${TEMP_FILENAME}-2.maf
+        dieUponError "last could not last-map-probs.py"
+    fi
+
     REFERENCE=${TOPLEVEL_DIRECTORY}/toplevel-ids.compact-reads
 
     java -Xmx${PLUGIN_NEED_ALIGN_JVM} -Dlog4j.debug=true -Dlog4j.configuration=file:${JOB_DIR}/goby/log4j.properties \
