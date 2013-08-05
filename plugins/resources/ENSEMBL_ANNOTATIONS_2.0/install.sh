@@ -15,7 +15,7 @@ function plugin_install_artifact {
             GENOME_REFERENCE_ID=$4
             ENSEMBL_RELEASE=$5
 
-            ${RESOURCES_FETCH_URL_SCRIPT} file:/home/gobyweb/url-cache/biomart-packed-${ORGANISM}_${GENOME_REFERENCE_ID}_${ENSEMBL_RELEASE}.tar.gz  biomart-packed.tar.gz
+            cp /home/gobyweb/url-cache/biomart-packed-${ORGANISM}_${GENOME_REFERENCE_ID}_${ENSEMBL_RELEASE}.tar.gz  biomart-packed.tar.gz
 
             if [ -x biomart-packed.tar.gz ]; then
 
