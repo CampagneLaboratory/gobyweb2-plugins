@@ -16,8 +16,9 @@ function plugin_install_artifact {
             ENSEMBL_RELEASE=$5
             pwd
             L=`pwd`
+            set +e
             cp /home/gobyweb/url-cache/biomart-packed-${ORGANISM}_${GENOME_REFERENCE_ID}_${ENSEMBL_RELEASE}.tar.gz  ${L}/biomart-packed.tar.gz
-
+            set -e
             if [ -f ${L}/biomart-packed.tar.gz ]; then
 
               cd ${installation_path};
