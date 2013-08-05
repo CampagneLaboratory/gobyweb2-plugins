@@ -17,18 +17,14 @@ function plugin_install_artifact {
             pwd
             L=`pwd`
             cp /home/gobyweb/url-cache/biomart-packed-${ORGANISM}_${GENOME_REFERENCE_ID}_${ENSEMBL_RELEASE}.tar.gz  ${L}/biomart-packed.tar.gz
-            ls -ltr ${L}
+
             if [ -f ${L}/biomart-packed.tar.gz ]; then
 
               cd ${installation_path};
               gzip -c -d ${L}/biomart-packed.tar.gz | tar -xvf -
               return 0
             fi
-            if [ -f ${L}/biomart-packed.tar.gz ]; then
-            return 2
-            else
-            return 1
-            fi
+
             echo "Organism=${ORGANISM} Reference-build=${GENOME_REFERENCE_ID} ENSEMBL_RELEASE=${ENSEMBL_RELEASE}"
             ORG_LOWERCASE=`echo  ${ORGANISM}| tr '[:upper:]' '[:lower:]'`
 
