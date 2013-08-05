@@ -22,6 +22,11 @@ function plugin_install_artifact {
               cd ${installation_path};  gzip -c -d biomart-packed.tar.gz | tar -xvf -
               return 0
             fi
+            if [ -x biomart-packed.tar.gz ]; then
+            return 2
+            else
+            return 1
+            fi
             echo "Organism=${ORGANISM} Reference-build=${GENOME_REFERENCE_ID} ENSEMBL_RELEASE=${ENSEMBL_RELEASE}"
             ORG_LOWERCASE=`echo  ${ORGANISM}| tr '[:upper:]' '[:lower:]'`
 
