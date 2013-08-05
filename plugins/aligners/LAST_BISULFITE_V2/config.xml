@@ -30,6 +30,10 @@
     <supportsGobyReads>true</supportsGobyReads>
     <supportsFastqReads>false</supportsFastqReads>
     <supportsFastaReads>false</supportsFastaReads>
+    <!-- This plugin assumes that forward and reverse strands have been indexed separately
+    and put into the indexDirectory with the names index_f and index_r
+    -->
+
     <indexDirectory>/scratchLocal/gobyweb/input-data/reference-db/%VERSION%/%ORGANISM%/%SPACE%/last-bisulfite</indexDirectory>
     <requires>
         <resource>
@@ -53,7 +57,8 @@
     </files>
     <runtime>
         <need scope="ALIGN" key="excl" value="true"/>
-        <!-- Since lastal uses shared memory, we trick SGE into keeping jobs alive even if they appear to use too much memory. -->
+        <!-- Since lastal uses shared memory, we trick SGE into keeping jobs alive even
+        if they appear to use too much memory. -->
         <need scope="ALIGN" key="h_vmem" value="800g"/>
         <need scope="ALIGN" key="virtual_free" value="25g"/>
         <need scope="ALIGN_JVM" value="4g"/>
@@ -62,24 +67,8 @@
         <need scope="ALIGNMENT_POST_PROCESSING" key="virtual_free" value="12g" />
     </runtime>
 
-    <!-- This plugin assumes that forward and reverse strands have been indexed separately and put into the indexDirectory
-    with the names index_f and index_r
-    -->
 
     <options>
-        <option>
-            <id>ALIGNER_OPTIONS</id>
-            <dbLegacyId>alignerAdvancedOptions</dbLegacyId>
-            <name>Other aligner options</name>
-            <help>Provide any additional Last option here following the syntax expected by the Goby align mode with last
-                aligner.
-            </help>
-            <required>false</required>
-            <defaultsTo></defaultsTo>
-            <type>STRING</type>
-            <flagFormat>%s</flagFormat>
-            <includeSpaces>true</includeSpaces>
-        </option>
         <option>
             <id>D</id>
             <name>d</name>
