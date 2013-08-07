@@ -34,7 +34,7 @@ EOF
             ;;
 
            'VEP_CACHE')
-                VERSION="71"
+                VERSION="72"
 
                 ORG_LOWERCASE=`echo  ${ORGANISM}| tr '[:upper:]' '[:lower:]'`
 
