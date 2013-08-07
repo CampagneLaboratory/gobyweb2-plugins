@@ -1,12 +1,9 @@
 # COPYRIGHT_MAY_GO_HERE
 # This script expects the following variables to be defined:
 
-# IS_TRANSCRIPT = whether alignments were done against a cDNA reference.
+
 # GROUPS_DEFINITION = description of the groups, in the format group-1=sample_i,sample_j/group-2=sample_k,..
 # COMPARE_DEFINITION
-# ANNOTATION_FILE = file describing annotations in the Goby annotation format.
-# ANNOTATION_TYPES = gene|exon|other, specifies the kind of annotations to calculate counts for.
-# USE_WEIGHTS_DIRECTIVE = optional, command line flags to have Goby annotation-to-counts adjust counts with weights.
 
 # All output files must be created in the directory where the analysis script is run.
 # the script generates one TSV file with the statistics, as well as images for the scatter plots:
