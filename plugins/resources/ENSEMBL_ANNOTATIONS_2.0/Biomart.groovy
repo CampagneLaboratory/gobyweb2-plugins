@@ -194,6 +194,7 @@ public class Biomart {
                     outputFilename: "exon-annotations.tsv",
                     sort: "-k 1,1 -k 5,5n -k 6,6n",
                     dataset: "gene_ensembl",
+                    filterByChrom: true,
                     fields: [
                             "chromosome_name": "Chromosome Name",
                             "strand": "Strand",
@@ -207,6 +208,7 @@ public class Biomart {
                                           outputFilename: "gene-annotations.tsv",
                                           sort: "-k 1,1 -k 5,5n -k 6,6n",
                                           dataset: "gene_ensembl",
+                                          filterByChrom: true,
                                           fields: [
                                                   "chromosome_name": "Chromosome Name",
                                                   "strand": "Strand",
@@ -220,6 +222,7 @@ public class Biomart {
                                outputFilename: "five-prime-annotations.tsv",
                                sort: "-k 1,1 -k 5,5n -k 6,6n",
                                dataset: "gene_ensembl",
+                               filterByChrom: true,
                                fields: [
                                        "chromosome_name": "Chromosome Name",
                                        "strand": "Strand",
@@ -233,6 +236,7 @@ public class Biomart {
                                            outputFilename: "three-prime-annotations.tsv",
                                            sort: "-k 1,1 -k 5,5n -k 6,6n",
                                            dataset: "gene_ensembl",
+                                           filterByChrom: true,
                                            fields: [
                                                    "chromosome_name": "Chromosome Name",
                                                    "strand": "Strand",
@@ -247,6 +251,7 @@ public class Biomart {
                     sort: "-k 1,1 -k 2,2n -k 3,3n",
                     index: "-s 1 -b 2 -e 3",
                     dataset: "gene_ensembl",
+                    filterByChrom: true,
                     fields: [
                             "chromosome_name": "CHROM",
                             "start_position": "FROM",
@@ -259,6 +264,7 @@ public class Biomart {
                                 sort: "-k 1,1 -k 2,2n -k 3,3n",
                                 index: "-s 1 -b 2 -e 3",
                                 dataset: "gene_ensembl",
+                                filterByChrom: true,
                                 fields: [
                                         "chromosome_name": "CHROM",
                                         "start_position": "FROM",
@@ -272,6 +278,7 @@ public class Biomart {
                     // file and dashes in the filename would prevent attaching the database
                     database: true,
                     dataset: "gene_ensembl",
+                    filterByChrom: true,
                     fields: [
                             "ensembl_gene_id": "GENE",
                             "external_gene_id": "GENE_ID",  // a gene id/gene name
