@@ -6,14 +6,25 @@ function plugin_install_artifact {
     installation_path=$2
     echo "Processing ${id}"
 
+    VERSION="72"
+
     case ${id} in
 
         'INSTALL_DIR')
             mkdir src
             cd src
 
-            ${RESOURCES_FETCH_URL_SCRIPT} ftp://ftp.ensembl.org/pub/ensembl-api.tar.gz
-            gzip -c -d ensembl-api.tar.gz| tar -xf -
+            ${RESOURCES_FETCH_URL_SCRIPT} http://useast.ensembl.org/cvsdownloads/ensembl-${VERSION}.tar.gz
+            gzip -c -d ensembl-${VERSION}.tar.gz| tar -xf -
+
+            ${RESOURCES_FETCH_URL_SCRIPT} http://useast.ensembl.org/cvsdownloads/ensembl-compara-${VERSION}.tar.gz
+            gzip -c -d ensembl-variation-${VERSION}.tar.gz| tar -xf -
+
+            ${RESOURCES_FETCH_URL_SCRIPT} http://useast.ensembl.org/cvsdownloads/ensembl-variation-${VERSION}.tar.gz
+            gzip -c -d ensembl-variation-${VERSION}.tar.gz| tar -xf -
+
+            ${RESOURCES_FETCH_URL_SCRIPT} http://useast.ensembl.org/cvsdownloads/ensembl-functgenomics-${VERSION}.tar.gz
+            gzip -c -d ensembl-variation-${VERSION}.tar.gz| tar -xf -
 
             ${RESOURCES_FETCH_URL_SCRIPT} http://bioperl.org/DIST/old_releases/bioperl-1.2.3.tar.gz
             gzip -c -d bioperl-1.2.3.tar.gz |tar -xf -
@@ -34,14 +45,12 @@ EOF
             ;;
 
            'VEP_CACHE')
-                VERSION="72"
 
                 ORG_LOWERCASE=`echo  ${ORGANISM}| tr '[:upper:]' '[:lower:]'`
 
                 ${RESOURCES_FETCH_URL_SCRIPT} ftp://ftp.ensembl.org/pub/release-${VERSION}/variation/VEP/${ORG_LOWERCASE}_vep_${VERSION}.tar.gz
 
-                mkdir -p ${installation_path}/VEP_CACHE/
-                gzip -c -d  ${ORG_LOWERCASE}_vep_*.tar.gz | (cd ${installation_path}/ ; tar -xf -)
+                gzip -c -d  ${ORG_LOWERCASE}_vep_*.tar.gz | (cd ${installation_path} ; tar -xf -)
 
                 if [ -e ${installation_path}/${ORG_LOWERCASE} ]; then
                     return 0
