@@ -18,13 +18,16 @@ function plugin_install_artifact {
             gzip -c -d ensembl-${VERSION}.tar.gz| tar -xf -
 
             ${RESOURCES_FETCH_URL_SCRIPT} http://useast.ensembl.org/cvsdownloads/ensembl-compara-${VERSION}.tar.gz
-            gzip -c -d ensembl-variation-${VERSION}.tar.gz| tar -xf -
+            gzip -c -d ensembl-compara-${VERSION}.tar.gz| tar -xf -
 
             ${RESOURCES_FETCH_URL_SCRIPT} http://useast.ensembl.org/cvsdownloads/ensembl-variation-${VERSION}.tar.gz
             gzip -c -d ensembl-variation-${VERSION}.tar.gz| tar -xf -
 
             ${RESOURCES_FETCH_URL_SCRIPT} http://useast.ensembl.org/cvsdownloads/ensembl-functgenomics-${VERSION}.tar.gz
-            gzip -c -d ensembl-variation-${VERSION}.tar.gz| tar -xf -
+            gzip -c -d ensembl-functgenomics-${VERSION}.tar.gz| tar -xf -
+
+            ${RESOURCES_FETCH_URL_SCRIPT} http://useast.ensembl.org/cvsdownloads/ensembl-tools-${VERSION}.tar.gz
+            gzip -c -d ensembl-tools-${VERSION}.tar.gz| tar -xf -
 
             ${RESOURCES_FETCH_URL_SCRIPT} http://bioperl.org/DIST/old_releases/bioperl-1.2.3.tar.gz
             gzip -c -d bioperl-1.2.3.tar.gz |tar -xf -
