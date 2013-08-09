@@ -3,6 +3,7 @@ GobyWeb2 Plugins Change log
 
 ## Towards release 2.2.2 (future)
 1. ENSEMBL_ANNOTATIONS resource:  Biomart.groovy script now restarts dropped connections up to three times. Advance version number to 2.1.2.
+1. DIFF_EXP_GOBY and DIFF_EXP_GOBY_ARTIFACT: Require at least two groups for a Goby DiffExp. The code will not work with a single group and no group comparison.
 
 ## Release 2.2.1 (Aug 9 2013)
 
