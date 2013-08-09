@@ -1,6 +1,10 @@
 GobyWeb2 Plugins Change log
+===========================
 
-# Release 2.2.1 (Aug 9 2013)
+## Towards release 2.2.2 (future)
+1. ENSEMBL_ANNOTATIONS resource:  Biomart.groovy script now restarts dropped connections up to three times. Advance version number to 2.1.2.
+
+## Release 2.2.1 (Aug 9 2013)
 
 1. Fix VEP plugin for new version of Variant Effect Predictor (v72). Upgrade links for ensembl API distribution. Fetch and decompress ensembl-tools archive because VEP is now packaged in this file (would have been nice to see this listed as a change in the VEP/Ensembl API change log.
 2. ENSEMBL_ANNOTATIONS resource: Biomart.groovy script. Add filter by chromosome for new annotation kinds. This attribute forces download chromosome by chromosome, which is necessary with Biomart for large tables.
