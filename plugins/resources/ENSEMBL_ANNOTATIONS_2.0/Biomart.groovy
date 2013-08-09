@@ -3,7 +3,7 @@
 @Grab(group = 'org.apache.httpcomponents', module = 'httpclient', version = '4.1.1')
 
 import com.martiansoftware.jsap.JSAPResult
-import org.apache.http.HttpEntity
+import org.springframework.http.HttpEntity
 import org.apache.http.HttpResponse
 import org.apache.http.NameValuePair
 import org.apache.http.client.HttpClient
@@ -185,7 +185,7 @@ public class Biomart {
             "rattus_norvegicus": "rnorvegicus",
             "xenopus_tropicalis": "xtropicalis",
             "Oryctolagus_cuniculus": "ocuniculus",
-            "Caenorhabditis_elegans":"celegans",
+            "Caenorhabditis_elegans": "celegans",
 
     ]
 
@@ -205,47 +205,47 @@ public class Biomart {
                     ]
             ],
             "gene-annotations": [
-                                          outputFilename: "gene-annotations.tsv",
-                                          sort: "-k 1,1 -k 5,5n -k 6,6n",
-                                          dataset: "gene_ensembl",
-                                          filterByChrom: true,
-                                          fields: [
-                                                  "chromosome_name": "Chromosome Name",
-                                                  "strand": "Strand",
-                                                  "ensembl_gene_id": "Ensembl Gene ID",
-                                                  "ensembl_gene_id": "Ensembl Gene ID",
-                                                  "start_position": "FROM",
-                                                  "end_position": "TO",
-                                          ]
-                                  ],
-           "five-prime-annotations": [
-                               outputFilename: "five-prime-annotations.tsv",
-                               sort: "-k 1,1 -k 5,5n -k 6,6n",
-                               dataset: "gene_ensembl",
-                               filterByChrom: true,
-                               fields: [
-                                       "chromosome_name": "Chromosome Name",
-                                       "strand": "Strand",
-                                       "ensembl_gene_id": "Ensembl Gene ID",
-                                       "ensembl_transcript_id": "Ensembl Transcript ID",
-                                       "5_utr_start": "FROM",
-                                       "5_utr_end": "TO",
-                                ]
-                       ],
+                    outputFilename: "gene-annotations.tsv",
+                    sort: "-k 1,1 -k 5,5n -k 6,6n",
+                    dataset: "gene_ensembl",
+                    filterByChrom: true,
+                    fields: [
+                            "chromosome_name": "Chromosome Name",
+                            "strand": "Strand",
+                            "ensembl_gene_id": "Ensembl Gene ID",
+                            "ensembl_gene_id": "Ensembl Gene ID",
+                            "start_position": "FROM",
+                            "end_position": "TO",
+                    ]
+            ],
+            "five-prime-annotations": [
+                    outputFilename: "five-prime-annotations.tsv",
+                    sort: "-k 1,1 -k 5,5n -k 6,6n",
+                    dataset: "gene_ensembl",
+                    filterByChrom: true,
+                    fields: [
+                            "chromosome_name": "Chromosome Name",
+                            "strand": "Strand",
+                            "ensembl_gene_id": "Ensembl Gene ID",
+                            "ensembl_transcript_id": "Ensembl Transcript ID",
+                            "5_utr_start": "FROM",
+                            "5_utr_end": "TO",
+                    ]
+            ],
             "three-prime-annotations": [
-                                           outputFilename: "three-prime-annotations.tsv",
-                                           sort: "-k 1,1 -k 5,5n -k 6,6n",
-                                           dataset: "gene_ensembl",
-                                           filterByChrom: true,
-                                           fields: [
-                                                   "chromosome_name": "Chromosome Name",
-                                                   "strand": "Strand",
-                                                   "ensembl_gene_id": "Ensembl Gene ID",
-                                                   "ensembl_transcript_id": "Ensembl Transcript ID",
-                                                   "3_utr_start": "FROM",
-                                                   "3_utr_end": "TO",
-                                            ]
-                                   ],
+                    outputFilename: "three-prime-annotations.tsv",
+                    sort: "-k 1,1 -k 5,5n -k 6,6n",
+                    dataset: "gene_ensembl",
+                    filterByChrom: true,
+                    fields: [
+                            "chromosome_name": "Chromosome Name",
+                            "strand": "Strand",
+                            "ensembl_gene_id": "Ensembl Gene ID",
+                            "ensembl_transcript_id": "Ensembl Transcript ID",
+                            "3_utr_start": "FROM",
+                            "3_utr_end": "TO",
+                    ]
+            ],
             "ref-start-end-gene": [
                     outputFilename: "ref-start-end-gene-sorted.tsv",
                     sort: "-k 1,1 -k 2,2n -k 3,3n",
@@ -260,19 +260,19 @@ public class Biomart {
                     ]
             ],
             "ref-start-end-gene-hgnc": [
-                                outputFilename: "ref-start-end-gene-hgnc-sorted.tsv",
-                                sort: "-k 1,1 -k 2,2n -k 3,3n",
-                                index: "-s 1 -b 2 -e 3",
-                                dataset: "gene_ensembl",
-                                filterByChrom: true,
-                                fields: [
-                                        "chromosome_name": "CHROM",
-                                        "start_position": "FROM",
-                                        "end_position": "TO",
-                                        "ensembl_gene_id": "GENE",
-                                        "hgnc_symbol": "HGNC",
-                                ]
-                        ],
+                    outputFilename: "ref-start-end-gene-hgnc-sorted.tsv",
+                    sort: "-k 1,1 -k 2,2n -k 3,3n",
+                    index: "-s 1 -b 2 -e 3",
+                    dataset: "gene_ensembl",
+                    filterByChrom: true,
+                    fields: [
+                            "chromosome_name": "CHROM",
+                            "start_position": "FROM",
+                            "end_position": "TO",
+                            "ensembl_gene_id": "GENE",
+                            "hgnc_symbol": "HGNC",
+                    ]
+            ],
             "gene-id-description": [
                     outputFilename: "gene_id_description.tsv",   // note the undescores because we make a SqlLite db
                     // file and dashes in the filename would prevent attaching the database
@@ -410,7 +410,7 @@ public class Biomart {
         }
 
         if (chromList == null) {
-            if (!fetchFile(url, outputFilename, true, virtualSchemaName, dataset, fields, null)) {
+            if (!fetchFileWithRetries(url, outputFilename, true, virtualSchemaName, dataset, fields, null)) {
                 // failure to fetch an optional file is not an error:
                 return !config.optional
             }
@@ -437,7 +437,7 @@ public class Biomart {
                     println ">"
                     println "> Fetching chromosome ${chrom}, ${i} of ${numChroms} for ${organism} / ${exportType}"
                     println ">"
-                    if (!fetchFile(url, chromFilename, writeHeader, virtualSchemaName, dataset, fields, chrom)) {
+                    if (!fetchFileWithRetries(url, chromFilename, writeHeader, virtualSchemaName, dataset, fields, chrom)) {
                         return !config.optional
                     }
                 }
@@ -500,9 +500,8 @@ public class Biomart {
         System.err.println "exportType export to ${sortedOutputFilename ?: outputFilename} completed."
         return true
     }
-
     /**
-     *
+     * Fetch file with up to three retries. 
      * @param url
      * @param outputFilename
      * @param writeHeader
@@ -512,7 +511,34 @@ public class Biomart {
      * @param filterChrom
      * @return
      */
-    def fetchFile(url, outputFilename, writeHeader, virtualSchemaName, dataset, fields, filterChrom) {
+    def fetchFileWithRetries(url, outputFilename, writeHeader, virtualSchemaName, dataset, fields, filterChrom) {
+        int numRetries = 0;
+        int maxRetries = 3;
+        boolean success = false;
+        while (!success) {
+        }
+        try {
+            success = fetchFileWithRetries(outputFilename, writeHeader, virtualSchemaName, dataset, fields, filterChrom);
+            if (success) return true;
+        } catch (Exception e) {
+            System.err.println("Unable to fetch file from url ${url} with filterChromosome=${filterChrom}", e);
+            numRetries++;
+            if (numRetries > maxRetries) return false;
+        }
+    }
+
+/**
+ *
+ * @param url
+ * @param outputFilename
+ * @param writeHeader
+ * @param virtualSchemaName
+ * @param dataset
+ * @param fields
+ * @param filterChrom
+ * @return False upon error, True upon success
+ */
+    boolean fetchFileWithRetries(url, outputFilename, writeHeader, virtualSchemaName, dataset, fields, filterChrom) {
         // Output the header
         PrintStream out = null
         File xmlQueryFile = null
@@ -595,7 +621,7 @@ public class Biomart {
                 // Retrieve the response
                 HttpResponse response = httpclient.execute(httpPost);
                 HttpEntity responseEntity = response.getEntity();
-                Date lastTime=new Date()
+                Date lastTime = new Date()
                 if (responseEntity != null) {
                     InputStream instream = responseEntity.getContent();
                     int l
@@ -609,21 +635,21 @@ public class Biomart {
                             //print "."
                             Date currentTime = new Date()
                             long elapsedSecs = (currentTime.getTime() - lastTime.getTime()) / 1000;
-                            float bytesPerSec = ((float)l) / (elapsedSecs+1);
-                            float kbPerSec = ((float)l) / 1024f / (elapsedSecs+1);
-                            float mbPerSec = ((float)l) / 1024f / 1024f / (elapsedSecs+1);
+                            float bytesPerSec = ((float) l) / (elapsedSecs + 1);
+                            float kbPerSec = ((float) l) / 1024f / (elapsedSecs + 1);
+                            float mbPerSec = ((float) l) / 1024f / 1024f / (elapsedSecs + 1);
                             printf("Downloaded %d so far at %f bytes/sec %f kb/sec %f MB/sec\r", total,
-                                    bytesPerSec,kbPerSec, mbPerSec)
+                                    bytesPerSec, kbPerSec, mbPerSec)
                             lastTime = currentTime
                         }
                     }
                     println "Received ${total} at ${new Date().toString()}"
                 }
             }
-        } catch (Exception e){
-            e.printStackTrace()
-            System.exit(127);
-        } finally{
+        } catch (Exception e) {
+            // let the retry do its work.
+            return false;
+        } finally {
             if (out != null) {
                 out.close()
             }
@@ -634,12 +660,12 @@ public class Biomart {
         return validateFile(outputFile, filterChrom)
     }
 
-    /**
-     *
-     * @param file
-     * @param filterChrom
-     * @return False upon error, True upon success
-     */
+/**
+ *
+ * @param file
+ * @param filterChrom
+ * @return False upon error, True upon success
+ */
     def validateFile(File file, filterChrom) {
         if (file.length() == 0) {
             if (filterChrom == null) {
@@ -671,11 +697,11 @@ public class Biomart {
         }
         return true
     }
-    /**
-     *
-     * @param args
-     * @return False upon error, True upon success
-     */
+/**
+ *
+ * @param args
+ * @return False upon error, True upon success
+ */
     def boolean configure(final String[] args) {
         def jsapConfig = new org.campagnelab.groovySupport.JsapSupport()
                 .setArgs(args)
@@ -771,4 +797,5 @@ public class Biomart {
             return false
         }
     }
+
 }
