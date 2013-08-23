@@ -34,9 +34,5 @@
             <id>JARS_LIST</id>
             <filename>mps-jars-required.txt</filename>
         </file>
-        <file>
-            <id>SUPPORT_JARS_LIST</id>
-            <filename>support-jars.txt</filename>
-        </file>
     </files>
 </resourceConfig>
