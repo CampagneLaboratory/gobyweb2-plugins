@@ -1,0 +1,11 @@
+${NYOSH_SUPPORT_LIBS_DIR}/wildcard-1.03.jar
+${NYOSH_SUPPORT_LIBS_DIR}/plugins-2.3-SNAPSHOT.jar
+${NYOSH_SUPPORT_LIBS_DIR}/org.campagnelab.stepslogger-1.1-SNAPSHOT.jar
+${NYOSH_SUPPORT_LIBS_DIR}/filesets-1.1.jar
+${NYOSH_SUPPORT_LIBS_DIR}/artifacts-2.2.3.jar
+${NYOSH_SUPPORT_LIBS_DIR}/option-validation-language-2.1.0.jar
+${NYOSH_SUPPORT_LIBS_DIR}/nyosh-runtime-support-1.0.3-SNAPSHOT.jar
+${NYOSH_SUPPORT_LIBS_DIR}/groovy-all-1.8.6.jar
+${NYOSH_SUPPORT_LIBS_DIR}/fastutil-6.4.4.jar
+${NYOSH_SUPPORT_LIBS_DIR}/scala-library-2.9.2.jar
+${NYOSH_SUPPORT_LIBS_DIR}/commons-io-2.4.jar
