@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<!--
+  ~ Copyright (c) 2011-2013  by Cornell University  and the  Cornell Research Foundation,
+  ~ Inc. All Rights Reserved.
+  ~
+  ~ GobyWeb plugins  are released  under the LGPL3 license,  unless  otherwise specified
+  ~ by the license of a specific plugin. See the file LGPL3.license in this distribution
+  ~ for a copy of the LGPL license.
+  ~
+  ~ When a plugin is not released under the LGPL3 license,  the comments  at the top  of
+  ~ the plugin's config.xml will indicate how that specific plugin is released/licensed.
+  -->
+<alignerConfig xsi:noNamespaceSchemaLocation="../../../schemas/plugins.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <name>Sample aligner with MPS</name>
+    <id>SAMPLE_ALIGNER_WITH_MPS</id>
+    <help>Dummy plugin to test the MPS framework.</help>
+    <version>1.0</version>
+    <supportsColorSpace>true</supportsColorSpace>
+    <supportsGobyAlignments>false</supportsGobyAlignments>
+    <supportsPairedEndAlignments>true</supportsPairedEndAlignments>
+    <supportsBAMAlignments>false</supportsBAMAlignments>
+    <supportsBisulfiteConvertedReads>false</supportsBisulfiteConvertedReads>
+    <supportsGobyReads>true</supportsGobyReads>
+    <supportsFastqReads>false</supportsFastqReads>
+    <supportsFastaReads>false</supportsFastaReads>
+    <indexDirectory>%NODE_LOCAL_DATA_ROOT%/%VERSION%/%ORGANISM%/%SPACE%/bwa</indexDirectory>
+    <requires>
+        <resource>
+            <id>GOBYWEB_SERVER_SIDE</id>
+            <versionAtLeast>1.1</versionAtLeast>
+        </resource>
+        <resource>
+            <id>MPS</id>
+            <versionAtLeast>129.302</versionAtLeast>
+        </resource>
+    </requires>
+    <files>
+        <file>
+            <id>RUN_MODEL_SCRIPT</id>
+            <filename>run_model.sh</filename>
+        </file>
+        <file>
+            <id>PLUGIN_CLASSES</id>
+            <filename>DeployableGobyWebPlugins</filename>
+            <isDirectory>true</isDirectory>
+        </file>
+    </files>
+    <runtime>
+        <need scope="ALIGN" key="excl" value="false"/>
+        <need scope="ALIGN" key="h_vmem" value="12g"/>
+        <need scope="ALIGN" key="virtual_free" value="16g"/>
+        <need scope="ALIGN_JVM" value="4g"/>
+    </runtime>
+    <options>
+        <option>
+            <id>ALIGNER_OPTIONS</id>
+            <dbLegacyId>alignerAdvancedOptions</dbLegacyId>
+            <name>Other aligner options</name>
+            <help>Provide any additional Last option here following the syntax expected by the Goby align mode with last
+                aligner.
+            </help>
+            <required>false</required>
+            <defaultsTo></defaultsTo>
+            <type>STRING</type>
+            <flagFormat>%s</flagFormat>
+            <includeSpaces>true</includeSpaces>
+        </option>
+        <option>
+            <id>AMBIGUITY_THRESHOLD</id>
+            <dbLegacyId>ambiguityThreshold</dbLegacyId>
+            <name>Ambiguity threshold</name>
+            <help>The maximum number of locations a read can match in the reference to not be considered ambiguous. Read
+                is ambiguous if #hits>threshold.
+            </help>
+            <required>true</required>
+            <autoFormat>true</autoFormat>
+            <defaultsTo>1</defaultsTo>
+            <type>INTEGER</type>
+            <flagFormat>--ambiguity-threshold %d</flagFormat>
+            <includeSpaces>true</includeSpaces>
+        </option>
+        <option>
+            <id>MAX_GAPS_ALLOWED</id>
+            <dbLegacyId>lastMaxGapsAllowed</dbLegacyId>
+            <name>Max gaps allowed</name>
+            <help>The maximum number of gaps that an alignment can include for a read to be considered matching.
+            </help>
+            <required>false</required>
+            <autoFormat>false</autoFormat>
+            <defaultsTo>1</defaultsTo>
+            <type>INTEGER</type>
+        </option>
+        <option>
+            <id>GAP_EXISTENCE_COST</id>
+            <dbLegacyId>lastGapOpeningCost</dbLegacyId>
+            <name>Gap existence cost</name>
+            <help>Cost for opening a gap.</help>
+            <required>false</required>
+            <autoFormat>false</autoFormat>
+            <defaultsTo>7</defaultsTo>
+            <type>INTEGER</type>
+
+        </option>
+        <option>
+            <id>GAP_EXTENSION_COST</id>
+            <dbLegacyId>lastGapExtentionCost</dbLegacyId>
+            <name>Gap extension cost</name>
+            <help>Cost for extending a gap.</help>
+            <required>false</required>
+            <autoFormat>false</autoFormat>
+            <defaultsTo>1</defaultsTo>
+            <type>INTEGER</type>
+
+        </option>
+        <option>
+            <id>QUALITY_FILTER_PARAMETERS</id>
+            <dbLegacyId>sequenceErrorThreshold</dbLegacyId>
+            <name>Percent identity</name>
+            <help>Quality filter parameters. Use x% to indicate that reads must have less than x% base
+                differences when matched against the reference. Defaults to 0.05, which indicates 5% error at
+                most.
+            </help>
+            <required>true</required>
+            <autoFormat>true</autoFormat>
+            <defaultsTo>0.05</defaultsTo>
+            <type>DOUBLE</type>
+            <flagFormat>--quality-filter-parameters threshold=%s</flagFormat>
+            <includeSpaces>true</includeSpaces>
+        </option>
+    </options>
+</alignerConfig>
