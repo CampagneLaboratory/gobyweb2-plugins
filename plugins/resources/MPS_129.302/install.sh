@@ -30,6 +30,7 @@ function plugin_install_artifact {
                 download_runtime_support
                 download_groovy_all
                 download_fastutil
+                download_dsiutil
                 download_scala_library
                 download_common_io
                 return 0;
@@ -95,6 +96,12 @@ function download_groovy_all {
 function download_fastutil {
    ${RESOURCES_MAVEN_ARTIFACTS_DOWNLOADER_RUN_DOWNLOADER} ${MAVEN_CENTRAL_REPO_URL} \
    it/unimi/dsi/fastutil/6.4.4/fastutil-6.4.4.jar ${installation_path}/fastutil-6.4.4.jar \
+   '' ''
+}
+
+function download_dsiutil {
+   ${RESOURCES_MAVEN_ARTIFACTS_DOWNLOADER_RUN_DOWNLOADER} ${MAVEN_CENTRAL_REPO_URL} \
+   it/unimi/dsi/dsiutils/2.0.7/dsiutils-2.0.7.jar ${installation_path}/dsiutils-2.0.7.jar \
    '' ''
 }
 
