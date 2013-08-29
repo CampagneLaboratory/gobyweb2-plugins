@@ -1,9 +1,9 @@
 # Installation script for MPS 3.0
-MAVEN_CENTRAL_REPO_URL=http://repo1.maven.org/maven2/
+CAMPAGNELAB_EXT_RELEASE_REPO_URL=http://repository.campagnelab.org/artifactory/ext-release-local/
 CAMPAGNELAB_RELEASE_REPO_URL=http://repository.campagnelab.org/artifactory/CampagneLab/
 CAMPAGNELAB_SNAPSHOT_REPO_URL=http://repository.campagnelab.org/artifactory/CampagneLab-SNAPSHOT/
 REPO_USER=downloader
-REPO_PASSWORD=password goes here
+REPO_PASSWORD=
 
 function plugin_install_artifact {
 
@@ -28,8 +28,8 @@ function plugin_install_artifact {
                 download_artifacts
                 download_ovl
                 download_runtime_support
-                download_groovy_all
                 download_fastutil
+                download_groovy_all
                 download_dsiutil
                 download_scala_library
                 download_common_io
@@ -88,31 +88,31 @@ function download_runtime_support {
 }
 
 function download_groovy_all {
-   ${RESOURCES_MAVEN_ARTIFACTS_DOWNLOADER_RUN_DOWNLOADER} ${MAVEN_CENTRAL_REPO_URL} \
+   ${RESOURCES_MAVEN_ARTIFACTS_DOWNLOADER_RUN_DOWNLOADER} ${CAMPAGNELAB_EXT_RELEASE_REPO_URL} \
    org/codehaus/groovy/groovy-all/1.8.6/groovy-all-1.8.6.jar ${installation_path}/groovy-all-1.8.6.jar \
-   '' ''
+   ${REPO_USER} ${REPO_PASSWORD}
 }
 
 function download_fastutil {
-   ${RESOURCES_MAVEN_ARTIFACTS_DOWNLOADER_RUN_DOWNLOADER} ${MAVEN_CENTRAL_REPO_URL} \
+   ${RESOURCES_MAVEN_ARTIFACTS_DOWNLOADER_RUN_DOWNLOADER} ${CAMPAGNELAB_EXT_RELEASE_REPO_URL} \
    it/unimi/dsi/fastutil/6.4.4/fastutil-6.4.4.jar ${installation_path}/fastutil-6.4.4.jar \
-   '' ''
+   ${REPO_USER} ${REPO_PASSWORD}
 }
 
 function download_dsiutil {
-   ${RESOURCES_MAVEN_ARTIFACTS_DOWNLOADER_RUN_DOWNLOADER} ${MAVEN_CENTRAL_REPO_URL} \
+   ${RESOURCES_MAVEN_ARTIFACTS_DOWNLOADER_RUN_DOWNLOADER} ${CAMPAGNELAB_EXT_RELEASE_REPO_URL} \
    it/unimi/dsi/dsiutils/2.0.7/dsiutils-2.0.7.jar ${installation_path}/dsiutils-2.0.7.jar \
-   '' ''
+   ${REPO_USER} ${REPO_PASSWORD}
 }
 
 function download_scala_library {
-   ${RESOURCES_MAVEN_ARTIFACTS_DOWNLOADER_RUN_DOWNLOADER} ${MAVEN_CENTRAL_REPO_URL} \
+   ${RESOURCES_MAVEN_ARTIFACTS_DOWNLOADER_RUN_DOWNLOADER} ${CAMPAGNELAB_EXT_RELEASE_REPO_URL} \
    org/scala-lang/scala-library/2.9.2/scala-library-2.9.2.jar ${installation_path}/scala-library-2.9.2.jar \
-   '' ''
+   ${REPO_USER} ${REPO_PASSWORD}
 }
 
 function download_common_io {
-   ${RESOURCES_MAVEN_ARTIFACTS_DOWNLOADER_RUN_DOWNLOADER} ${MAVEN_CENTRAL_REPO_URL} \
+   ${RESOURCES_MAVEN_ARTIFACTS_DOWNLOADER_RUN_DOWNLOADER} ${CAMPAGNELAB_EXT_RELEASE_REPO_URL} \
    commons-io/commons-io/2.4/commons-io-2.4.jar ${installation_path}/commons-io-2.4.jar \
-   '' ''
+   ${REPO_USER} ${REPO_PASSWORD}
 }
