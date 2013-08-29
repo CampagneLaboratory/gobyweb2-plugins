@@ -70,8 +70,8 @@ function download_filesets {
 }
 
 function download_artifacts {
-   ${RESOURCES_MAVEN_ARTIFACTS_DOWNLOADER_RUN_DOWNLOADER} ${CAMPAGNELAB_RELEASE_REPO_URL} \
-   org/campagnelab/gobyweb/artifacts/2.2.3/artifacts-2.2.3.jar ${installation_path}/artifacts-2.2.3.jar \
+   ${RESOURCES_MAVEN_ARTIFACTS_DOWNLOADER_RUN_DOWNLOADER} ${CAMPAGNELAB_SNAPSHOT_REPO_URL} \
+   org/campagnelab/gobyweb/artifacts/2.3.0-SNAPSHOT/artifacts-2.3.0-20130828.160154-24.jar ${installation_path}/artifacts-2.3.0-SNAPSHOT.jar \
    ${REPO_USER} ${REPO_PASSWORD}
 }
 
