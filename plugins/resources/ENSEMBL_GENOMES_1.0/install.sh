@@ -15,7 +15,7 @@ function plugin_install_artifact {
             ORG_LOWERCASE=`echo  ${ORGANISM}| tr '[:upper:]' '[:lower:]'`
             # get genome from local NFS, or wget from ensembl servers if not present
             BUILD_NUMBER=`echo ${GENOME_REFERENCE_ID} | awk -F\. '{print $1}'`
-            if [ "${BUILD_NUMBER}" = "GRCh37" ]; then
+            if [ "${BUILD_NUMBER}" = "GRCh37" -o "${BUILD_NUMBER}" = "1000GENOMES" ]; then
                 # For human, use the compatible 1000g assembly instead of the Ensembl build: (coordinates are compatible),
                 # see http://www.1000genomes.org/category/assembly
                 ${RESOURCES_FETCH_URL_SCRIPT} ftp://ftp.1000genomes.ebi.ac.uk/vol1/ftp/technical/reference/human_g1k_v37.fasta.gz human.dna.toplevel.fa.gz
