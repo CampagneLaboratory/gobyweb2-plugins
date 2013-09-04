@@ -3,7 +3,7 @@ CAMPAGNELAB_EXT_RELEASE_REPO_URL=http://repository.campagnelab.org/artifactory/e
 CAMPAGNELAB_RELEASE_REPO_URL=http://repository.campagnelab.org/artifactory/CampagneLab/
 CAMPAGNELAB_SNAPSHOT_REPO_URL=http://repository.campagnelab.org/artifactory/CampagneLab-SNAPSHOT/
 REPO_USER=downloader
-REPO_PASSWORD=
+REPO_PASSWORD=labdownloader
 
 function plugin_install_artifact {
 
@@ -53,7 +53,7 @@ function download_wildcard {
 
 function download_pluginsSDK {
    ${RESOURCES_MAVEN_ARTIFACTS_DOWNLOADER_RUN_DOWNLOADER} ${CAMPAGNELAB_SNAPSHOT_REPO_URL} \
-   org/campagnelab/gobyweb/plugins/2.3-SNAPSHOT/plugins-2.3-20130821.191554-33.jar ${installation_path}/plugins-2.3-SNAPSHOT.jar \
+   org/campagnelab/gobyweb/plugins/2.3-SNAPSHOT/plugins-2.3-20130903.211255-45.jar ${installation_path}/plugins-2.3-SNAPSHOT.jar \
    ${REPO_USER} ${REPO_PASSWORD}
 }
 
