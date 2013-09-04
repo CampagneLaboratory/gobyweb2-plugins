@@ -30,7 +30,25 @@
             <id>BWA_WITH_GOBY_ARTIFACT</id>
             <versionAtLeast>0.5.9.16.6</versionAtLeast>
         </resource>
+        <resource>
+            <id>GOBYWEB_SERVER_SIDE</id>
+            <versionAtLeast>1.1</versionAtLeast>
+        </resource>
+        <resource>
+            <id>MPS</id>
+            <versionAtLeast>129.302</versionAtLeast>
+        </resource>
     </requires>
+    <files>
+        <file>
+            <id>RUN_MODEL_SCRIPT</id>
+            <filename>run_model.sh</filename>
+        </file>
+        <file>
+            <id>PLUGIN_JAR</id>
+            <filename>plugin.jar</filename>
+        </file>
+    </files>
     <runtime>
         <need scope="ALIGN" key="excl" value="false"/>
         <need scope="ALIGN" key="h_vmem" value="6g"/>
