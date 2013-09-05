@@ -11,34 +11,28 @@
   ~ the plugin's config.xml will indicate how that specific plugin is released/licensed.
   -->
 <resourceConfig xsi:noNamespaceSchemaLocation="../../../schemas/plugins.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
-    <name>Sample resource created with MPS</name>
-    <id>SAMPLE_RESOURCE_WITH_MPS</id>
-    <help>Sample resource created with MPS.</help>
-    <version>1.0</version>
+    <name>MPS</name>
+    <id>MPS</id>
+    <help>MPS 3.0 RC4 runtime libraries.</help>
+    <version>129.350</version>
     <requires>
         <resource>
-            <id>GOBYWEB_SERVER_SIDE</id>
-            <versionAtLeast>1.1</versionAtLeast>
+            <id>FETCH_URL</id>
+            <versionAtLeast>1.2</versionAtLeast>
         </resource>
         <resource>
-            <id>MPS</id>
-            <versionAtLeast>129.350</versionAtLeast>
+            <id>MAVEN_ARTIFACTS_DOWNLOADER</id>
+            <versionAtLeast>1.0</versionAtLeast>
         </resource>
     </requires>
     <artifacts>
-        <artifact id="FIRST_ARTIFACT"></artifact>
-        <artifact id="SECOND_ARTIFACT"></artifact>
+        <artifact id="DISTRIBUTION" order="1"/>
+        <artifact id="SUPPORT_LIBS" order="2"/>
     </artifacts>
     <files>
         <file>
-            <id>RUN_MODEL_SCRIPT</id>
-            <filename>run_model.sh</filename>
-        </file>
-        <file>
-            <id>PLUGIN_CLASSES</id>
-            <filename>DeployableGobyWebPlugins</filename>
-            <isDirectory>true</isDirectory>
+            <id>JARS_LIST</id>
+            <filename>mps-jars-required.txt</filename>
         </file>
     </files>
 </resourceConfig>
-

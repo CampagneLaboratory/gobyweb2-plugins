@@ -36,7 +36,7 @@
         </resource>
         <resource>
             <id>MPS</id>
-            <versionAtLeast>129.302</versionAtLeast>
+            <versionAtLeast>129.350</versionAtLeast>
         </resource>
     </requires>
     <files>
