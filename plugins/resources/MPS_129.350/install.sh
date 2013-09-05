@@ -52,14 +52,14 @@ function download_wildcard {
 }
 
 function download_pluginsSDK {
-   ${RESOURCES_MAVEN_ARTIFACTS_DOWNLOADER_RUN_DOWNLOADER} ${CAMPAGNELAB_SNAPSHOT_REPO_URL} \
-   org/campagnelab/gobyweb/plugins/2.3-SNAPSHOT/plugins-2.3-20130903.211255-45.jar ${installation_path}/plugins-2.3-SNAPSHOT.jar \
+   ${RESOURCES_MAVEN_ARTIFACTS_DOWNLOADER_RUN_DOWNLOADER} ${CAMPAGNELAB_RELEASE_REPO_URL} \
+   org/campagnelab/gobyweb/plugins/2.3.0/plugins-2.3.0.jar ${installation_path}/plugins-2.3.0.jar \
    ${REPO_USER} ${REPO_PASSWORD}
 }
 
 function download_stepslogger {
-   ${RESOURCES_MAVEN_ARTIFACTS_DOWNLOADER_RUN_DOWNLOADER} ${CAMPAGNELAB_SNAPSHOT_REPO_URL} \
-   org/campagnelab/org.campagnelab.stepslogger/1.1-SNAPSHOT/org.campagnelab.stepslogger-1.1-20130731.135018-1.jar ${installation_path}/org.campagnelab.stepslogger-1.1-SNAPSHOT.jar \
+   ${RESOURCES_MAVEN_ARTIFACTS_DOWNLOADER_RUN_DOWNLOADER} ${CAMPAGNELAB_RELEASE_REPO_URL} \
+   org/campagnelab/org.campagnelab.stepslogger/1.1.0/org.campagnelab.stepslogger-1.1.0.jar ${installation_path}/org.campagnelab.stepslogger-1.1.0.jar \
    ${REPO_USER} ${REPO_PASSWORD}
 }
 
@@ -70,7 +70,7 @@ function download_filesets {
 }
 
 function download_artifacts {
-   ${RESOURCES_MAVEN_ARTIFACTS_DOWNLOADER_RUN_DOWNLOADER} ${CAMPAGNELAB_SNAPSHOT_REPO_URL} \
+   ${RESOURCES_MAVEN_ARTIFACTS_DOWNLOADER_RUN_DOWNLOADER} ${CAMPAGNELAB_RELEASE_REPO_URL} \
    org/campagnelab/gobyweb/artifacts/2.3.0-SNAPSHOT/artifacts-2.3.0-20130828.160154-24.jar ${installation_path}/artifacts-2.3.0-SNAPSHOT.jar \
    ${REPO_USER} ${REPO_PASSWORD}
 }
@@ -82,8 +82,8 @@ function download_ovl {
 }
 
 function download_runtime_support {
-   ${RESOURCES_MAVEN_ARTIFACTS_DOWNLOADER_RUN_DOWNLOADER} ${CAMPAGNELAB_SNAPSHOT_REPO_URL} \
-   org/campagnelab/nyosh/nyosh-runtime-support/1.0.3-SNAPSHOT/nyosh-runtime-support-1.0.3-20130904.201618-7.jar  ${installation_path}/nyosh-runtime-support-1.0.3-SNAPSHOT.jar \
+   ${RESOURCES_MAVEN_ARTIFACTS_DOWNLOADER_RUN_DOWNLOADER} ${CAMPAGNELAB_RELEASE_REPO_URL} \
+   org/campagnelab/nyosh/nyosh-runtime-support/1.0.3/nyosh-runtime-support-1.0.3.jar  ${installation_path}/nyosh-runtime-support-1.0.3.jar \
    ${REPO_USER} ${REPO_PASSWORD}
 }
 
