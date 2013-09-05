@@ -26,6 +26,7 @@ function plugin_install_artifact {
                 download_stepslogger
                 download_filesets
                 download_artifacts
+                download_server_side_deps
                 download_ovl
                 download_runtime_support
                 download_fastutil
@@ -84,6 +85,12 @@ function download_ovl {
 function download_runtime_support {
    ${RESOURCES_MAVEN_ARTIFACTS_DOWNLOADER_RUN_DOWNLOADER} ${CAMPAGNELAB_RELEASE_REPO_URL} \
    org/campagnelab/nyosh/nyosh-runtime-support/1.0.3/nyosh-runtime-support-1.0.3.jar  ${installation_path}/nyosh-runtime-support-1.0.3.jar \
+   ${REPO_USER} ${REPO_PASSWORD}
+}
+
+function download_server_side_deps {
+   ${RESOURCES_MAVEN_ARTIFACTS_DOWNLOADER_RUN_DOWNLOADER} ${CAMPAGNELAB_RELEASE_REPO_URL} \
+   org/campagnelab/gobyweb/serverside-dependencies/1.0.6/serverside-dependencies-1.0.6-full.jar  ${installation_path}/serverside-dependencies-1.0.6-full.jar \
    ${REPO_USER} ${REPO_PASSWORD}
 }
 
