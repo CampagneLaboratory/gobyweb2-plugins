@@ -66,7 +66,7 @@ function download_stepslogger {
 
 function download_filesets {
    ${RESOURCES_MAVEN_ARTIFACTS_DOWNLOADER_RUN_DOWNLOADER} ${CAMPAGNELAB_RELEASE_REPO_URL} \
-   org/campagnelab/gobyweb/filesets/1.1/filesets-1.1.jar ${installation_path}/filesets-1.1.jar \
+   org/campagnelab/gobyweb/filesets/1.1.1/filesets-1.1.1.jar ${installation_path}/filesets-1.1.1.jar \
    ${REPO_USER} ${REPO_PASSWORD}
 }
 
