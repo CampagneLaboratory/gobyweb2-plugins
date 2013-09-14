@@ -13,7 +13,7 @@
 <resourceConfig xsi:noNamespaceSchemaLocation="../../../schemas/plugins.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
     <name>MPS</name>
     <id>MPS</id>
-    <help>MPS 3.0 RC4 runtime libraries.</help>
+    <help>MPS 3.0 runtime libraries.</help>
     <version>129.350</version>
     <requires>
         <resource>
