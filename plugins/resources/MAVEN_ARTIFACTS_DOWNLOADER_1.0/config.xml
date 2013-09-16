@@ -28,7 +28,7 @@
         </file>
         <file>
             <id>ARTIFACT_DOWNLOADER</id>
-            <filename>ArtifactDownloader.groovy</filename>
+            <filename>artifactDownloader.groovy</filename>
         </file>
     </files>
 </resourceConfig>
