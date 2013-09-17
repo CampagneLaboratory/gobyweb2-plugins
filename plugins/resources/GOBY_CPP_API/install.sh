@@ -11,11 +11,11 @@ function plugin_install_artifact {
                 . ${RESOURCES_ARTIFACTS_PROTOBUF_CPP_LIBRARIES}/setup.sh
                 (
                 VERSION="2.1.2"
-                    ${RESOURCES_FETCH_URL_SCRIPT} http://chagall.med.cornell.edu/goby/releases/archive/release-goby_${VERSION}/goby-cpp.zip
-
+                    ${RESOURCES_FETCH_URL_SCRIPT} http://chagall.med.cornell.edu/goby/releases/archive/release-goby_${VERSION}.tgz release-goby.tgz
+                    tar -zxvf release-goby.tgz
+                    cd release-goby_${VERSION}
                     unzip goby-cpp.zip
-
-                    cd  2.1.2/cpp/
+                    cd  ${VERSION}/cpp/
                     chmod +x autogen.sh
                     ./autogen.sh
                     ./configure --prefix=${installation_path}
