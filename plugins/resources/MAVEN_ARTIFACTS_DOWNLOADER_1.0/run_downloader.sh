@@ -20,4 +20,4 @@ fi
 . ${TMPDIR}/exports.sh
 
 export JAVA_OPTS="-Xms1536m -Xmx3072m"
-${RESOURCES_GROOVY_EXECUTABLE} ${JOB_DIR}/ArtifactDownloader.groovy "$@"
+${RESOURCES_GROOVY_EXECUTABLE} ${JOB_DIR}/artifactDownloader.groovy "$@"
