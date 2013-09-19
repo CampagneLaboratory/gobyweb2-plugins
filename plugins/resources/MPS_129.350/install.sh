@@ -14,8 +14,8 @@ function plugin_install_artifact {
 
         'DISTRIBUTION' )
             VERSION="3.0"
-            BUILD="RC4-129.350"
-            ${RESOURCES_FETCH_URL_SCRIPT} http://download.jetbrains.com/mps/30/MPS-${VERSION}-${BUILD}.tar.gz MPS-${VERSION}-${BUILD}.tar.gz
+            BUILD="129.350"
+            ${RESOURCES_FETCH_URL_SCRIPT} http://download.jetbrains.com/mps/30/MPS-${VERSION}.tar.gz MPS-${VERSION}-${BUILD}.tar.gz
             gzip -c -d MPS-${VERSION}-${BUILD}.tar.gz |tar -xvf -
             cp -r MPS\ ${VERSION}/* ${installation_path}/
             return 0
