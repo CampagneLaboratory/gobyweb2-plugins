@@ -7,6 +7,7 @@ function plugin_install_artifact {
     case ${id} in
 
         'EXECUTABLE' )
+            . ${RESOURCES_ARTIFACTS_PROTOBUF_CPP_LIBRARIES}/setup.sh
             . ${RESOURCES_ARTIFACTS_GOBY_CPP_API_LIBRARIES}/setup.sh
 
             (${RESOURCES_FETCH_URL_SCRIPT} http://campagnelab.org/files/bwa-0.5.9-goby-2.3.zip  bwa-goby-support.zip
@@ -35,6 +36,8 @@ function plugin_install_artifact {
             BUILD_NUMBER=$4
             ENSEMBL_RELEASE=$5
             echo "Organism=${ORGANISM} Reference-build=${BUILD_NUMBER} ${ENSEMBL_RELEASE} "
+            . ${RESOURCES_ARTIFACTS_PROTOBUF_CPP_LIBRARIES}/setup.sh
+            . ${RESOURCES_ARTIFACTS_GOBY_CPP_API_LIBRARIES}/setup.sh
 
             BWA_EXEC=${RESOURCES_ARTIFACTS_BWA_WITH_GOBY_ARTIFACT_EXECUTABLE}/bin/bwa
 
