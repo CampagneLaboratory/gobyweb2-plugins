@@ -53,8 +53,8 @@ function download_wildcard {
 }
 
 function download_pluginsSDK {
-   ${RESOURCES_MAVEN_ARTIFACTS_DOWNLOADER_RUN_DOWNLOADER} ${CAMPAGNELAB_RELEASE_REPO_URL} \
-   org/campagnelab/gobyweb/plugins/2.3.0/plugins-2.3.0.jar ${installation_path}/plugins-2.3.0.jar \
+   ${RESOURCES_MAVEN_ARTIFACTS_DOWNLOADER_RUN_DOWNLOADER} ${CAMPAGNELAB_SNAPSHOT_REPO_URL} \
+   org/campagnelab/gobyweb/plugins/2.3.1-SNAPSHOT/plugins-2.3.1-20130924.184239-13.jar ${installation_path}/plugins-2.3.1-SNAPSHOT.jar \
    ${REPO_USER} ${REPO_PASSWORD}
 }
 
@@ -83,8 +83,8 @@ function download_ovl {
 }
 
 function download_runtime_support {
-   ${RESOURCES_MAVEN_ARTIFACTS_DOWNLOADER_RUN_DOWNLOADER} ${CAMPAGNELAB_RELEASE_REPO_URL} \
-   org/campagnelab/nyosh/nyosh-runtime-support/1.0.3/nyosh-runtime-support-1.0.3.jar  ${installation_path}/nyosh-runtime-support-1.0.3.jar \
+   ${RESOURCES_MAVEN_ARTIFACTS_DOWNLOADER_RUN_DOWNLOADER} ${CAMPAGNELAB_SNAPSHOT_REPO_URL} \
+   org/campagnelab/nyosh/nyosh-runtime-support/1.0.4-SNAPSHOT/nyosh-runtime-support-1.0.4-20130925.183946-5.jar  ${installation_path}/nyosh-runtime-support-1.0.4-SNAPSHOT.jar \
    ${REPO_USER} ${REPO_PASSWORD}
 }
 
