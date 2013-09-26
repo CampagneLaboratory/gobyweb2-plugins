@@ -17,7 +17,7 @@ function plugin_install_artifact {
             BUILD="129.380"
             ${RESOURCES_FETCH_URL_SCRIPT} http://download.jetbrains.com/mps/30/MPS-${VERSION}.tar.gz MPS-${VERSION}-${BUILD}.tar.gz
             gzip -c -d MPS-${VERSION}-${BUILD}.tar.gz |tar -xvf -
-            cp -r MPS\ ${VERSION}/* ${installation_path}/
+            cp -r MPS\ 3.0/* ${installation_path}/
             return 0
             ;;
          'SUPPORT_LIBS' )
