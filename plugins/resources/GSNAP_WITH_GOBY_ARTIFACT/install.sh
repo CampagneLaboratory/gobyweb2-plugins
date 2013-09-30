@@ -8,21 +8,22 @@ function plugin_install_artifact {
 
         'EXECUTABLE' )
             . ${RESOURCES_ARTIFACTS_GOBY_CPP_API_LIBRARIES}/setup.sh
-
-            (${RESOURCES_FETCH_URL_SCRIPT} http://research-pub.gene.com/gmap/src/gmap-gsnap-2013-06-26.tar.gz  gmap-gsnap.tar.gz
+            VERSION="2013-06-26"
+            (${RESOURCES_FETCH_URL_SCRIPT} http://research-pub.gene.com/gmap/src/gmap-gsnap-${VERSION}.tar.gz  gmap-gsnap.tar.gz
 
                 tar -xvf gmap-gsnap.tar.gz
-                cd  gmap*
+                cd  gmap-${VERSION}
                 ./configure --with-goby=${RESOURCES_ARTIFACTS_GOBY_CPP_API_LIBRARIES} --prefix=${installation_path}
                 make
                 make install
+
                 ls -ltr
 
                 ls -ltr ${installation_path}/
                 # cp bwa ${installation_path}/bwa-icb
                 #chmod +x ${installation_path}/bwa-icb
             )
-            if [ -e ${installation_path}/bin/CHANGE_ME ]; then
+            if [ -e ${installation_path}/bin/gmap_build ]; then
                 return 0
             else
                return 127
@@ -37,7 +38,8 @@ function plugin_install_artifact {
             ENSEMBL_RELEASE=$5
             echo "Organism=${ORGANISM} Reference-build=${BUILD_NUMBER} ${ENSEMBL_RELEASE} "
 
-            GMAP_BUILD_EXEC=${RESOURCES_ARTIFACTS_GSNAP_WITH_GOBY_ARTIFACT_ARTIFACT_EXECUTABLE}/gmap_build
+            GMAP_BUILD_EXEC=${RESOURCES_ARTIFACTS_GSNAP_WITH_GOBY_ARTIFACT_EXECUTABLE}/bin/gmap_build
+
 
             GENOME_DIR=$(eval echo \${RESOURCES_ARTIFACTS_ENSEMBL_GENOMES_TOPLEVEL_${ORGANISM}_${BUILD_NUMBER}_${ENSEMBL_RELEASE}})
             FAI_INDEXED_GENOME_DIR=$(eval echo \${RESOURCES_ARTIFACTS_FAI_INDEXED_GENOMES_SAMTOOLS_FAI_INDEX_${ORGANISM}_${BUILD_NUMBER}_${ENSEMBL_RELEASE}})
@@ -45,9 +47,9 @@ function plugin_install_artifact {
             #INPUT_FASTA_NO_GZ=genome.fasta
 
             INPUT_FASTA_NO_GZ=${FAI_INDEXED_GENOME_DIR}/genome-toplevel.fasta
-            export GMAPDB=${installation_path}
-            ${GMAP_BUILD_EXEC} -d index -k 15 ${INPUT_FASTA_NO_GZ}
-
+            mkdir share
+            ${GMAP_BUILD_EXEC} -d index -k 15 ${INPUT_FASTA_NO_GZ} -D share
+            cp -r share  ${installation_path}/
             STATUS=$?
             ls -ltr
             if [ ${STATUS} != 0 ]; then
@@ -55,7 +57,7 @@ function plugin_install_artifact {
              return ${STATUS}
             fi
 
-            if [ -e ${installation_path}/index ]; then
+            if [ -e ${installation_path}/share/index/index.chromosome ]; then
                 return  0
             else
                 return 127
