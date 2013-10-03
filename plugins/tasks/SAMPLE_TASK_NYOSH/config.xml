@@ -28,6 +28,13 @@
     <executableIOSchema >
         <input>
             <inputSlot>
+                <name>READS</name>
+                <type>
+                    <id>COMPACT_READS</id>
+                    <versionAtMost>1.1</versionAtMost>
+                </type>
+            </inputSlot>
+            <inputSlot>
                 <name>TEXT</name>
                 <type>
                     <id>TSV</id>
@@ -47,6 +54,21 @@
                 <name>STATS</name>
                 <type>
                     <id>TAR_GZ</id>
+                    <versionExactly>1.0</versionExactly>
+                </type>
+            </outputSlot>
+            <outputSlot>
+                <name>FOO</name>
+                <type>
+                    <id>PNG</id>
+                    <versionExactly>1.0</versionExactly>
+                </type>
+            </outputSlot>
+
+            <outputSlot>
+                <name>VCF</name>
+                <type>
+                    <id>VCF</id>
                     <versionExactly>1.0</versionExactly>
                 </type>
             </outputSlot>
