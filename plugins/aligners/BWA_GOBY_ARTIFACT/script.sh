@@ -15,7 +15,8 @@ function plugin_align {
 
     OUTPUT=$1
     BASENAME=$2
-
+    . ${RESOURCES_ARTIFACTS_PROTOBUF_CPP_LIBRARIES}/setup.sh
+    . ${RESOURCES_ARTIFACTS_GOBY_CPP_API_LIBRARIES}/setup.sh
     COLOR_SPACE_OPTION=""
     if [ "${COLOR_SPACE}" == "true" ]; then
         COLOR_SPACE_OPTION="-c"
