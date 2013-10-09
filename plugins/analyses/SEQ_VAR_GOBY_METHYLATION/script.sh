@@ -185,8 +185,8 @@ function plugin_alignment_analysis_combine {
 
         # Do not attempt FDR adjustment when there is no p-value, or when using the empirical-Ps just concat the split files and sort:
 
-        ${RESOURCES_ARTIFACTS_VCF_TOOLS_BINARIES}/vcf-concat ${PART_RESULT_FILES} | \
-        ${RESOURCES_ARTIFACTS_VCF_TOOLS_BINARIES}/vcf-sort | \
+        ${RESOURCES_ARTIFACTS_VCF_TOOLS_BINARIES}/bin/vcf-concat ${PART_RESULT_FILES} | \
+        ${RESOURCES_ARTIFACTS_VCF_TOOLS_BINARIES}/bin/vcf-sort | \
         ${RESOURCES_TABIX_BGZIP_EXEC_PATH} -c > ${RESULT_FILE}
 
    else
@@ -203,7 +203,7 @@ function plugin_alignment_analysis_combine {
           --output ${TMPDIR}/${TAG}-pre.vcf.gz
        dieUponError  "Failed to FDR correct, sub-task ${CURRENT_PART} failed."
 
-       gunzip -c -d ${TMPDIR}/${TAG}-pre.vcf.gz | ${RESOURCES_ARTIFACTS_VCF_TOOLS_BINARIES}/vcf-sort | ${RESOURCES_TABIX_BGZIP_EXEC_PATH} -c > ${RESULT_FILE}
+       gunzip -c -d ${TMPDIR}/${TAG}-pre.vcf.gz | ${RESOURCES_ARTIFACTS_VCF_TOOLS_BINARIES}/bin/vcf-sort | ${RESOURCES_TABIX_BGZIP_EXEC_PATH} -c > ${RESULT_FILE}
        dieUponError  "Failed to bgzip VCF output."
    fi
 
