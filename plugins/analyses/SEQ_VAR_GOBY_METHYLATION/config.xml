@@ -19,7 +19,7 @@
         single base resolution.
         Implemented with Goby.
     </help>
-    <version>1.3.1</version>
+    <version>1.3.2</version>
     <analysisType>Methylation</analysisType>
     <minimumNumberOfGroups>1</minimumNumberOfGroups>
     <maximumNumberOfGroups>50</maximumNumberOfGroups>
