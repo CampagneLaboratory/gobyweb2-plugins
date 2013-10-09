@@ -27,7 +27,7 @@ function plugin_alignment_analysis_split {
   shift
   shift
   goby suggest-position-slices \
-          --number-of-bytes 50000000 \
+          --number-of-bytes 10000000 \
           --output ${SPLICING_PLAN_RESULT} \
           $*
 }
