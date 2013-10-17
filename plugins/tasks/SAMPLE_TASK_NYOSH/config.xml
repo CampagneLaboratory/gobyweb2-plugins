@@ -28,22 +28,22 @@
     <executableIOSchema >
         <input>
             <inputSlot>
-                <name>READS</name>
-                <type>
+                <name>INPUT_READS</name>
+                <type maxOccurs="10" minOccurs="0">
                     <id>COMPACT_READS</id>
                     <versionAtMost>1.1</versionAtMost>
                 </type>
             </inputSlot>
             <inputSlot>
                 <name>TEXT</name>
-                <type>
-                    <id>TSV</id>
+                <type minOccurs="1" maxOccurs="10">
+                    <id>PLAIN_TEXT</id>
                     <versionAtMost>1.0</versionAtMost>
                 </type>
             </inputSlot>
             <inputSlot>
                 <name>IMAGE</name>
-                <type>
+                <type minOccurs="0">
                     <id>PNG</id>
                     <versionAtMost>1.0</versionAtMost>
                 </type>
@@ -53,13 +53,13 @@
             <outputSlot>
                 <name>STATS</name>
                 <type>
-                    <id>TAR_GZ</id>
+                    <id>TSV</id>
                     <versionExactly>1.0</versionExactly>
                 </type>
             </outputSlot>
             <outputSlot>
                 <name>FOO</name>
-                <type>
+                <type minOccurs="0">
                     <id>PNG</id>
                     <versionExactly>1.0</versionExactly>
                 </type>
@@ -67,7 +67,7 @@
 
             <outputSlot>
                 <name>VCF</name>
-                <type>
+                <type minOccurs="0">
                     <id>VCF</id>
                     <versionExactly>1.0</versionExactly>
                 </type>
