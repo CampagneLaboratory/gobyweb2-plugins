@@ -84,7 +84,7 @@ function download_ovl {
 
 function download_runtime_support {
    ${RESOURCES_MAVEN_ARTIFACTS_DOWNLOADER_RUN_DOWNLOADER} ${CAMPAGNELAB_SNAPSHOT_REPO_URL} \
-   org/campagnelab/nyosh/nyosh-runtime-support/1.0.4-SNAPSHOT/nyosh-runtime-support-1.0.4-20131015.182641-6.jar  ${installation_path}/nyosh-runtime-support-1.0.4-SNAPSHOT.jar \
+   org/campagnelab/nyosh/nyosh-runtime-support/1.0.4-SNAPSHOT/nyosh-runtime-support-1.0.4-20131016.194819-11.jar  ${installation_path}/nyosh-runtime-support-1.0.4-SNAPSHOT.jar \
    ${REPO_USER} ${REPO_PASSWORD}
 }
 
