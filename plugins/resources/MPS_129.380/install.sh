@@ -54,7 +54,7 @@ function download_wildcard {
 
 function download_pluginsSDK {
    ${RESOURCES_MAVEN_ARTIFACTS_DOWNLOADER_RUN_DOWNLOADER} ${CAMPAGNELAB_SNAPSHOT_REPO_URL} \
-   org/campagnelab/gobyweb/plugins/2.3.1-SNAPSHOT/plugins-2.3.1-20131015.182837-32.jar ${installation_path}/plugins-2.3.1-SNAPSHOT.jar \
+   org/campagnelab/gobyweb/plugins/2.3.1-SNAPSHOT/plugins-2.3.1-20131018.195121-44.jar ${installation_path}/plugins-2.3.1-SNAPSHOT.jar \
    ${REPO_USER} ${REPO_PASSWORD}
 }
 
