@@ -38,7 +38,7 @@ function annotate_vep {
         # Instead, we retrieve annotations from vep, extract these annotations to a TSV format, and annotate the original
         # VCF with the new column from the TSV.
         ${RESOURCES_VARIANT_EFFECT_PREDICTOR_SCRIPT} --format vcf -i ${input} -o annotatedInput.vcf --species ${org} \
-           --force_overwrite --host useastdb.ensembl.org --vcf
+           --force_overwrite --host useastdb.ensembl.org --vcf  --individual all
         dieUponError
         export PERL5LIB=${RESOURCES_ARTIFACTS_VCF_TOOLS_BINARIES}/lib/perl5/site_perl:${PERL5LIB}
         ${RESOURCES_ARTIFACTS_VCF_TOOLS_BINARIES}/bin/vcf-sort annotatedInput.vcf > sorted.vcf
