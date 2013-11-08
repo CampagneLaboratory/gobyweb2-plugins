@@ -27,7 +27,7 @@ function plugin_alignment_analysis_split {
   shift
   shift
   goby suggest-position-slices \
-          --number-of-bytes 50000000 \
+          --number-of-bytes 10000000 \
           --output ${SPLICING_PLAN_RESULT} \
           $*
 }
@@ -101,8 +101,9 @@ function plugin_alignment_analysis_process {
      # methylation requires only gene annotations:
 
      . ${RESOURCES_ANNOTATE_VCF_EXEC_PATH}
-     annotate_ensembl_genes ${PLUGINS_ALIGNMENT_ANALYSIS_SEQ_VAR_GOBY_ANNOTATE_VARIATIONS} \
-                 ${TAG}-dsv-${ARRAY_JOB_INDEX}.vcf ${TAG}-discover-sequence-variants-output-${ARRAY_JOB_INDEX}.vcf.gz
+
+     annotate_ensembl_genes true ${TAG}-dsv-${ARRAY_JOB_INDEX}.vcf \
+      ${TAG}-discover-sequence-variants-output-${ARRAY_JOB_INDEX}.vcf.gz
 
      ${QUEUE_WRITER} --tag ${TAG} --status ${JOB_PART_DIFF_EXP_STATUS}\
       --description "End discover-sequence-variations for part # ${ARRAY_JOB_INDEX}." --index ${CURRENT_PART} --job-type job-part
@@ -184,8 +185,8 @@ function plugin_alignment_analysis_combine {
 
         # Do not attempt FDR adjustment when there is no p-value, or when using the empirical-Ps just concat the split files and sort:
 
-        ${RESOURCES_ARTIFACTS_VCF_TOOLS_BINARIES}/vcf-concat ${PART_RESULT_FILES} | \
-        ${RESOURCES_ARTIFACTS_VCF_TOOLS_BINARIES}/vcf-sort | \
+        ${RESOURCES_ARTIFACTS_VCF_TOOLS_BINARIES}/bin/vcf-concat ${PART_RESULT_FILES} | \
+        ${RESOURCES_ARTIFACTS_VCF_TOOLS_BINARIES}/bin/vcf-sort | \
         ${RESOURCES_TABIX_BGZIP_EXEC_PATH} -c > ${RESULT_FILE}
 
    else
@@ -202,7 +203,7 @@ function plugin_alignment_analysis_combine {
           --output ${TMPDIR}/${TAG}-pre.vcf.gz
        dieUponError  "Failed to FDR correct, sub-task ${CURRENT_PART} failed."
 
-       gunzip -c -d ${TMPDIR}/${TAG}-pre.vcf.gz | ${RESOURCES_ARTIFACTS_VCF_TOOLS_BINARIES}/vcf-sort | ${RESOURCES_TABIX_BGZIP_EXEC_PATH} -c > ${RESULT_FILE}
+       gunzip -c -d ${TMPDIR}/${TAG}-pre.vcf.gz | ${RESOURCES_ARTIFACTS_VCF_TOOLS_BINARIES}/bin/vcf-sort | ${RESOURCES_TABIX_BGZIP_EXEC_PATH} -c > ${RESULT_FILE}
        dieUponError  "Failed to bgzip VCF output."
    fi
 
