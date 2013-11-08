@@ -25,6 +25,7 @@
 function plugin_alignment_analysis_split {
 	NUMBER_OF_PARTS=$1
 	SPLICING_PLAN_RESULT=$2
+	shift 2
 	local SPLICING_PLAN_RESULT=$2
 	ls -l $* >${SPLICING_PLAN_RESULT}
 }
