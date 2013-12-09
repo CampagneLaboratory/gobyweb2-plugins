@@ -1,3 +1,4 @@
+#!/bin/sh
 
 
 
@@ -27,5 +28,5 @@ function run_minia {
 }
 
 
-
+run_minia $@
 
