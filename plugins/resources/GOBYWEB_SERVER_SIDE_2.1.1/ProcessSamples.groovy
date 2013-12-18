@@ -699,8 +699,7 @@ public class ProcessSample {
         if (filename) {
             File file = new File(filename)
             if (file.exists()) {
-                //return exec.scp(filename, "${sshPrefix}:${webFilesDir}/") == 0
-                org.apache.commons.io.FileUtils.copyFileToDirectory(filename, "${webFilesDir}/")
+                org.apache.commons.io.FileUtils.copyFileToDirectory(new File(filename), new File("${webFilesDir}/"))
                 return true
             }  else {
                 println "file ${filename} does not exist"
