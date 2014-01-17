@@ -20,7 +20,11 @@ function plugin_install_artifact {
             NUM_THREADS=`grep physical  /proc/cpuinfo |grep id|wc -l`
 
             INPUT_FASTA_NO_GZ=${FAI_INDEXED_GENOME_DIR}/genome-toplevel.fasta
+<<<<<<< HEAD
             ${LASTDB} -s 25G index ${INPUT_FASTA_NO_GZ}
+=======
+            ${LASTDB}  index ${INPUT_FASTA_NO_GZ}
+>>>>>>> 1809ee0ac8d84a4e697cfb6f114e4e36f22bd503
             if [ $? != 0 ]; then
                return 1;
             fi

@@ -22,9 +22,10 @@
     <xs:complexType name="T_resource">
         <xs:sequence>
             <xs:element name="id" type="xs:string"/>
-            <xs:choice minOccurs="1" maxOccurs="1">
+            <xs:choice minOccurs="1" maxOccurs="2">
                 <xs:element ref="versionAtLeast"/>
                 <xs:element ref="versionExactly"/>
+                <xs:element ref="versionAtMost"/>
             </xs:choice>
         </xs:sequence>
     </xs:complexType>
@@ -34,6 +35,17 @@
             <xs:element ref="need" minOccurs="1" maxOccurs="unbounded"/>
         </xs:sequence>
     </xs:complexType>
+
+    <xs:simpleType name="T_occurs">
+        <xs:union memberTypes="xs:nonNegativeInteger">
+            <xs:simpleType>
+                <xs:restriction base="xs:NMTOKEN">
+                    <xs:enumeration value="unbounded"/>
+                </xs:restriction>
+            </xs:simpleType>
+        </xs:union>
+    </xs:simpleType>
+
 
     <xs:simpleType name="T_scope">
         <xs:restriction base="xs:string">
@@ -175,6 +187,7 @@
     <xs:element name="requires" type="T_requires"/>
     <xs:element name="resource" type="T_resource"/>
     <xs:element name="versionAtLeast" type="xs:string"/>
+    <xs:element name="versionAtMost" type="xs:string"/>
     <xs:element name="versionExactly" type="xs:string"/>
     <xs:element name="runtime" type="T_runtime"/>
     <xs:element name="need" type="T_need"/>

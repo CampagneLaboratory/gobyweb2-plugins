@@ -7,6 +7,10 @@ function plugin_install_artifact {
     case ${id} in
 
         'BINARIES' )
+<<<<<<< HEAD
+=======
+            VERSION="${PLUGIN_VERSION}"
+>>>>>>> 1809ee0ac8d84a4e697cfb6f114e4e36f22bd503
             . ${RESOURCES_ARTIFACTS_ENSEMBL_API_INSTALL_DIR}/setup.sh
 
         # How to use : perl /scratchLocal/campagne/ARTIFACT_REPOSITORY/artifacts/ENSEMBL_API/INSTALL_DIR/70/src/ensembl-tools/scripts/variant_effect_predictor/variant_effect_predictor.pl

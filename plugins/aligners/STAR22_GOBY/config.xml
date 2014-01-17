@@ -17,7 +17,10 @@
     <dbLegacyId>STAR (Goby native)</dbLegacyId>
     <help>STAR writing to Goby output. See aligner information at http://gingeraslab.cshl.edu/STAR/.</help>
     <version>1.2</version>
+<<<<<<< HEAD
     <disabled>true</disabled> <!-- Use STAR 2.3 with artifacts instead-->
+=======
+>>>>>>> 1809ee0ac8d84a4e697cfb6f114e4e36f22bd503
     <supportsColorSpace>false</supportsColorSpace>
     <supportsGobyAlignments>true</supportsGobyAlignments>
     <supportsPairedEndAlignments>true</supportsPairedEndAlignments>

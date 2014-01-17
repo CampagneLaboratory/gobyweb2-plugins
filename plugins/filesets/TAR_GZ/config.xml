@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<fileSetConfig xsi:noNamespaceSchemaLocation="../../../schemas/plugins.xsd"
+               xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <name>TAR GZ Compressed Archive</name>
+    <id>TAR_GZ</id>
+    <help>TAR GZ Compressed Archive</help>
+    <version>1.0</version>
+    <mimeType>application/x-tar</mimeType>
+    <files>
+        <selector matchAttribute="basename">
+            <id>TAR GZ</id>
+            <pattern>*.tar.gz</pattern>
+            <mandatory>true</mandatory>
+        </selector>
+    </files>
+    <attributes>
+        <attribute name="basename"/>
+    </attributes>
+</fileSetConfig>

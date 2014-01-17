@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<fileSetConfig xsi:noNamespaceSchemaLocation="../../../schemas/plugins.xsd"
+               xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <name>Variant Calling Format</name>
+    <id>VCF</id>
+    <help>Variant Calling Format.</help>
+    <version>1.0</version>
+    <mimeType>text/variant-calling-format</mimeType>
+    <files>
+        <selector matchAttribute="basename">
+            <id>VCF</id>
+            <pattern>*.vcf</pattern>
+            <mandatory>false</mandatory>
+        </selector>
+        <selector matchAttribute="basename">
+            <id>VCF_GZ</id>
+            <pattern>*.vcf.gz</pattern>
+            <mandatory>false</mandatory>
+        </selector>
+    </files>
+    <attributes>
+        <attribute name="basename"/>
+    </attributes>
+</fileSetConfig>

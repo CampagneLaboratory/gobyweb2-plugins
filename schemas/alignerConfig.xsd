@@ -1,8 +1,9 @@
 <xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema">
 
-    <xs:include schemaLocation="config.xsd"/>
-
     <xs:include schemaLocation="common.xsd"/>
+    <xs:include schemaLocation="config.xsd"/>
+    <xs:include schemaLocation="executableIOSchema.xsd"/>
+
 
     <xs:simpleType name="T_filename">
         <!-- make sure we don't allow spaces of newline in a filename, because IDEA tends to add them reformatting XML
@@ -30,6 +31,7 @@
             <xs:element ref="runtime" minOccurs="0" maxOccurs="1"/>
             <xs:element ref="execute" minOccurs="0" maxOccurs="1"/>
             <xs:element ref="options" minOccurs="0"/>
+            <xs:element ref="executableIOSchema" minOccurs="0" maxOccurs="1"/>
         </xs:sequence>
         </xs:extension>
         </xs:complexContent>

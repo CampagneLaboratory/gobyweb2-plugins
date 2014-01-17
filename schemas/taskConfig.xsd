@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema">
+
+    <xs:include schemaLocation="config.xsd"/>
+
+    <xs:include schemaLocation="executableIOSchema.xsd"/>
+
+    <xs:complexType name="T_taskConfig">
+        <xs:complexContent>
+            <xs:extension base="BasePluginConfig">
+                <xs:sequence>
+                    <xs:element ref="requires" minOccurs="0"/>
+                    <xs:element ref="files" minOccurs="0" maxOccurs="1"/>
+                    <xs:element ref="runtime" minOccurs="0" maxOccurs="1"/>
+                    <xs:element ref="options" minOccurs="0"/>
+                    <xs:element ref="executableIOSchema" minOccurs="0" maxOccurs="1"/>
+                    <!--<xs:element name="parallelization" type="T_task-parallelization" minOccurs="0"/>   -->
+                </xs:sequence>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+
+   <!--
+    <xs:complexType name="T_task-parallelization">
+        <xs:all>
+            <xs:element name="input" type="T_task-parallelization-input"/>
+            <xs:element name="output" type="T_task-parallelization-output"/>
+        </xs:all>
+
+    </xs:complexType>
+    <xs:complexType name="T_task-parallelization-input">
+        <xs:attribute name="id" type="xs:string"/>
+        <xs:attribute name="strategy" type="xs:string"/>
+    </xs:complexType>
+    <xs:complexType name="T_task-parallelization-output">
+        <xs:attribute name="id" type="xs:string"/>
+        <xs:attribute name="strategy" type="xs:string"/>
+    </xs:complexType>       -->
+
+</xs:schema>

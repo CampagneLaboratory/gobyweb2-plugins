@@ -10,32 +10,27 @@
  * the plugin's config.xml will indicate how that specific plugin is released/licensed.
  */
 
-//import edu.cornell.med.icb.nga.datamodel.DiffExp
- /**
+/**
  * Make an output file which maps alignments to reads.
  * @param gobywebObj the gobyweb object just configured for this plugin
  * @param tempDir temporary directory where to write files that will be transferred to the cluster with the plugin
  * @return exit code, 0 means executed normally
  */
-int execute(final Object gobywebObj, final File tempDir, final Map bindings) {
-    //DiffExp casted = (DiffExp) gobywebObj
-
-    //println gobywebObj.grpToAligns.keySet().toListString();
+int execute(final Object gobywebObj, final File tempDir) {
 
     final File outputFile = new File(tempDir, "plugin-constants.sh")
     final PrintWriter writer = outputFile.newPrintWriter()
     try {
+        writeGetReadsFunction(gobywebObj,writer)
+        writer.println ""
         gobywebObj.allAlignments().eachWithIndex {alignment, index ->
-            def object = (alignment.alignJob.sample.compactReads as List)[0].url.split(":")[1]
-
-            writer.println "PLUGIN_READS[${index + 1}]=${bindings.pathTransformationService.actualValue(object)}"
+            writer.println "PLUGIN_READS[${index + 1}]=${alignment.getReads().getBasename()}"
             writer.println "PLUGIN_BASENAMES[${index + 1}]=${alignmentFilename(alignment)}"
-            writer.println "PLUGIN_GROUPS[${index + 1}]=${gobywebObj.grpToAligns.find {k, v -> v == alignment}.key}"
         }
         (1..(gobywebObj.numberOfGroups)).each {
-            writer.println "PLUGIN_GROUP_ALIGNMENTS[${it}]='${gobywebObj.alignmentsListForGroupNumber(it-1).collect {alignmentFullPath(it, bindings)}.join(" ")}'"
+            writer.println "PLUGIN_GROUP_ALIGNMENTS[${it}]='${gobywebObj.alignmentsListForGroupNumber((it)).collect {it}.join(" ")}'"
         }
-        def numSplits = gobywebObj.attributes["CONTAMINANT_EXTRACT_MERGE_GROUPS"] == 'true' ? gobywebObj.numberOfGroups : gobywebObj.allAlignments().size()
+        def numSplits = gobywebObj.options["PLUGINS_ALIGNMENT_ANALYSIS_CONTAMINANT_EXTRACT_MERGE_GROUPS"] == 'true' ? gobywebObj.numberOfGroups : gobywebObj.allAlignments().size()
         writer.println "NUM_SPLITS=${numSplits}"
     } finally {
         writer.close()
@@ -43,9 +38,16 @@ int execute(final Object gobywebObj, final File tempDir, final Map bindings) {
     return 0
 }
 
-public String alignmentFullPath(Object alignment, final Map bindings) {
-    String resultPath = "${bindings.config.gobyweb.webServerSshPrefix}:${bindings.pathService.usersExistingWebJobResultsDir(alignment.alignJob)}"
-    return "${resultPath}/${alignmentFilename(alignment)}"
+private void writeGetReadsFunction(Object gobywebObj, PrintWriter writer) {
+    writer.println "function get_source_reads {"
+    writer.println " ALIGNMENT_BASENAME=\$1"
+    gobywebObj.allAlignments().each {alignment ->
+        writer.println " if [ \${ALIGNMENT_BASENAME} == \"${alignment.getBasename()}\" ]; then "
+        writer.println "    echo ${alignment.getReads().getBasename()} "
+        writer.println "    return "
+        writer.println " fi"
+    }
+    writer.println "}"
 }
 
 /**

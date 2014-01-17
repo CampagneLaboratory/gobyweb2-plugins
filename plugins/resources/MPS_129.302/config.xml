@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<!--
+  ~ Copyright (c) 2011-2013  by Cornell University  and the  Cornell Research Foundation,
+  ~ Inc. All Rights Reserved.
+  ~
+  ~ GobyWeb plugins  are released  under the LGPL3 license,  unless  otherwise specified
+  ~ by the license of a specific plugin. See the file LGPL3.license in this distribution
+  ~ for a copy of the LGPL license.
+  ~
+  ~ When a plugin is not released under the LGPL3 license,  the comments  at the top  of
+  ~ the plugin's config.xml will indicate how that specific plugin is released/licensed.
+  -->
+<resourceConfig xsi:noNamespaceSchemaLocation="../../../schemas/plugins.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <name>MPS</name>
+    <id>MPS</id>
+    <help>MPS 3.0 RC3 runtime libraries.</help>
+    <version>129.302</version>
+    <requires>
+        <resource>
+            <id>FETCH_URL</id>
+            <versionAtLeast>1.2</versionAtLeast>
+        </resource>
+        <resource>
+            <id>MAVEN_ARTIFACTS_DOWNLOADER</id>
+            <versionAtLeast>1.0</versionAtLeast>
+        </resource>
+    </requires>
+    <artifacts>
+        <artifact id="DISTRIBUTION" order="1"/>
+        <artifact id="SUPPORT_LIBS" order="2"/>
+    </artifacts>
+    <files>
+        <file>
+            <id>JARS_LIST</id>
+            <filename>mps-jars-required.txt</filename>
+        </file>
+    </files>
+</resourceConfig>

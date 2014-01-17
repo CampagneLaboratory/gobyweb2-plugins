@@ -25,7 +25,11 @@ function plugin_align {
           COLOR_SPACE_OPTION=" --color-space "
       fi
 
+<<<<<<< HEAD
        set -x
+=======
+
+>>>>>>> 1809ee0ac8d84a4e697cfb6f114e4e36f22bd503
       # Extract the reads if a split is needed
       if [ ! -z ${SGE_TASK_ID} ] && [ "${SGE_TASK_ID}" != "undefined" ] && [ "${SGE_TASK_ID}" != "unknown" ]; then
           ${QUEUE_WRITER} --tag ${TAG} --status ${JOB_PART_SPLIT_STATUS} --description "Split, sub-task ${CURRENT_PART} of ${NUMBER_OF_PARTS}, starting" --index ${CURRENT_PART} --job-type job-part
@@ -43,7 +47,12 @@ function plugin_align {
 
        # Make sure the scripts we use are executable:
       chmod +x ${PLUGINS_ALIGNER_PLAST_ARTIFACT_FILES_ALIGN_BOTH_STRANDS} ${RESOURCES_PLAST_SCRIPT} ${RESOURCES_GOBY_SHELL_SCRIPT}
+<<<<<<< HEAD
       ${RESOURCES_PLAST_SCRIPT} ${JOB_DIR} ${PLUGINS_ALIGNER_PLAST_ARTIFACT_FILES_ALIGN_BOTH_STRANDS} ${READS_FILE} ${TAG}-tmp-align ${PAIRED_END_ALIGNMENT}
+=======
+
+      ${RESOURCES_PLAST_SCRIPT} ${JOB_DIR} ${PLUGINS_ALIGNER_PLAST_ARTIFACT_FILES_ALIGN_BOTH_STRANDS} ${READS_FILE} ${TAG}-tmp-align
+>>>>>>> 1809ee0ac8d84a4e697cfb6f114e4e36f22bd503
       goby merge-compact-alignments  ${TAG}-tmp-align -o ${OUTPUT}
       dieUponError "Aligning forward and reverse strand results failed, sub-task ${CURRENT_PART} of ${NUMBER_OF_PARTS}, failed"
 
