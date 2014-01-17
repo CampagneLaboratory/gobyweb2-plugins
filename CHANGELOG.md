@@ -1,4 +1,5 @@
 GobyWeb2 Plugins Change log
+<<<<<<< HEAD
 ===========================
 
 ## Towards release 2.2.2 (future)
@@ -6,6 +7,10 @@ GobyWeb2 Plugins Change log
 1. DIFF_EXP_GOBY and DIFF_EXP_GOBY_ARTIFACT: Require at least two groups for a Goby DiffExp. The code will not work with a single group and no group comparison.
 
 ## Release 2.2.1 (Aug 9 2013)
+=======
+
+# Release 2.2.1 (Aug 9 2013)
+>>>>>>> 1809ee0ac8d84a4e697cfb6f114e4e36f22bd503
 
 1. Fix VEP plugin for new version of Variant Effect Predictor (v72). Upgrade links for ensembl API distribution. Fetch and decompress ensembl-tools archive because VEP is now packaged in this file (would have been nice to see this listed as a change in the VEP/Ensembl API change log.
 2. ENSEMBL_ANNOTATIONS resource: Biomart.groovy script. Add filter by chromosome for new annotation kinds. This attribute forces download chromosome by chromosome, which is necessary with Biomart for large tables.

@@ -6,7 +6,11 @@ function plugin_install_artifact {
     installation_path=$2
     echo "Processing ${id}"
 
+<<<<<<< HEAD
     VERSION="73"
+=======
+    VERSION="${PLUGIN_VERSION}"
+>>>>>>> 1809ee0ac8d84a4e697cfb6f114e4e36f22bd503
 
     case ${id} in
 

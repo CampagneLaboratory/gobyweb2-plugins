@@ -294,5 +294,15 @@
             <help>GZIP archive with the assembled reads from each sample</help>
         </outputFile>
     </outputSchema>
-
+    <executableIOSchema>
+        <input>
+            <inputSlot>
+                <name>ALIGNMENT_SOURCE_READS</name>
+                <type maxOccurs="unbounded" minOccurs="0">
+                    <id>COMPACT_READS</id>
+                    <versionAtLeast>1.0</versionAtLeast>
+                </type>
+            </inputSlot>
+        </input>
+    </executableIOSchema>
 </alignmentAnalysisConfig>

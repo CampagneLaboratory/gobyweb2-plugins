@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<fileSetConfig xsi:noNamespaceSchemaLocation="../../../schemas/plugins.xsd"
+               xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <name>R Script</name>
+    <id>R_SCRIPT</id>
+    <help>R Script.</help>
+    <version>1.0</version>
+    <mimeType>text/plain</mimeType>
+    <directories>
+        <selector>
+            <id>SCRIPT</id>
+            <pattern>*.R</pattern>
+            <mandatory>true</mandatory>
+        </selector>
+    </directories>
+    <attributes>
+        <attribute name="TABLENAME"/>
+        <attribute name="GENOME_REFERENCE_ID"/>
+        <attribute name="ORGANISM"/>
+    </attributes>
+</fileSetConfig>

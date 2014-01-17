@@ -26,20 +26,18 @@ function plugin_alignment_analysis_split {
 	NUMBER_OF_PARTS=$1
 	SPLICING_PLAN_RESULT=$2
 	local SPLICING_PLAN_RESULT=$2
+<<<<<<< HEAD
 	shift 2
+=======
+	shift
+>>>>>>> 1809ee0ac8d84a4e697cfb6f114e4e36f22bd503
 	ls -l $* >${SPLICING_PLAN_RESULT}
 }
 
 # This function return the number of parts in the slicing plan. It returns zero if the alignments could not be split.
 function plugin_alignment_analysis_num_parts {
   SPLICING_PLAN_FILE=$1
-
-  if [ $? -eq 0 ]; then
-
-	        echo `grep -v targetIdStart ${SPLICING_PLAN_FILE} | wc -l `
-  fi
-
-  echo 0
+  echo ${NUM_SPLITS}
 }
 
 function plugin_alignment_analysis_process {
@@ -62,24 +60,17 @@ function plugin_alignment_analysis_process {
     fi
 
 
-    for SOURCE_BASENAME in $PART_BASENAMES
+    for BASENAME in $PART_BASENAMES
     do
-	    local REDUCED_BASENAME=`basename ${SOURCE_BASENAME}`
-
-	    #copy over unmatched reads
-        scp "${SOURCE_BASENAME}-unmatched.compact-reads" "unmatched-part-${REDUCED_BASENAME}.compact-reads" #todo fix name conflicts
-        if [ $? -eq 0 ]; then
-            echo "found the unmapped reads"
-        else
-
-            echo "unmapped reads not found, running extraction now"
-
-            local READS_FILE=${PLUGIN_READS[$CURRENT_PART]}
-
-            extract_unmatched_reads "${READS_FILE}" "${ENTRIES_DIRECTORY}/${REDUCED_BASENAME}" "unmatched-part-${REDUCED_BASENAME}.compact-reads"
-
+        echo "Running unmapped reads extraction now on source reads for ${BASENAME}"
+        local READS_BASENAME=`get_source_reads ${BASENAME}`
+        local READS_FILE=`${FILESET_COMMAND} --fetch ALIGNMENT_SOURCE_READS --filter-attribute BASENAME=${READS_BASENAME}`
+        if [ $? != 0 ]; then
+            dieUponError "Failed to fecth compact reads ${PLUGIN_READS[$CURRENT_PART]}"
         fi
-        dieUponError "Could not retrieve unmapped reads for basename ${REDUCED_BASENAME}"
+        extract_unmatched_reads "${READS_FILE}" "${ENTRIES_DIRECTORY}/${BASENAME}" "unmatched-part-${BASENAME}.compact-reads"
+
+        dieUponError "Could not retrieve unmapped reads for basename ${BASENAME}"
 
     done
 
@@ -201,7 +192,7 @@ function plugin_alignment_analysis_combine {
 	tar -zvcf assembled-reads.tar.gz assembled/*
 	
 	dieUponError "Could not tarball assembled reads"
-	
+
 	local TEMPFILE_FULL=`mktemp readsXXXX`
 	local TEMPFILE_REALIGN=`mktemp readsXXXX`
 	
@@ -243,6 +234,9 @@ function plugin_alignment_analysis_combine {
 	
 	cat $TEMPFILE_REALIGN >> $OUTPUT_FILE_REALIGN
 	
+<<<<<<< HEAD
 	
 
+=======
+>>>>>>> 1809ee0ac8d84a4e697cfb6f114e4e36f22bd503
 }
