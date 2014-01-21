@@ -3,7 +3,7 @@
 @Grab(group = 'org.apache.httpcomponents', module = 'httpclient', version = '4.1.1')
 
 import com.martiansoftware.jsap.JSAPResult
-import org.springframework.http.HttpEntity
+import org.apache.http.HttpEntity
 import org.apache.http.HttpResponse
 import org.apache.http.NameValuePair
 import org.apache.http.client.HttpClient
