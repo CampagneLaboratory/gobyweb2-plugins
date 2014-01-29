@@ -15,7 +15,7 @@
     <name>Annotate VCF</name>
     <id>ANNOTATE_VCF</id>
     <help>Annotate VCF files with results from Variant Effect Predictor</help>
-    <version>1.1</version>
+    <version>1.2</version>
     <requires>
         <resource>
             <id>VARIANT_EFFECT_PREDICTOR</id>

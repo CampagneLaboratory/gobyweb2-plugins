@@ -46,7 +46,7 @@
         </resource>
         <resource>
             <id>PLAST</id>
-            <versionAtLeast>1.1</versionAtLeast>
+            <versionAtLeast>1.2</versionAtLeast>
         </resource>
     </requires>
     <files>
