@@ -23,7 +23,6 @@ expose_artifact_environment_variables
     #make sure index exists
     if [ ! -e ${INDEX_DIRECTORY}/index.prj ]; then
         failThisLine
-      	dieUponError "last index could not be found"
     fi
 
     ${RESOURCES_LAST_EXEC_PATH} -v -s1 -Q1 -d${PLUGINS_ALIGNER_PLAST_ARTIFACT_D} \
@@ -37,3 +36,4 @@ expose_artifact_environment_variables
                         -jar ${RESOURCES_GOBY_GOBY_JAR} \
                         --mode last-to-compact -i ${TEMP_FILENAME}-2.maf -o ${OUTPUT} --third-party-input true \
                         --only-maf -q ${FULL_READS_INPUT} -t ${REFERENCE} --quality-filter-parameters threshold=1.0
+

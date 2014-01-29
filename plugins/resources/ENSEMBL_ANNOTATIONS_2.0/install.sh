@@ -14,14 +14,18 @@ function plugin_install_artifact {
             ORGANISM=$3
             GENOME_REFERENCE_ID=$4
             ENSEMBL_RELEASE=$5
+            pwd
+            L=`pwd`
+            set +e
+            cp /home/gobyweb/url-cache/biomart-packed-${ORGANISM}_${GENOME_REFERENCE_ID}_${ENSEMBL_RELEASE}.tar.gz  ${L}/biomart-packed.tar.gz
 
-            ${RESOURCES_FETCH_URL_SCRIPT} file:/home/gobyweb/url-cache/biomart-packed-${ORGANISM}_${GENOME_REFERENCE_ID}_${ENSEMBL_RELEASE}.tar.gz  biomart-packed.tar.gz
+            if [ -f ${L}/biomart-packed.tar.gz ]; then
 
-            if [ -x biomart-packed.tar.gz ]; then
-
-              cd ${installation_path};  gzip -c -d biomart-packed.tar.gz | tar -xvf -
+              cd ${installation_path};
+              gzip -c -d ${L}/biomart-packed.tar.gz | tar -xvf -
               return 0
             fi
+            set -e
             echo "Organism=${ORGANISM} Reference-build=${GENOME_REFERENCE_ID} ENSEMBL_RELEASE=${ENSEMBL_RELEASE}"
             ORG_LOWERCASE=`echo  ${ORGANISM}| tr '[:upper:]' '[:lower:]'`
 
@@ -53,8 +57,8 @@ function plugin_install_artifact {
              # Make sure tabix indices have a more recent timestamp than tabix data files:
              sleep 3
              touch   ${installation_path}/*.tbi
-
-             if [ -x /home/gobyweb/url-cache/ ]; then
+    
+             if [ -d /home/gobyweb/url-cache/ ]; then
                  # if the cache directory exists, put the pre-packed distribution there.
                  cd ${installation_path}; tar -cvf /home/gobyweb/url-cache/biomart-packed-${ORGANISM}_${GENOME_REFERENCE_ID}_${ENSEMBL_RELEASE}.tar.gz *
              fi

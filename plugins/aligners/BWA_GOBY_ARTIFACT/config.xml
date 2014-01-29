@@ -41,7 +41,17 @@
         <need scope="ALIGNMENT_POST_PROCESSING" key="virtual_free" value="10g"/>
     </runtime>
     <options>
-
+        <option>
+            <id>ALN_OPTIONS</id>
+            <name>Options for aln phase</name>
+            <help>Provide any additional BWA option here following the syntax expected by bwa aln.</help>
+            <required>false</required>
+            <defaultsTo></defaultsTo>
+            <type>STRING</type>
+            <flagFormat>%s</flagFormat>
+            <includeSpaces>true</includeSpaces>
+            <autoFormat>false</autoFormat>
+        </option>
         <option>
             <id>SAMPE_SAMSE_OPTIONS</id>
             <name>Options for samse/sampe phase</name>

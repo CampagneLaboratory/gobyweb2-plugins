@@ -26,7 +26,7 @@ function plugin_alignment_analysis_split {
 	NUMBER_OF_PARTS=$1
 	SPLICING_PLAN_RESULT=$2
 	local SPLICING_PLAN_RESULT=$2
-	shift
+	shift 2
 	ls -l $* >${SPLICING_PLAN_RESULT}
 }
 
@@ -188,7 +188,7 @@ function plugin_alignment_analysis_combine {
 	tar -zvcf assembled-reads.tar.gz assembled/*
 	
 	dieUponError "Could not tarball assembled reads"
-
+	
 	local TEMPFILE_FULL=`mktemp readsXXXX`
 	local TEMPFILE_REALIGN=`mktemp readsXXXX`
 	
@@ -230,4 +230,6 @@ function plugin_alignment_analysis_combine {
 	
 	cat $TEMPFILE_REALIGN >> $OUTPUT_FILE_REALIGN
 	
+	
+
 }
