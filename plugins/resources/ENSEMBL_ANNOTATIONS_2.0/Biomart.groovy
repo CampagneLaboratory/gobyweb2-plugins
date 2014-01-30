@@ -223,7 +223,6 @@ public class Biomart {
                     sort: "-k 1,1 -k 5,5n -k 6,6n",
                     dataset: "gene_ensembl",
                     filterByChrom: true,
-                    optional: false,
                     fields: [
                             "chromosome_name": "Chromosome Name",
                             "strand": "Strand",
@@ -238,7 +237,6 @@ public class Biomart {
                     sort: "-k 1,1 -k 5,5n -k 6,6n",
                     dataset: "gene_ensembl",
                     filterByChrom: true,
-                    optional: false,
                     fields: [
                             "chromosome_name": "Chromosome Name",
                             "strand": "Strand",
@@ -254,7 +252,6 @@ public class Biomart {
                     index: "-s 1 -b 2 -e 3",
                     dataset: "gene_ensembl",
                     filterByChrom: true,
-                    optional: false,
                     fields: [
                             "chromosome_name": "CHROM",
                             "start_position": "FROM",
@@ -268,7 +265,6 @@ public class Biomart {
                     index: "-s 1 -b 2 -e 3",
                     dataset: "gene_ensembl",
                     filterByChrom: true,
-                    optional: false,
                     fields: [
                             "chromosome_name": "CHROM",
                             "start_position": "FROM",
@@ -283,7 +279,6 @@ public class Biomart {
                     database: true,
                     dataset: "gene_ensembl",
                     filterByChrom: true,
-                    optional: false,
                     fields: [
                             "ensembl_gene_id": "GENE",
                             "external_gene_id": "GENE_ID",  // a gene id/gene name
@@ -304,9 +299,6 @@ public class Biomart {
                             "refsnp_id": "RS",
                             "ensembl_gene_stable_id": "GeneID",
                             "consequence_type_tv": "EFFECT",
-                    ],
-                    organisms: [      //apply only to humans
-                            "homo_sapiens"
                     ]
             ],
     ]
@@ -402,7 +394,7 @@ public class Biomart {
         def chromList = null
         if (filterByChrom) {
             if (chromListFile == null) {
-                System.err.println "filterByChrome set to true but no chromosome-list-file specified"
+                println "filterByChrome set to true but no chromosome-list-file specified"
                 return
             } else {
                 System.err.println "chromListFile=${chromListFile}"
@@ -418,10 +410,9 @@ public class Biomart {
         }
 
         if (chromList == null) {
-            println " Fetching file ${outputFilename}"
             if (!fetchFileWithRetries(url, outputFilename, true, virtualSchemaName, dataset, fields, null)) {
                 // failure to fetch an optional file is not an error:
-                return config.optional
+                return !config.optional
             }
         } else {
             int i = 0
@@ -447,7 +438,7 @@ public class Biomart {
                     println "> Fetching chromosome ${chrom}, ${i} of ${numChroms} for ${organism} / ${exportType}"
                     println ">"
                     if (!fetchFileWithRetries(url, chromFilename, writeHeader, virtualSchemaName, dataset, fields, chrom)) {
-                        return config.optional
+                        return !config.optional
                     }
                 }
             }
@@ -473,7 +464,6 @@ public class Biomart {
             if (compressedFile.exists()) {
                 compressedFile.delete()
             }
-            println "Executing ${BGZIP_EXEC} '${uncompressedFilename}'"
             exec.exec "${BGZIP_EXEC} '${uncompressedFilename}'"
             sortedOutputFilename = sortedOutputFilename ? "${sortedOutputFilename}.gz" : null
             outputFilename += ".gz"
@@ -485,7 +475,6 @@ public class Biomart {
             if (indexedFile.exists()) {
                 indexedFile.delete()
             }
-            println "Executing TABIX on  ${config.index} '${unindexedFilename}'";
             exec.exec "${TABIX_EXEC} ${config.index} '${unindexedFilename}'"
         }
         if (config.database) {
@@ -536,7 +525,6 @@ public class Biomart {
                 if (numRetries > maxRetries) return false;
             }
         }
-        return success;
     }
 
 /**
@@ -765,7 +753,7 @@ public class Biomart {
             }
         }
 
-        println "export list " + this.exportsList;
+
         if (!verifyExecutable("${TABIX_EXEC}")) {
             System.err.println("Please provide the --tabix-executable option. ");
             return false;
