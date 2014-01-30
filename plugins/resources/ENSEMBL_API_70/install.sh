@@ -6,7 +6,7 @@ function plugin_install_artifact {
     installation_path=$2
     echo "Processing ${id}"
 
-    VERSION="${PLUGIN_VERSION}"
+    VERSION="73"
 
     case ${id} in
 
