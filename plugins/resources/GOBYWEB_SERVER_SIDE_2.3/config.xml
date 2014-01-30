@@ -52,6 +52,10 @@
             <filename>filesets.jar</filename>
         </file>
         <file>
+            <id>STEPSLOGGER_JAR</id>
+            <filename>stepslogger.jar</filename>
+        </file>
+        <file>
             <id>ARTIFACTS_MANAGER_JAR</id>
             <filename>artifact-manager.jar</filename>
         </file>
