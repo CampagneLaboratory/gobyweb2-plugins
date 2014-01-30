@@ -16,7 +16,7 @@ function install_plugin_artifacts {
                 --ssh-requests  ${JOB_DIR}/artifacts-install-requests.pb \
                 --install  --log-dir ${TMPDIR}/steplogs
        local STATUS=$?
-       java -Xms40m -Xmx250m -cp ${JOB_DIR}/goby/serverside-dependencies.jar \
+       java -Xms40m -Xmx250m -cp ${JOB_DIR}/goby/serverside-dependencies.jar::${JOB_DIR}/goby/stepslogger.jar \
                               org.campagnelab.stepslogger.StepsLogTool \
                               --action view \
                               ${TMPDIR}/steplogs/*

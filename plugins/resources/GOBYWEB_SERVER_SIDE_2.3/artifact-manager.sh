@@ -8,7 +8,7 @@
     mkdir -p ${ARTIFACT_REPOSITORY_DIR}
     RUN_ARTIFACT_MANAGER=" java -Xms40m -Xmx500m -Dlog4j.configuration=file:${JOB_DIR}/goby/log4j.properties \
                      -Djava.io.tmpdir=${TMPDIR} \
-                     -cp ${JOB_DIR}/goby/serverside-dependencies.jar:${JOB_DIR}/goby/artifact-manager.jar \
+                     -cp ${JOB_DIR}/goby/serverside-dependencies.jar:${JOB_DIR}/goby/artifact-manager.jar::${JOB_DIR}/goby/stepslogger.jar \
                       org.campagnelab.gobyweb.artifacts.ArtifactManager \
                       --repository ${ARTIFACT_REPOSITORY_DIR} --repo-dir-quota  1000000000 "
     ${RUN_ARTIFACT_MANAGER} "$@"
