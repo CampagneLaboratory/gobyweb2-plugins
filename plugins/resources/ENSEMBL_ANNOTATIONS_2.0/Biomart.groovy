@@ -512,7 +512,7 @@ public class Biomart {
         return true
     }
     /**
-     * Fetch file with up to three retries. 
+     * Fetch file with up to three retries.
      * @param url
      * @param outputFilename
      * @param writeHeader
@@ -527,14 +527,14 @@ public class Biomart {
         int maxRetries = 3;
         boolean success = false;
         while (!success) {
-        }
-        try {
-            success = fetchFileWithRetries(outputFilename, writeHeader, virtualSchemaName, dataset, fields, filterChrom);
-            if (success) return true;
-        } catch (Exception e) {
-            System.err.println("Unable to fetch file from url ${url} with filterChromosome=${filterChrom}", e);
-            numRetries++;
-            if (numRetries > maxRetries) return false;
+            try {
+                success = fetchFile(url, outputFilename, writeHeader, virtualSchemaName, dataset, fields, filterChrom);
+                if (success) return true;
+            } catch (Exception e) {
+                System.err.println("Unable to fetch file from url ${url} with filterChromosome=${filterChrom}", e);
+                numRetries++;
+                if (numRetries > maxRetries) return false;
+            }
         }
         return success;
     }
@@ -550,7 +550,7 @@ public class Biomart {
  * @param filterChrom
  * @return False upon error, True upon success
  */
-    boolean fetchFileWithRetries(url, outputFilename, writeHeader, virtualSchemaName, dataset, fields, filterChrom) {
+    boolean fetchFile(url, outputFilename, writeHeader, virtualSchemaName, dataset, fields, filterChrom) {
         // Output the header
         PrintStream out = null
         File xmlQueryFile = null
@@ -780,7 +780,7 @@ public class Biomart {
             jsapConfig.printUsage();
 
             for (java.util.Iterator errs = jsap.getErrorMessageIterator();
-            errs.hasNext();) {
+                 errs.hasNext();) {
                 System.err.println("Error: " + errs.next());
             }
 
