@@ -271,7 +271,11 @@ public class Biomart {
                             "end_position": "TO",
                             "ensembl_gene_id": "GENE",
                             "hgnc_symbol": "HGNC",
+                    ],
+                    organisms: [      //apply only to humans
+                            "homo_sapiens"
                     ]
+
             ],
             "gene-id-description": [
                     outputFilename: "gene_id_description.tsv",   // note the undescores because we make a SqlLite db
@@ -293,6 +297,7 @@ public class Biomart {
                     filterByChrom: true,
                     optional: true, /** Indicate that failure to retrieve this dataset should not stop the import.
              Some organisms do not have variation databases.  */
+
                     fields: [
                             "chr_name": "CHROM",
                             "chrom_start": "POS",
@@ -518,12 +523,11 @@ public class Biomart {
         while (!success) {
             try {
                 success = fetchFile(url, outputFilename, writeHeader, virtualSchemaName, dataset, fields, filterChrom);
-                if (success) return true;
             } catch (Exception e) {
                 System.err.println("Unable to fetch file from url ${url} with filterChromosome=${filterChrom}", e);
-                numRetries++;
-                if (numRetries > maxRetries) return false;
             }
+            numRetries++;
+            if (numRetries > maxRetries) return false;
         }
     }
 
@@ -741,7 +745,18 @@ public class Biomart {
 
         String exports = jsap.getString("exports")            /* default is exportTypeToDataMap.keySet().asList()[0], short is e */
         if (exports == 'all') {
-            exportsList = exportTypeToDataMap.keySet() as String[]
+            List<String> toExport = new ArrayList<String>();
+            for (def type in exportTypeToDataMap.keySet()) {
+               if (exportTypeToDataMap[type].organisms ?: false) {
+                  List organisms = exportTypeToDataMap[type].organisms;
+                  if (organisms.contains(organism))
+                    toExport.add(type)
+               }  else
+                   toExport.add(type)
+            }
+            this.exportsList = toExport as String[];
+            //exportsList = exportTypeToDataMap.keySet() as String[]
+
         } else {
             exportsList = exports.split(",")
             for (String export in this.exportsList) {
