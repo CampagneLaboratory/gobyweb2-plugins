@@ -60,7 +60,7 @@ function plugin_install_artifact {
     
              if [ -d /home/gobyweb/url-cache/ ]; then
                  # if the cache directory exists, put the pre-packed distribution there.
-                 cd ${installation_path}; tar -cvf /home/gobyweb/url-cache/biomart-packed-${ORGANISM}_${GENOME_REFERENCE_ID}_${ENSEMBL_RELEASE}.tar.gz *
+                 cd ${installation_path}; tar -zcvf /home/gobyweb/url-cache/biomart-packed-${ORGANISM}_${GENOME_REFERENCE_ID}_${ENSEMBL_RELEASE}.tar.gz *
              fi
              return 0
             else
