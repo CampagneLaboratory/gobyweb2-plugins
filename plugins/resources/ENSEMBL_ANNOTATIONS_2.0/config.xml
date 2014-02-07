@@ -15,7 +15,7 @@
     <name>Ensembl Annotations</name>
     <id>ENSEMBL_ANNOTATIONS</id>
     <help>Annotations obtained from Ensembl/Biomart</help>
-    <version>2.1.2</version>
+    <version>2.1.2.1</version>
     <requires>
         <resource>
             <id>ENSEMBL_GENOMES</id>
