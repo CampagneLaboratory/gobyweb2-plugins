@@ -1,4 +1,5 @@
-
+#!/bin/sh
+shift
 JOB_DIR=$1
 ALIGN_COMMAND=$2
 READS_FOR_SPLIT=$3
@@ -22,6 +23,7 @@ if [ "${PAIRED_END_ALIGNMENT}" == "true" ]; then
 else
   PAIR=" "
   PAIRED_ARG=" "
+  PAIRED_END_ALIGNMENT="false"
 fi
 
 # This script splits a compact-reads file in num-parts (n) and executes ALIGN_COMMAND on each bit. It concatenates alignments that result to produce OUTPUT
