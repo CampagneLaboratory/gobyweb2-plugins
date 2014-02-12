@@ -1,5 +1,5 @@
 #!/bin/sh
-shift
+
 JOB_DIR=$1
 ALIGN_COMMAND=$2
 READS_FOR_SPLIT=$3
