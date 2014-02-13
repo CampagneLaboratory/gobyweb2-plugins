@@ -116,7 +116,7 @@ function run_methyl_sites {
     output="$1"
     shift
     # Note that we override the grid jvm flags to request only 4Gb:
-     run-goby ${PLUGIN_NEED_PROCESS_JVM} discover-sequence-variants \
+     run_goby ${PLUGIN_NEED_PROCESS_JVM} discover-sequence-variants \
            ${WINDOW_LIMITS} \
            --groups ${GROUPS_DEFINITION} \
            --compare ${COMPARE_DEFINITION} \
@@ -164,7 +164,7 @@ function plugin_alignment_analysis_combine {
     # Scan all sites to determine overall statistics:
     MINIMUM_VARIATION_SUPPORT=${PLUGINS_ALIGNMENT_ANALYSIS_SEQ_VAR_GOBY_METHYLATION_MINIMUM_VARIATION_SUPPORT}
 
-    run-goby ${PLUGIN_NEED_COMBINE_JVM} methyl-stats  ${PART_RESULT_FILES} -o ignore.tsv \
+    run_goby ${PLUGIN_NEED_COMBINE_JVM} methyl-stats  ${PART_RESULT_FILES} -o ignore.tsv \
               --min-coverage-threshold ${MINIMUM_VARIATION_SUPPORT} \
               --depths-output depths.tsv                            \
               --conversion-rates-output conversion-rates.tsv        \
@@ -194,7 +194,7 @@ function plugin_alignment_analysis_combine {
        # Keep only the subset of sites that pass the Q-threshold:
        Q_VALUE_THRESHOLD=${PLUGINS_ALIGNMENT_ANALYSIS_SEQ_VAR_GOBY_METHYLATION_Q_VALUE_THRESHOLD}
 
-       run-goby ${PLUGIN_NEED_COMBINE_JVM} fdr \
+       run_goby ${PLUGIN_NEED_COMBINE_JVM} fdr \
           --vcf \
           --q-threshold ${Q_VALUE_THRESHOLD} \
           --top-hits ${NUM_TOP_HITS} \

@@ -3,7 +3,7 @@
 # It initializes java memory and logging parameters and can be called with any number of parameters.
 # For instance goby fasta-to-compact will run the fasta-to-compact mode with no arguments.
 
-function run-goby {
+function run_goby {
    set -x
    set -T
    memory="$1"
@@ -27,7 +27,7 @@ function plugin_alignment_analysis_split {
 
   setupAnnotationSource
 
-  run-goby ${PLUGIN_NEED_SPLIT_JVM} suggest-position-slices \
+  run_goby ${PLUGIN_NEED_SPLIT_JVM} suggest-position-slices \
           --number-of-bytes 50000000 \
           --output ${SPLICING_PLAN_RESULT} \
           --annotations ${ANNOTATION_SOURCE} \
@@ -79,7 +79,7 @@ function plugin_alignment_analysis_process {
 
    setupAnnotationSource
 
-   run-goby ${PLUGIN_NEED_PROCESS_JVM}  alignment-to-annotation-counts \
+   run_goby ${PLUGIN_NEED_PROCESS_JVM}  alignment-to-annotation-counts \
           --annotation ${ANNOTATION_SOURCE} \
           --write-annotation-counts false \
           --eval ${EVAL} \
@@ -107,7 +107,7 @@ function run_fdr() {
        PART_RESULT_FILES=`echo ${PART_RESULT_FILES} | sed -e 's!'${INFO_FILE}'!!'`
    fi
    OUT_FILENAME=combined-stats.tsv
-   run-goby ${PLUGIN_NEED_COMBINE_JVM} fdr \
+   run_goby ${PLUGIN_NEED_COMBINE_JVM} fdr \
           --column-selection-filter t-test  \
           --column-selection-filter fisher-exact-R  \
           --q-threshold 1 \

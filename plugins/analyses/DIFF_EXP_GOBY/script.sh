@@ -97,7 +97,7 @@ function plugin_alignment_analysis_combine {
 
    setupWeights
 
-   run-goby ${PLUGIN_NEED_COMBINE_JVM}  stats --info info.xml \
+   run_goby ${PLUGIN_NEED_COMBINE_JVM}  stats --info info.xml \
           ${OUT_FILENAME} \
           --parallel \
           --groups ${GROUPS_DEFINITION} \

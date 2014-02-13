@@ -83,7 +83,7 @@ function plugin_alignment_analysis_process {
 
     done
 
-    run-goby 4g concatenate-compact-reads -o "unmatched${CURRENT_PART}.compact-reads" unmatched-part-*.compact-reads
+    run_goby 4g concatenate-compact-reads -o "unmatched${CURRENT_PART}.compact-reads" unmatched-part-*.compact-reads
 
 
 
@@ -91,7 +91,7 @@ function plugin_alignment_analysis_process {
 	
 	if [ "${PLUGINS_ALIGNMENT_ANALYSIS_CONTAMINANT_EXTRACT_TRIM_ADAPTERS}" == "true" ]; then
 		echo "trimming illumina adapters off of reads"
-		run-goby 4g trim --adapters "${RESOURCES_ILLUMINA_ADAPTERS_FILE_PATH}" --input "unmatched${CURRENT_PART}.compact-reads" --output "unmatched${CURRENT_PART}-trimmed.compact-reads"
+		run_goby 4g trim --adapters "${RESOURCES_ILLUMINA_ADAPTERS_FILE_PATH}" --input "unmatched${CURRENT_PART}.compact-reads" --output "unmatched${CURRENT_PART}-trimmed.compact-reads"
 	else
 		ln -s "unmatched${CURRENT_PART}.compact-reads" "unmatched${CURRENT_PART}-trimmed.compact-reads"
 	fi
@@ -159,15 +159,15 @@ function plugin_alignment_analysis_process {
 		${RESOURCES_LAST_INDEXER} "assembled${CURRENT_PART}" "assembled${CURRENT_PART}.fasta"
 		dieUponError "Could not index assembled file with last"
 		
-		run-goby 4g compact-to-fasta --input "unmatched${CURRENT_PART}.compact-reads" --output "unmatched${CURRENT_PART}.fasta"
+		run_goby 4g compact-to-fasta --input "unmatched${CURRENT_PART}.compact-reads" --output "unmatched${CURRENT_PART}.fasta"
 		
 		${RESOURCES_LAST_EXEC_PATH} "assembled${CURRENT_PART}" "unmatched${CURRENT_PART}.fasta" > "realignment${CURRENT_PART}.maf"
 		
-		run-goby 4g last-to-compact --only-maf --input "realignment${CURRENT_PART}" --output "realignment${CURRENT_PART}"
+		run_goby 4g last-to-compact --only-maf --input "realignment${CURRENT_PART}" --output "realignment${CURRENT_PART}"
 	fi
   	
   	
-  	run-goby 2g alignment-to-transcript-counts --parallel "realignment${CURRENT_PART}" -o "realignment${CURRENT_PART}"
+  	run_goby 2g alignment-to-transcript-counts --parallel "realignment${CURRENT_PART}" -o "realignment${CURRENT_PART}"
   	
   	#format output
   	awk 'NR > 1 { print "'${REDUCED_BASENAME}'", "\t", $2, "\t", int($3), "\t", (int($3) * 100) / '${NUM_UNMATCHED_READS}' }' \

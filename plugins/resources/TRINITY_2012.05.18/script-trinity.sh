@@ -17,7 +17,7 @@ function run_trinity {
 
 	#trinity doesnt support compact-reads, convert to fastq
 	local TEMPFILE=`mktemp readsXXXX`
-	run-goby 4g compact-to-fasta --output-format fasta --input ${INPUT} --output ${TEMPFILE}
+	run_goby 4g compact-to-fasta --output-format fasta --input ${INPUT} --output ${TEMPFILE}
 
 	#run trinity on converted file
 	local TEMPDIR=`mktemp -d trinity_outXXXX`
