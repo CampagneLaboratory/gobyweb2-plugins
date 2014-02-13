@@ -38,7 +38,7 @@
         </resource>
         <resource>
             <id>R</id>
-            <versionExactly>2.15.3</versionExactly>
+            <versionAtLeast>2.15.3</versionAtLeast>
         </resource>
         <resource>
             <id>EDGE_R_SCRIPT</id>
