@@ -4,7 +4,7 @@
 expose_artifact_environment_variables
 . ${RESOURCES_ARTIFACTS_R_BINARIES}/setup.sh
 
-function run-R {
+function run_R {
 
 ${RESOURCES_ARTIFACTS_R_BINARIES}/bin/R "$@"
 

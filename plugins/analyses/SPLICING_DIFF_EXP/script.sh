@@ -99,12 +99,12 @@ function plugin_alignment_analysis_combine {
     # Run DESeq or EdgeR to estimate p-values:
     if [ "${PLUGINS_ALIGNMENT_ANALYSIS_SPLICING_DIFF_EXP_STAT_ENGINE}" == "DESEQ" ]; then
 
-     run-R -f ${RESOURCES_DESEQ_SCRIPT_R_SCRIPT} --slave --quiet --no-restore --no-save \
+     run_R -f ${RESOURCES_DESEQ_SCRIPT_R_SCRIPT} --slave --quiet --no-restore --no-save \
            --no-readline --args input=counts.tsv elementType=SPLICE \
            output=out1.tsv graphOutput=.png sampleGroupMapping=sampleGroups.tsv
     else
 
-     run-R -f ${RESOURCES_EDGE_R_SCRIPT_R_SCRIPT} --slave --quiet --no-restore --no-save \
+     run_R -f ${RESOURCES_EDGE_R_SCRIPT_R_SCRIPT} --slave --quiet --no-restore --no-save \
                 --no-readline --args input=counts.tsv elementType=SPLICE \
                 output=out1.tsv mdsPlotOutput=mds.png smearPlotOutput=smear.png sampleGroupMapping=sampleGroups.tsv \
                 normalizationMethod=TMM dispersionMethod=tagwise filterFlag=true
