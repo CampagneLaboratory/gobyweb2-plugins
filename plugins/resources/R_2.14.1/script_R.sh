@@ -2,7 +2,7 @@
 slchoose R                 2.14.1 gcc_64
 # Run with the arguments:
 
-function run-R {
+function run_R {
 
 R "$@"
 

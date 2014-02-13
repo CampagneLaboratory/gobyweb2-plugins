@@ -22,7 +22,7 @@
     <files>
         <file>
             <id>SHELL_SCRIPT</id>
-            <filename>run-R</filename>
+            <filename>run_R</filename>
         </file>
     </files>
 </resourceConfig>

@@ -110,7 +110,7 @@ function plugin_alignment_analysis_combine {
       if [ "$HAS_GENES" != "1" ]; then
 
         DESEQ_OUTPUT="output=gene-stats.tsv graphOutput=.png"
-        run-R -f ${RESOURCES_DESEQ_SCRIPT_R_SCRIPT} --slave --quiet --no-restore --no-save --no-readline \
+        run_R -f ${RESOURCES_DESEQ_SCRIPT_R_SCRIPT} --slave --quiet --no-restore --no-save --no-readline \
             --args ${DESEQ_OUTPUT} input=${GENE_OUT_FILENAME} elementType=GENE  ${SAMPLE_GROUP_MAPPING}
 
 
@@ -118,7 +118,7 @@ function plugin_alignment_analysis_combine {
       if [ "$HAS_EXONS" != "1" ]; then
 
         DESEQ_OUTPUT="output=exon-stats.tsv graphOutput=.png"
-        run-R -f ${RESOURCES_DESEQ_SCRIPT_R_SCRIPT} --slave --quiet --no-restore --no-save --no-readline \
+        run_R -f ${RESOURCES_DESEQ_SCRIPT_R_SCRIPT} --slave --quiet --no-restore --no-save --no-readline \
              --args ${DESEQ_OUTPUT} input=${EXON_OUT_FILENAME} elementType=EXON ${SAMPLE_GROUP_MAPPING}    \
 
       fi
