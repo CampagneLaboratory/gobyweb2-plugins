@@ -67,7 +67,7 @@ function copy_local {
 function extract_splicing_info {
    local CURRENT_PART=$1
    local DESTINATION_FILE=$2
-   run-goby  ${PLUGIN_NEED_COMBINE_JVM} extract-splicing-events --min-mapping-quality 255  *.entries -o  ${DESTINATION_FILE}
+   run_goby  ${PLUGIN_NEED_COMBINE_JVM} extract-splicing-events --min-mapping-quality 255  *.entries -o  ${DESTINATION_FILE}
   # scala ${PLUGIN_NEED_COMBINE_JVM} ${SGE_O_WORKDIR}/goby.jar  ${PLUGINS_ALIGNMENT_ANALYSIS_SPLICING_DIFF_EXP_FILES_EXTRACT_SPLICING_SCRIPT} \
    #    *.entries  > ${DESTINATION_FILE}
 

@@ -1,5 +1,5 @@
 # COPYRIGHT_MAY_GO_HERE
-function run-goby {
+function run_goby {
    set -x
    set -T
    memory="$1"

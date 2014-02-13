@@ -32,7 +32,7 @@ function plugin_align {
           READS_FILE=${READS##*/}
 
 
-          run-goby ${PLUGIN_NEED_ALIGN_JVM} reformat-compact-reads --output ${READS_FILE} \
+          run_goby ${PLUGIN_NEED_ALIGN_JVM} reformat-compact-reads --output ${READS_FILE} \
               --start-position ${START_POSITION} --end-position ${END_POSITION} ${READS}
 
           dieUponError "split reads failed, sub-task ${CURRENT_PART} of ${NUMBER_OF_PARTS}, failed"
@@ -50,7 +50,7 @@ function plugin_align {
 ${ALIGNER_OPTIONS}
 
        # This Goby wrapper detects automatically if the reads file is paired end:
-       run-goby ${PLUGIN_NEED_ALIGN_JVM} align --reference ${REFERENCE} --aligner last ${COLOR_SPACE_OPTION} --search \
+       run_goby ${PLUGIN_NEED_ALIGN_JVM} align --reference ${REFERENCE} --aligner last ${COLOR_SPACE_OPTION} --search \
            --ambiguity-threshold ${PLUGINS_ALIGNER_LAST_GOBY_AMBIGUITY_THRESHOLD} ${PLUGINS_ALIGNER_LAST_GOBY_ALL_OTHER_OPTIONS} \
            --database-name ${INDEX_PREFIX} --database-directory ${INDEX_DIRECTORY} \
            ${ALIGNER_OPTIONS} --reads ${READS_FILE} --basename ${OUTPUT} --options ${ALIGNER_OPTIONS_COMPLETE}

@@ -27,7 +27,7 @@ function plugin_align {
     if [ "${PAIRED_END_ALIGNMENT}" == "true" ]; then
 
         # quick test that Goby is available:
-        run-goby ${PLUGIN_NEED_ALIGN_JVM} version
+        run_goby ${PLUGIN_NEED_ALIGN_JVM} version
 
         # PAIRED END alignment, native aligner
         SAI_FILE_0=${READS##*/}-0.sai
@@ -45,7 +45,7 @@ function plugin_align {
         dieUponError "bwa samse failed for _1, sub-task ${CURRENT_PART} of ${NUMBER_OF_PARTS}, failed"
 
         # aln worked, we use the goby merge mode to combine the data into one alignment:
-        run-goby ${PLUGIN_NEED_ALIGN_JVM}  merge-compact-alignments --hi-c ${OUTPUT}_0 ${OUTPUT}_1  -o ${OUTPUT}
+        run_goby ${PLUGIN_NEED_ALIGN_JVM}  merge-compact-alignments --hi-c ${OUTPUT}_0 ${OUTPUT}_1  -o ${OUTPUT}
         RETURN_STATUS=$?
     else
         # Single end alignment, native aligner
