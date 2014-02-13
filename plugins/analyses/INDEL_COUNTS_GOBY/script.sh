@@ -70,7 +70,7 @@ function plugin_alignment_analysis_process {
      fi
 
      # Note that we override the grid jvm flags to request only 4Gb:
-     run-goby ${PLUGIN_NEED_PROCESS_JVM} discover-sequence-variants \
+     run_goby ${PLUGIN_NEED_PROCESS_JVM} discover-sequence-variants \
            ${WINDOW_LIMITS} \
            --groups ${GROUPS_DEFINITION} \
            --compare ${COMPARE_DEFINITION} \
@@ -97,7 +97,7 @@ function plugin_alignment_analysis_combine {
    PART_RESULT_FILES=$*
 
 
-   run-goby ${PLUGIN_NEED_COMBINE_JVM} fdr \
+   run_goby ${PLUGIN_NEED_COMBINE_JVM} fdr \
           ${PART_RESULT_FILES}  \
           --output ${TMPDIR}/${TAG}-indel-counts.tsv
    dieUponError  "Failed to merge split results for indel counts."
@@ -125,7 +125,7 @@ function plugin_alignment_analysis_sequential {
    fi
 
      # Note that we override the grid jvm flags to request only 4Gb:
-   run-goby ${PLUGIN_NEED_PROCESS_JVM} discover-sequence-variants \
+   run_goby ${PLUGIN_NEED_PROCESS_JVM} discover-sequence-variants \
            --groups ${GROUPS_DEFINITION} \
            --compare ${COMPARE_DEFINITION} \
            --format ${OUTPUT_FORMAT} \

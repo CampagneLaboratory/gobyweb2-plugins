@@ -96,7 +96,7 @@ function plugin_alignment_analysis_process {
      FORCE_DIPLOID=${PLUGINS_ALIGNMENT_ANALYSIS_SEQ_VAR_GOBY_FORCE_DIPLOID}
 
      # Note that we override the grid jvm flags to request only 4Gb:
-     run-goby ${PLUGIN_NEED_PROCESS_JVM} discover-sequence-variants \
+     run_goby ${PLUGIN_NEED_PROCESS_JVM} discover-sequence-variants \
            ${WINDOW_LIMITS} \
            --groups ${GROUPS_DEFINITION} \
            --compare ${COMPARE_DEFINITION} \
@@ -186,7 +186,7 @@ function plugin_alignment_analysis_combine {
    else
        Q_VALUE_THRESHOLD=${PLUGINS_ALIGNMENT_ANALYSIS_SEQ_VAR_GOBY_Q_VALUE_THRESHOLD}
 
-        run-goby ${PLUGIN_NEED_COMBINE_JVM} fdr \
+        run_goby ${PLUGIN_NEED_COMBINE_JVM} fdr \
           --vcf \
           --q-threshold ${Q_VALUE_THRESHOLD} \
           --top-hits ${NUM_TOP_HITS} \

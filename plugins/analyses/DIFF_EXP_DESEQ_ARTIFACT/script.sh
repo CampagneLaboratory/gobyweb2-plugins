@@ -131,7 +131,7 @@ function plugin_alignment_analysis_combine {
       fi
       if [ "${HAS_GENES}" != "1" ] && [ "${HAS_EXONS}" != "1" ]; then
 
-        run-goby ${PLUGIN_NEED_COMBINE_JVM} fdr \
+        run_goby ${PLUGIN_NEED_COMBINE_JVM} fdr \
           --q-threshold 1.0 \
           gene-stats.tsv exon-stats.tsv  \
           ${COLUMNS} \

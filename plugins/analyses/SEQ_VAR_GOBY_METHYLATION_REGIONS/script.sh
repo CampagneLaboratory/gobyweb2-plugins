@@ -113,7 +113,7 @@ function run_methyl_regions {
     output="$1"
     shift
 
-    run-goby ${PLUGIN_NEED_PROCESS_JVM} discover-sequence-variants \
+    run_goby ${PLUGIN_NEED_PROCESS_JVM} discover-sequence-variants \
            ${WINDOW_LIMITS} \
            --groups ${GROUPS_DEFINITION} \
            --compare ${COMPARE_DEFINITION} \
@@ -170,7 +170,7 @@ function plugin_alignment_analysis_combine {
    fi
 
 
-   run-goby ${PLUGIN_NEED_COMBINE_JVM} fdr \
+   run_goby ${PLUGIN_NEED_COMBINE_JVM} fdr \
           ${ADJUSTMENT_OPTIONS} \
           ${PART_RESULT_FILES}  \
           ${COLUMNS} \

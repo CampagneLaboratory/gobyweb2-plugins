@@ -117,7 +117,7 @@ function plugin_alignment_analysis_process {
 
         #1) concatenate-alignments and produce a slice of Goby Alignments (GA) + add-read-origin-info to GA
                echo "Concatenating and slicing germline sample ${GERMLINE_FILE} "
-               run-goby ${PLUGIN_NEED_PROCESS_JVM} concatenate-alignments \
+               run_goby ${PLUGIN_NEED_PROCESS_JVM} concatenate-alignments \
                     ${WINDOW_LIMITS} \
                     --add-read-origin-info \
                     --output ${TMPDIR}/germline-ca-${GERMLINE_FILE} \
@@ -126,7 +126,7 @@ function plugin_alignment_analysis_process {
 	
 		
                echo "Concatenating and slicing somatic sample ${SOMATIC_FILE} "
-               run-goby ${PLUGIN_NEED_PROCESS_JVM} concatenate-alignments \
+               run_goby ${PLUGIN_NEED_PROCESS_JVM} concatenate-alignments \
                     ${WINDOW_LIMITS} \
                     --add-read-origin-info \
                     --output ${TMPDIR}/somatic-ca-${SOMATIC_FILE} \
@@ -137,7 +137,7 @@ function plugin_alignment_analysis_process {
 
                #convert the Germline slice
                echo "Converting Goby alignment ${TMPDIR}/germline-ca-${GERMLINE_FILE} to BAM"
-               run-goby ${PLUGIN_NEED_PROCESS_JVM} compact-to-sam \
+               run_goby ${PLUGIN_NEED_PROCESS_JVM} compact-to-sam \
                     --genome ${SEQUENCE_CACHE_DIR}/random-access-genome \
                     --output ${TMPDIR}/germline-ca-${GERMLINE_FILE}.bam \
                     ${TMPDIR}/germline-ca-${GERMLINE_FILE}
@@ -145,7 +145,7 @@ function plugin_alignment_analysis_process {
 
                #convert the Somatic slice
                echo "Converting Goby alignment ${TMPDIR}/somatic-ca-${SOMATIC_FILE} to BAM"
-               run-goby ${PLUGIN_NEED_PROCESS_JVM} compact-to-sam \
+               run_goby ${PLUGIN_NEED_PROCESS_JVM} compact-to-sam \
                     --genome ${SEQUENCE_CACHE_DIR}/random-access-genome \
                     --output ${TMPDIR}/somatic-ca-${SOMATIC_FILE}.bam \
                     ${TMPDIR}/somatic-ca-${SOMATIC_FILE}
@@ -153,7 +153,7 @@ function plugin_alignment_analysis_process {
 
         #3) sort, remove potential PCR duplicates and index Bam files
                 ${RESOURCES_SAMTOOLS_EXEC_PATH} sort ${TMPDIR}/germline-ca-${GERMLINE_FILE}.bam ${TMPDIR}/germline-ca-${GERMLINE_FILE}-sorted
-                GOBY_OUTPUT=`run-goby 1g cfs \
+                GOBY_OUTPUT=`run_goby 1g cfs \
                  --header-only  ${JOB_DIR}/source/${GERMLINE_FILE}.entries`
                 echo ${GOBY_OUTPUT}
                 RMDUP_OPTION="-s"
@@ -164,7 +164,7 @@ function plugin_alignment_analysis_process {
                 ${RESOURCES_SAMTOOLS_EXEC_PATH} index ${TMPDIR}/germline-ca-${GERMLINE_FILE}-sorted-nodup.bam
 
                 ${RESOURCES_SAMTOOLS_EXEC_PATH} sort ${TMPDIR}/somatic-ca-${SOMATIC_FILE}.bam ${TMPDIR}/somatic-ca-${SOMATIC_FILE}-sorted
-                 GOBY_OUTPUT=`run-goby 1g cfs \
+                 GOBY_OUTPUT=`run_goby 1g cfs \
                  --header-only  ${JOB_DIR}/source/${SOMATIC_FILE}.entries`
                 echo ${GOBY_OUTPUT}
                 RMDUP_OPTION="-s"
@@ -207,7 +207,7 @@ function plugin_alignment_analysis_combine {
 
     # use goby in fdr mode. To concatenate TSVs produced by Mutect in a single file
     echo "Concating TSVs with Goby in results.tsv"
-    run-goby ${PLUGIN_NEED_COMBINE_JVM} fdr \
+    run_goby ${PLUGIN_NEED_COMBINE_JVM} fdr \
         --output ${RESULT_FILE} \
         ${PART_RESULT_FILES}
      dieUponError "Concatenation of TSV files with Goby failed" 

@@ -35,7 +35,7 @@ function plugin_align {
 
           ls -l ${READS_FILE}
           ls -l ${READS}
-          run-goby ${PLUGIN_NEED_ALIGN_JVM} reformat-compact-reads --output ${READS_FILE} \
+          run_goby ${PLUGIN_NEED_ALIGN_JVM} reformat-compact-reads --output ${READS_FILE} \
               --start-position ${START_POSITION} --end-position ${END_POSITION} ${READS}
 
           dieUponError "split reads failed, sub-task ${CURRENT_PART} of ${NUMBER_OF_PARTS}, failed"
