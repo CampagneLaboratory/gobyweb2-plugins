@@ -1,5 +1,6 @@
 #!/bin/bash
-shift
+
+[ $# -eq 6 ] && shift
 FULL_READS_INPUT=$1
 READS_FASTQ=$2
 TEMP_FILENAME1=$3
