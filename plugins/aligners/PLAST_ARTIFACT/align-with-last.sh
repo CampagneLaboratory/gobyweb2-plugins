@@ -1,4 +1,7 @@
 #!/bin/bash
+
+[ $# -eq 7 ] && shift
+set -x
 FULL_READS_INPUT=$1
 READS_FASTQ=$2
 TEMP_FILENAME=$3

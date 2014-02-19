@@ -1,9 +1,12 @@
+#!/bin/bash
 
+[ $# -eq 7 ] && shift
 FULL_READS_INPUT=$1
-READS_FASTQ=$2
-TEMP_FILENAME1=$3
-OUTPUT=$4
-JOB_DIR=$5
+PAIRED_END_ALIGNMENT=$2
+READS_FASTQ=$3
+TEMP_FILENAME1=$4
+OUTPUT=$5
+JOB_DIR=$6
 # Grab the variables and functions we need:
 . ${JOB_DIR}/constants.sh
 . ${JOB_DIR}/auto-options.sh
