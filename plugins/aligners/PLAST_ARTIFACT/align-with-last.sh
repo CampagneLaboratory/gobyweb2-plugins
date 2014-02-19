@@ -1,3 +1,6 @@
+#!/bin/bash
+
+[ $# -eq 7 ] && shift
 set -x
 FULL_READS_INPUT=$1
 PAIRED_END_ALIGNMENT=$2
