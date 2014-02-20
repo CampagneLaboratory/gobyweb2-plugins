@@ -15,7 +15,7 @@
     <name>BWA with Goby support (auto-install)</name>
     <id>BWA_GOBY_ARTIFACT</id>
     <help>Version of BWA that supports Goby formats natively, auto-install version of the plugin.</help>
-    <version>1.2</version>
+    <version>1.3</version>
     <supportsColorSpace>true</supportsColorSpace>
     <supportsGobyAlignments>true</supportsGobyAlignments>
     <supportsPairedEndAlignments>true</supportsPairedEndAlignments>
