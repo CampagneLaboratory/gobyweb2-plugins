@@ -53,7 +53,7 @@ function plugin_align {
     else
         # Single end alignment, native aligner
         SAI_FILE_0=${READS##*/}.sai
-        nice ${BWA_GOBY_EXEC_PATH} aln ${COLOR_SPACE_OPTION} -t ${BWA_GOBY_NUM_THREADS} -f ${SAI_FILE_0} -l ${INPUT_READ_LENGTH}   ${ALL_OTHER_OPTIONS} -x ${START_POSITION} -y ${END_POSITION} ${INDEX_DIR} ${READS_FILE}
+        nice ${BWA_GOBY_EXEC_PATH} aln ${COLOR_SPACE_OPTION} -t ${BWA_GOBY_NUM_THREADS} -f ${SAI_FILE_0} -l ${INPUT_READ_LENGTH} ${ALN_OPTIONS}  ${ALL_OTHER_OPTIONS} -x ${START_POSITION} -y ${END_POSITION} ${INDEX_DIR} ${READS_FILE}
         RETURN_STATUS=$?
         if [ $RETURN_STATUS -eq 0 ]; then
             # aln worked, let's samse
