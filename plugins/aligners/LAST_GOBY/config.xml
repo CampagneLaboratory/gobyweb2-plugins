@@ -12,11 +12,12 @@
   -->
 <alignerConfig xsi:noNamespaceSchemaLocation="../../../schemas/plugins.xsd"
                xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
-    <name>Last</name>
+    <name>Last (v 189)</name>
     <id>LAST_GOBY</id>
     <dbLegacyId>last</dbLegacyId>
-    <help>Version of Last (official release) wrapped with Goby align mode.</help>
+    <help>Version of Last (official release) wrapped with Goby parallel mode.</help>
     <version>1.1</version>
+    <disabled>true</disabled>
     <supportsColorSpace>false</supportsColorSpace>
     <supportsGobyAlignments>true</supportsGobyAlignments>
     <supportsBAMAlignments>false</supportsBAMAlignments>
@@ -24,7 +25,7 @@
     <supportsFastqReads>false</supportsFastqReads>
     <supportsFastaReads>false</supportsFastaReads>
     <indexDirectory>/scratchLocal/gobyweb/input-data/reference-db/%VERSION%/%ORGANISM%/%SPACE%/last</indexDirectory>
-    <requires>
+      <requires>
         <resource>
             <id>LAST</id>
             <versionAtLeast>189</versionAtLeast>
