@@ -15,7 +15,7 @@
     <name>Last (with goby run-parallel)</name>
     <id>PLAST_ARTIFACT</id>
     <help>Parallel alignment with Last. Uses the goby run-parallel mode.</help>
-    <version>1.1</version>
+    <version>1.2</version>
     <supportsColorSpace>false</supportsColorSpace>
     <supportsGobyAlignments>true</supportsGobyAlignments>
     <supportsPairedEndAlignments>true</supportsPairedEndAlignments>
@@ -27,7 +27,7 @@
     <requires>
         <resource>
             <id>GOBY</id>
-            <versionAtLeast>20130717113540</versionAtLeast>
+            <versionAtLeast>20140222104439</versionAtLeast>
         </resource>
         <resource>
             <id>LAST_ARTIFACT</id>
