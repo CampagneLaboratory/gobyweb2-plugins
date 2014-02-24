@@ -54,6 +54,8 @@ function plugin_align {
                 RETURN_STATUS=$?
             fi
         fi
+        #reassign the status to the variable
+        $?=$RETURN_STATUS;
     else
         # Single end alignment, native aligner
         SAI_FILE_0=${READS##*/}.sai
@@ -64,5 +66,7 @@ function plugin_align {
             nice ${BWA_GOBY_EXEC_PATH} samse ${COLOR_SPACE_OPTION} ${SAMPE_SAMSE_OPTIONS}  -F goby -f ${OUTPUT} -x ${START_POSITION} -y ${END_POSITION} ${INDEX_DIR} ${SAI_FILE_0} ${READS_FILE} -r ${READ_GROUPS} -n ${AMBIGUITY_THRESHOLD}
             RETURN_STATUS=$?
         fi
+        #reassign the status to the variable
+        $?=$RETURN_STATUS;
     fi
 }
