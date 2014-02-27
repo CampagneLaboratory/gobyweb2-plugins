@@ -33,7 +33,7 @@ int execute(final Object gobywebObj, final File tempDir) {
             writer.println "PLUGIN_GROUP_ALIGNMENTS[${it}]='${gobywebObj.alignmentsListForGroupNumber((it)).collect {it}.join(" ")}'"
         }
         def numSplits = gobywebObj.options["PLUGINS_ALIGNMENT_ANALYSIS_CONTAMINANT_EXTRACT_MERGE_GROUPS"] == 'true' ? gobywebObj.numberOfGroups : gobywebObj.allAlignments().size()
-        writer.println "NUM_SPLITS=${numSplits}"
+        writer.println "PLUGIN_NUM_SPLITS=${numSplits}"
     } finally {
         writer.close()
     }
