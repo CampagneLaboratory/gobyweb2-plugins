@@ -17,29 +17,40 @@
  * @param tempDir temporary directory where to write files that will be transferred to the cluster with the plugin
  * @return exit code, 0 means executed normally
  */
-int execute(final Object gobywebObj, final File tempDir, final Map bindings) {
+int execute(final Object gobywebObj, final File tempDir) {
+
     final File outputFile = new File(tempDir, "plugin-constants.sh")
-
-    outputFile.withPrintWriter {
-        findSplits(gobywebObj, it)
-        findPaired(gobywebObj, it)
+    final PrintWriter writer = outputFile.newPrintWriter()
+    try {
+        writeGetReadsFunction(gobywebObj,writer)
+        writer.println ""
+        gobywebObj.allAlignments().eachWithIndex {alignment, index ->
+            writer.println "PLUGIN_READS[${index + 1}]=${alignment.getReads().getBasename()}"
+            writer.println "PLUGIN_BASENAMES[${index + 1}]=${alignmentFilename(alignment)}"
+            writer.println "PLUGIN_PAIRED[${index + 1}]=${alignment.getReads().getAttributes().get("IS_PAIRED_SAMPLE")}"
+        }
+        (1..(gobywebObj.numberOfGroups)).each {
+            writer.println "PLUGIN_GROUP_ALIGNMENTS[${it}]='${gobywebObj.alignmentsListForGroupNumber((it)).collect {it}.join(" ")}'"
+        }
+        def numSplits = gobywebObj.options["PLUGINS_ALIGNMENT_ANALYSIS_CONTAMINANT_EXTRACT_MERGE_GROUPS"] == 'true' ? gobywebObj.numberOfGroups : gobywebObj.allAlignments().size()
+        writer.println "NUM_SPLITS=${numSplits}"
+    } finally {
+        writer.close()
     }
-
     return 0
 }
 
-void findSplits(Object gobywebObj, PrintWriter out){
-    out.println "PLUGIN_NUM_SPLITS=${gobywebObj.allAlignments().size()}"
 
-    gobywebObj.allAlignments().eachWithIndex {alignment, i ->
-        out.println "PLUGIN_BASENAME[${i + 1}]=${alignmentFilename(alignment)}"
+private void writeGetReadsFunction(Object gobywebObj, PrintWriter writer) {
+    writer.println "function get_source_reads {"
+    writer.println " ALIGNMENT_BASENAME=\$1"
+    gobywebObj.allAlignments().each {alignment ->
+        writer.println " if [ \${ALIGNMENT_BASENAME} == \"${alignment.getBasename()}\" ]; then "
+        writer.println "    echo ${alignment.getReads().getBasename()} "
+        writer.println "    return "
+        writer.println " fi"
     }
-}
-
-void findPaired(Object gobywebObj, PrintWriter out){
-    gobywebObj.allAlignments().eachWithIndex {alignment, i ->
-        out.println "PLUGIN_PAIRED[${i + 1}]=${alignment.alignJob.sample.pairedSample}"
-    }
+    writer.println "}"
 }
 
 /**
