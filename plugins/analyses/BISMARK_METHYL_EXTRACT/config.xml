@@ -38,6 +38,14 @@
             <id>SAMTOOLS</id>
             <versionAtLeast>0.1.18</versionAtLeast>
         </resource>
+        <resource>
+            <id>GOBY_INDEXED_GENOMES</id>
+            <versionAtLeast>1.0</versionAtLeast>
+        </resource>
+        <resource>
+            <id>FAI_INDEXED_GENOMES</id>
+            <versionAtLeast>1.1</versionAtLeast>
+        </resource>
     </requires>
     <files>
         <file>
