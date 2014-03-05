@@ -16,6 +16,7 @@
     <id>BISMARK_METHYL_EXTRACT</id>
     <help>Extract methylation calls from Bismark aligned reads</help>
     <version>1.0</version>
+    <disabled>true</disabled>
     <analysisType>Methylation</analysisType>
     <minimumNumberOfGroups>1</minimumNumberOfGroups>
     <maximumNumberOfGroups>10</maximumNumberOfGroups>
@@ -38,14 +39,14 @@
             <id>SAMTOOLS</id>
             <versionAtLeast>0.1.18</versionAtLeast>
         </resource>
-        <!--resource>
+        <resource>
             <id>GOBY_INDEXED_GENOMES</id>
             <versionAtLeast>1.0</versionAtLeast>
         </resource>
         <resource>
             <id>FAI_INDEXED_GENOMES</id>
             <versionAtLeast>1.1</versionAtLeast>
-        </resource-->
+        </resource>
     </requires>
     <files>
         <file>

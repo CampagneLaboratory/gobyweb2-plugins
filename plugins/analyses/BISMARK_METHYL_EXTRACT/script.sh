@@ -39,15 +39,12 @@ function plugin_alignment_analysis_process {
 	local SAM_FILE_UNSORTED=${BASENAME}-unsorted.sam
 	local SAM_FILE=${BASENAME}.sam
 
-    #TODO: to restore when it will be possible to have memory settings for submit and post phases.
-	#BUILD_NUMBER=`echo ${GENOME_REFERENCE_ID} | awk -F\. '{print $1}' | tr [:lower:] [:upper:] `
-    #ENSEMBL_RELEASE=`echo ${GENOME_REFERENCE_ID} | awk -F\. '{print $(NF)}'| tr [:lower:] [:upper:] `
-    #SEQUENCE_CACHE_DIR=$(eval echo \${RESOURCES_ARTIFACTS_GOBY_INDEXED_GENOMES_SEQUENCE_CACHE_${ORG}_${BUILD_NUMBER}_${ENSEMBL_RELEASE}})
-    #INDEXED_GENOME_DIR=$(eval echo \${RESOURCES_ARTIFACTS_FAI_INDEXED_GENOMES_SAMTOOLS_FAI_INDEX_${ORG}_${BUILD_NUMBER}_${ENSEMBL_RELEASE}})
+	BUILD_NUMBER=`echo ${GENOME_REFERENCE_ID} | awk -F\. '{print $1}' | tr [:lower:] [:upper:] `
+    ENSEMBL_RELEASE=`echo ${GENOME_REFERENCE_ID} | awk -F\. '{print $(NF)}'| tr [:lower:] [:upper:] `
+    SEQUENCE_CACHE_DIR=$(eval echo \${RESOURCES_ARTIFACTS_GOBY_INDEXED_GENOMES_SEQUENCE_CACHE_${ORG}_${BUILD_NUMBER}_${ENSEMBL_RELEASE}})
+    INDEXED_GENOME_DIR=$(eval echo \${RESOURCES_ARTIFACTS_FAI_INDEXED_GENOMES_SAMTOOLS_FAI_INDEX_${ORG}_${BUILD_NUMBER}_${ENSEMBL_RELEASE}})
 
-	#goby compact-to-sam --genome ${SEQUENCE_CACHE_DIR}/random-access-genome --output ${SAM_FILE_UNSORTED} ${ENTRIES_DIRECTORY}/${BASENAME}
-
-	goby compact-to-sam --genome ${REFERENCE_DIRECTORY}/random-access-genome --output ${SAM_FILE_UNSORTED} ${ENTRIES_DIRECTORY}/${BASENAME}
+	goby compact-to-sam --genome ${SEQUENCE_CACHE_DIR}/random-access-genome --output ${SAM_FILE_UNSORTED} ${ENTRIES_DIRECTORY}/${BASENAME}
 
     ${RESOURCES_SAMTOOLS_EXEC_PATH} view -Sbu ${SAM_FILE_UNSORTED} |
     	${RESOURCES_SAMTOOLS_EXEC_PATH} sort -o - output |
