@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<fileSetConfig xsi:noNamespaceSchemaLocation="../../../schemas/plugins.xsd"
+               xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <name>Job_metadata</name>
+    <id>JOB_METADATA</id>
+    <help>Metadata associated to a job executed on the cluster.</help>
+    <version>1.0</version>
+    <mimeType>text/metadata</mimeType>
+    <files>
+        <selector>
+            <id>PUBLISHED_INSTANCES</id>
+            <pattern>*.txt</pattern>
+            <mandatory>false</mandatory>
+        </selector>
+        <selector>
+            <id>JOB_STATISTICS</id>
+            <pattern>*.txt</pattern>
+            <mandatory>true</mandatory>
+        </selector>
+    </files>
+</fileSetConfig>
