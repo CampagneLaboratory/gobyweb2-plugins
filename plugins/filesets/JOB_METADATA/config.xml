@@ -8,13 +8,13 @@
     <mimeType>text/metadata</mimeType>
     <files>
         <selector>
-            <id>PUBLISHED_INSTANCES</id>
-            <pattern>*.txt</pattern>
+            <id>LOG_HISTORY</id>
+            <pattern>*.log</pattern>
             <mandatory>false</mandatory>
         </selector>
         <selector>
             <id>JOB_STATISTICS</id>
-            <pattern>*.txt</pattern>
+            <pattern>*.properties</pattern>
             <mandatory>true</mandatory>
         </selector>
     </files>
