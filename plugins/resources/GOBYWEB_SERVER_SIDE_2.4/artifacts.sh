@@ -12,7 +12,6 @@ function install_plugin_artifacts {
 }
 
 function install_plugin_artifacts_internal {
-    echo "Installing plugin resources"
     if [ -e ${JOB_DIR}/artifacts-install-requests.pb ]; then
        set +xv
        . ${JOB_DIR}/constants.sh
