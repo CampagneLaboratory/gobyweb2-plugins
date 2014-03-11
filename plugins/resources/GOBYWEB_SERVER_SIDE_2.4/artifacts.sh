@@ -49,8 +49,8 @@ function install_plugin_artifacts_internal {
              ${RESOURCES_GOBYWEB_SERVER_SIDE_QUEUE_WRITER_WRAPPER} --tag ${TAG} --status ${JOB_PART_FAILED_STATUS} --description "Job failed: unable to expose artifact environment." --index ${CURRENT_PART} --job-type job
              exit 121
        fi
-       cat ${TMPDIR}/exports-${installation_type}.sh >> ${JOB_DIR}/export.sh
-       cat ${TMPDIR}/exports-${installation_type}.sh >> ${TMPDIR}/export.sh
+       cat ${TMPDIR}/exports-${installation_type}.sh >> ${JOB_DIR}/exports.sh
+       cat ${TMPDIR}/exports-${installation_type}.sh >> ${TMPDIR}/exports.sh
        expose_artifact_environment_variables
     fi
 
