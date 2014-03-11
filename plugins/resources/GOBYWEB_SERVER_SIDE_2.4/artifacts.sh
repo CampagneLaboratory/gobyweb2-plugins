@@ -3,12 +3,12 @@
 
 function install_plugin_mandatory_artifacts {
     echo "Installing plugin mandatory resources"
-    install_plugin_artifacts_internal "all"
+    install_plugin_artifacts_internal "only-mandatory"
 }
 
 function install_plugin_artifacts {
     echo "Installing plugin resources"
-    install_plugin_artifacts_internal "only-mandatory"
+    install_plugin_artifacts_internal "all"
 }
 
 function install_plugin_artifacts_internal {
@@ -16,7 +16,7 @@ function install_plugin_artifacts_internal {
        set +xv
        . ${JOB_DIR}/constants.sh
        . ${JOB_DIR}/auto-options.sh
-       local installation_type=shift
+       local installation_type=$1
        if [ ! -z "${CURRENT_PART}" ]; then
           CURRENT_PART=1
        fi
