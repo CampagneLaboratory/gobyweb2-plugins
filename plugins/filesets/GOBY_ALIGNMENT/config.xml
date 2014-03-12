@@ -32,6 +32,11 @@
             <pattern>*.tmh</pattern>
             <mandatory>false</mandatory>
         </selector>
+        <selector matchAttribute="BASENAME">
+            <id>PERM</id>
+            <pattern>*.perm</pattern>
+            <mandatory>false</mandatory>
+        </selector>
     </files>
     <attributes>
         <attribute name="BASENAME"/>
