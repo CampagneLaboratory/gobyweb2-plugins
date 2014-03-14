@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<fileSetConfig xsi:noNamespaceSchemaLocation="../../../schemas/plugins.xsd"
+               xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <name>IGV output</name>
+    <id>IGV</id>
+    <help>Each record in the table is one line of the text file. Each field value of a record is separated from the next by a tab stop character.</help>
+    <version>1.0</version>
+    <mimeType>text/tab-separated-values</mimeType>
+    <files>
+        <selector matchAttribute="basename">
+            <id>IGV</id>
+            <pattern>*.igv</pattern>
+            <mandatory>true</mandatory>
+        </selector>
+    </files>
+    <attributes>
+        <attribute name="basename"/>
+    </attributes>
+</fileSetConfig>
