@@ -16,7 +16,6 @@ function plugin_install_artifact {
                 ./configure --with-goby=${RESOURCES_ARTIFACTS_GOBY_CPP_API_LIBRARIES} --prefix=${installation_path}
                 make
                 make install
-
                 ls -ltr
 
                 ls -ltr ${installation_path}/
@@ -49,6 +48,7 @@ function plugin_install_artifact {
             INPUT_FASTA_NO_GZ=${FAI_INDEXED_GENOME_DIR}/genome-toplevel.fasta
             mkdir share
             ${GMAP_BUILD_EXEC} -d index -k 15 ${INPUT_FASTA_NO_GZ} -D share
+            make gmapdb
             cp -r share  ${installation_path}/
             STATUS=$?
             ls -ltr
