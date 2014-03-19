@@ -40,6 +40,7 @@ import edu.cornell.med.icb.goby.modes.ConcatenateCompactReadsMode
 import edu.cornell.med.icb.goby.modes.CompactFileStatsMode
 import edu.cornell.med.icb.goby.modes.FastaToCompactMode
 import edu.cornell.med.icb.goby.modes.SampleQualityScoresMode
+import it.unimi.dsi.fastutil.objects.ObjectOpenHashSet
 import org.apache.commons.io.FileUtils
 import org.apache.commons.io.FilenameUtils
 import org.apache.commons.logging.Log
@@ -694,22 +695,26 @@ public class ProcessSample {
         }
         return false
     }
+    Set<String> alreadyCopied = new ObjectOpenHashSet<String>()
 
     private boolean copyFileToWebServer(String filename) {
+        if (alreadyCopied.contains(filename)) return true;
         if (filename) {
             File file = new File(filename)
             if (file.exists()) {
-                //return exec.scp(filename, "${sshPrefix}:${webFilesDir}/") == 0
-                org.apache.commons.io.FileUtils.copyFileToDirectory(new File(filename), new File("${webFilesDir}/"))
-            }  else {
+                FileUtils.copyFileToDirectory(new File(filename), new File("${webFilesDir}/"))
+                alreadyCopied.add(filename)
+                return true
+            } else {
                 println "file ${filename} does not exist"
                 //return true  //the file was not created when processing the sample
             }
         }
-        println "failed to copy file ${filename} to web server"
+        println "failed to copy file ${filename} to web server at " + $ { webFilesDir }
+        exec.queueMessage sampleTag, "Copying file ${i} to web server failed"
+
         return false
     }
-    
     /**
      * Assuming the extension is listed in ALL_ALLOWED_EXTS this will remove
      * the file extension.
