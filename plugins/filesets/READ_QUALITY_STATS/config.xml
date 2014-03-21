@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<!--
+  ~ Copyright (c) 2011-2014  by Cornell University  and the  Cornell Research Foundation,
+  ~ Inc. All Rights Reserved.
+  ~
+  ~ GobyWeb plugins  are released  under the LGPL3 license,  unless  otherwise specified
+  ~ by the license of a specific plugin. See the file LGPL3.license in this distribution
+  ~ for a copy of the LGPL license.
+  ~
+  ~ When a plugin is not released under the LGPL3 license,  the comments  at the top  of
+  ~ the plugin's config.xml will indicate how that specific plugin is released/licensed.
+  -->
+
+<fileSetConfig xsi:noNamespaceSchemaLocation="../../../schemas/plugins.xsd"
+               xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <name>Compact-Reads</name>
+    <id>SUPPORTED_INPUT_READS</id>
+    <help>All supported input read file formats.</help>
+    <version>1.0</version>
+    <mimeType>application/all-gobyweb-input-reads-files</mimeType>
+    <files>
+
+        <selector matchAttribute="COMPACT_READS">
+            <id>COMPACT_READ_FILES</id>
+            <pattern>*.compact-reads</pattern>
+            <mandatory>false</mandatory>
+        </selector>
+        <selector matchAttribute="FASTQ_GZ">
+            <id>FASTQ_GZ_FILES</id>
+            <pattern>*.fq.gz</pattern>
+            <mandatory>false</mandatory>
+        </selector>
+        <selector matchAttribute="FASTQ">
+            <id>FASTQ_FILES</id>
+            <pattern>*.fq</pattern>
+            <mandatory>false</mandatory>
+        </selector>
+        <selector matchAttribute="FASTA">
+            <id>FASTA_FILES</id>
+            <pattern>*.fa</pattern>
+            <mandatory>false</mandatory>
+        </selector>
+        <selector matchAttribute="FASTA_GZ">
+            <id>FASTA_GZ_FILES</id>
+            <pattern>*.fa.gz</pattern>
+            <mandatory>false</mandatory>
+        </selector>
+    </files>
+    <attributes>
+        <attribute name="COMPACT_READS"/>
+        <attribute name="FASTQ_GZ"/>
+        <attribute name="FASTQ"/>
+        <attribute name="FASTA"/>
+        <attribute name="FASTA_GZ"/>
+    </attributes>
+</fileSetConfig>
