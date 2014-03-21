@@ -19,7 +19,7 @@
     <requires>
         <resource>
             <id>VARIANT_EFFECT_PREDICTOR</id>
-            <versionAtLeast>71</versionAtLeast>
+            <versionAtLeast>73</versionAtLeast>
         </resource>
         <resource>
             <id>ENSEMBL_ANNOTATIONS</id>
