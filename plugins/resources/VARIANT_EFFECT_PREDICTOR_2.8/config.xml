@@ -18,11 +18,7 @@
     <requires>
         <resource>
             <id>ENSEMBL_API</id>
-<<<<<<< HEAD
-            <versionAtLeast>73</versionAtLeast>
-=======
-            <versionAtLeast>72</versionAtLeast>
->>>>>>> 1809ee0ac8d84a4e697cfb6f114e4e36f22bd503
+           <versionAtLeast>73</versionAtLeast>
         </resource>
     </requires>
     <artifacts>
