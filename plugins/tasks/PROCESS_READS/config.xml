@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<taskConfig xsi:noNamespaceSchemaLocation="../../../schemas/plugins.xsd"
+            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <name>RNASELECT Task</name>
+    <id>RNASELECT_TASK</id>
+    <help>Execute RNASELECT resource as Task to process multiple reads files and produce a TSV</help>
+    <version>1.1</version>
+
+    <requires>
+        <resource>
+            <id>RNASELECT</id>
+            <versionAtLeast>1.0.5</versionAtLeast>
+        </resource>
+    </requires>
+    <runtime>
+        <need scope="ALIGN" key="excl" value="true"/>
+        <need scope="ALIGN" key="h_vmem" value="35g"/>
+        <need scope="ALIGN" key="virtual_free" value="35g"/>
+        <need scope="INSTALL_ARTIFACTS" key="excl" value="true"/>
+        <need scope="INSTALL_ARTIFACTS" key="h_vmem" value="35g"/>
+        <need scope="INSTALL_ARTIFACTS" key="virtual_free" value="35g"/>
+        <need scope="ALIGN" key="os" value="rhel5.4"/>
+        <need scope="ALIGN_JVM" value="4g"/>
+        <need scope="ALIGNMENT_POST_PROCESSING" key="excl" value="false"/>
+        <need scope="ALIGNMENT_POST_PROCESSING" key="h_vmem" value="10g"/>
+        <need scope="ALIGNMENT_POST_PROCESSING" key="virtual_free" value="12g"/>
+        <need scope="ALIGNMENT_POST_PROCESSING_JVM" value="8g"/>
+    </runtime>
+    <executableIOSchema>
+        <input>
+            <inputSlot>
+                <name>INPUT_READS</name>
+                <type maxOccurs="10" minOccurs="1">
+                    <id>COMPACT_READS</id>
+                    <versionAtLeast>1.0</versionAtLeast>
+                </type>
+            </inputSlot>
+        </input>
+        <output>
+            <outputSlot>
+                <name>STATS</name>
+                <type>
+                    <id>TSV</id>
+                    <versionExactly>1.0</versionExactly>
+                </type>
+            </outputSlot>
+        </output>
+    </executableIOSchema>
+</taskConfig>
