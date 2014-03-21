@@ -9,7 +9,7 @@
     <files>
         <selector matchAttribute="BASENAME">
             <id>STATS</id>
-            <pattern>*.sequence-variation-stats.tsvt</pattern>
+            <pattern>*.sequence-variation-stats.tsv</pattern>
             <mandatory>true</mandatory>
         </selector>
     </files>
