@@ -14,7 +14,7 @@
 <fileSetConfig xsi:noNamespaceSchemaLocation="../../../schemas/plugins.xsd"
                xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
     <name>Compact-Reads</name>
-    <id>GOBWEB_MERGE_PLAN_FILE</id>
+    <id>GOBYWEB_MERGE_PLAN_FILE</id>
     <help>The read merge plan file. Used to be called the details.tsv file.</help>
     <version>1.0</version>
     <mimeType>text/tab-separated-values</mimeType>

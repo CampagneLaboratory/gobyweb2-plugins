@@ -2,7 +2,7 @@
 <taskConfig xsi:noNamespaceSchemaLocation="../../../schemas/plugins.xsd"
             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
     <name>Process Reads</name>
-    <id>PROCESS_READS</id> 
+    <id>PROCESS_READS_TASK</id>
     <help>Process read files after upload to convert them to compact reads.</help>
     <version>1.0</version>
     <requires>
@@ -34,7 +34,7 @@
                 <name>UPLOAD_MERGE_PLAN</name> <!-- The Details file that tells us how input files needto be merged,
                 concatenated, etc. -->
                 <type maxOccurs="10000" minOccurs="1">
-                    <id>GOBWEB_MERGE_PLAN_FILE</id>
+                    <id>GOBYWEB_MERGE_PLAN_FILE</id>
                     <versionAtLeast>1.0</versionAtLeast>
                 </type>
             </inputSlot>
