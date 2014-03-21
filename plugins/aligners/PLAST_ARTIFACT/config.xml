@@ -15,16 +15,10 @@
     <name>Last</name>
     <id>PLAST_ARTIFACT</id>
     <help>Parallel alignment with Last.</help>
-<<<<<<< HEAD
     <version>1.1</version>
     <supportsColorSpace>false</supportsColorSpace>
     <supportsGobyAlignments>true</supportsGobyAlignments>
     <supportsPairedEndAlignments>true</supportsPairedEndAlignments>
-=======
-    <version>1.0</version>
-    <supportsColorSpace>false</supportsColorSpace>
-    <supportsGobyAlignments>true</supportsGobyAlignments>
->>>>>>> 1809ee0ac8d84a4e697cfb6f114e4e36f22bd503
     <supportsBAMAlignments>false</supportsBAMAlignments>
     <supportsGobyReads>true</supportsGobyReads>
     <supportsFastqReads>false</supportsFastqReads>
@@ -33,31 +27,19 @@
     <requires>
         <resource>
             <id>GOBY</id>
-<<<<<<< HEAD
             <versionAtLeast>20130717113540</versionAtLeast>
-=======
-            <versionAtLeast>20130413162635</versionAtLeast>
->>>>>>> 1809ee0ac8d84a4e697cfb6f114e4e36f22bd503
         </resource>
         <resource>
             <id>LAST_ARTIFACT</id>
             <versionExactly>287</versionExactly>
         </resource>
-<<<<<<< HEAD
-
-=======
->>>>>>> 1809ee0ac8d84a4e697cfb6f114e4e36f22bd503
         <resource>
             <id>LAST_INDEX</id>
             <versionAtLeast>287</versionAtLeast>
         </resource>
         <resource>
             <id>PLAST</id>
-<<<<<<< HEAD
             <versionAtLeast>1.2</versionAtLeast>
-=======
-            <versionAtLeast>1.1</versionAtLeast>
->>>>>>> 1809ee0ac8d84a4e697cfb6f114e4e36f22bd503
         </resource>
     </requires>
     <files>
@@ -67,15 +49,9 @@
         </file>
     </files>
     <runtime>
-<<<<<<< HEAD
         <need scope="ALIGN" key="excl" value="true"/>
         <need scope="ALIGN" key="h_vmem" value="8000g"/>
         <need scope="ALIGN" key="virtual_free" value="42g"/>
-=======
-        <need scope="ALIGN" key="excl" value="false"/>
-        <need scope="ALIGN" key="h_vmem" value="30g"/>
-        <need scope="ALIGN" key="virtual_free" value="32g"/>
->>>>>>> 1809ee0ac8d84a4e697cfb6f114e4e36f22bd503
         <need scope="ALIGN_JVM" value="4g"/>
         <need scope="ALIGNMENT_POST_PROCESSING" key="excl" value="false"/>
         <need scope="ALIGNMENT_POST_PROCESSING" key="h_vmem" value="10g"/>
