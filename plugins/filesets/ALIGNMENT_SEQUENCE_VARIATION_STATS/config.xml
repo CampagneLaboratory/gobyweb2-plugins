@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<fileSetConfig xsi:noNamespaceSchemaLocation="../../../schemas/plugins.xsd"
+               xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <name>Sequence Variation Statistics</name>
+    <id>ALIGNMENT_SEQUENCE_VARIATION_STATS</id>
+    <help>Sequence Variation Statistics</help>
+    <version>1.0</version>
+    <mimeType>application/goby-alignment</mimeType>
+    <files>
+        <selector matchAttribute="BASENAME">
+            <id>STATS</id>
+            <pattern>*.sequence-variation-stats.tsvt</pattern>
+            <mandatory>true</mandatory>
+        </selector>
+    </files>
+    <attributes>
+        <attribute name="BASENAME"/>
+    </attributes>
+</fileSetConfig>
