@@ -21,8 +21,7 @@
         Please note that this aligner does not generate TooManyHits information, and therefore is unable to distinguish
         between reads that do not match and reads that match in too many locations.
     </help>
-    <version>2.0</version>
-    <supportsColorSpace>false</supportsColorSpace>
+    <version>2.0</version>                                     <supportsColorSpace>false</supportsColorSpace>
     <supportsGobyAlignments>true</supportsGobyAlignments>
     <supportsBAMAlignments>false</supportsBAMAlignments>
     <supportsBisulfiteConvertedReads>true</supportsBisulfiteConvertedReads>
