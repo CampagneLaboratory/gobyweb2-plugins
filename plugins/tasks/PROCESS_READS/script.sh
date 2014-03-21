@@ -9,29 +9,29 @@ function plugin_task {
 
      echo "fileset command: ${FILESET_COMMAND}"
 
-     ${FILESET_COMMAND} --has-fileset INPUT_READS
+     ${FILESET_COMMAND} --has-fileset UPLOADS_FILES
      if [ $? != 0 ]; then
-       dieUponError "Input compact reads are not available"
+       dieUponError "Input files are not available"
 
      fi
 
-     READ_FILES_LIST=`${FILESET_COMMAND} --fetch INPUT_READS`
+     READ_FILES_LIST=`${FILESET_COMMAND} --fetch UPLOADS_FILES`
      if [ $? != 0 ]; then
-        dieUponError "Failed to fecth compact reads ${READ_FILES_LIST}"
-        echo ${READ_FILES_LIST}
+        dieUponError "Failed to fetch uploaded files ${UPLOADS_FILES}"
+        echo ${UPLOADS_FILES}
 
      fi
-     echo "Localized filesets ${READ_FILES_LIST}"
+     echo "Localized input files: ${UPLOADS_FILES}"
 
-     java  -jar ${RESOURCES_RNASELECT_RNASELECT_TOOL} --output out.tsv ${READ_FILES_LIST}
+     # DO SOMETHING WITH THE FILES
 
-     #push back the generated tsv
-     REGISTERED_TAGS=`${FILESET_COMMAND} --push STATS: *.tsv`
+     #push back the generated compact-reads:
+     REGISTERED_TAGS=`${FILESET_COMMAND} --push COMPACT_READ_FILES: *.compact-reads`
      if [ $? != 0 ]; then
         dieUponError "Failed to push back the output TSV file"
 
      fi
-     echo "RNA-select registered the following FileSet instances: ${REGISTERED_TAGS}"
+     echo "PROCESS_READS registered the following FileSet instances: ${REGISTERED_TAGS}"
      return 0
 }
 

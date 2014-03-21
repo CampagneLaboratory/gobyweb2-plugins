@@ -14,43 +14,15 @@
 <fileSetConfig xsi:noNamespaceSchemaLocation="../../../schemas/plugins.xsd"
                xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
     <name>Compact-Reads</name>
-    <id>SUPPORTED_INPUT_READS</id>
-    <help>All supported input read file formats.</help>
+    <id>READ_QUALITY_STATS_FILE</id>
+    <help>TSV file with read quality score statistics. Generated with the Goby reads-stats mode.</help>
     <version>1.0</version>
-    <mimeType>application/all-gobyweb-input-reads-files</mimeType>
+    <mimeType>text/tab-separated-values</mimeType>
     <files>
-
-        <selector matchAttribute="COMPACT_READS">
-            <id>COMPACT_READ_FILES</id>
-            <pattern>*.compact-reads</pattern>
-            <mandatory>false</mandatory>
-        </selector>
-        <selector matchAttribute="FASTQ_GZ">
-            <id>FASTQ_GZ_FILES</id>
-            <pattern>*.fq.gz</pattern>
-            <mandatory>false</mandatory>
-        </selector>
-        <selector matchAttribute="FASTQ">
-            <id>FASTQ_FILES</id>
-            <pattern>*.fq</pattern>
-            <mandatory>false</mandatory>
-        </selector>
-        <selector matchAttribute="FASTA">
-            <id>FASTA_FILES</id>
-            <pattern>*.fa</pattern>
-            <mandatory>false</mandatory>
-        </selector>
-        <selector matchAttribute="FASTA_GZ">
-            <id>FASTA_GZ_FILES</id>
-            <pattern>*.fa.gz</pattern>
-            <mandatory>false</mandatory>
+        <selector >
+            <id>READ_QUALITY_STATS</id>
+            <pattern>*.tsv</pattern>
+            <mandatory>true</mandatory>
         </selector>
     </files>
-    <attributes>
-        <attribute name="COMPACT_READS"/>
-        <attribute name="FASTQ_GZ"/>
-        <attribute name="FASTQ"/>
-        <attribute name="FASTA"/>
-        <attribute name="FASTA_GZ"/>
-    </attributes>
 </fileSetConfig>
