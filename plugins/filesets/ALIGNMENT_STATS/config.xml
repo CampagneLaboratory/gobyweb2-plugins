@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<fileSetConfig xsi:noNamespaceSchemaLocation="../../../schemas/plugins.xsd"
+               xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <name>Alignment textual statistics</name>
+    <id>ALIGNMENT_STATS</id>
+    <help>Alignment textual statistics</help>
+    <version>1.0</version>
+    <mimeType>application/goby-alignment</mimeType>
+    <files>
+        <selector matchAttribute="BASENAME">
+            <id>STATS</id>
+            <pattern>*.alignment-stats.txt</pattern>
+            <mandatory>true</mandatory>
+        </selector>
+    </files>
+    <attributes>
+        <attribute name="BASENAME"/>
+    </attributes>
+</fileSetConfig>
