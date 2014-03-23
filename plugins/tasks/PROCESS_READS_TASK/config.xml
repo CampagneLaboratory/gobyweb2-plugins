@@ -25,6 +25,93 @@
         <need scope="ALIGN" key="os" value="rhel5.4"/>
         <need scope="PROCESS_JVM" value="4g"/>
     </runtime>
+    <options>
+        <!--validation>
+            <rule validWhen="(matches(ANNOTATION_SOURCE,GENE_EXON_OTHER) AND (value(ESTIMATE_COUNTS_GENE) OR value(ESTIMATE_COUNTS_EXON) OR value(ESTIMATE_COUNTS_OTHER))) OR NOT (matches(ANNOTATION_SOURCE,GENE_EXON_OTHER))"
+                  error="at least one of gene exon, other must be selected when ANNOTATION_SOURCE is gene/exon/other"/>
+            <rule validWhen="(matches(WEIGHT_ADJUSTMENT,GC_CONTENT) AND NOT matches(BIAS_ADJUSTMENT_FORMULA,NONE)) OR NOT matches(WEIGHT_ADJUSTMENT,GC_CONTENT)"
+                  error="A GC content adjustment formula must be selected when GC content weight adjustment is selected."/>
+        </validation-->
+        <option>
+            <id>SAMPLE_NAME</id>
+            <name>Sample Name.</name>
+            <help>The name of the sample that should be generated from this upload, or a sample name prefix that will be
+                used to generate multiple sample names.
+            </help>
+            <required>false</required>
+            <defaultsTo>MySamples</defaultsTo>
+            <type>STRING</type>
+        </option>
+        <option>
+            <id>READS_COLOR_SPACE</id>
+            <name>Color-space.</name>
+            <help>Indicates if the reads are color-space (TRUE) or not (FALSE).
+            </help>
+            <required>false</required>
+            <defaultsTo>FALSE</defaultsTo>
+            <type>BOOLEAN</type>
+        </option>
+        <option>
+            <id>READS_PLATFORM</id>
+            <name>Sequencing Platform.</name>
+            <help>The sequencing platform that was used to sequence these reads..
+            </help>
+            <required>false</required>
+            <defaultsTo>ILLUMINA</defaultsTo>
+            <type>CATEGORY</type>
+            <categories>
+                <category>
+                    <id>ILLUMINA</id>
+                    <name>Gene/Exon/Other</name>
+                    <value>ILLUMINA</value>
+                    <help>Reads were sequenced on an Illumina instrument</help>
+                </category>
+                <category>
+                    <id>HELICOS</id>
+                    <name>Helicos</name>
+                    <value>HELICOS</value>
+                    <help>Reads were sequenced on a Heliscope instrument.</help>
+                </category>
+                <category>
+                    <id>ROCHE454</id>
+                    <name>Roche 454</name>
+                    <value>ROCHE454</value>
+                    <help>Reads were sequenced on a Roche 454 instrument.</help>
+                </category>
+            </categories>
+        </option>
+        <option>
+            <id>QUALITY_ENCODING</id>
+            <name>Quality Encoding.</name>
+            <help>The quality encoding for the uploaded reads.</help>
+            <required>false</required>
+            <defaultsTo>SANGER</defaultsTo>
+            <type>CATEGORY</type>
+            <categories>
+                <category>
+                    <id>SANGER</id>
+                    <name>Phred/Sanger.</name>
+                    <value>SANGER</value>
+                    <help>The Phred SANGER scale.</help>
+                </category>
+                <category>
+                    <id>ILLUMINA13</id>
+                    <name>Illumina pipeline 1.3+</name>
+                    <value>ILLUMINA13</value>
+                    <help>The scale used with the Illumina 1.3+ basecalling pipelines, until the switch to Sanger
+                        scale.
+                    </help>
+                </category>
+                <category>
+                    <id>SOLEXA</id>
+                    <name>Solexa</name>
+                    <value>SOLEXA</value>
+                    <help>The SOLEXA scale.</help>
+                </category>
+            </categories>
+        </option>
+
+    </options>
     <executableIOSchema>
         <input>
             <inputSlot>
@@ -61,4 +148,5 @@
             </outputSlot>
         </output>
     </executableIOSchema>
+
 </taskConfig>
