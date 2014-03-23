@@ -10,6 +10,10 @@
             <id>GOBY</id>
             <versionAtLeast>20140317155722</versionAtLeast>
         </resource>
+        <resource>
+            <id>PROCESS_READS</id>
+            <versionAtLeast>1.0</versionAtLeast>
+        </resource>
     </requires>
     <runtime>
         <need scope="PROCESS" key="excl" value="false"/>
@@ -31,8 +35,9 @@
                 </type>
             </inputSlot>
             <inputSlot>
-                <name>UPLOAD_MERGE_PLAN</name> <!-- The Details file that tells us how input files needto be merged,
-                concatenated, etc. -->
+                <name>UPLOAD_MERGE_PLAN</name>
+                <!-- The Details file that tells us how input files needto be merged,
+                               concatenated, etc. -->
                 <type maxOccurs="1" minOccurs="1">
                     <id>GOBYWEB_MERGE_PLAN_FILE</id>
                     <versionAtLeast>1.0</versionAtLeast>

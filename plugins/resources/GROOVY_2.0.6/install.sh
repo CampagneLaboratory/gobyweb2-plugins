@@ -1,4 +1,4 @@
-# Installation script for STAR version 2.2.0g
+# Installation script for Groovy resource
 function plugin_install_artifact {
 
     id=$1
