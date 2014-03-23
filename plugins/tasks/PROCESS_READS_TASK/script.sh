@@ -6,7 +6,7 @@
 READ_FILES_LIST=""
 
 function plugin_task {
-
+     set -xv
      echo "fileset command: ${FILESET_COMMAND}"
 
      ${FILESET_COMMAND} --has-fileset UPLOADS_FILES
@@ -17,12 +17,13 @@ function plugin_task {
 
      READ_FILES_LIST=`${FILESET_COMMAND} --fetch UPLOADS_FILES`
      if [ $? != 0 ]; then
-        dieUponError "Failed to fetch uploaded files ${UPLOADS_FILES}"
-        echo ${UPLOADS_FILES}
+        dieUponError "Failed to fetch uploaded files ${READ_FILES_LIST}"
+        echo ${READ_FILES_LIST}
 
      fi
-     echo "Localized input files: ${UPLOADS_FILES}"
 
+    echo "Localized input files: ${READ_FILES_LIST}"
+    READS_FIRST_FILE_TAG=`echo ${READ_FILES_LIST} | awk '{ print $1}' `
     CURRENT_RETRY=1
     MAX_RETRIES=4
     RETURN_STATUS=1
@@ -45,13 +46,13 @@ function plugin_task {
             ${RESOURCES_PROCESS_READS_PROCESS_SAMPLES} \
             --jvm-flags "${GRID_JVM_FLAGS}" \
             --goby-jar-dir ${GOBY_JAR_DIR} \
-            --cluster-reads-dir ${CLUSTER_READS_DIR} \
+            --cluster-reads-dir REMOVE_THIS_OPTION \
             --sample-tag ${TAG} \
             --first-file-tag ${READS_FIRST_FILE_TAG} \
-            --quality-encoding ${READS_QUALITY_ENCODING} \
-            --platform ${READS_PLATFORM} \
-            --sample-name ${READS_SAMPLE_NAME} \
-            --color-space ${READS_COLOR_SPACE} \
+            --quality-encoding ${PLUGINS_TASK_PROCESS_READS_TASK_QUALITY_ENCODING} \
+            --platform ${PLUGINS_TASK_PROCESS_READS_TASK_READS_PLATFORM} \
+            --sample-name ${PLUGINS_TASK_PROCESS_READS_TASK_SAMPLE_NAME} \
+            --color-space ${PLUGINS_TASK_PROCESS_READS_TASK_READS_COLOR_SPACE} \
             --ssh-prefix ${WEB_SERVER_SSH_PREFIX} \
             --web-files-dir ${RESULTS_WEB_DIR} \
             --queue-writer-prefix-variable QUEUE_WRITER \
