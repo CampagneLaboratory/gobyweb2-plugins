@@ -23,11 +23,6 @@
             <mandatory>true</mandatory>
         </selector>
         <selector matchAttribute="BASENAME">
-            <id>STATS</id>
-            <pattern>*.alignment-stats.txt</pattern>
-            <mandatory>false</mandatory>
-        </selector>
-        <selector matchAttribute="BASENAME">
             <id>TMH</id>
             <pattern>*.tmh</pattern>
             <mandatory>false</mandatory>
