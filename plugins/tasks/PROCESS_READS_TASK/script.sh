@@ -87,19 +87,34 @@ function plugin_task {
 
      # DO SOMETHING WITH THE FILES
 
-     #push back the generated compact-reads:
+     # push back the generated compact-reads:
      REGISTERED_TAGS=`${FILESET_COMMAND} --push COMPACT_READ_FILES: CONVERTED/*.compact-reads`
      if [ $? != 0 ]; then
         dieUponError "Failed to push back the output TSV file"
      fi
      echo "PROCESS_READS registered the following FileSet instances: ${REGISTERED_TAGS}"
 
-     #push back the output stats:
+     # push back the output stats:
      REGISTERED_TAGS=`${FILESET_COMMAND} --push OUTPUT_STATS: output-stats.properties `
      if [ $? != 0 ]; then
         dieUponError "Failed to push back the reads statistics properties file"
      fi
      echo "Read statistics registered the following FileSet instances: ${REGISTERED_TAGS}"
+
+     # push back the quality stats:
+     REGISTERED_TAGS=`${FILESET_COMMAND} --push READ_QUALITY_STATS: CONVERTED/*.quality-stats.tsv `
+     if [ $? != 0 ]; then
+        dieUponError "Failed to push back the quality stats."
+     fi
+     echo "PROCESS_READS registered the following FileSet instances: ${REGISTERED_TAGS}"
+
+
+     # push back the weight files:
+     REGISTERED_TAGS=`${FILESET_COMMAND} --push WEIGHT_FILES: CONVERTED/*.*weights`
+     if [ $? != 0 ]; then
+        dieUponError "Failed to push back the weight files."
+     fi
+     echo "PROCESS_READS registered the following FileSet instances: ${REGISTERED_TAGS}"
 
      return 0
 }

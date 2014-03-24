@@ -13,16 +13,24 @@
 
 <fileSetConfig xsi:noNamespaceSchemaLocation="../../../schemas/plugins.xsd"
                xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
-    <name>Compact-Reads</name>
-    <id>GOBYWEB_MERGE_PLAN_FILE</id>
-    <help>The read merge plan file. Used to be called the details.tsv file.</help>
+    <name>Goby Weight Files</name>
+    <id>WEIGHT_FILES</id>
+    <help>Goby Weight file format</help>
     <version>1.0</version>
-    <mimeType>text/tab-separated-values</mimeType>
+    <mimeType>application/goby-weight-files</mimeType>
     <files>
-        <selector >
-            <id>MERGE_PLAN</id>
-            <pattern>*details.tsv</pattern>
-            <mandatory>true</mandatory>
+        <selector>
+            <id>GC_WEIGHTS</id>
+            <pattern>*.gc-weights</pattern>
+            <mandatory>false</mandatory>
+        </selector>
+        <selector>
+            <id>HEPTAMER_WEIGHTS</id>
+            <pattern>*.hept-weights</pattern>
+            <mandatory>false</mandatory>
         </selector>
     </files>
+    <attributes>
+        <attribute name="basename"/>
+    </attributes>
 </fileSetConfig>

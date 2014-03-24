@@ -227,7 +227,6 @@ public class TaskProcessSample {
     String queueWriterPrefix
     String queueJobStartStatusCode = "UNKNOWN"
     String workDir = "/tmp"
-    String localDetailsTsv
     String outStatsFilename
     // This will be populated during execution
     int numberOfReads
@@ -331,7 +330,12 @@ public class TaskProcessSample {
 
             String localFilename = FilenameUtils.getName(webSampleFile)
             processFilenames << localFilename
-
+            // copy all files to CONVERTED
+            // if input file is a compact-reads, we copy it to the CONVERTED folder:
+            if (FilenameUtils.getExtension(webSampleFile).equals("compact-reads")) {
+                println "Copying ${webSampleFile} to ${FilenameUtils.concat(destinationDir,localFilename)}"
+                FileUtils.copyFile(new File(webSampleFile), new File(FilenameUtils.concat(destinationDir,localFilename)))
+            }
         }
 
         readQualChartFilename = "${clusterReadsDir}/${firstFileTag}.quality-stats.tsv"
@@ -341,7 +345,7 @@ public class TaskProcessSample {
         final Map<String, SampleDetails> filenameToSampleDetailsMap
 
         // When the detailsFile is read from here, it should contain files for ONE sample name
-        final Map<String, List<SampleDetails>> detailsMap = SampleDetailsUtil.readSampleDetails(localDetailsTsv)
+        final Map<String, List<SampleDetails>> detailsMap = SampleDetailsUtil.readSampleDetails(mergePlanFilename)
         println "Map before removing pairs: ${detailsMap}"
         pairedSamplesFound = SampleDetailsUtil.removePairs(detailsMap)
         sampleName = (detailsMap.keySet() as List)[0]
