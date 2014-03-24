@@ -1,15 +1,15 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <fileSetConfig xsi:noNamespaceSchemaLocation="../../../schemas/plugins.xsd"
                xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
-    <name>Alignment textual statistics</name>
-    <id>ALIGNMENT_STATS</id>
-    <help>Alignment textual statistics</help>
+    <name>Wig files produced by aligner</name>
+    <id>ALIGNMENT_WIG</id>
+    <help>Zip archive with wig files produced by an aligner</help>
     <version>1.0</version>
-    <mimeType>text/plain</mimeType>
+    <mimeType>application/x-gzip-compressed</mimeType>
     <files>
         <selector matchAttribute="BASENAME">
-            <id>STATS</id>
-            <pattern>*.alignment-stats.txt</pattern>
+            <id>BED</id>
+            <pattern>*-all.wig.gz</pattern>
             <mandatory>true</mandatory>
         </selector>
     </files>
