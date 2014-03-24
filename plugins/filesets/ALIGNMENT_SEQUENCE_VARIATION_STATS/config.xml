@@ -5,7 +5,7 @@
     <id>ALIGNMENT_SEQUENCE_VARIATION_STATS</id>
     <help>Sequence Variation Statistics</help>
     <version>1.0</version>
-    <mimeType>application/goby-alignment</mimeType>
+    <mimeType>text/tab-separated-values</mimeType>
     <files>
         <selector matchAttribute="BASENAME">
             <id>STATS</id>
