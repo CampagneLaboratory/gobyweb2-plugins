@@ -29,7 +29,7 @@
     <files>
         <file>
             <id>PROCESS_SAMPLES</id>
-            <filename>ProcessSamples.groovy</filename>
+            <filename>TaskProcessSamples.groovy</filename>
         </file>
 
     </files>
