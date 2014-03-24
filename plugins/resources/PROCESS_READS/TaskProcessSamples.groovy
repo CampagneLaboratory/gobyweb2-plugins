@@ -52,42 +52,48 @@ import org.campagnelab.groovySupport.sample.SampleDetails
 import org.campagnelab.groovySupport.sample.SampleDetailsUtil
 
 
-public class ProcessSample {
+public class TaskProcessSample {
 
-    private static final Log LOG = LogFactory.getLog(ProcessSample.class);
+    private static final Log LOG = LogFactory.getLog(TaskProcessSample.class);
 
     private final static String JSAP_XML_CONFIG = """
         <jsap>
             <parameters>
                 <flaggedOption>
+                    <id>output-stats-filename</id>
+                    <longFlag>output-stats</longFlag>
+                    <required>true</required>
+                    <help>The filename were output statistics will be written.</help>
+                </flaggedOption>
+                <flaggedOption>
                     <id>goby-jar-dir</id>
                     <longFlag>goby-jar-dir</longFlag>
                     <required>true</required>
-                    <help>The directory where the goby.jar that will be use exists</help>
+                    <help>The directory where the goby.jar that will be use exists.</help>
                 </flaggedOption>
                 <flaggedOption>
                     <id>jvm-flags</id>
                     <longFlag>jvm-flags</longFlag>
                     <required>true</required>
-                    <help>Java JVM flags to use</help>
+                    <help>Java JVM flags to use.</help>
                 </flaggedOption>
                 <flaggedOption>
                     <id>cluster-reads-dir</id>
                     <longFlag>cluster-reads-dir</longFlag>
                     <required>true</required>
-                    <help>The directory on the cluster where the reads file live</help>
+                    <help>The directory on the cluster where the reads file live.</help>
                 </flaggedOption>
                 <unflaggedOption>
                     <id>web-sample-files</id>
                     <required>true</required>
                     <greedy>true</greedy>
-                    <help>The source sample files (full path, fastq, fastq, compact-reads) on the web server to process for ONE sample. These will be stored on the cluster in --cluster-reads-dir</help>
+                    <help>The source sample files (full path, fastq, fastq, compact-reads) on the web server to process for ONE sample. These will be stored on the cluster in --cluster-reads-dir.</help>
                 </unflaggedOption>
                 <flaggedOption>
                     <id>color-space</id>
                     <longFlag>color-space</longFlag>
                     <required>true</required>
-                    <help>Set to true if the sample is colorspace</help>
+                    <help>Set to true if the sample is colorspace.</help>
                     <stringParser>
                         <classname>BooleanStringParser</classname>
                     </stringParser>
@@ -96,31 +102,37 @@ public class ProcessSample {
                     <id>sample-tag</id>
                     <longFlag>sample-tag</longFlag>
                     <required>true</required>
-                    <help>The tag for the sample for which we are processing reads</help>
+                    <help>The tag for the sample for which we are processing reads.</help>
                 </flaggedOption>
                 <flaggedOption>
                     <id>sample-name</id>
                     <longFlag>sample-name</longFlag>
                     <required>true</required>
-                    <help>The sample name, should be filename friendly (no spaces, etc.)</help>
+                    <help>The sample name, should be filename friendly (no spaces, etc.).</help>
+                </flaggedOption>
+                <flaggedOption>
+                    <id>merge-plan-filename</id>
+                    <longFlag>merge-plan-filename</longFlag>
+                    <required>true</required>
+                    <help>The name of the file that contains the merge plan (formerly details.tsv file).</help>
                 </flaggedOption>
                 <flaggedOption>
                     <id>platform</id>
                     <longFlag>platform</longFlag>
                     <required>true</required>
-                    <help>The platform for the sample</help>
+                    <help>The platform for the sample.</help>
                 </flaggedOption>
                 <flaggedOption>
                     <id>quality-encoding</id>
                     <longFlag>quality-encoding</longFlag>
                     <required>true</required>
-                    <help>The quality encoding for the reads, in the case the reads are fastq</help>
+                    <help>The quality encoding for the reads, in the case the reads are fastq.</help>
                 </flaggedOption>
                 <flaggedOption>
                     <id>first-file-tag</id>
                     <longFlag>first-file-tag</longFlag>
                     <required>true</required>
-                    <help>The tag of the first file in the list of files to be processed, if there are more than one we are performing a merge</help>
+                    <help>The tag of the first file in the list of files to be processed, if there are more than one we are performing a merge.</help>
                 </flaggedOption>
                 <flaggedOption>
                     <id>web-files-dir</id>
@@ -132,7 +144,7 @@ public class ProcessSample {
                     <id>ssh-prefix</id>
                     <longFlag>ssh-prefix</longFlag>
                     <required>true</required>
-                    <help>The ssh / scp prefix (such as username@server)</help>
+                    <help>The ssh / scp prefix (such as username@server).</help>
                 </flaggedOption>
                 <flaggedOption>
                     <id>queue-writer-prefix</id>
@@ -144,13 +156,13 @@ public class ProcessSample {
                      <id>queue-writer-prefix-variable</id>
                      <longFlag>queue-writer-prefix-variable</longFlag>
                      <required>false</required>
-                     <help>The name of an environment variable containing the command line prefix for writing to the queue</help>
+                     <help>The name of an environment variable containing the command line prefix for writing to the queue.</help>
                 </flaggedOption>
                 <flaggedOption>
                     <id>job-start-status</id>
                     <longFlag>job-start-status</longFlag>
                     <required>false</required>
-                    <help>The generic "start" status message to use when writing to the queue</help>
+                    <help>The generic "start" status message to use when writing to the queue.</help>
                 </flaggedOption>
                 <flaggedOption>
                     <id>work-dir</id>
@@ -170,20 +182,20 @@ public class ProcessSample {
                 <switch>
                     <id>skip-queue-writing</id>
                     <longFlag>skip-queue-writing</longFlag>
-                    <help>If this flag is enabled, the GobyWeb queue will not be written to</help>
+                    <help>If this flag is enabled, the GobyWeb queue will not be written to.</help>
                 </switch>
                 <switch>
                     <id>help</id>
                     <longFlag>help</longFlag>
-                    <help>Help</help>
+                    <help>Help.</help>
                 </switch>
             </parameters>
         </jsap>
     """
 
-    public final static COMPACT_READS_ALLOWED_EXTS = [ ".compact-reads"]
+    public final static COMPACT_READS_ALLOWED_EXTS = [".compact-reads"]
     public final static FASTX_ALLOWED_EXTS = [
-            ".fa",    ".fq",    ".fasta",    ".fastq",    ".csfasta",
+            ".fa", ".fq", ".fasta", ".fastq", ".csfasta",
             ".fa.gz", ".fq.gz", ".fasta.gz", ".fastq.gz", ".csfasta.gz", ".txt.gz",
             ".fastq.gz.tar"]
     public final static ALL_ALLOWED_EXTS = []
@@ -201,7 +213,7 @@ public class ProcessSample {
     // Configuration that would be fed in from cluster script
     String gobyJarDir
     String jvmFlags
-    String clusterReadsDir 
+    String clusterReadsDir
     String[] webSampleFiles
     String sampleTag
     String firstFileTag
@@ -216,16 +228,16 @@ public class ProcessSample {
     String queueJobStartStatusCode = "UNKNOWN"
     String workDir = "/tmp"
     String localDetailsTsv
-
+    String outStatsFilename
     // This will be populated during execution
     int numberOfReads
     Writer statsWriter
     String readQualChartFilename
-    String detailsFilename
+    String mergePlanFilename
     ExecAndRemote exec = new ExecAndRemote()
 
     public static void main(String[] args) {
-        def exec = new ProcessSample()
+        def exec = new TaskProcessSample()
         if (args.length == 1 && args[0] == "--test") {
             exec.testConfigure()
         } else {
@@ -233,28 +245,27 @@ public class ProcessSample {
         }
         int retval = exec.processSingleSample()
         if (retval != 0) {
-            System.exit retval 
+            System.exit retval
         }
     }
-    
-    public ProcessSample() {
+
+    public TaskProcessSample() {
         // This will be populated during execution
         numberOfReads = -1
         statsWriter = null
         readQualChartFilename = null
-        detailsFilename = null
         exec = new ExecAndRemote()
     }
-    
+
     private void testConfigure() {
         gobyJarDir = "/home/gobyweb/goby-dev"
         jvmFlags = "-Xmx2g"
-        clusterReadsDir = "/home/gobyweb/GOBYWEB_FILES-kdorff/kdorff" 
+        clusterReadsDir = "/home/gobyweb/GOBYWEB_FILES-kdorff/kdorff"
         webSampleFiles = [
-            "/home/gobyweb/GOBYWEB_UPLOADS/01.compact-reads", 
-            "/home/gobyweb/GOBYWEB_UPLOADS/02.compact-reads",
-            "/home/gobyweb/GOBYWEB_UPLOADS/03.compact-reads", 
-            "/home/gobyweb/GOBYWEB_UPLOADS/04.compact-reads"] as String[]
+                "/home/gobyweb/GOBYWEB_UPLOADS/01.compact-reads",
+                "/home/gobyweb/GOBYWEB_UPLOADS/02.compact-reads",
+                "/home/gobyweb/GOBYWEB_UPLOADS/03.compact-reads",
+                "/home/gobyweb/GOBYWEB_UPLOADS/04.compact-reads"] as String[]
         sampleTag = "KEWEFWD"
         firstFileTag = "JGEWKQS"
         qualityEncoding = "Illumina"
@@ -268,13 +279,14 @@ public class ProcessSample {
 
     private void configure(String[] args) {
         final JSAPResult jsapResult = new JsapSupport()
-            .setScriptName("ProcessSample.groovy")
-            .setArgs(args)
-            .setXmlConfig(JSAP_XML_CONFIG)
-            .parse()
-        webSampleFiles = jsapResult.getStringArray("web-sample-files")        
-        gobyJarDir = jsapResult.getString("goby-jar-dir")        
+                .setScriptName("TaskProcessSample.groovy")
+                .setArgs(args)
+                .setXmlConfig(JSAP_XML_CONFIG)
+                .parse()
+        webSampleFiles = jsapResult.getStringArray("web-sample-files")
+        gobyJarDir = jsapResult.getString("goby-jar-dir")
         jvmFlags = jsapResult.getString("jvm-flags")
+        mergePlanFilename = jsapResult.getString("merge-plan-filename")
         clusterReadsDir = jsapResult.getString("cluster-reads-dir")
         sampleTag = jsapResult.getString("sample-tag")
         firstFileTag = jsapResult.getString("first-file-tag")
@@ -285,6 +297,8 @@ public class ProcessSample {
         sshPrefix = jsapResult.getString("ssh-prefix")
         webFilesDir = jsapResult.getString("web-files-dir")
         queueWriterPrefix = jsapResult.getString("queue-writer-prefix")
+        outStatsFilename = jsapResult.getString("output-stats-filename")
+
         String queueWriterPrefixVariable = jsapResult.getString("queue-writer-prefix-variable")
 
         if (queueWriterPrefixVariable != null && queueWriterPrefix == null) {
@@ -302,84 +316,63 @@ public class ProcessSample {
 
     /**
      * Process the uploaded samples.
-     * @param createMultipleSamples if the sample contains multiple uploads, create a
-     * sample for each of the uploads.
+
      */
     private int processSingleSample() {
         int retval = 99
         println "Processing sample.tag=${sampleTag}"
-        
+
         // Copy files from web server
         def processFilenames = []
         int i = 0
         int numFiles = webSampleFiles.length
+        final String destinationDir = "CONVERTED"
         for (String webSampleFile in webSampleFiles) {
-            final String destinationDir
-            if (webSampleFile.endsWith(".compact-reads")) {
-                destinationDir = clusterReadsDir
-            } else {
-                destinationDir = workDir
-            }
-            String localFilename = FilenameUtils.getName(webSampleFile)
-            exec.queueMessage sampleTag, "Transferring reads file from cluster ${++i} of ${numFiles}"
-            if (exec.scp("${sshPrefix}:${webSampleFile}", "${destinationDir}/${localFilename}") != 0) {
-                println "scp failed for file "
-                exec.queueMessage sampleTag, "Copying file ${i} from cluster failed"
-                return 4
-            }
 
-            if (localFilename.endsWith("-details.tsv")) {
-                localDetailsTsv = "${destinationDir}/${localFilename}"
-            } else {
-                processFilenames << localFilename
-            }
+            String localFilename = FilenameUtils.getName(webSampleFile)
+            processFilenames << localFilename
+
         }
 
-        detailsFilename = "${clusterReadsDir}/${firstFileTag}.details.txt"
         readQualChartFilename = "${clusterReadsDir}/${firstFileTag}.quality-stats.tsv"
 
         final boolean pairedSamplesFound
         final String sampleName = null
         final Map<String, SampleDetails> filenameToSampleDetailsMap
-        if (localDetailsTsv) {
-            // When the detailsFile is read from here, it should contain files for ONE sample name
-            final Map<String, List<SampleDetails>> detailsMap = SampleDetailsUtil.readSampleDetails(localDetailsTsv)
-            println "Map before removing pairs: ${detailsMap}"
-            pairedSamplesFound = SampleDetailsUtil.removePairs(detailsMap)
-            sampleName = (detailsMap.keySet() as List)[0]
-            filenameToSampleDetailsMap = SampleDetailsUtil.sampleDetailsMapToFilenameLcMap(detailsMap)
-            if (pairedSamplesFound) {
-                println "Map after removing pairs: ${detailsMap}"
-                // Since we've removed pairs, we can re-obtain processFilenames from the detailsMap.
-                // Make a map of the process filenames without the tag to the process filename
-                Map<String, String> noTagToProcessMap = [:]
-                processFilenames.each { final String processFilename ->
-                    noTagToProcessMap[processFilename.substring(8)] = processFilename
-                }
-                // Copy just the ones that aren't part 1 of the pair (just part 0)
-                processFilenames.clear()
-                (detailsMap[sampleName])*.filename.each { final String filename ->
-                    processFilenames << noTagToProcessMap[filename]
-                }
-                renamePairFiles(filenameToSampleDetailsMap, processFilenames, noTagToProcessMap)
-            } else {
-                println "No pairs found in map"
+
+        // When the detailsFile is read from here, it should contain files for ONE sample name
+        final Map<String, List<SampleDetails>> detailsMap = SampleDetailsUtil.readSampleDetails(localDetailsTsv)
+        println "Map before removing pairs: ${detailsMap}"
+        pairedSamplesFound = SampleDetailsUtil.removePairs(detailsMap)
+        sampleName = (detailsMap.keySet() as List)[0]
+        filenameToSampleDetailsMap = SampleDetailsUtil.sampleDetailsMapToFilenameLcMap(detailsMap)
+        if (pairedSamplesFound) {
+            println "Map after removing pairs: ${detailsMap}"
+            // Since we've removed pairs, we can re-obtain processFilenames from the detailsMap.
+            // Make a map of the process filenames without the tag to the process filename
+            Map<String, String> noTagToProcessMap = [:]
+            processFilenames.each { final String processFilename ->
+                noTagToProcessMap[processFilename.substring(8)] = processFilename
             }
-            println "filenameToSampleDetailsMap=${filenameToSampleDetailsMap}"
+            // Copy just the ones that aren't part 1 of the pair (just part 0)
+            processFilenames.clear()
+            (detailsMap[sampleName])*.filename.each { final String filename ->
+                processFilenames << noTagToProcessMap[filename]
+            }
+            renamePairFiles(filenameToSampleDetailsMap, processFilenames, noTagToProcessMap)
         } else {
-            pairedSamplesFound = false
-            println "no paired samples found"
-            sampleName = null
-            filenameToSampleDetailsMap = null
+            println "No pairs found in map"
         }
+        println "filenameToSampleDetailsMap=${filenameToSampleDetailsMap}"
 
-	    // Convert any fasta/fastq to compact-reads
-	    final List<File> stepTwoFiles = new ArrayList<File>()
+        // Convert any fasta/fastq to compact-reads
+        final List<File> stepTwoFiles = new ArrayList<File>()
 
-	    String pairFilename
-	    for (String processFilename in processFilenames) {
-	        pairFilename = null
+        String pairFilename
+        for (String processFilename in processFilenames) {
+            pairFilename = null
             if (processFilename.endsWith(".compact-reads")) {
+
                 stepTwoFiles << new File("${clusterReadsDir}/${processFilename}")
             } else {
                 boolean processFqGzTar = false
@@ -390,7 +383,7 @@ public class ProcessSample {
                         retval = 4
                         return retval
                     }
-                }                
+                }
                 exec.queueMessage sampleTag, "Converting reads from fasta/fastq to Goby Compact-reads format"
                 String fafqFilename = "${processFilename}"
                 String localFafqFilename = "${workDir}/${processFilename}"
@@ -413,8 +406,7 @@ public class ProcessSample {
                 String compactFilename = "${outputBasename}.compact-reads"
                 String localCompactFilename = "${clusterReadsDir}/${compactFilename}"
                 try {
-                    // TODO: This is in for testing
-                    // --------------------------------------
+
                     // This will try to automatically set the quality encoding based
                     // on the results of SampleQualityScoresMode.
                     SampleQualityScoresMode sqs = new SampleQualityScoresMode()
@@ -431,7 +423,7 @@ public class ProcessSample {
                     } else {
                         println "Determination of Likely encoding failed."
                     }
-                
+
                     FastaToCompactMode convert = new FastaToCompactMode()
                     convert.addInputFilename localFafqFilename
                     convert.setOutputFilename localCompactFilename
@@ -473,12 +465,12 @@ public class ProcessSample {
                             convert.setQualityEncoding qualityEncoding
                         }
                     }
-                    
+
                     println "Conversion starting"
                     convert.execute()
                     println "Conversion finished"
                     stepTwoFiles << new File(localCompactFilename)
-        
+
                 } catch (IOException e) {
                     // The conversion failed. Nothing else can be done.
                     println "Conversion to compact-reads failed, IOException ${e.message}"
@@ -498,82 +490,63 @@ public class ProcessSample {
             // TODO: each of the input files to make sure we don't duplicate.
 
             File localFile
-           // if (stepTwoFiles) {    //what's the point of checking this? stepTwoFiles is ALWAYS initialized
-                final String storedName = 
-                    "${firstFileTag}-${ICBStringUtils.safeFilename(sampleName)}.compact-reads"
-                if (stepTwoFiles.size() > 1) {
-                    exec.queueMessage sampleTag, "Concatenating reads"
-                    ConcatenateCompactReadsMode concat = new ConcatenateCompactReadsMode();
-                    localFile = new File("${clusterReadsDir}/${storedName}")
-                    concat.setOutputFilename localFile.toString()
-                    concat.setQuickConcat false
-                    for (stepTwoFile in stepTwoFiles) {
-                        println "Adding file to concat ${stepTwoFile}"
-                        concat.addInputFile stepTwoFile
-                    }
-                    concat.execute()
-
-                    for (stepTwoFile in stepTwoFiles) {
-                        FileUtils.deleteQuietly(stepTwoFile)
-                    }
-                } else {
-                    File prevLocalFile = stepTwoFiles[0]
-                    localFile = new File("${clusterReadsDir}/${storedName}")
-                    println "Single file. renaming ${prevLocalFile} to ${localFile}"
-                    prevLocalFile.renameTo(localFile)
+            // if (stepTwoFiles) {    //what's the point of checking this? stepTwoFiles is ALWAYS initialized
+            final String storedName =
+                    "${firstFileTag}-${ICBStringUtils.safeFilename(FilenameUtils.getBaseName(sampleName))}.compact-reads"
+            if (stepTwoFiles.size() > 1) {
+                exec.queueMessage sampleTag, "Concatenating reads"
+                ConcatenateCompactReadsMode concat = new ConcatenateCompactReadsMode();
+                localFile = new File("${clusterReadsDir}/${storedName}")
+                concat.setOutputFilename localFile.toString()
+                concat.setQuickConcat false
+                for (stepTwoFile in stepTwoFiles) {
+                    println "Adding file to concat ${stepTwoFile}"
+                    concat.addInputFile stepTwoFile
                 }
+                concat.execute()
 
-                //String detailsFilename = "${clusterReadsDir}/${firstFileTag}.details.txt"
-                statsWriter = (new File(detailsFilename)).newWriter(false)
-                statsWriter.writeLine "ngFile.tag=${firstFileTag}" 
-                statsWriter.writeLine "ngFile.storedName=${storedName}"
-                statsWriter.writeLine "ngFile.storedDir=${clusterReadsDir}"
-                statsWriter.writeLine "ngFile.size=${localFile.length()}"
-                if (getReadLengths(localFile)) {
-                    getReadQualityStats(localFile)
-                    calculateHeptamersWeights(localFile)
-                    if (platform != "SOLiD") {
-                        calculateGCWeights(localFile)
-                    }
-                } else {
-                    retval = 2
+                for (stepTwoFile in stepTwoFiles) {
+                    FileUtils.deleteQuietly(stepTwoFile)
                 }
-                statsWriter.writeLine "sample.readyToAlign=true" 
-                statsWriter.close()
-                statsWriter = null
+            } else {
+                File prevLocalFile = stepTwoFiles[0]
+                localFile = new File("${clusterReadsDir}/${storedName}")
+                println "Single file. renaming ${prevLocalFile} to ${localFile}"
+                prevLocalFile.renameTo(localFile)
+            }
+
+            //String mergePlanFilename = "${clusterReadsDir}/${firstFileTag}.details.txt"
+            statsWriter = (new File(outStatsFilename)).newWriter(false)
+            statsWriter.writeLine "ngFile.tag=${firstFileTag}"
+            statsWriter.writeLine "ngFile.storedName=${storedName}"
+            statsWriter.writeLine "ngFile.storedDir=${clusterReadsDir}"
+            statsWriter.writeLine "ngFile.size=${localFile.length()}"
+            if (getReadLengths(localFile)) {
+                getReadQualityStats(localFile)
+                calculateHeptamersWeights(localFile)
+                if (platform != "SOLiD") {
+                    calculateGCWeights(localFile)
+                }
+            } else {
+                retval = 2
+            }
+            statsWriter.writeLine "sample.readyToAlign=true"
+            statsWriter.close()
+            statsWriter = null
             //}
+            retval = 0
         } catch (Exception e) {
             println "Error doing background processing of Sample with sample.tag=$sampleTag ${e.message}"
+            e.printStackTrace()
             exec.queueMessage sampleTag, "Error processing sample"
             retval = 1
         } finally {
             // If failed, notify via queue
             if (statsWriter != null) {
-                statsWriter.writeLine "sample.readyToAlign=false" 
+                statsWriter.writeLine "sample.readyToAlign=false"
                 statsWriter.close()
             }
-            if (copyFilesToWebServer()) {
-                // Delete on the web server the remote file(s) that
-                // we copied here to start this process.
-                // Delete local the *.details.txt and *.quality-stats.tsv files
-                // that were generated and copied to the web server
-                FileUtils.deleteQuietly(new File(detailsFilename))
-                FileUtils.deleteQuietly(new File(readQualChartFilename))
 
-                // Remove source files on server
-                for (String webSampleFile in webSampleFiles) {
-                    exec.remoteRemove sshPrefix, webSampleFile
-                }
-            } else {
-                println "Failed to copy files to node cluster"
-                retval = 3
-            }
-
-            if (retval == 99) {
-                retval = 0  // 0 is completed
-            }
-            
-            // TODO: Delete the files from the webserver
         }
         return retval
     }
@@ -628,7 +601,7 @@ public class ProcessSample {
             return [srcFilename, null]
         }
         exec.queueMessage sampleTag, "Processing .fastq.gz.tar to .fastq.gz"
-        
+
         List<String> filenames, pairFilenames
         (filenames, pairFilenames) = tarFilenames(dir, srcFilename)
         if (!filenames) {
@@ -684,37 +657,10 @@ public class ProcessSample {
                 return [null, null]
             }
         }
-        
+
         return [destFilename, pairFilename]
     }
-    
-    private boolean copyFilesToWebServer() {
-        if (copyFileToWebServer(detailsFilename) &&
-            copyFileToWebServer(readQualChartFilename)) {
-                return true
-        }
-        return false
-    }
-    Set<String> alreadyCopied = new ObjectOpenHashSet<String>()
 
-    private boolean copyFileToWebServer(String filename) {
-        if (alreadyCopied.contains(filename)) return true;
-        if (filename) {
-            File file = new File(filename)
-            if (file.exists()) {
-                FileUtils.copyFileToDirectory(new File(filename), new File("${webFilesDir}/"))
-                alreadyCopied.add(filename)
-                return true
-            } else {
-                println "file ${filename} does not exist"
-                //return true  //the file was not created when processing the sample
-            }
-        }
-        println "failed to copy file ${filename} to web server at " + $ { webFilesDir }
-        exec.queueMessage sampleTag, "Copying file ${i} to web server failed"
-
-        return false
-    }
     /**
      * Assuming the extension is listed in ALL_ALLOWED_EXTS this will remove
      * the file extension.
@@ -837,8 +783,8 @@ public class ProcessSample {
      * @param noTagToProcessMap
      */
     private renamePairFiles(final Map<String, SampleDetails> filenameToSampleDetailsMap,
-                        final List<String> processFilenames,
-                        final Map<String, String> noTagToProcessMap) {
+                            final List<String> processFilenames,
+                            final Map<String, String> noTagToProcessMap) {
         for (final String processFilename in processFilenames) {
             final String firstInPairNoTagLc = processFilename.toLowerCase().substring(8).toLowerCase()
             final SampleDetails sampleDetails = filenameToSampleDetailsMap[firstInPairNoTagLc]

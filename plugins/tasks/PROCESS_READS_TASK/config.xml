@@ -43,6 +43,15 @@
             <type>STRING</type>
         </option>
         <option>
+            <id>TAG</id>
+            <name>Tag for the new sample.</name>
+            <help>The tag will be associated with the sample.
+            </help>
+            <required>true</required>
+            <defaultsTo>FAKETAG</defaultsTo>
+            <type>STRING</type>
+        </option>
+        <option>
             <id>READS_COLOR_SPACE</id>
             <name>Color-space.</name>
             <help>Indicates if the reads are color-space (TRUE) or not (FALSE).
@@ -134,7 +143,7 @@
         <output>
             <outputSlot>
                 <name>COMPACT_READ_FILES</name>
-                <type>
+                <type maxOccurs="10000" minOccurs="1">
                     <id>COMPACT_READS</id>
                     <versionExactly>1.0</versionExactly>
                 </type>
@@ -144,6 +153,13 @@
                 <type>
                     <id>READ_QUALITY_STATS</id>
                     <versionExactly>1.0</versionExactly>
+                </type>
+            </outputSlot>
+            <outputSlot>
+                <name>OUTPUT_STATS</name>
+                <type maxOccurs="1" minOccurs="1">
+                    <id>READS_STATS_PROPERTIES_FILE</id>
+                    <versionAtLeast>1.0</versionAtLeast>
                 </type>
             </outputSlot>
         </output>
