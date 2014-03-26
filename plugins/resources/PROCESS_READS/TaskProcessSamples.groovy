@@ -333,9 +333,12 @@ public class TaskProcessSample {
             // copy all files to CONVERTED
             // if input file is a compact-reads, we copy it to the CONVERTED folder:
             if (FilenameUtils.getExtension(webSampleFile).equals("compact-reads")) {
-                println "Copying ${webSampleFile} to ${FilenameUtils.concat(destinationDir,localFilename)}"
-                FileUtils.copyFile(new File(webSampleFile), new File(FilenameUtils.concat(destinationDir,localFilename)))
-                processFilenames << FilenameUtils.concat(destinationDir,localFilename)
+                def destinationFile = new File(FilenameUtils.concat(destinationDir, localFilename))
+
+                println "Copying ${webSampleFile} to ${destinationFile}"
+
+                FileUtils.copyFile(new File(webSampleFile), destinationFile)
+                processFilenames << destinationFile
             } else {
                 processFilenames << webSampleFile
             }
@@ -380,7 +383,7 @@ public class TaskProcessSample {
             pairFilename = null
             if (processFilename.endsWith(".compact-reads")) {
 
-                stepTwoFiles << new File("${clusterReadsDir}/${processFilename}")
+                stepTwoFiles << new File(processFilename)
             } else {
                 boolean processFqGzTar = false
                 if (processFilename.endsWith(".fastq.gz.tar")) {
@@ -497,13 +500,12 @@ public class TaskProcessSample {
             // TODO: each of the input files to make sure we don't duplicate.
 
             File localFile
-            // if (stepTwoFiles) {    //what's the point of checking this? stepTwoFiles is ALWAYS initialized
             final String storedName =
                     "${firstFileTag}-${ICBStringUtils.safeFilename(FilenameUtils.getBaseName(sampleName))}.compact-reads"
             if (stepTwoFiles.size() > 1) {
                 exec.queueMessage sampleTag, "Concatenating reads"
                 ConcatenateCompactReadsMode concat = new ConcatenateCompactReadsMode();
-                localFile = new File("${clusterReadsDir}/${storedName}")
+                localFile = new File(storedName)
                 concat.setOutputFilename localFile.toString()
                 concat.setQuickConcat false
                 for (stepTwoFile in stepTwoFiles) {
