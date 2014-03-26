@@ -329,12 +329,15 @@ public class TaskProcessSample {
         for (String webSampleFile in webSampleFiles) {
 
             String localFilename = FilenameUtils.getName(webSampleFile)
-            processFilenames << localFilename
+
             // copy all files to CONVERTED
             // if input file is a compact-reads, we copy it to the CONVERTED folder:
             if (FilenameUtils.getExtension(webSampleFile).equals("compact-reads")) {
                 println "Copying ${webSampleFile} to ${FilenameUtils.concat(destinationDir,localFilename)}"
                 FileUtils.copyFile(new File(webSampleFile), new File(FilenameUtils.concat(destinationDir,localFilename)))
+                processFilenames << FilenameUtils.concat(destinationDir,localFilename)
+            } else {
+                processFilenames << webSampleFile
             }
         }
 
@@ -390,7 +393,7 @@ public class TaskProcessSample {
                 }
                 exec.queueMessage sampleTag, "Converting reads from fasta/fastq to Goby Compact-reads format"
                 String fafqFilename = "${processFilename}"
-                String localFafqFilename = "${workDir}/${processFilename}"
+                String localFafqFilename = processFilename
 
                 String outputBasename
                 if (processFqGzTar) {
