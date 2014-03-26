@@ -16,7 +16,7 @@
     <help>Dummy plugin to support ProcessSample deployment with plugin system
     </help>
     <version>1.0</version>
-
+    <disabled>true</disabled>
 
     <supportsColorSpace>true</supportsColorSpace>
     <supportsGobyAlignments>false</supportsGobyAlignments>
