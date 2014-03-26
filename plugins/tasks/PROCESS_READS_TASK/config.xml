@@ -66,26 +66,32 @@
             <help>The sequencing platform that was used to sequence these reads..
             </help>
             <required>false</required>
-            <defaultsTo>ILLUMINA</defaultsTo>
+            <defaultsTo>Illumina</defaultsTo>
             <type>CATEGORY</type>
             <categories>
                 <category>
-                    <id>ILLUMINA</id>
+                    <id>Illumina</id>
                     <name>Gene/Exon/Other</name>
-                    <value>ILLUMINA</value>
+                    <value>Illumina</value>
                     <help>Reads were sequenced on an Illumina instrument</help>
                 </category>
                 <category>
-                    <id>HELICOS</id>
+                    <id>Helicos</id>
                     <name>Helicos</name>
-                    <value>HELICOS</value>
+                    <value>Helicos</value>
                     <help>Reads were sequenced on a Heliscope instrument.</help>
                 </category>
                 <category>
-                    <id>ROCHE454</id>
+                    <id>Roche454</id>
                     <name>Roche 454</name>
-                    <value>ROCHE454</value>
+                    <value>Roche454</value>
                     <help>Reads were sequenced on a Roche 454 instrument.</help>
+                </category>
+                <category>
+                    <id>SOLID</id>
+                    <name>Solid</name>
+                    <value>SOLID</value>
+                    <help>Reads were sequenced on a SOLID instrument.</help>
                 </category>
             </categories>
         </option>
@@ -94,27 +100,27 @@
             <name>Quality Encoding.</name>
             <help>The quality encoding for the uploaded reads.</help>
             <required>false</required>
-            <defaultsTo>SANGER</defaultsTo>
+            <defaultsTo>Sanger</defaultsTo>
             <type>CATEGORY</type>
             <categories>
                 <category>
-                    <id>SANGER</id>
+                    <id>Sanger</id>
                     <name>Phred/Sanger.</name>
-                    <value>SANGER</value>
+                    <value>Sanger</value>
                     <help>The Phred SANGER scale.</help>
                 </category>
                 <category>
-                    <id>ILLUMINA13</id>
+                    <id>Illumina</id>
                     <name>Illumina pipeline 1.3+</name>
-                    <value>ILLUMINA13</value>
+                    <value>Illumina</value>
                     <help>The scale used with the Illumina 1.3+ basecalling pipelines, until the switch to Sanger
                         scale.
                     </help>
                 </category>
                 <category>
-                    <id>SOLEXA</id>
+                    <id>Solexa</id>
                     <name>Solexa</name>
-                    <value>SOLEXA</value>
+                    <value>Solexa</value>
                     <help>The SOLEXA scale.</help>
                 </category>
             </categories>
