@@ -58,7 +58,7 @@ function plugin_task {
         ${RESOURCES_GROOVY_EXECUTABLE} -cp ${GOBY_DIR}:${RESOURCES_GOBYWEB_SERVER_SIDE_GLOBAL_GOBY_JAR}:${RESOURCES_GOBYWEB_SERVER_SIDE_ICB_GROOVY_SUPPORT_JAR} \
             ${RESOURCES_PROCESS_READS_PROCESS_SAMPLES} \
             --jvm-flags "${GRID_JVM_FLAGS}" \
-            --goby-jar-dir ${GOBY_JAR_DIR} \
+            --goby-jar-dir ${JOB_DIR}/goby \
             --cluster-reads-dir ./CONVERTED ${READ_FILES_LIST} \
             --sample-tag ${TAG} \
             --first-file-tag ${PLUGINS_TASK_PROCESS_READS_TASK_TAG} \
@@ -83,40 +83,38 @@ function plugin_task {
         ${QUEUE_WRITER} --tag ${TAG} --status ${JOB_PART_FAILED_STATUS} --description "Processing of sample on cluster failed, failure code is ${RETURN_STATUS}." --index 0 --job-type job
         exit
     fi
-    ${QUEUE_WRITER} --tag ${TAG} --status ${JOB_PART_COMPLETED_STATUS} --description "Processing of sample on cluster completed" --index 0 --job-type job
-
-     # DO SOMETHING WITH THE FILES
-
-     # push back the generated compact-reads:
-     REGISTERED_TAGS=`${FILESET_COMMAND} --push COMPACT_READ_FILES: CONVERTED/*.compact-reads`
-     if [ $? != 0 ]; then
-        dieUponError "Failed to push back the output TSV file"
-     fi
-     echo "PROCESS_READS registered the following FileSet instances: ${REGISTERED_TAGS}"
 
      # push back the output stats:
-     REGISTERED_TAGS=`${FILESET_COMMAND} --push OUTPUT_STATS: output-stats.properties `
-     if [ $? != 0 ]; then
-        dieUponError "Failed to push back the reads statistics properties file"
-     fi
-     echo "Read statistics registered the following FileSet instances: ${REGISTERED_TAGS}"
+     OUTPUT_STATS_REGISTERED_TAGS=`${FILESET_COMMAND} --push OUTPUT_STATS: output-stats.properties `
+     dieUponError "Failed to push back the reads statistics properties file"
+
+     echo "Read statistics registered the following FileSet instances: ${OUTPUT_STATS_REGISTERED_TAGS}"
+     ALL_REGISTERED_TAGS="${ALL_REGISTERED_TAGS} OUTPUT_STATS:[${OUTPUT_STATS_REGISTERED_TAGS}]"
 
      # push back the quality stats:
-     REGISTERED_TAGS=`${FILESET_COMMAND} --push READ_QUALITY_STATS: CONVERTED/*.quality-stats.tsv `
-     if [ $? != 0 ]; then
-        dieUponError "Failed to push back the quality stats."
-     fi
-     echo "PROCESS_READS registered the following FileSet instances: ${REGISTERED_TAGS}"
+     QUALITY_REGISTERED_TAGS=`${FILESET_COMMAND} --push READ_QUALITY_STATS: CONVERTED/*.quality-stats.tsv `
+     dieUponError "Failed to push back the quality stats."
 
+     echo "PROCESS_READS registered the following FileSet instances: ${QUALITY_REGISTERED_TAGS}"
+     ALL_REGISTERED_TAGS="${ALL_REGISTERED_TAGS} READ_QUALITY_STATS:[${QUALITY_REGISTERED_TAGS}]"
 
      # push back the weight files:
-     REGISTERED_TAGS=`${FILESET_COMMAND} --push WEIGHT_FILES: CONVERTED/*.*weights`
-     if [ $? != 0 ]; then
-        dieUponError "Failed to push back the weight files."
-     fi
-     echo "PROCESS_READS registered the following FileSet instances: ${REGISTERED_TAGS}"
+     WEIGHT_REGISTERED_TAGS=`${FILESET_COMMAND} --push WEIGHT_FILES: CONVERTED/*.*weights`
+     dieUponError "Failed to push back the weight files."
 
-     return 0
+     echo "PROCESS_READS registered the following FileSet instances: ${WEIGHT_REGISTERED_TAGS}"
+     ALL_REGISTERED_TAGS="${ALL_REGISTERED_TAGS} WEIGHT_FILES:[${WEIGHT_REGISTERED_TAGS}]"
+
+     # push back the generated compact-reads:
+     REGISTERED_TAGS=`${FILESET_COMMAND} --push COMPACT_READ_FILES: CONVERTED/*.compact-reads -a WEIGHT_TAGS="${WEIGHT_REGISTERED_TAGS}" -a QUALITY_TAGS="${QUALITY_REGISTERED_TAGS}" -a "STATS_TAGS=${OUTPUT_STATS_REGISTERED_TAGS}"`
+     dieUponError "Failed to push back the compact-reads file."
+
+
+     ALL_REGISTERED_TAGS="${ALL_REGISTERED_TAGS} COMPACT_READ_FILES:[${REGISTERED_TAGS}]"
+     echo "The following tags were registered by this plugin: ${ALL_REGISTERED_TAGS}"
+set -x
+     ${QUEUE_WRITER} --tag ${TAG} --status ${JOB_PART_COMPLETED_STATUS} --description "Processing of sample on cluster completed" --index 0 --job-type job
+    return 0
 }
 
 
