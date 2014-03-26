@@ -257,7 +257,7 @@ public class TaskProcessSample {
     }
 
     private void testConfigure() {
-        gobyJarDir = "/home/gobyweb/goby-dev"
+        gobyJarDir =null
         jvmFlags = "-Xmx2g"
         clusterReadsDir = "/home/gobyweb/GOBYWEB_FILES-kdorff/kdorff"
         webSampleFiles = [
