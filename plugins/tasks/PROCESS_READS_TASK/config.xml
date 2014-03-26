@@ -131,7 +131,7 @@
         <input>
             <inputSlot>
                 <name>UPLOADS_FILES</name>
-                <type maxOccurs="10000" minOccurs="1">
+                <type maxOccurs="unbounded" minOccurs="1">
                     <id>SUPPORTED_INPUT_READS</id>
                     <versionAtLeast>1.0</versionAtLeast>
                 </type>
@@ -149,7 +149,7 @@
         <output>
             <outputSlot>
                 <name>COMPACT_READ_FILES</name>
-                <type maxOccurs="10000" minOccurs="1">
+                <type maxOccurs="unbounded" minOccurs="1">
                     <id>COMPACT_READS</id>
                     <versionExactly>1.0</versionExactly>
                 </type>
