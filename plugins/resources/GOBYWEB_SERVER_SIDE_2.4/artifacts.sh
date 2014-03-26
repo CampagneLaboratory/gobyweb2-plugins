@@ -13,7 +13,7 @@ function install_plugin_artifacts {
 
 function install_plugin_artifacts_internal {
     if [ -e ${JOB_DIR}/artifacts-install-requests.pb ]; then
-       set -xv
+
        . ${JOB_DIR}/constants.sh
        . ${JOB_DIR}/auto-options.sh
        local installation_type=$1
