@@ -10,28 +10,18 @@ function plugin_task {
      echo "fileset command: ${FILESET_COMMAND}"
 
      ${FILESET_COMMAND} --has-fileset UPLOADS_FILES
-     if [ $? != 0 ]; then
-       dieUponError "Input files are not available"
-
-     fi
+     dieUponError "Input files are not available"
 
      ${FILESET_COMMAND} --has-fileset UPLOAD_MERGE_PLAN
-     if [ $? != 0 ]; then
-            dieUponError "Merge Plan is not available"
-     fi
+     dieUponError "Merge Plan is not available"
 
      READ_FILES_LIST=`${FILESET_COMMAND} --fetch UPLOADS_FILES`
-     if [ $? != 0 ]; then
-        dieUponError "Failed to fetch uploaded files ${READ_FILES_LIST}"
-        echo ${READ_FILES_LIST}
+     dieUponError "Failed to fetch uploaded files ${READ_FILES_LIST}"
+     echo ${READ_FILES_LIST}
 
-     fi
-
-    MERGE_PLAN_FILE=`${FILESET_COMMAND} --fetch UPLOAD_MERGE_PLAN`
-    if [ $? != 0 ]; then
+     MERGE_PLAN_FILE=`${FILESET_COMMAND} --fetch UPLOAD_MERGE_PLAN`
      dieUponError "Failed to fetch merge plan ${MERGE_PLAN_FILE}"
      echo ${MERGE_PLAN_FILE}
-    fi
 
     mkdir CONVERTED
 
@@ -60,7 +50,7 @@ function plugin_task {
             --jvm-flags "${GRID_JVM_FLAGS}" \
             --goby-jar-dir ${JOB_DIR}/goby \
             --cluster-reads-dir ./CONVERTED ${READ_FILES_LIST} \
-            --sample-tag ${TAG} \
+            --sample-tag ${PLUGINS_TASK_PROCESS_READS_TASK_TAG} \
             --first-file-tag ${PLUGINS_TASK_PROCESS_READS_TASK_TAG} \
             --quality-encoding ${PLUGINS_TASK_PROCESS_READS_TASK_QUALITY_ENCODING} \
             --platform ${PLUGINS_TASK_PROCESS_READS_TASK_READS_PLATFORM} \
@@ -80,7 +70,7 @@ function plugin_task {
 
     if [ ! $RETURN_STATUS -eq 0 ]; then
         ls -lat
-        ${QUEUE_WRITER} --tag ${TAG} --status ${JOB_PART_FAILED_STATUS} --description "Processing of sample on cluster failed, failure code is ${RETURN_STATUS}." --index 0 --job-type job
+        ${QUEUE_WRITER} --tag ${PLUGINS_TASK_PROCESS_READS_TASK_TAG} --status ${JOB_PART_FAILED_STATUS} --description "Processing of sample on cluster failed, failure code is ${RETURN_STATUS}." --index 0 --job-type job
         exit
     fi
 
@@ -113,7 +103,7 @@ function plugin_task {
      ALL_REGISTERED_TAGS="${ALL_REGISTERED_TAGS} COMPACT_READ_FILES:[${REGISTERED_TAGS}]"
      echo "The following tags were registered by this plugin: ${ALL_REGISTERED_TAGS}"
 set -x
-     ${QUEUE_WRITER} --tag ${TAG} --status ${JOB_PART_COMPLETED_STATUS} --description "Processing of sample on cluster completed" --index 0 --job-type job
+     ${QUEUE_WRITER} --tag ${PLUGINS_TASK_PROCESS_READS_TASK_TAG} --status ${JOB_PART_COMPLETED_STATUS} --description "Processing of sample on cluster completed" --index 0 --job-type job
     return 0
 }
 
