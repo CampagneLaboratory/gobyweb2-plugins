@@ -79,7 +79,7 @@ function plugin_task {
      dieUponError "Failed to push back the reads statistics properties file"
 
      echo "Read statistics registered the following FileSet instances: ${OUTPUT_STATS_REGISTERED_TAGS}"
-     ALL_REGISTERED_TAGS="${ALL_REGISTERED_TAGS} OUTPUT_STATS:[${OUTPUT_STATS_REGISTERED_TAGS}]"
+     ALL_REGISTERED_TAGS="OUTPUT_STATS:[${OUTPUT_STATS_REGISTERED_TAGS}]"
 
      # push back the quality stats:
      QUALITY_REGISTERED_TAGS=`${FILESET_COMMAND} --push READ_QUALITY_STATS: CONVERTED/*.quality-stats.tsv `
