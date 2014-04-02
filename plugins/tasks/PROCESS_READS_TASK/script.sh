@@ -79,7 +79,7 @@ function plugin_task {
      dieUponError "Failed to push back the reads statistics properties file"
 
      echo "Read statistics registered the following FileSet instances: ${OUTPUT_STATS_REGISTERED_TAGS}"
-     ALL_REGISTERED_TAGS="${ALL_REGISTERED_TAGS} OUTPUT_STATS:[${OUTPUT_STATS_REGISTERED_TAGS}]"
+     ALL_REGISTERED_TAGS="OUTPUT_STATS:[${OUTPUT_STATS_REGISTERED_TAGS}]"
 
      # push back the quality stats:
      QUALITY_REGISTERED_TAGS=`${FILESET_COMMAND} --push READ_QUALITY_STATS: CONVERTED/*.quality-stats.tsv `
@@ -89,7 +89,7 @@ function plugin_task {
      ALL_REGISTERED_TAGS="${ALL_REGISTERED_TAGS} READ_QUALITY_STATS:[${QUALITY_REGISTERED_TAGS}]"
 
      # push back the weight files:
-     WEIGHT_REGISTERED_TAGS=`${FILESET_COMMAND} --push WEIGHT_FILES: *.*weights`
+     WEIGHT_REGISTERED_TAGS=`${FILESET_COMMAND} --push WEIGHT_FILES: CONVERTED/*.*weights`
      dieUponError "Failed to push back the weight files."
 
      echo "PROCESS_READS registered the following FileSet instances: ${WEIGHT_REGISTERED_TAGS}"
@@ -102,7 +102,7 @@ function plugin_task {
 
      ALL_REGISTERED_TAGS="${ALL_REGISTERED_TAGS} COMPACT_READ_FILES:[${REGISTERED_TAGS}]"
      echo "The following tags were registered by this plugin: ${ALL_REGISTERED_TAGS}"
-set -x
+     set -x
      ${QUEUE_WRITER} --tag ${PLUGINS_TASK_PROCESS_READS_TASK_TAG} --status ${JOB_PART_COMPLETED_STATUS} --description "Processing of sample on cluster completed" --index 0 --job-type job
     return 0
 }
