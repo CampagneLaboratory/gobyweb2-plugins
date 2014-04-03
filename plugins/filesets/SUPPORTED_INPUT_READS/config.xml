@@ -19,29 +19,48 @@
     <version>1.0</version>
     <mimeType>application/all-gobyweb-input-reads-files</mimeType>
     <files>
-
         <selector matchAttribute="COMPACT_READS">
             <id>COMPACT_READ_FILES</id>
             <pattern>*.compact-reads</pattern>
             <mandatory>false</mandatory>
         </selector>
-        <selector matchAttribute="FASTQ_GZ">
-            <id>FASTQ_GZ_FILES</id>
+        <selector matchAttribute="FQ_GZ">
+            <id>FQ_GZ_FILES</id>
             <pattern>*.fq.gz</pattern>
             <mandatory>false</mandatory>
         </selector>
         <selector matchAttribute="FASTQ">
             <id>FASTQ_FILES</id>
+            <pattern>*.fastq</pattern>
+            <mandatory>false</mandatory>
+        </selector>
+        <selector matchAttribute="FASTQ_GZ">
+            <id>FASTQ_GZ_FILES</id>
+            <pattern>*.fastq.gz</pattern>
+            <mandatory>false</mandatory>
+        </selector>
+        <selector matchAttribute="FQ">
+            <id>FQ_FILES</id>
             <pattern>*.fq</pattern>
             <mandatory>false</mandatory>
         </selector>
-        <selector matchAttribute="FASTA">
-            <id>FASTA_FILES</id>
+        <selector matchAttribute="FA">
+            <id>FA_FILES</id>
             <pattern>*.fa</pattern>
             <mandatory>false</mandatory>
         </selector>
         <selector matchAttribute="FASTA_GZ">
             <id>FASTA_GZ_FILES</id>
+            <pattern>*.fasta.gz</pattern>
+            <mandatory>false</mandatory>
+        </selector>
+        <selector matchAttribute="FASTA">
+            <id>FASTA_FILES</id>
+            <pattern>*.fasta</pattern>
+            <mandatory>false</mandatory>
+        </selector>
+        <selector matchAttribute="FA_GZ">
+            <id>FA_GZ_FILES</id>
             <pattern>*.fa.gz</pattern>
             <mandatory>false</mandatory>
         </selector>
@@ -50,7 +69,11 @@
         <attribute name="COMPACT_READS"/>
         <attribute name="FASTQ_GZ"/>
         <attribute name="FASTQ"/>
+        <attribute name="FQ"/>
+        <attribute name="FQ_GZ"/>
+        <attribute name="FA"/>
         <attribute name="FASTA"/>
+        <attribute name="FA_GZ"/>
         <attribute name="FASTA_GZ"/>
     </attributes>
 </fileSetConfig>
