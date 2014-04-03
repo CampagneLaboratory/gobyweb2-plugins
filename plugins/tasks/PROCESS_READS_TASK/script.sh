@@ -31,6 +31,8 @@ function plugin_task {
     MAX_RETRIES=4
     RETURN_STATUS=1
     GOBY_JAR_DIR="goby"
+    export JAVA_OPTS="${GRID_JVM_FLAGS}"
+
     #
     # I (i.e., Kevin Dorff, early versions) have, on occasion, gotten errors from running
     # this such as stale nfs and java launch errors.
