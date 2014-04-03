@@ -106,7 +106,7 @@ function plugin_task {
      ALL_REGISTERED_TAGS="${ALL_REGISTERED_TAGS} COMPACT_READ_FILES:[${REGISTERED_TAGS}]"
      echo "The following tags were registered by this plugin: ${ALL_REGISTERED_TAGS}"
      set -x
-     ${QUEUE_WRITER} --tag ${PLUGINS_TASK_PROCESS_READS_TASK_TAG} --status ${JOB_PART_COMPLETED_STATUS} --description "Processing of sample on cluster completed" --index 0 --job-type job
+     ${QUEUE_WRITER} --tag ${PLUGINS_TASK_PROCESS_READS_TASK_TAG} --status ${JOB_PART_COMPLETED_STATUS} --description "Processing of sample on cluster completed" --index 0 --job-type job-part
     return 0
 }
 
