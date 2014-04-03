@@ -67,7 +67,8 @@ function plugin_task {
         RETURN_STATUS=$?
         (( CURRENT_RETRY++ ))
     done
-
+    ls -lrt .
+    ls -lrt ./CONVERTED/
     if [ ! $RETURN_STATUS -eq 0 ]; then
         ls -lat
         ${QUEUE_WRITER} --tag ${PLUGINS_TASK_PROCESS_READS_TASK_TAG} --status ${JOB_PART_FAILED_STATUS} --description "Processing of sample on cluster failed, failure code is ${RETURN_STATUS}." --index 0 --job-type job
@@ -89,14 +90,14 @@ function plugin_task {
      ALL_REGISTERED_TAGS="${ALL_REGISTERED_TAGS} READ_QUALITY_STATS:[${QUALITY_REGISTERED_TAGS}]"
 
      # push back the weight files:
-     WEIGHT_REGISTERED_TAGS=`${FILESET_COMMAND} --push WEIGHT_FILES: CONVERTED/*.*weights`
+     WEIGHT_REGISTERED_TAGS=`${FILESET_COMMAND} --push WEIGHT_FILES: *.*weights`
      dieUponError "Failed to push back the weight files."
 
      echo "PROCESS_READS registered the following FileSet instances: ${WEIGHT_REGISTERED_TAGS}"
      ALL_REGISTERED_TAGS="${ALL_REGISTERED_TAGS} WEIGHT_FILES:[${WEIGHT_REGISTERED_TAGS}]"
 
      # push back the generated compact-reads:
-     REGISTERED_TAGS=`${FILESET_COMMAND} --push COMPACT_READ_FILES: CONVERTED/*.compact-reads -a WEIGHT_TAGS="${WEIGHT_REGISTERED_TAGS}" -a QUALITY_TAGS="${QUALITY_REGISTERED_TAGS}" -a "STATS_TAGS=${OUTPUT_STATS_REGISTERED_TAGS}"`
+     REGISTERED_TAGS=`${FILESET_COMMAND} --push -a WEIGHT_TAGS="${WEIGHT_REGISTERED_TAGS}" -a QUALITY_TAGS="${QUALITY_REGISTERED_TAGS}" -a STATS_TAGS="${OUTPUT_STATS_REGISTERED_TAGS}" COMPACT_READ_FILES: *.compact-reads`
      dieUponError "Failed to push back the compact-reads file."
 
 
