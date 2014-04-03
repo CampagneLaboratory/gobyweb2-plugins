@@ -414,7 +414,9 @@ public class TaskProcessSample {
                 }
 
                 String compactFilename = "${outputBasename}.compact-reads"
-                String localCompactFilename = "${clusterReadsDir}/${compactFilename}"
+                def destinationFile = new File(FilenameUtils.concat(destinationDir, compactFilename))
+
+                String localCompactFilename = destinationFile.getAbsolutePath()
                 try {
 
                     // This will try to automatically set the quality encoding based
