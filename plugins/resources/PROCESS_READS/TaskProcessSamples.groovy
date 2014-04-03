@@ -521,7 +521,7 @@ public class TaskProcessSample {
                 }
             } else {
                 File prevLocalFile = stepTwoFiles[0]
-                localFile = new File("${clusterReadsDir}/${storedName}")
+                localFile = new File("${storedName}")
                 println "Single file. renaming ${prevLocalFile} to ${localFile}"
                 prevLocalFile.renameTo(localFile)
             }
