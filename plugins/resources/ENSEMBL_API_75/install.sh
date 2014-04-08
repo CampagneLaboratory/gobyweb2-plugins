@@ -17,7 +17,7 @@ function plugin_install_artifact {
             ${RESOURCES_FETCH_URL_SCRIPT} ${ENSEMBL_ROOT_URL}/ensembl/archive/release/${VERSION}.zip ensembl-${VERSION}.zip
             unzip ensembl-${VERSION}.zip
 
-            ${RESOURCES_FETCH_URL_SCRIPT} ${ENSEMBL_ROOT_URL}/ensembl-compara/archive/release/${VERSION}.tar.gz ensembl-compara.zip
+            ${RESOURCES_FETCH_URL_SCRIPT} ${ENSEMBL_ROOT_URL}/ensembl-compara/archive/release/${VERSION}.tar.gz ensembl-compara-${VERSION}.zip
             unzip ensembl-compara-${VERSION}.zip
 
             ${RESOURCES_FETCH_URL_SCRIPT} ${ENSEMBL_ROOT_URL}/ensembl-variation/archive/release/${VERSION}.tar.gz ensembl-variation-${VERSION}.zip
