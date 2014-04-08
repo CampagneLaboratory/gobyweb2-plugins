@@ -207,6 +207,6 @@ function plugin_alignment_analysis_combine {
        dieUponError  "Failed to bgzip VCF output."
    fi
 
-   ${TABIX_EXEC_PATH} -f -p vcf ${RESULT_FILE}
+   ${RESOURCES_TABIX_EXEC_PATH} -f -p vcf ${RESULT_FILE}
 
 }
