@@ -322,7 +322,7 @@ public class TaskProcessSample {
         println "Processing sample.tag=${sampleTag}"
 
         // Copy files from web server
-        def processFilenames = []
+        List<String> processFilePaths = new ArrayList<String>()
         int i = 0
         int numFiles = webSampleFiles.length
         final String destinationDir = "CONVERTED"
@@ -338,9 +338,9 @@ public class TaskProcessSample {
                 println "Copying ${webSampleFile} to ${destinationFile}"
 
                 FileUtils.copyFile(new File(webSampleFile), destinationFile)
-                processFilenames << destinationFile
+                processFilePaths.add(destinationFile.getAbsolutePath())
             } else {
-                processFilenames << webSampleFile
+                processFilePaths.add(new File(webSampleFile).getAbsolutePath())
             }
         }
 
@@ -361,43 +361,45 @@ public class TaskProcessSample {
             // Since we've removed pairs, we can re-obtain processFilenames from the detailsMap.
             // Make a map of the process filenames without the tag to the process filename
             Map<String, String> noTagToProcessMap = [:]
-            processFilenames.each { final File processFile ->
-                String processFilename = processFile.getName()
-                noTagToProcessMap[processFilename.substring(8)] = processFilename
+            processFilePaths.each { String filePath ->
+                noTagToProcessMap[new File(filePath).getName().substring(8)] = filePath
             }
             // Copy just the ones that aren't part 1 of the pair (just part 0)
-            processFilenames.clear()
+            processFilePaths.clear()
             (detailsMap[sampleName])*.filename.each { final String filename ->
-                processFilenames << noTagToProcessMap[filename]
+                processFilePaths.add(noTagToProcessMap[filename])
             }
-            renamePairFiles(filenameToSampleDetailsMap, processFilenames, noTagToProcessMap)
+            renamePairFiles(filenameToSampleDetailsMap, processFilePaths, noTagToProcessMap)
         } else {
             println "No pairs found in map"
         }
         println "filenameToSampleDetailsMap=${filenameToSampleDetailsMap}"
 
+        println "processFilePaths=${processFilePaths}"
+
+
         // Convert any fasta/fastq to compact-reads
         final List<File> stepTwoFiles = new ArrayList<File>()
 
         String pairFilename
-        for (String processFilename in processFilenames) {
+        for (String processFilePath in processFilePaths) {
             pairFilename = null
-            if (processFilename.endsWith(".compact-reads")) {
+            if (processFilePath.endsWith(".compact-reads")) {
 
-                stepTwoFiles << new File(processFilename)
+                stepTwoFiles << new File(processFilePath)
             } else {
                 boolean processFqGzTar = false
-                if (processFilename.endsWith(".fastq.gz.tar")) {
+                if (processFilePath.endsWith(".fastq.gz.tar")) {
                     processFqGzTar = true
-                    (processFilename, pairFilename) = processFastqGzTar(workDir, processFilename)
-                    if (processFilename == null) {
+                    (processFilePath, pairFilename) = processFastqGzTar(workDir, processFilePath)
+                    if (processFilePath == null) {
                         retval = 4
                         return retval
                     }
                 }
                 exec.queueMessage sampleTag, "Converting reads from fasta/fastq to Goby Compact-reads format"
-                String fafqFilename = "${processFilename}"
-                String localFafqFilename = processFilename
+                String fafqFilename = "${processFilePath}"
+                String localFafqFilename = processFilePath
 
                 String outputBasename
                 if (processFqGzTar) {
@@ -407,7 +409,7 @@ public class TaskProcessSample {
                         outputBasename = outputBasename[0..-3]
                     }
                 } else {
-                    if (processFilename.size() > 1) {
+                    if (processFilePath.size() > 1) {
                         outputBasename = removeFileExtension(fafqFilename)
                     } else {
                         outputBasename = sampleName ?: removeFileExtension(fafqFilename)
@@ -449,7 +451,7 @@ public class TaskProcessSample {
                     } else {
                         if (pairedSamplesFound) {
                             // Original filename lowercase without tag from processFilename
-                            final String originalFilenameLc = processFilename.toLowerCase().substring(8)
+                            final String originalFilenameLc = processFilePath.toLowerCase().substring(8)
                             final SampleDetails sampleDetails = filenameToSampleDetailsMap[originalFilenameLc]
                             def pairIndicatorsList = sampleDetails?.pairIndicatorsList()
                             if (pairIndicatorsList) {
@@ -501,7 +503,7 @@ public class TaskProcessSample {
         try {
             // TODO: if we are concat'ing, we should probaly check the first read-index of
             // TODO: each of the input files to make sure we don't duplicate.
-
+            println "stepTwoFiles=${stepTwoFiles}"
             File localFile
             final String storedName =
                     "${firstFileTag}-${ICBStringUtils.safeFilename(FilenameUtils.getBaseName(sampleName))}.compact-reads"
@@ -533,7 +535,8 @@ public class TaskProcessSample {
             statsWriter.writeLine "ngFile.storedName=${storedName}"
             statsWriter.writeLine "ngFile.storedDir=${clusterReadsDir}"
             statsWriter.writeLine "ngFile.size=${localFile.length()}"
-            if (getReadLengths(localFile)) {
+            if (localFile && localFile.exists()) {
+                getReadLengths(localFile)
                 getReadQualityStats(localFile)
                 calculateHeptamersWeights(localFile)
                 if (platform != "SOLiD") {
@@ -696,6 +699,7 @@ public class TaskProcessSample {
 
     private boolean getReadLengths(final File sample) {
         exec.queueMessage sampleTag, "Determining read lengths"
+        println "getReadLengths for ${sample.getAbsolutePath()}"
         CompactFileStatsMode stats = new CompactFileStatsMode();
         if (sample && sample.exists()) {
             println "Adding file to stats ${sample}"
@@ -709,6 +713,7 @@ public class TaskProcessSample {
             statsWriter.writeLine "sample.pairedSample=${stats.allPairedSamples}"
             return true
         } else {
+            println "getReadLengths: sample does not exist"
             return false
         }
     }
@@ -768,6 +773,7 @@ public class TaskProcessSample {
 
     private void getReadQualityStats(final File sample) {
         // TODO: add to queue "Determining read quality"
+        println "getReadQualityStats for ${sample.getAbsolutePath()}"
         if (sample && sample.exists()) {
             String cl = "java ${jvmFlags} -jar ${gobyJarDir}/goby.jar -m read-quality-stats -o ${readQualChartFilename} ${sample} "
             if (numberOfReads < 5000) {
