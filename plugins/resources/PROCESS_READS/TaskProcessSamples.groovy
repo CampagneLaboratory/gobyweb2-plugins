@@ -361,7 +361,8 @@ public class TaskProcessSample {
             // Since we've removed pairs, we can re-obtain processFilenames from the detailsMap.
             // Make a map of the process filenames without the tag to the process filename
             Map<String, String> noTagToProcessMap = [:]
-            processFilenames.each { final String processFilename ->
+            processFilenames.each { final File processFile ->
+                String processFilename = processFile.getName()
                 noTagToProcessMap[processFilename.substring(8)] = processFilename
             }
             // Copy just the ones that aren't part 1 of the pair (just part 0)
