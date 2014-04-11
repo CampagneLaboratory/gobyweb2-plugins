@@ -16,21 +16,26 @@ function plugin_install_artifact {
 
             ${RESOURCES_FETCH_URL_SCRIPT} ${ENSEMBL_ROOT_URL}/ensembl/archive/release/${VERSION}.zip ensembl-${VERSION}.zip
             unzip ensembl-${VERSION}.zip
+            mv ensembl-release-${VERSION} ensembl
 
-            ${RESOURCES_FETCH_URL_SCRIPT} ${ENSEMBL_ROOT_URL}/ensembl-compara/archive/release/${VERSION}.tar.gz ensembl-compara-${VERSION}.tar.gz
-            gzip -c -d ensembl-compara-${VERSION}.tar.gz |tar -xf -
+            ${RESOURCES_FETCH_URL_SCRIPT} ${ENSEMBL_ROOT_URL}/ensembl-compara/archive/release/${VERSION}.zip ensembl-compara-${VERSION}.zip
+            unzip ensembl-compara-${VERSION}.zip
+            mv ensembl-compara-release-${VERSION} ensembl-compara
 
-            ${RESOURCES_FETCH_URL_SCRIPT} ${ENSEMBL_ROOT_URL}/ensembl-variation/archive/release/${VERSION}.tar.gz ensembl-variation-${VERSION}.tar.gz
-            gzip -c -d ensembl-variation-${VERSION}.tar.gz |tar -xf -
+            ${RESOURCES_FETCH_URL_SCRIPT} ${ENSEMBL_ROOT_URL}/ensembl-variation/archive/release/${VERSION}.zip ensembl-variation-${VERSION}.zip
+            unzip ensembl-variation-${VERSION}.zip
+            mv ensembl-variation-release-${VERSION} ensembl-variation
 
             ${RESOURCES_FETCH_URL_SCRIPT}  ${ENSEMBL_ROOT_URL}/ensembl-funcgen/archive/release/${VERSION}.zip  ensembl-functgenomics-${VERSION}.zip
             unzip ensembl-functgenomics-${VERSION}.zip
+            mv ensembl-functgenomics-release-${VERSION} ensembl-functgenomics
 
-            ${RESOURCES_FETCH_URL_SCRIPT} ${ENSEMBL_ROOT_URL}/ensembl-tools/archive/release/${VERSION}.tar.gz  ensembl-tools-${VERSION}.tar.gz
-            gzip -c -d ensembl-tools-${VERSION}.tar.gz |tar -xf -
+            ${RESOURCES_FETCH_URL_SCRIPT} ${ENSEMBL_ROOT_URL}/ensembl-tools/archive/release/${VERSION}.zip ensembl-tools-${VERSION}.zip
+            unzip ensembl-tools-${VERSION}.zip
+            mv ensembl-tools-release-${VERSION} ensembl-tools
 
             ${RESOURCES_FETCH_URL_SCRIPT} http://bioperl.org/DIST/old_releases/bioperl-1.2.3.tar.gz
-            gzip -c -d bioperl-1.2.3.tar.gz |tar -xf -
+            unzip bioperl-1.2.3.tar.gz |tar -xf -
 
             cd ..
 
@@ -44,6 +49,22 @@ PERL5LIB=\${PERL5LIB}:\${RESOURCES_ARTIFACTS_ENSEMBL_API_INSTALL_DIR}/src/ensemb
 export PERL5LIB
 EOF
             chmod +x  ${installation_path}/setup.sh
+            # Check that all the pieces have been installed or fail:
+            if [ ! -e ${installation_path}/src/ensembl ]; then
+                    return 1
+            fi
+            if [ ! -e ${installation_path}/src/ensembl-tools ]; then
+                    return 1
+            fi
+            if [ ! -e ${installation_path}/src/ensembl-variation ]; then
+                    return 1
+            fi
+            if [ ! -e ${installation_path}/src/ensembl-functgenomics ]; then
+                    return 1
+            fi
+            if [ ! -e ${installation_path}/src/ensembl-compara ]; then
+                    return 1
+            fi
             return 0
             ;;
 
