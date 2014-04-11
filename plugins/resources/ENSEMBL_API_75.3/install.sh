@@ -16,32 +16,49 @@ function plugin_install_artifact {
 
             ${RESOURCES_FETCH_URL_SCRIPT} ${ENSEMBL_ROOT_URL}/ensembl/archive/release/${VERSION}.zip ensembl-${VERSION}.zip
             unzip ensembl-${VERSION}.zip
+            if [ ! $? -eq 0 ]; then
+                    return 1
+            fi
             mv ensembl-release-${VERSION} ensembl
             rm ensembl-${VERSION}.zip
 
             ${RESOURCES_FETCH_URL_SCRIPT} ${ENSEMBL_ROOT_URL}/ensembl-compara/archive/release/${VERSION}.zip ensembl-compara-${VERSION}.zip
             unzip ensembl-compara-${VERSION}.zip
+            if [ ! $? -eq 0 ]; then
+                    return 1
+            fi
             mv ensembl-compara-release-${VERSION} ensembl-compara
             rm  ensembl-compara-${VERSION}.zip
 
             ${RESOURCES_FETCH_URL_SCRIPT} ${ENSEMBL_ROOT_URL}/ensembl-variation/archive/release/${VERSION}.zip ensembl-variation-${VERSION}.zip
             unzip ensembl-variation-${VERSION}.zip
+            if [ ! $? -eq 0 ]; then
+                    return 1
+            fi
             mv ensembl-variation-release-${VERSION} ensembl-variation
             rm ensembl-variation-${VERSION}.zip
 
             ${RESOURCES_FETCH_URL_SCRIPT}  ${ENSEMBL_ROOT_URL}/ensembl-funcgen/archive/release/${VERSION}.zip  ensembl-functgenomics-${VERSION}.zip
             unzip ensembl-functgenomics-${VERSION}.zip
+            if [ ! $? -eq 0 ]; then
+                    return 1
+            fi
             mv ensembl-functgenomics-release-${VERSION} ensembl-functgenomics
             rm ensembl-functgenomics-${VERSION}.zip
 
             ${RESOURCES_FETCH_URL_SCRIPT} ${ENSEMBL_ROOT_URL}/ensembl-tools/archive/release/${VERSION}.zip ensembl-tools-${VERSION}.zip
             unzip ensembl-tools-${VERSION}.zip
+            if [ ! $? -eq 0 ]; then
+                    return 1
+            fi
             mv ensembl-tools-release-${VERSION} ensembl-tools
             rm ensembl-tools-${VERSION}.zip
 
             ${RESOURCES_FETCH_URL_SCRIPT} http://bioperl.org/DIST/old_releases/bioperl-1.2.3.tar.gz
             unzip bioperl-1.2.3.tar.gz |tar -xf -
-
+            if [ ! $? -eq 0 ]; then
+                    return 1
+            fi
             cd ..
 
             cp -r src ${installation_path}/
@@ -58,6 +75,7 @@ EOF
             ls -ltr ${installation_path}/src/
 
             return 12
+            exit 1
 
             # Check that all the pieces have been installed or fail:
             if [ ! -e ${installation_path}/src/ensembl ]; then
