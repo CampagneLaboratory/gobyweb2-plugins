@@ -69,6 +69,7 @@
         <need scope="COMBINE" key="virtual_free" value="24g"/>
         <need scope="COMBINE_JVM" value="16g"/>
         <need scope="SPLIT_JVM" value="6g"/>
+        <artifacts scope="SUBMIT" required="true"/>
     </runtime>
     <execute>
         <script phase="pre-deployment" language="groovy" filename="sampleToGroups.groovy"/>
