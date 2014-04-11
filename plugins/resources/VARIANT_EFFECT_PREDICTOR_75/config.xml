@@ -18,7 +18,7 @@
     <requires>
         <resource>
             <id>ENSEMBL_API</id>
-            <versionAtLeast>73</versionAtLeast>
+            <versionAtLeast>75.4</versionAtLeast>
         </resource>
     </requires>
     <artifacts>
