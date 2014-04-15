@@ -74,9 +74,6 @@ EOF
 
             ls -ltr ${installation_path}/src/
 
-            return 12
-            exit 1
-
             # Check that all the pieces have been installed or fail:
             if [ ! -e ${installation_path}/src/ensembl ]; then
                     return 1
