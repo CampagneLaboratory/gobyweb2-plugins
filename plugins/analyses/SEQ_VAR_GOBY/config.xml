@@ -239,7 +239,7 @@
         <outputFile>
             <id>STATS_RESULTS_DB</id>
             <name>table of statistics</name>
-            <required>true</required>
+            <required>false</required>
             <mimeType>application/x-sqlite3</mimeType>
             <tableName>stats</tableName>
             <filename>stats.db</filename>
@@ -247,17 +247,17 @@
                 variations.
             </help>
         </outputFile>
-        <outputFile>
+        <!--outputFile>
             <id>VARIANT_ANNOTATION_PREDICTOR_OUTPUT</id>
             <name>variant annotation predictor output</name>
-            <required>true</required>
+            <required>false</required>
             <mimeType>application/lucene-index</mimeType>
             <tableName>vep</tableName>
             <filename>vep.lucene.index</filename>
             <help>View the table of results in the interactive GobyWeb table browser. Table contains output form the
                 Variant Annotation Predictor tool (VEP).
             </help>
-        </outputFile>
+        </outputFile-->
         <outputFile>
             <id>STATS_RESULTS_LUCENE_INDEX</id>
             <name>table of statistics</name>
