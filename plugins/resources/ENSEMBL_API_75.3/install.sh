@@ -55,7 +55,7 @@ function plugin_install_artifact {
             rm ensembl-tools-${VERSION}.zip
 
             ${RESOURCES_FETCH_URL_SCRIPT} http://bioperl.org/DIST/old_releases/bioperl-1.2.3.tar.gz
-            unzip bioperl-1.2.3.tar.gz |tar -xf -
+            gzip -c -d bioperl-1.2.3.tar.gz |tar -xf -
             if [ ! $? -eq 0 ]; then
                     return 1
             fi
