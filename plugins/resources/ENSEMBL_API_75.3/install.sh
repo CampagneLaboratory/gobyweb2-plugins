@@ -43,7 +43,6 @@ function plugin_install_artifact {
             if [ ! $? -eq 0 ]; then
                     return 1
             fi
-            ensembl-funcgen-release-75
             mv ensembl-funcgen-release-${VERSION} ensembl-functgenomics
             rm ensembl-functgenomics-${VERSION}.zip
 
