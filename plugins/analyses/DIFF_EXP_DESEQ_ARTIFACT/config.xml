@@ -47,10 +47,6 @@
     </requires>
     <files>
         <file>
-            <id>R_SCRIPT</id>
-            <filename>geneDESeqAnalysis.R</filename>
-        </file>
-        <file>
             <id>PARALLEL_SCRIPT</id>
             <filename>parallel.sh</filename>
             <importFromPlugin>DIFF_EXP_GOBY_ARTIFACT</importFromPlugin>
