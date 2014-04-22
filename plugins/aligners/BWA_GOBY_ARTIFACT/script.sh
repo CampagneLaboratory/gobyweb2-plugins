@@ -44,27 +44,19 @@ function plugin_align {
         SAI_FILE_1=${READS##*/}-1.sai
 
         nice ${BWA_GOBY_EXEC_PATH} aln -w 0 -t ${BWA_GOBY_NUM_THREADS} ${COLOR_SPACE_OPTION} -f ${SAI_FILE_0} -l ${INPUT_READ_LENGTH} ${ALN_OPTIONS} -x ${START_POSITION} -y ${END_POSITION} ${INDEX_DIR} ${READS_FILE} ${GAP_OPTIONS}
-        dieUponError "split reads failed, sub-task ${CURRENT_PART} of ${NUMBER_OF_PARTS}, failed"
-        RETURN_STATUS=$?
-        if [ $RETURN_STATUS -eq 0 ]; then
-            nice ${BWA_GOBY_EXEC_PATH} aln -w 1 -t ${BWA_GOBY_NUM_THREADS} ${COLOR_SPACE_OPTION} -f ${SAI_FILE_1}  ${ALN_OPTIONS} -l ${INPUT_READ_LENGTH}  -x ${START_POSITION} -y ${END_POSITION} ${INDEX_DIR} ${READS_FILE}
-            RETURN_STATUS=$?
-            if [ $RETURN_STATUS -eq 0 ]; then
-                # aln worked, let's sampe
-                nice ${BWA_GOBY_EXEC_PATH} sampe ${COLOR_SPACE_OPTION}  -F goby -f ${OUTPUT} ${SAMPE_SAMSE_OPTIONS} -x ${START_POSITION} -y ${END_POSITION} ${INDEX_DIR} ${SAI_FILE_0} ${SAI_FILE_1} ${READS_FILE} ${READS_FILE} -r ${READ_GROUPS} -n ${AMBIGUITY_THRESHOLD}
-                dieUponError "split reads failed, sub-task ${CURRENT_PART} of ${NUMBER_OF_PARTS}, failed"
-            fi
-
-        fi
+        dieUponError "primary alignment failed, sub-task ${CURRENT_PART} of ${NUMBER_OF_PARTS}, failed"
+        nice ${BWA_GOBY_EXEC_PATH} aln -w 1 -t ${BWA_GOBY_NUM_THREADS} ${COLOR_SPACE_OPTION} -f ${SAI_FILE_1}  ${ALN_OPTIONS} -l ${INPUT_READ_LENGTH}  -x ${START_POSITION} -y ${END_POSITION} ${INDEX_DIR} ${READS_FILE}
+        dieUponError "secondary alignment failed, sub-task ${CURRENT_PART} of ${NUMBER_OF_PARTS}, failed"
+        # aln worked, let's sampe
+        nice ${BWA_GOBY_EXEC_PATH} sampe ${COLOR_SPACE_OPTION}  -F goby -f ${OUTPUT} ${SAMPE_SAMSE_OPTIONS} -x ${START_POSITION} -y ${END_POSITION} ${INDEX_DIR} ${SAI_FILE_0} ${SAI_FILE_1} ${READS_FILE} ${READS_FILE} -r ${READ_GROUPS} -n ${AMBIGUITY_THRESHOLD}
+        dieUponError "samse failed, sub-task ${CURRENT_PART} of ${NUMBER_OF_PARTS}, failed"
     else
         # Single end alignment, native aligner
         SAI_FILE_0=${READS##*/}.sai
         nice ${BWA_GOBY_EXEC_PATH} aln ${COLOR_SPACE_OPTION} -t ${BWA_GOBY_NUM_THREADS} -f ${SAI_FILE_0} -l ${INPUT_READ_LENGTH} ${ALN_OPTIONS} -x ${START_POSITION} -y ${END_POSITION} ${INDEX_DIR} ${READS_FILE} ${GAP_OPTIONS}
-        RETURN_STATUS=$?
-        if [ $RETURN_STATUS -eq 0 ]; then
-            # aln worked, let's samse
-            nice ${BWA_GOBY_EXEC_PATH} samse ${COLOR_SPACE_OPTION} ${SAMPE_SAMSE_OPTIONS}  -F goby -f ${OUTPUT} -x ${START_POSITION} -y ${END_POSITION} ${INDEX_DIR} ${SAI_FILE_0} ${READS_FILE} -r ${READ_GROUPS} -n ${AMBIGUITY_THRESHOLD}
-            dieUponError "split reads failed, sub-task ${CURRENT_PART} of ${NUMBER_OF_PARTS}, failed"
-        fi
+        dieUponError "alignment failed, sub-task ${CURRENT_PART} of ${NUMBER_OF_PARTS}, failed"
+        # aln worked, let's samse
+        nice ${BWA_GOBY_EXEC_PATH} samse ${COLOR_SPACE_OPTION} ${SAMPE_SAMSE_OPTIONS}  -F goby -f ${OUTPUT} -x ${START_POSITION} -y ${END_POSITION} ${INDEX_DIR} ${SAI_FILE_0} ${READS_FILE} -r ${READ_GROUPS} -n ${AMBIGUITY_THRESHOLD}
+        dieUponError "samse failed, sub-task ${CURRENT_PART} of ${NUMBER_OF_PARTS}, failed"
     fi
 }
