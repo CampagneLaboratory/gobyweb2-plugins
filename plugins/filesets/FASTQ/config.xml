@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<fileSetConfig xsi:noNamespaceSchemaLocation="../../../schemas/plugins.xsd"
+               xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <name>Fastq</name>
+    <id>FASTQ</id>
+    <help>Fastq format</help>
+    <version>1.0</version>
+    <mimeType>application/fastq</mimeType>
+    <files>
+        <selector matchAttribute="basename">
+            <id>FASTQ_GZ</id>
+            <pattern>*.fastq.gz</pattern>
+            <mandatory>false</mandatory>
+        </selector>
+        <selector matchAttribute="basename">
+            <id>FQ_GZ</id>
+            <pattern>*.fq.gz</pattern>
+            <mandatory>false</mandatory>
+        </selector>
+    </files>
+    <attributes>
+        <attribute name="basename"/>
+    </attributes>
+</fileSetConfig>
