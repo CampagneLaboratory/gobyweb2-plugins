@@ -2,10 +2,10 @@
 <fileSetConfig xsi:noNamespaceSchemaLocation="../../../schemas/plugins.xsd"
                xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
     <name>Fastq</name>
-    <id>FASTQ</id>
+    <id>FASTQ_GZ</id>
     <help>Fastq format</help>
     <version>1.0</version>
-    <mimeType>application/fastq</mimeType>
+    <mimeType>application/fastqgz</mimeType>
     <files>
 
         <selector matchAttribute="basename">
