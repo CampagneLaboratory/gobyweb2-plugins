@@ -8,13 +8,13 @@
     <mimeType>application/fastq</mimeType>
     <files>
         <selector matchAttribute="basename">
-            <id>FASTQ_GZ</id>
-            <pattern>*.fastq.gz</pattern>
+            <id>FASTQ</id>
+            <pattern>*.fastq</pattern>
             <mandatory>false</mandatory>
         </selector>
         <selector matchAttribute="basename">
-            <id>FQ_GZ</id>
-            <pattern>*.fq.gz</pattern>
+            <id>FQ</id>
+            <pattern>*.fq</pattern>
             <mandatory>false</mandatory>
         </selector>
     </files>
