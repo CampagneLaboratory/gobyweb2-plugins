@@ -39,7 +39,6 @@ function plugin_align {
               --start-position ${START_POSITION} --end-position ${END_POSITION} ${READS}
 
           dieUponError "split reads failed, sub-task ${CURRENT_PART} of ${NUMBER_OF_PARTS}, failed"
-
       fi
 
        # Make sure the scripts we use are executable:
