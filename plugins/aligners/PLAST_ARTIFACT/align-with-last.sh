@@ -1,6 +1,5 @@
 #!/bin/bash
 
-[ $# -eq 7 ] && [ "${PAIRED_END_ALIGNMENT}" != "true" ] && shift
 set -x
 FULL_READS_INPUT=$1
 PAIRED_END_ALIGNMENT=$2
