@@ -1,4 +1,3 @@
-#!/bin/sh
 [ $# -eq 6 ] && shift
 JOB_DIR=$1
 ALIGN_COMMAND=$2
