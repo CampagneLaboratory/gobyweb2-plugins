@@ -38,18 +38,21 @@ expose_artifact_environment_variables
      # 	dieUponError "last index could not be found"
     fi
 
-    ${RESOURCES_LAST_EXEC_PATH} -v -s2 -Q1 -d${PLUGINS_ALIGNER_PLAST_ARTIFACT_D} \
+    ${RESOURCES_LAST_EXEC_PATH} -i1 -v -s2 -Q1 -d${PLUGINS_ALIGNER_PLAST_ARTIFACT_D} \
         -e${PLUGINS_ALIGNER_PLAST_ARTIFACT_E} ${INDEX_DIRECTORY}/index ${READS_FASTQ} -o ${TEMP_FILENAME}.maf
     # dieUponError "last could not align reads"
 
     if [ "${PAIRED_END_ALIGNMENT}" == "true" ]; then
-        ${RESOURCES_LAST_EXEC_PATH} -v -s2 -Q1 -d${PLUGINS_ALIGNER_PLAST_ARTIFACT_D} \
+        ${RESOURCES_LAST_EXEC_PATH} -i1 -v -s2 -Q1 -d${PLUGINS_ALIGNER_PLAST_ARTIFACT_D} \
            -e${PLUGINS_ALIGNER_PLAST_ARTIFACT_E} ${INDEX_DIRECTORY}/index ${PAIRS_FASTQ} -o ${TEMP_FILENAME}-pairs.maf
       #  dieUponError "last could not align paired reads"
         ${RESOURCES_ARTIFACTS_LAST_ARTIFACT_BINARIES}/scripts/last-pair-probs.py ${TEMP_FILENAME}.maf ${TEMP_FILENAME}-pairs.maf > ${TEMP_FILENAME}-2.maf
       #  dieUponError "last could not last-pair-probs.py"
+      cp ${TEMP_FILENAME}.maf ${TEMP_FILENAME}-pairs.maf  ${TEMP_FILENAME}-2.maf ${JOB_DIR}/
     else
         cat ${TEMP_FILENAME}.maf | ${RESOURCES_LAST_MAP_PROBS_EXEC} -s${PLUGINS_ALIGNER_PLAST_ARTIFACT_S} > ${TEMP_FILENAME}-2.maf
+        cp ${TEMP_FILENAME}.maf ${TEMP_FILENAME}-2.maf ${TEMP_FILENAME}-2.maf ${JOB_DIR}/
+
      #   dieUponError "last could not last-map-probs.py"
     fi
 
