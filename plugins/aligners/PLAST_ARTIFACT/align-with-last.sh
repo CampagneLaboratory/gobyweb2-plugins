@@ -35,7 +35,7 @@ expose_artifact_environment_variables
     #make sure index exists
     if [ ! -e ${INDEX_DIRECTORY}/index.prj ]; then
         failThisLine
-     # 	dieUponError "last index could not be found"
+      #	dieUponError "last index could not be found"
     fi
 
     ${RESOURCES_LAST_EXEC_PATH} -i1 -s2 -Q1 -d${PLUGINS_ALIGNER_PLAST_ARTIFACT_D} \
@@ -47,6 +47,10 @@ expose_artifact_environment_variables
            -e${PLUGINS_ALIGNER_PLAST_ARTIFACT_E} ${INDEX_DIRECTORY}/index ${PAIRS_FASTQ} -o ${TEMP_FILENAME}-pairs.maf
       #  dieUponError "last could not align paired reads"
         ${RESOURCES_ARTIFACTS_LAST_ARTIFACT_BINARIES}/scripts/last-pair-probs.py ${TEMP_FILENAME}.maf ${TEMP_FILENAME}-pairs.maf > ${TEMP_FILENAME}-2.maf
+        if [ $? != 0 ]; then
+
+           cat ${TEMP_FILENAME}.maf ${TEMP_FILENAME}-pairs.maf > ${TEMP_FILENAME}-2.maf
+        fi
       #  dieUponError "last could not last-pair-probs.py"
     else
         cat ${TEMP_FILENAME}.maf | ${RESOURCES_LAST_MAP_PROBS_EXEC} -s${PLUGINS_ALIGNER_PLAST_ARTIFACT_S} > ${TEMP_FILENAME}-2.maf
