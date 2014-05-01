@@ -15,7 +15,7 @@
     <name>Last base level indices (auto-install)</name>
     <id>LAST_INDEX</id>
     <help>Base indices for the Last aligner.</help>
-    <version>456</version>
+    <version>456.1</version>
     <requires>
         <resource>
             <id>LAST_ARTIFACT</id>
