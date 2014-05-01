@@ -11,3 +11,7 @@ Please feel free to submit new plugins to this repository as pull requests. Plug
 specific software or data not found on a linux node by default must be implemented to provide 
 auto-installation of these artifacts.
 
+Note that since GobyWeb 2.3, you need to checkout the plugins-SDK branch of this repository. All 
+new developments are performed on this branch. Changes will be merged with master after we have 
+updgraded the GobyWeb CTSC production instance that depends on master.
+
