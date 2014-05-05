@@ -53,24 +53,29 @@ function plugin_install_artifact {
             fi
             mv ensembl-tools-release-${VERSION} ensembl-tools
             rm ensembl-tools-${VERSION}.zip
+set -x
+pwd
+ls -ltr
 
             ${RESOURCES_FETCH_URL_SCRIPT} http://bioperl.org/DIST/old_releases/bioperl-1.2.3.tar.gz
             gzip -c -d bioperl-1.2.3.tar.gz |tar -xf -
             if [ ! $? -eq 0 ]; then
                     return 1
             fi
-            cd bioperl-1.2.3
+            rm bioperl-1.2.3.tar.gz
+            cd ..
+            cp -r src ${installation_path}/
+
+            cd src/bioperl-1.2.3
             mkdir ${installation_path}/bioperl
 
             echo "no" | perl Makefile.PL PREFIX=${installation_path}/bioperl INSTALLSITELIB=${installation_path}/bioperl/lib
             make
             make install
-            return  1
-            return 1 # Force fail until we know this works.
 
-            cp -r src ${installation_path}/
+
 cat >${installation_path}/setup.sh <<EOF
-PERL5LIB=\${PERL5LIB}:\${RESOURCES_ARTIFACTS_ENSEMBL_API_INSTALL_DIR}/src/bioperl-1.2.3
+PERL5LIB=\${PERL5LIB}:\${RESOURCES_ARTIFACTS_ENSEMBL_API_INSTALL_DIR}/bioperl
 PERL5LIB=\${PERL5LIB}:\${RESOURCES_ARTIFACTS_ENSEMBL_API_INSTALL_DIR}/src/ensembl/modules
 PERL5LIB=\${PERL5LIB}:\${RESOURCES_ARTIFACTS_ENSEMBL_API_INSTALL_DIR}/src/ensembl-compara/modules
 PERL5LIB=\${PERL5LIB}:\${RESOURCES_ARTIFACTS_ENSEMBL_API_INSTALL_DIR}/src/ensembl-variation/modules
@@ -103,23 +108,16 @@ EOF
             ;;
 
            'VEP_CACHE')
-
+#uncomment for testing with the SDK command line resource install:
+#ORGANISM=homo_sapiens
+#GENOME_REFERENCE_ID=1000GENOMES.37
                 ORG_LOWERCASE=`echo  ${ORGANISM}| tr '[:upper:]' '[:lower:]'`
                 ${RESOURCES_FETCH_URL_SCRIPT} ftp://ftp.ensembl.org/pub/release-${VERSION}/variation/VEP/${ORG_LOWERCASE}_vep_${VERSION}.tar.gz
 
                 mkdir -p ${installation_path}/.vep
                 gzip -c -d  ${ORG_LOWERCASE}_vep_*.tar.gz | (cd ${installation_path}/.vep ; tar -xf -)
 
-            return 1 # Force fail until we know this works.
                 if [ -e ${installation_path}/.vep/${ORG_LOWERCASE} ]; then
-                    return 0
-                else
-                    return 1
-                fi
-
-
-
-                if [ -e ${installation_path}/${ORG_LOWERCASE} ]; then
                     return 0
                 else
                     return 1
@@ -142,6 +140,8 @@ function get_attribute_values() {
 
     id=$1
     out=$2
+#ORGANISM=homo_sapiens
+#GENOME_REFERENCE_ID=1000GENOMES.37
 
        BUILD_NUMBER=`echo ${GENOME_REFERENCE_ID} | awk -F\. '{print $1}'`
        ENSEMBL_VERSION_NUMBER=`echo ${GENOME_REFERENCE_ID} | awk -F\. '{print $(NF)}'`
