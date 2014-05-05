@@ -96,6 +96,8 @@ EOF
            'VEP_CACHE')
 
                 ORG_LOWERCASE=`echo  ${ORGANISM}| tr '[:upper:]' '[:lower:]'`
+                . ${RESOURCES_ARTIFACTS_ENSEMBL_API_INSTALL_DIR}/setup.sh
+ #export PERL5LIB=${RESOURCES_ARTIFACTS_VCF_TOOLS_BINARIES}/lib/perl5/site_perl:${PERL5LIB}
                 perl ${RESOURCES_ARTIFACTS_ENSEMBL_API_INSTALL_DIR}/src/ensembl-tools/scripts/variant_effect_predictor/INSTALL.pl \
                 --CACHEDIR ${installation_path} --species ${ORG_LOWERCASE}
 
