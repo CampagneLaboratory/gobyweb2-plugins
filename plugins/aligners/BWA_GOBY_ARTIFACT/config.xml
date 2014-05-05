@@ -37,8 +37,8 @@
         <need scope="ALIGN" key="virtual_free" value="7g"/>
         <need scope="ALIGN_JVM" value="4g"/>
         <need scope="ALIGNMENT_POST_PROCESSING" key="excl" value="false"/>
-        <need scope="ALIGNMENT_POST_PROCESSING" key="h_vmem" value="10g"/>
-        <need scope="ALIGNMENT_POST_PROCESSING" key="virtual_free" value="10g"/>
+        <need scope="ALIGNMENT_POST_PROCESSING" key="h_vmem" value="11g"/>
+        <need scope="ALIGNMENT_POST_PROCESSING" key="virtual_free" value="11g"/>
     </runtime>
     <options>
         <option>
