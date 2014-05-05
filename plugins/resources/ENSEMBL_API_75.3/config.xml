@@ -16,7 +16,7 @@
     <id>ENSEMBL_API</id>
     <help>Ensembl API. See http://useast.ensembl.org/info/docs/api/api_installation.html. Auto-install with artifacts.
     </help>
-    <version>75.7</version>
+    <version>75.7.1</version>
    <requires>
        <resource>
            <id>FETCH_URL</id>

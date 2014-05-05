@@ -59,6 +59,14 @@ function plugin_install_artifact {
             if [ ! $? -eq 0 ]; then
                     return 1
             fi
+
+            mkdir ${installation_path}/bioperl
+
+            perl Makefile.PL PREFIX=${installation_path}/bioperl INSTALLSITELIB=${installation_path}/bioperl/lib
+            make
+            make test
+            make install
+
             cd ..
 
             cp -r src ${installation_path}/
@@ -67,7 +75,8 @@ PERL5LIB=\${PERL5LIB}:\${RESOURCES_ARTIFACTS_ENSEMBL_API_INSTALL_DIR}/src/bioper
 PERL5LIB=\${PERL5LIB}:\${RESOURCES_ARTIFACTS_ENSEMBL_API_INSTALL_DIR}/src/ensembl/modules
 PERL5LIB=\${PERL5LIB}:\${RESOURCES_ARTIFACTS_ENSEMBL_API_INSTALL_DIR}/src/ensembl-compara/modules
 PERL5LIB=\${PERL5LIB}:\${RESOURCES_ARTIFACTS_ENSEMBL_API_INSTALL_DIR}/src/ensembl-variation/modules
-PERL5LIB=\${PERL5LIB}:\${RESOURCES_ARTIFACTS_ENSEMBL_API_INSTALL_DIR}/src/ensembl-functgenomics/modules
+PERL5LIB=\${PERL5LIB}:\${RESOURCES_ARTIFACTS_ENSEMBL_API_INSTALL_DIR}/src/ensembl-funcgen/modules
+PERL5LIB=\${PERL5LIB}:\${RESOURCES_ARTIFACTS_ENSEMBL_API_INSTALL_DIR}/src/ensembl-tools/modules
 export PERL5LIB
 EOF
             chmod +x  ${installation_path}/setup.sh
@@ -90,6 +99,7 @@ EOF
             if [ ! -e ${installation_path}/src/ensembl-compara ]; then
                     return 1
             fi
+            return 1 # Force fail until we know this works.
             return 0
             ;;
 
