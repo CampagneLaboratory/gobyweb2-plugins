@@ -60,15 +60,6 @@ function plugin_install_artifact {
                     return 1
             fi
 
-            mkdir ${installation_path}/bioperl
-
-            echo "no" | perl Makefile.PL PREFIX=${installation_path}/bioperl INSTALLSITELIB=${installation_path}/bioperl/lib
-            make
-            make test
-            make install
-            return  1
-            return 1 # Force fail until we know this works.
-
             cp -r src ${installation_path}/
 cat >${installation_path}/setup.sh <<EOF
 PERL5LIB=\${PERL5LIB}:\${RESOURCES_ARTIFACTS_ENSEMBL_API_INSTALL_DIR}/src/bioperl-1.2.3
