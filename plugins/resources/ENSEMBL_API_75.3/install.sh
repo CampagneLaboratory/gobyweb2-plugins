@@ -96,11 +96,11 @@ EOF
            'VEP_CACHE')
 
                 ORG_LOWERCASE=`echo  ${ORGANISM}| tr '[:upper:]' '[:lower:]'`
+                perl ${RESOURCES_ARTIFACTS_ENSEMBL_API_INSTALL_DIR}/src/ensembl-tools/scripts/variant_effect_predictor/INSTALL.pl \
+                --CACHEDIR ${installation_path} --species ${ORG_LOWERCASE}
 
-                ${RESOURCES_FETCH_URL_SCRIPT} ftp://ftp.ensembl.org/pub/release-${VERSION}/variation/VEP/${ORG_LOWERCASE}_vep_${VERSION}.tar.gz
-
-                gzip -c -d  ${ORG_LOWERCASE}_vep_*.tar.gz | (cd ${installation_path} ; tar -xf -)
-
+    return 1
+    exit 1
                 if [ -e ${installation_path}/${ORG_LOWERCASE} ]; then
                     return 0
                 else
