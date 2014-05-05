@@ -62,12 +62,12 @@ function plugin_install_artifact {
 
             mkdir ${installation_path}/bioperl
 
-            perl Makefile.PL PREFIX=${installation_path}/bioperl INSTALLSITELIB=${installation_path}/bioperl/lib
+            echo "no" | perl Makefile.PL PREFIX=${installation_path}/bioperl INSTALLSITELIB=${installation_path}/bioperl/lib
             make
             make test
             make install
-
-            cd ..
+            return  1
+            return 1 # Force fail until we know this works.
 
             cp -r src ${installation_path}/
 cat >${installation_path}/setup.sh <<EOF
@@ -99,20 +99,27 @@ EOF
             if [ ! -e ${installation_path}/src/ensembl-compara ]; then
                     return 1
             fi
-            return 1 # Force fail until we know this works.
+
             return 0
             ;;
 
            'VEP_CACHE')
 
                 ORG_LOWERCASE=`echo  ${ORGANISM}| tr '[:upper:]' '[:lower:]'`
-                . ${RESOURCES_ARTIFACTS_ENSEMBL_API_INSTALL_DIR}/setup.sh
- #export PERL5LIB=${RESOURCES_ARTIFACTS_VCF_TOOLS_BINARIES}/lib/perl5/site_perl:${PERL5LIB}
-                perl ${RESOURCES_ARTIFACTS_ENSEMBL_API_INSTALL_DIR}/src/ensembl-tools/scripts/variant_effect_predictor/INSTALL.pl \
-                --CACHEDIR ${installation_path} --species ${ORG_LOWERCASE}
+                ${RESOURCES_FETCH_URL_SCRIPT} ftp://ftp.ensembl.org/pub/release-${VERSION}/variation/VEP/${ORG_LOWERCASE}_vep_${VERSION}.tar.gz
 
-    return 1
-    exit 1
+                mkdir -p ${installation_path}/.vep
+                gzip -c -d  ${ORG_LOWERCASE}_vep_*.tar.gz | (cd ${installation_path}/.vep ; tar -xf -)
+
+            return 1 # Force fail until we know this works.
+                if [ -e ${installation_path}/.vep/${ORG_LOWERCASE} ]; then
+                    return 0
+                else
+                    return 1
+                fi
+
+
+
                 if [ -e ${installation_path}/${ORG_LOWERCASE} ]; then
                     return 0
                 else
