@@ -59,6 +59,14 @@ function plugin_install_artifact {
             if [ ! $? -eq 0 ]; then
                     return 1
             fi
+            cd bioperl-1.2.3
+            mkdir ${installation_path}/bioperl
+
+            echo "no" | perl Makefile.PL PREFIX=${installation_path}/bioperl INSTALLSITELIB=${installation_path}/bioperl/lib
+            make
+            make install
+            return  1
+            return 1 # Force fail until we know this works.
 
             cp -r src ${installation_path}/
 cat >${installation_path}/setup.sh <<EOF
