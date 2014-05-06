@@ -53,9 +53,8 @@ function plugin_install_artifact {
             fi
             mv ensembl-tools-release-${VERSION} ensembl-tools
             rm ensembl-tools-${VERSION}.zip
-set -x
-pwd
-ls -ltr
+            cd ..
+            cp -r src ${installation_path}/
 
             ${RESOURCES_FETCH_URL_SCRIPT} http://bioperl.org/DIST/old_releases/bioperl-1.2.3.tar.gz
             gzip -c -d bioperl-1.2.3.tar.gz |tar -xf -
@@ -63,17 +62,13 @@ ls -ltr
                     return 1
             fi
             rm bioperl-1.2.3.tar.gz
-            cd ..
-            cp -r src ${installation_path}/
 
-            cd src/bioperl-1.2.3
-            mkdir ${installation_path}/bioperl
+            cd bioperl-1.2.3
+            mkdir -p ${installation_path}/bioperl
 
-            echo "no" | perl Makefile.PL PREFIX=${installation_path}/bioperl INSTALLSITELIB=${installation_path}/bioperl/lib
+            echo "no" | perl Makefile.PL PREFIX=${installation_path}/bioperl INSTALLDIRS=site INSTALLSITELIB=${installation_path}/bioperl/lib INSTALLSITEARCH=${installation_path}/bioperl/ INSTALLMAN1DIR=${installation_path}/bioperl/man/man1 INSTALLMAN3DIR=${installation_path}/bioperlman/man3
             make
             make install
-
-
 cat >${installation_path}/setup.sh <<EOF
 PERL5LIB=\${PERL5LIB}:\${RESOURCES_ARTIFACTS_ENSEMBL_API_INSTALL_DIR}/bioperl
 PERL5LIB=\${PERL5LIB}:\${RESOURCES_ARTIFACTS_ENSEMBL_API_INSTALL_DIR}/src/ensembl/modules
