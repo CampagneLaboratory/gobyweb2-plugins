@@ -21,7 +21,7 @@ s <- .jnew("java/io/File","mytestfile")
 .jcall(s,"Z","createNewFile")
 EOT
             # Run the script, it should create mytestfile if all was installed correctly:
-            ${RUN_R} script.R
+            ${RUN_R} CMD BATCH --no-save --no-restore script.R
             if [ -x mytestfile ]; then
             # OK we are all good
                  return 0
