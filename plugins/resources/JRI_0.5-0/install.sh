@@ -23,7 +23,7 @@ EOT
             # Run the script, it should create mytestfile if all was installed correctly:
             ${RUN_R} CMD BATCH --no-save --no-restore script.R
 
-Fix test fior             if [ -e mytestfile ]; then
+            if [ -e mytestfile ]; then
             # OK we are all good
                  return 0
             else
