@@ -45,6 +45,10 @@
             <versionAtLeast>1.0</versionAtLeast>
         </resource>
         <resource>
+            <id>RJAVA</id>
+            <versionAtLeast>0.9.6</versionAtLeast>
+        </resource>
+        <resource>
             <id>GOBY_INDEXED_GENOMES</id>
             <versionAtLeast>1.0</versionAtLeast>
         </resource>
