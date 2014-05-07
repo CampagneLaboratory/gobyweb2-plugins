@@ -25,6 +25,7 @@ export PATH=${installation_path}/bin:\${PATH}
 export LD_LIBRARY_PATH=${installation_path}/lib:\${LD_LIBRARY_PATH}
 export R_HOME=${installation_path}
 export R_LIBS=${installation_path}/lib64/R/library
+export JAVA_OPTS="-Xms256mm -Xmx256m"
 EOT
 
             chmod +x ${installation_path}/setup.sh
