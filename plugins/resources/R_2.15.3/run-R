@@ -5,8 +5,9 @@ expose_artifact_environment_variables
 . ${RESOURCES_ARTIFACTS_R_BINARIES}/setup.sh
 
 function run_R {
-
-${RESOURCES_ARTIFACTS_R_BINARIES}/bin/R "$@"
-
+    # Set _JAVA_OPTIONS here in case we need to use RJava/JRI:
+    export _JAVA_OPTIONS="-Xms256m -Xmx256m"
+    ${RESOURCES_ARTIFACTS_R_BINARIES}/bin/R "$@"
+    unset _JAVA_OPTIONS
 }
 

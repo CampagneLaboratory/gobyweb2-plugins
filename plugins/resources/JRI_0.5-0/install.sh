@@ -28,14 +28,20 @@ s <- .jnew("java/io/File","mytestfile")
 .jcall(s,"Z","createNewFile")
 q()
 EOT
+            export _JAVA_OPTIONS="-Xms256m -Xmx256m"
             # Run the script, it should create mytestfile if all was installed correctly:
             ${RUN_R} CMD BATCH --no-save --no-restore script.R
 
+            # Remove the JAVA_OPTIONS because they would even override the command line when memory options are
+            # specified explicitly:
+            unset _JAVA_OPTIONS
+
+            # check that the test and installation were successful:
             if [ -e mytestfile ]; then
-            # OK we are all good
+                 # OK we are all good
                  return 0
             else
-            # The installation failed. Unable to call Java from R
+                 # The installation failed. Unable to call Java from R
                  return 127
             fi
             return 0
