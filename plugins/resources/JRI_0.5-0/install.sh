@@ -14,11 +14,19 @@ function plugin_install_artifact {
             ${RESOURCES_FETCH_URL_SCRIPT} http://cran.r-project.org/src/contrib/rJava_${VERSION}.tar.gz rJava.tar.gz
             ${RUN_R} CMD INSTALL rJava.tar.gz --library=${installation_path}/
 
+cat>${installation_path}/setup.sh<<EOT
+export R_LIBS=${installation_path}:${R_LIBS}
+EOT
+        # Source the environment:
+            chmod +x ${installation_path}/setup.sh
+            . ${installation_path}/setup.sh
+
 cat > script.R <<EOT
 library(rJava)
 .jinit()
 s <- .jnew("java/io/File","mytestfile")
 .jcall(s,"Z","createNewFile")
+q()
 EOT
             # Run the script, it should create mytestfile if all was installed correctly:
             ${RUN_R} CMD BATCH --no-save --no-restore script.R
