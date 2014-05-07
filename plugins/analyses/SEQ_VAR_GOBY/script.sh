@@ -95,6 +95,11 @@ function plugin_alignment_analysis_process {
      CALL_INDELS_OPTION=${PLUGINS_ALIGNMENT_ANALYSIS_SEQ_VAR_GOBY_CALL_INDELS}
      FORCE_DIPLOID=${PLUGINS_ALIGNMENT_ANALYSIS_SEQ_VAR_GOBY_FORCE_DIPLOID}
 
+
+    # source setup of R and RJAVA:
+    . ${RESOURCES_ARTIFACTS_R_BINARIES}/setup.sh
+    . ${RESOURCES_ARTIFACTS_RJAVA_BINARIES}/setup.sh
+
      # Note that we override the grid jvm flags to request only 4Gb:
      run_goby ${PLUGIN_NEED_PROCESS_JVM} discover-sequence-variants \
            ${WINDOW_LIMITS} \
