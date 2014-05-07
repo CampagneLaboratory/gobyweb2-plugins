@@ -7,7 +7,7 @@ function plugin_install_artifact {
     case ${id} in
         'BINARIES' )
             VERSION="2.15.3"
-            R CMD javareconf
+
             ${RESOURCES_FETCH_URL_SCRIPT} http://cran.us.r-project.org/src/base/R-2/R-${VERSION}.tar.gz
 
             tar -xzvf R-${VERSION}.tar.gz
@@ -16,6 +16,7 @@ function plugin_install_artifact {
             ./configure --prefix=${installation_path}  --enable-R-shlib
             make
             make install
+
             #make install-tests
 
 cat>${installation_path}/setup.sh<<EOT
@@ -27,6 +28,9 @@ export R_LIBS=${installation_path}/lib64/R/library
 EOT
 
             chmod +x ${installation_path}/setup.sh
+            . ${installation_path}/setup.sh
+            ${installation_path}/bin/R CMD javareconf
+
             if [ -e ${installation_path}/bin/R ]; then
                                                return 0
                                            else
