@@ -16,6 +16,7 @@ function plugin_install_artifact {
 
 cat>${installation_path}/setup.sh<<EOT
 export R_LIBS=${installation_path}:${R_LIBS}
+export RJAVA_HOME=${installation_path}
 EOT
         # Source the environment:
             chmod +x ${installation_path}/setup.sh

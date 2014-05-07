@@ -25,19 +25,21 @@ export PATH=${installation_path}/bin:\${PATH}
 export LD_LIBRARY_PATH=${installation_path}/lib:\${LD_LIBRARY_PATH}
 export R_HOME=${installation_path}
 export R_LIBS=${installation_path}/lib64/R/library
-export _JAVA_OPTIONS="-Xms256m -Xmx256m"
 EOT
 
             chmod +x ${installation_path}/setup.sh
             . ${installation_path}/setup.sh
+            export _JAVA_OPTIONS="-Xms256m -Xmx256m"
             ${installation_path}/bin/R CMD javareconf
+            unset _JAVA_OPTIONS
 
             if [ -e ${installation_path}/bin/R ]; then
-                                               return 0
-                                           else
-                                              return 127
-                                           fi
+                 return 0
+            else
+                 return 127
+            fi
             return 0
+
             ;;
 
         *)  echo "Resource artifact id not recognized: "+$id
