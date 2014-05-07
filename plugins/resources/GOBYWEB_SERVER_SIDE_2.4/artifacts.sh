@@ -63,6 +63,7 @@ function install_plugin_artifacts_internal {
 
 function expose_artifact_environment_variables {
         set +x
+        export _JAVA_OPTIONS="-Xms256mm -Xmx256m"
         . ${JOB_DIR}/constants.sh
         . ${JOB_DIR}/auto-options.sh
         . ${TMPDIR}/exports.sh
