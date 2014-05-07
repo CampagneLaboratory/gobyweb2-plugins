@@ -7,13 +7,13 @@ function plugin_install_artifact {
     case ${id} in
         'BINARIES' )
             VERSION="2.15.3"
-
+            R CMD javareconf
             ${RESOURCES_FETCH_URL_SCRIPT} http://cran.us.r-project.org/src/base/R-2/R-${VERSION}.tar.gz
 
             tar -xzvf R-${VERSION}.tar.gz
 
             cd R-${VERSION}
-            ./configure --prefix=${installation_path}
+            ./configure --prefix=${installation_path}  --enable-R-shlib
             make
             make install
             #make install-tests
