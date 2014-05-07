@@ -22,7 +22,8 @@ s <- .jnew("java/io/File","mytestfile")
 EOT
             # Run the script, it should create mytestfile if all was installed correctly:
             ${RUN_R} CMD BATCH --no-save --no-restore script.R
-            if [ -x mytestfile ]; then
+
+Fix test fior             if [ -e mytestfile ]; then
             # OK we are all good
                  return 0
             else
