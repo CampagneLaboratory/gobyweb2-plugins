@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<!--
+  ~ Copyright (c) 2011-2014  by Cornell University  and the  Cornell Research Foundation,
+  ~ Inc. All Rights Reserved.
+  ~
+  ~ GobyWeb plugins  are released  under the LGPL3 license,  unless  otherwise specified
+  ~ by the license of a specific plugin. See the file LGPL3.license in this distribution
+  ~ for a copy of the LGPL license.
+  ~
+  ~ When a plugin is not released under the LGPL3 license,  the comments  at the top  of
+  ~ the plugin's config.xml will indicate how that specific plugin is released/licensed.
+  -->
+
+<taskConfig xsi:noNamespaceSchemaLocation="../../../schemas/plugins.xsd"
+            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <name>Process Reads</name>
+    <id>TEST_GOBY_JAVA_R_INTERFACE</id>
+    <help>Test that Goby can connect to R through the Java R Interface.</help>
+    <version>1.0</version>
+    <requires>
+        <resource>
+            <id>GOBY</id>
+            <versionAtLeast>20140317155722</versionAtLeast>
+        </resource>
+        <resource>
+            <id>RJAVA</id>
+            <versionAtLeast>0.9.6.1</versionAtLeast>
+        </resource>
+    </requires>
+    <runtime>
+        <need scope="PROCESS" key="excl" value="false"/>
+        <need scope="PROCESS" key="h_vmem" value="4g"/>
+        <need scope="PROCESS" key="virtual_free" value="6g"/>
+        <need scope="INSTALL_ARTIFACTS" key="excl" value="true"/>
+        <need scope="INSTALL_ARTIFACTS" key="h_vmem" value="4g"/>
+        <need scope="INSTALL_ARTIFACTS" key="virtual_free" value="6g"/>
+        <need scope="ALIGN" key="os" value="rhel5.4"/>
+        <need scope="PROCESS_JVM" value="4g"/>
+    </runtime>
+
+    <executableIOSchema>
+        <input>
+            <inputSlot>
+                <name>DUMMY</name>
+                <type maxOccurs="0" minOccurs="0">
+                    <id>SUPPORTED_INPUT_READS</id>
+                    <versionAtLeast>1.0</versionAtLeast>
+                </type>
+            </inputSlot>
+        </input>
+        <output>
+            <outputSlot>
+                <name>EXECUTION_LOG</name>
+                <type maxOccurs="1" minOccurs="1">
+                    <id>TXT</id>
+                    <versionExactly>1.0</versionExactly>
+                </type>
+            </outputSlot>
+        </output>
+    </executableIOSchema>
+
+</taskConfig>
