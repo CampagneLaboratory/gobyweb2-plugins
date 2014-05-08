@@ -15,7 +15,7 @@
     <name>RJava with JRI</name>
     <id>RJAVA</id>
     <help>RJava and JRI. Auto-install with artifacts.</help>
-    <version>0.9.6.3</version>
+    <version>0.9.6.4</version>
     <requires>
         <resource>
             <id>R</id>

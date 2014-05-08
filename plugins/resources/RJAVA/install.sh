@@ -37,7 +37,7 @@ EOT
 
             # Remove the JAVA_OPTIONS because they would even override the command line when memory options are
             # specified explicitly:
-            unset _JAVA_OPTIONS
+            unsetenv _JAVA_OPTIONS
 
             # check that the test and installation were successful:
             if [ -e mytestfile ]; then
