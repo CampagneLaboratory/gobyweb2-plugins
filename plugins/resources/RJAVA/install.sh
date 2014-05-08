@@ -12,6 +12,8 @@ function plugin_install_artifact {
             RUN_R=${RESOURCES_ARTIFACTS_R_BINARIES}/bin/R
 
             ${RESOURCES_FETCH_URL_SCRIPT} http://cran.r-project.org/src/contrib/rJava_${VERSION}.tar.gz rJava.tar.gz
+            # Set _JAVA_OPTIONS to indicate memory for JVM R will spawn during installation process.
+            export _JAVA_OPTIONS="-Xms256m -Xmx256m"
             ${RUN_R} CMD INSTALL rJava.tar.gz --library=${installation_path}/
 
 cat>${installation_path}/setup.sh<<EOT
@@ -29,7 +31,7 @@ s <- .jnew("java/io/File","mytestfile")
 .jcall(s,"Z","createNewFile")
 q()
 EOT
-            export _JAVA_OPTIONS="-Xms256m -Xmx256m"
+
             # Run the script, it should create mytestfile if all was installed correctly:
             ${RUN_R} CMD BATCH --no-save --no-restore script.R
 
