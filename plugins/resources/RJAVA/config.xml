@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<!--
+  ~ Copyright (c) 2011-2014  by Cornell University  and the  Cornell Research Foundation,
+  ~ Inc. All Rights Reserved.
+  ~
+  ~ GobyWeb plugins  are released  under the LGPL3 license,  unless  otherwise specified
+  ~ by the license of a specific plugin. See the file LGPL3.license in this distribution
+  ~ for a copy of the LGPL license.
+  ~
+  ~ When a plugin is not released under the LGPL3 license,  the comments  at the top  of
+  ~ the plugin's config.xml will indicate how that specific plugin is released/licensed.
+  -->
+<resourceConfig xsi:noNamespaceSchemaLocation="../../../schemas/plugins.xsd"
+                xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <name>RJava with JRI</name>
+    <id>RJAVA</id>
+    <help>RJava and JRI. Auto-install with artifacts.</help>
+    <version>0.9.6.3</version>
+    <requires>
+        <resource>
+            <id>R</id>
+            <versionAtLeast>2.15.3.2</versionAtLeast>
+        </resource>
+    </requires>
+    <artifacts>
+        <artifact id="BINARIES" order="1"/>
+    </artifacts>
+
+</resourceConfig>
