@@ -31,7 +31,7 @@ EOT
             . ${installation_path}/setup.sh
             export _JAVA_OPTIONS="-Xms256m -Xmx256m"
             ${installation_path}/bin/R CMD javareconf
-            unsetenv _JAVA_OPTIONS
+            unset _JAVA_OPTIONS
 
             if [ -e ${installation_path}/bin/R ]; then
                  return 0

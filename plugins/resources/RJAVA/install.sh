@@ -17,7 +17,7 @@ function plugin_install_artifact {
             ${RUN_R} CMD INSTALL rJava.tar.gz --library=${installation_path}/
 
 cat>${installation_path}/setup.sh<<EOT
-export R_LIBS=${installation_path}/rJava/jri/:${R_LIBS}
+export R_LIBS=${installation_path}:${R_LIBS}
 export RJAVA_HOME=${installation_path}/rJava/jri/
 EOT
         # Source the environment:
@@ -37,7 +37,7 @@ EOT
 
             # Remove the JAVA_OPTIONS because they would even override the command line when memory options are
             # specified explicitly:
-            unsetenv _JAVA_OPTIONS
+            unset _JAVA_OPTIONS
 
             # check that the test and installation were successful:
             if [ -e mytestfile ]; then
