@@ -1,4 +1,4 @@
-
+set +x
 function dieUponError {
     RETURN_STATUS=$?
     if [ ! $RETURN_STATUS -eq 0 ]; then
@@ -59,7 +59,8 @@ function annotate_vep {
         cat >${TMPDIR}/attributes.lst <<EOF
 key=INFO,ID=VariantEffectPrediction,Number=1,Type=String,Description="Variant Effect Predictions"
 EOF
-
+        # vcf-annotate will try to find tabix in the path. Put a link to the correct one in the local directory:
+        ln -s ${JOB_DIR}/tabix tabix
 
          cat raw-input-sorted.vcf | ${RESOURCES_ARTIFACTS_VCF_TOOLS_BINARIES}/bin/vcf-annotate  \
                       -a output.tsv.gz \
