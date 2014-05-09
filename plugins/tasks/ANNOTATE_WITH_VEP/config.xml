@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<!--
+  ~ Copyright (c) 2011-2014  by Cornell University  and the  Cornell Research Foundation,
+  ~ Inc. All Rights Reserved.
+  ~
+  ~ GobyWeb plugins  are released  under the LGPL3 license,  unless  otherwise specified
+  ~ by the license of a specific plugin. See the file LGPL3.license in this distribution
+  ~ for a copy of the LGPL license.
+  ~
+  ~ When a plugin is not released under the LGPL3 license,  the comments  at the top  of
+  ~ the plugin's config.xml will indicate how that specific plugin is released/licensed.
+  -->
+
+<taskConfig xsi:noNamespaceSchemaLocation="../../../schemas/plugins.xsd"
+            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <name>Annotate with VEP</name>
+    <id>ANNOTATE_WITH_VEP</id>
+    <help>Annotate a VCF file with the Variant Effect Predictor (VEP).</help>
+    <version>1.0</version>
+    <requires>
+        <resource>
+            <id>ANNOTATE_VCF</id>
+            <versionAtLeast>1.2</versionAtLeast>
+        </resource>
+    </requires>
+    <runtime>
+        <need scope="PROCESS" key="excl" value="false"/>
+        <need scope="PROCESS" key="h_vmem" value="4g"/>
+        <need scope="PROCESS" key="virtual_free" value="6g"/>
+        <need scope="INSTALL_ARTIFACTS" key="excl" value="true"/>
+        <need scope="INSTALL_ARTIFACTS" key="h_vmem" value="4g"/>
+        <need scope="INSTALL_ARTIFACTS" key="virtual_free" value="6g"/>
+        <need scope="ALIGN" key="os" value="rhel5.4"/>
+        <need scope="PROCESS_JVM" value="4g"/>
+    </runtime>
+    <options>
+        <option>
+            <id>ONLY_NON_SYNONYMOUS</id>
+            <name>Only non synonymous</name>
+            <help>Report only non synonymous variations. When this option is checked, variations that do not
+                change the protein sequence are not reported.
+            </help>
+
+            <required>true</required>
+            <defaultsTo>false</defaultsTo>
+            <type>BOOLEAN</type>
+        </option>
+    </options>
+    <executableIOSchema>
+        <input>
+            <inputSlot>
+                <name>INPUT_VCF</name>
+                <type maxOccurs="1" minOccurs="1">
+                    <id>VCF</id>
+                    <versionAtLeast>1.0</versionAtLeast>
+                </type>
+            </inputSlot>
+        </input>
+        <output>
+            <outputSlot>
+                <name>EXECUTION_LOG</name>
+                <type maxOccurs="1" minOccurs="1">
+                    <id>TXT</id>
+                    <versionAtLeast>1.0</versionAtLeast>
+                </type>
+            </outputSlot>
+            <outputSlot>
+                <name>ANNOTATED_VCF</name>
+                <type maxOccurs="1" minOccurs="1">
+                    <id>VCF</id>
+                    <versionAtLeast>1.0</versionAtLeast>
+                </type>
+            </outputSlot>
+        </output>
+    </executableIOSchema>
+
+</taskConfig>
