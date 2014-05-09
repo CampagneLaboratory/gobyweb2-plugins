@@ -1,12 +1,16 @@
 # Installation script for ENSEMBL_API
 
+function get_version() {
+ echo "75"
+}
+
 function plugin_install_artifact {
 
     id=$1
     installation_path=$2
     echo "Processing ${id}"
 
-    VERSION="75"
+    VERSION=`get_version`
     ENSEMBL_ROOT_URL="https://github.com/Ensembl"
     case ${id} in
 
@@ -53,8 +57,6 @@ function plugin_install_artifact {
             fi
             mv ensembl-tools-release-${VERSION} ensembl-tools
             rm ensembl-tools-${VERSION}.zip
-            cd ..
-            cp -r src ${installation_path}/
 
             ${RESOURCES_FETCH_URL_SCRIPT} http://bioperl.org/DIST/old_releases/bioperl-1.2.3.tar.gz
             gzip -c -d bioperl-1.2.3.tar.gz |tar -xf -
@@ -63,19 +65,24 @@ function plugin_install_artifact {
             fi
             rm bioperl-1.2.3.tar.gz
 
-            cd bioperl-1.2.3
-            mkdir -p ${installation_path}/bioperl
+            cd ..
+            cp -r src ${installation_path}/
+            if [ ! $? -eq 0 ]; then
+                    return 1
+            fi
+            ln -s ${installation_path}/src/bioperl-1.2.3 ${installation_path}/bioperl
 
-            echo "no" | perl Makefile.PL PREFIX=${installation_path}/bioperl INSTALLDIRS=site INSTALLSITELIB=${installation_path}/bioperl/lib INSTALLSITEARCH=${installation_path}/bioperl/ INSTALLMAN1DIR=${installation_path}/bioperl/man/man1 INSTALLMAN3DIR=${installation_path}/bioperlman/man3
-            make
-            make install
+            if [ ! $? -eq 0 ]; then
+                    return 1
+            fi
 cat >${installation_path}/setup.sh <<EOF
-PERL5LIB=\${PERL5LIB}:\${RESOURCES_ARTIFACTS_ENSEMBL_API_INSTALL_DIR}/bioperl
+PERL5LIB=\${PERL5LIB}:\${RESOURCES_ARTIFACTS_ENSEMBL_API_INSTALL_DIR}/src/bioperl-1.2.3
 PERL5LIB=\${PERL5LIB}:\${RESOURCES_ARTIFACTS_ENSEMBL_API_INSTALL_DIR}/src/ensembl/modules
 PERL5LIB=\${PERL5LIB}:\${RESOURCES_ARTIFACTS_ENSEMBL_API_INSTALL_DIR}/src/ensembl-compara/modules
 PERL5LIB=\${PERL5LIB}:\${RESOURCES_ARTIFACTS_ENSEMBL_API_INSTALL_DIR}/src/ensembl-variation/modules
-PERL5LIB=\${PERL5LIB}:\${RESOURCES_ARTIFACTS_ENSEMBL_API_INSTALL_DIR}/src/ensembl-funcgen/modules
+PERL5LIB=\${PERL5LIB}:\${RESOURCES_ARTIFACTS_ENSEMBL_API_INSTALL_DIR}/src/ensembl-functgenomics/modules
 PERL5LIB=\${PERL5LIB}:\${RESOURCES_ARTIFACTS_ENSEMBL_API_INSTALL_DIR}/src/ensembl-tools/modules
+export ENSEMBL_API_VERSION=${VERSION}
 export PERL5LIB
 EOF
             chmod +x  ${installation_path}/setup.sh
@@ -137,13 +144,14 @@ function get_attribute_values() {
     out=$2
 #ORGANISM=homo_sapiens
 #GENOME_REFERENCE_ID=1000GENOMES.37
-
+       VERSION=`get_version`
        BUILD_NUMBER=`echo ${GENOME_REFERENCE_ID} | awk -F\. '{print $1}'`
        ENSEMBL_VERSION_NUMBER=`echo ${GENOME_REFERENCE_ID} | awk -F\. '{print $(NF)}'`
        echo >>${out} "organism=${ORGANISM}"
-       echo >>${out} "ensembl-version-number=${ENSEMBL_VERSION_NUMBER}"
+       echo >>${out} "ensembl-version-number=${VERSION}"
 
        echo "Printing result from ${out}:"
        cat ${out}
        return 0
 }
+
