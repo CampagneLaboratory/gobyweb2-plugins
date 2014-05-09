@@ -18,7 +18,7 @@ function plugin_install_artifact {
             if [ "${BUILD_NUMBER}" = "GRCh37" -o "${BUILD_NUMBER}" = "1000GENOMES" ]; then
                 # For human, use the compatible 1000g assembly instead of the Ensembl build: (coordinates are compatible),
                 # see http://www.1000genomes.org/category/assembly
-                ${RESOURCES_FETCH_URL_SCRIPT} ftp://ftp.1000genomes.ebi.ac.uk/vol1/ftp/technical/reference/human_g1k_v37.fasta.gz human.dna.toplevel.fa.gz
+                ${RESOURCES_FETCH_URL_SCRIPT} ftp://ftp-trace.ncbi.nih.gov/1000genomes/ftp/technical/reference/human_g1k_v37.fasta.gz human.dna.toplevel.fa.gz
             else
                 ${RESOURCES_FETCH_URL_SCRIPT_PATTERN} "ftp://ftp.ensembl.org/pub/release-${ENSEMBL_RELEASE}/fasta/${ORG_LOWERCASE}/dna/" ".dna.toplevel.fa.gz"
 
