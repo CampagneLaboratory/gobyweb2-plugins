@@ -40,7 +40,7 @@ function fetch_url_pattern {
           mkdir -p ${URL_CACHE_ROOT}/${MD5}
           touch ${URL_CACHE_ROOT}/${MD5}/BUSY
           echo ${FILE_URL} >${URL_CACHE_ROOT}/${MD5}/url.txt
-          curl --location ${FILE_URL} > ${URL_CACHE_ROOT}/${MD5}/${filename}
+          curl --insecure --location ${FILE_URL} > ${URL_CACHE_ROOT}/${MD5}/${filename}
           if [ $? == 0 ]; then
             cp ${URL_CACHE_ROOT}/${MD5}/${filename} ./${filename}
             touch ${URL_CACHE_ROOT}/${MD5}/READY
