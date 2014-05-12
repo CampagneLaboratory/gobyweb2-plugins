@@ -36,9 +36,11 @@
         <need scope="ALIGN" key="h_vmem" value="7g"/>
         <need scope="ALIGN" key="virtual_free" value="7g"/>
         <need scope="ALIGN_JVM" value="4g"/>
+        <!-- It is not clear why we need so much more memory than the amount given to the JVM (8g as of
+        this commit, but some jobs fail when given "only" 3g extra as the SGE limit (11g). -->
         <need scope="ALIGNMENT_POST_PROCESSING" key="excl" value="false"/>
-        <need scope="ALIGNMENT_POST_PROCESSING" key="h_vmem" value="11g"/>
-        <need scope="ALIGNMENT_POST_PROCESSING" key="virtual_free" value="11g"/>
+        <need scope="ALIGNMENT_POST_PROCESSING" key="h_vmem" value="15g"/>
+        <need scope="ALIGNMENT_POST_PROCESSING" key="virtual_free" value="15g"/>
     </runtime>
     <options>
         <option>
