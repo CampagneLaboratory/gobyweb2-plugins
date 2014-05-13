@@ -149,8 +149,6 @@ function get_attribute_values() {
        ENSEMBL_VERSION_NUMBER=`echo ${GENOME_REFERENCE_ID} | awk -F\. '{print $(NF)}'`
        echo >>${out} "organism=${ORGANISM}"
        echo >>${out} "ensembl-version-number=${VERSION}"
-
-       echo "Printing result from ${out}:"
        cat ${out}
        return 0
 }
