@@ -42,17 +42,17 @@
     </requires>
     <runtime>
         <need scope="ALIGN" key="excl" value="true"/>
-        <need scope="ALIGN" key="h_vmem" value="36g"/>
-        <need scope="ALIGN" key="virtual_free" value="36g"/>
+        <need scope="ALIGN" key="h_vmem" value="36G"/>
+        <need scope="ALIGN" key="virtual_free" value="36G"/>
         <need scope="INSTALL_ARTIFACTS" key="excl" value="true"/>
-        <need scope="INSTALL_ARTIFACTS" key="h_vmem" value="36g"/>
-        <need scope="INSTALL_ARTIFACTS" key="virtual_free" value="36g"/>
+        <need scope="INSTALL_ARTIFACTS" key="h_vmem" value="36G"/>
+        <need scope="INSTALL_ARTIFACTS" key="virtual_free" value="36G"/>
         <!--need scope="ALIGN" key="os" value="rhel5.4"/-->
-        <need scope="ALIGN_JVM" value="4g"/>
+        <need scope="ALIGN_JVM" value="4G"/>
         <need scope="ALIGNMENT_POST_PROCESSING" key="excl" value="false"/>
-        <need scope="ALIGNMENT_POST_PROCESSING" key="h_vmem" value="11g"/>
-        <need scope="ALIGNMENT_POST_PROCESSING" key="virtual_free" value="12g"/>
-        <need scope="ALIGNMENT_POST_PROCESSING_JVM" value="8g"/>
+        <need scope="ALIGNMENT_POST_PROCESSING" key="h_vmem" value="11G"/>
+        <need scope="ALIGNMENT_POST_PROCESSING" key="virtual_free" value="12G"/>
+        <need scope="ALIGNMENT_POST_PROCESSING_JVM" value="8G"/>
     </runtime>
     <options>
         <!--option>

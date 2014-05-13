@@ -53,16 +53,16 @@
         </file>
     </files>
     <runtime>
-        <need scope="GLOBAL" key="h_vmem" value="18g"/>
-        <need scope="GLOBAL" key="virtual_free" value="20g"/>
+        <need scope="GLOBAL" key="h_vmem" value="18G"/>
+        <need scope="GLOBAL" key="virtual_free" value="20G"/>
         <need scope="PROCESS" key="excl" value="false"/>
-        <need scope="PROCESS" key="h_vmem" value="7g"/>
-        <need scope="PROCESS" key="virtual_free" value="7g"/>
-        <need scope="PROCESS_JVM" value="4g"/>
+        <need scope="PROCESS" key="h_vmem" value="7G"/>
+        <need scope="PROCESS" key="virtual_free" value="7G"/>
+        <need scope="PROCESS_JVM" value="4G"/>
         <need scope="COMBINE" key="excl" value="false"/>
-        <need scope="COMBINE" key="h_vmem" value="50g"/>
-        <need scope="COMBINE" key="virtual_free" value="50g"/>
-        <need scope="COMBINE_JVM" value="45g"/>
+        <need scope="COMBINE" key="h_vmem" value="50G"/>
+        <need scope="COMBINE" key="virtual_free" value="50G"/>
+        <need scope="COMBINE_JVM" value="45G"/>
     </runtime>
     <options>
         <option>
