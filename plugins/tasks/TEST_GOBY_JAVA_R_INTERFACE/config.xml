@@ -29,13 +29,13 @@
     </requires>
     <runtime>
         <need scope="PROCESS" key="excl" value="false"/>
-        <need scope="PROCESS" key="h_vmem" value="4g"/>
-        <need scope="PROCESS" key="virtual_free" value="6g"/>
+        <need scope="PROCESS" key="h_vmem" value="4G"/>
+        <need scope="PROCESS" key="virtual_free" value="6G"/>
         <need scope="INSTALL_ARTIFACTS" key="excl" value="true"/>
-        <need scope="INSTALL_ARTIFACTS" key="h_vmem" value="4g"/>
-        <need scope="INSTALL_ARTIFACTS" key="virtual_free" value="6g"/>
+        <need scope="INSTALL_ARTIFACTS" key="h_vmem" value="4G"/>
+        <need scope="INSTALL_ARTIFACTS" key="virtual_free" value="6G"/>
         <need scope="ALIGN" key="os" value="rhel5.4"/>
-        <need scope="PROCESS_JVM" value="4g"/>
+        <need scope="PROCESS_JVM" value="4G"/>
     </runtime>
 
     <executableIOSchema>

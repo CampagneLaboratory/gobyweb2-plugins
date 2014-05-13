@@ -51,12 +51,12 @@
     </files>
     <runtime>
         <need scope="ALIGN" key="excl" value="true"/>
-        <need scope="ALIGN" key="h_vmem" value="8000g"/>
-        <need scope="ALIGN" key="virtual_free" value="4g"/>
-        <need scope="ALIGN_JVM" value="4g"/>
+        <need scope="ALIGN" key="h_vmem" value="8000G"/>
+        <need scope="ALIGN" key="virtual_free" value="4G"/>
+        <need scope="ALIGN_JVM" value="4G"/>
         <need scope="ALIGNMENT_POST_PROCESSING" key="excl" value="false"/>
-        <need scope="ALIGNMENT_POST_PROCESSING" key="h_vmem" value="11g"/>
-        <need scope="ALIGNMENT_POST_PROCESSING" key="virtual_free" value="11g"/>
+        <need scope="ALIGNMENT_POST_PROCESSING" key="h_vmem" value="11G"/>
+        <need scope="ALIGNMENT_POST_PROCESSING" key="virtual_free" value="11G"/>
     </runtime>
 
     <options>
