@@ -71,17 +71,17 @@
     <runtime>
 
         <need scope="PROCESS" key="excl" value="false"/>
-        <need scope="PROCESS" key="h_vmem" value="20g"/>
-        <need scope="PROCESS" key="virtual_free" value="20g"/>
-        <need scope="PROCESS_JVM" value="15g"/>
+        <need scope="PROCESS" key="h_vmem" value="20G"/>
+        <need scope="PROCESS" key="virtual_free" value="20G"/>
+        <need scope="PROCESS_JVM" value="15G"/>
         <need scope="GLOBAL" key="excl" value="false"/>
-        <need scope="GLOBAL" key="h_vmem" value="8g"/>
-        <need scope="GLOBAL" key="virtual_free" value="8g"/>
+        <need scope="GLOBAL" key="h_vmem" value="8G"/>
+        <need scope="GLOBAL" key="virtual_free" value="8G"/>
         <need scope="COMBINE" key="excl" value="false"/>
-        <need scope="COMBINE" key="h_vmem" value="4g"/>
-        <need scope="COMBINE" key="virtual_free" value="4g"/>
-        <need scope="COMBINE_JVM" value="2g"/>
-        <need scope="SPLIT_JVM" value="6g"/>
+        <need scope="COMBINE" key="h_vmem" value="4G"/>
+        <need scope="COMBINE" key="virtual_free" value="4G"/>
+        <need scope="COMBINE_JVM" value="2G"/>
+        <need scope="SPLIT_JVM" value="6G"/>
     </runtime>
     <execute>
         <script phase="pre-deployment" language="groovy" filename="makePluginConstants.groovy"/>
