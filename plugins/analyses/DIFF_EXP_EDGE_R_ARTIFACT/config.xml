@@ -58,17 +58,17 @@
     </files>
     <runtime>
         <need scope="PROCESS" key="excl" value="false"/>
-        <need scope="PROCESS" key="h_vmem" value="7g"/>
-        <need scope="PROCESS" key="virtual_free" value="7g"/>
-        <need scope="PROCESS_JVM" value="4g"/>
+        <need scope="PROCESS" key="h_vmem" value="7G"/>
+        <need scope="PROCESS" key="virtual_free" value="7G"/>
+        <need scope="PROCESS_JVM" value="4G"/>
         <need scope="GLOBAL" key="excl" value="false"/>
-        <need scope="GLOBAL" key="h_vmem" value="8g"/>
-        <need scope="GLOBAL" key="virtual_free" value="8g"/>
+        <need scope="GLOBAL" key="h_vmem" value="8G"/>
+        <need scope="GLOBAL" key="virtual_free" value="8G"/>
         <need scope="COMBINE" key="excl" value="false"/>
-        <need scope="COMBINE" key="h_vmem" value="22g"/>
-        <need scope="COMBINE" key="virtual_free" value="22g"/>
-        <need scope="COMBINE_JVM" value="16g"/>
-        <need scope="SPLIT_JVM" value="6g"/>
+        <need scope="COMBINE" key="h_vmem" value="22G"/>
+        <need scope="COMBINE" key="virtual_free" value="22G"/>
+        <need scope="COMBINE_JVM" value="16G"/>
+        <need scope="SPLIT_JVM" value="6G"/>
         <artifacts scope="SUBMIT" required="true"/>
     </runtime>
     <execute>
