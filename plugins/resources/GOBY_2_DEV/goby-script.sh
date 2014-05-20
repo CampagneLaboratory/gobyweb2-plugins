@@ -1,3 +1,5 @@
+#!/bin/sh
+
 # COPYRIGHT_MAY_GO_HERE
 function run_goby {
    set -x
@@ -25,3 +27,5 @@ function goby {
                        -jar ${RESOURCES_GOBY_GOBY_JAR} \
                        --mode ${mode_name} $*
 }
+
+run-goby $@
