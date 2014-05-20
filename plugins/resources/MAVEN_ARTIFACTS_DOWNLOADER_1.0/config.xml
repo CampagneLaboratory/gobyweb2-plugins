@@ -18,7 +18,7 @@
     <requires>
         <resource>
             <id>GOBYWEB_SERVER_SIDE</id>
-            <versionAtLeast>1.1</versionAtLeast>
+            <versionAtLeast>2.4</versionAtLeast>
         </resource>
     </requires>
     <files>
