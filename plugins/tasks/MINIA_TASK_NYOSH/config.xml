@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<taskConfig xsi:noNamespaceSchemaLocation="../../../schemas/plugins.xsd"
+            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <name>NYoSH-based task to run minia</name>
+        <id>MINIA_TASK_NYOSH</id>
+    <help>NYoSH-based task to run minia</help>
+    <version>1.0</version>
+    <requires>
+        <resource>
+            <id>MINIA</id>
+            <versionAtLeast>1.5418</versionAtLeast>
+        </resource>
+        <resource>
+            <id>MPS</id>
+            <versionAtLeast>129.380</versionAtLeast>
+        </resource>
+    </requires>
+    <files>
+        <file>
+            <id>RUN_MODEL_SCRIPT</id>
+            <filename>run_model.sh</filename>
+        </file>
+        <file>
+            <id>PLUGIN_JAR</id>
+            <filename>plugin.jar</filename>
+        </file>
+    </files>
+    <executableIOSchema >
+        <input>
+            <inputSlot>
+                <name>INPUT_FASTQ</name>
+                <type maxOccurs="100" minOccurs="0">
+                    <id>FASTQ</id>
+                    <versionAtMost>1.0</versionAtMost>
+                </type>
+            </inputSlot>
+        </input>
+
+        <output>
+            <outputSlot>
+                <name>FASTA</name>
+                <type>
+                    <id>FASTA</id>
+                    <versionExactly>1.0</versionExactly>
+                </type>
+            </outputSlot>
+
+        </output>
+    </executableIOSchema>
+</taskConfig>

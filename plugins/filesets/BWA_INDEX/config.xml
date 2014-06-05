@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<fileSetConfig xsi:noNamespaceSchemaLocation="../../../schemas/plugins.xsd"
+               xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <name>BWA Index</name>
+    <id>BWA_INDEX</id>
+    <help>BWA index format</help>
+    <version>0.5</version>
+    <mimeType>application/bwa-index</mimeType>
+    <files>
+        <selector matchAttribute="BASENAME">
+            <id>BWT</id>
+            <pattern>*.bwt</pattern>
+            <mandatory>true</mandatory>
+        </selector>
+        <selector matchAttribute="BASENAME">
+            <id>PAC</id>
+            <pattern>*.pac</pattern>
+            <mandatory>true</mandatory>
+        </selector>
+        <selector matchAttribute="BASENAME">
+            <id>ANN</id>
+            <pattern>*.ann</pattern>
+            <mandatory>true</mandatory>
+        </selector>
+        <selector matchAttribute="BASENAME">
+            <id>AMB</id>
+            <pattern>*.amb</pattern>
+            <mandatory>true</mandatory>
+        </selector>
+        <selector matchAttribute="BASENAME">
+            <id>SA</id>
+            <pattern>*.sa</pattern>
+            <mandatory>true</mandatory>
+        </selector>
+        <selector matchAttribute="BASENAME">
+            <id>RPAC</id>
+            <pattern>*.rpac</pattern>
+            <mandatory>true</mandatory>
+        </selector>
+        <selector matchAttribute="BASENAME">
+            <id>RBWT</id>
+            <pattern>*.rbwt</pattern>
+            <mandatory>true</mandatory>
+        </selector>
+        <selector matchAttribute="BASENAME">
+            <id>RSA</id>
+            <pattern>*.rsa</pattern>
+            <mandatory>true</mandatory>
+        </selector>
+    </files>
+    <attributes>
+        <attribute name="BASENAME"/>
+        <attribute name="TAG"/>
+        <attribute name="ORGANISM"/>
+        <attribute name="GENOME_REFERENCE_ID"/>
+    </attributes>
+</fileSetConfig>

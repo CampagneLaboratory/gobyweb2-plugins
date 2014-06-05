@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<taskConfig xsi:noNamespaceSchemaLocation="../../../schemas/plugins.xsd"
+            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <name>NYoSH-based task to run BWA</name>
+        <id>BWA_INDEX_TASK_NYOSH</id>
+    <help>NYoSH-based task to run BWA</help>
+    <version>1.0</version>
+    <requires>
+        <resource>
+            <id>BWA_WITH_GOBY</id>
+            <versionAtLeast>0.5.9.16.2</versionAtLeast>
+        </resource>
+
+        <resource>
+            <id>MPS</id>
+            <versionAtLeast>129.380</versionAtLeast>
+        </resource>
+    </requires>
+    <files>
+        <file>
+            <id>RUN_MODEL_SCRIPT</id>
+            <filename>run_model.sh</filename>
+        </file>
+        <file>
+            <id>PLUGIN_JAR</id>
+            <filename>plugin.jar</filename>
+        </file>
+    </files>
+    <executableIOSchema >
+        <input>
+            <inputSlot>
+                <name>FASTA</name>
+                <type maxOccurs="100" minOccurs="0">
+                    <id>FASTA</id>
+                    <versionAtMost>1.0</versionAtMost>
+                </type>
+            </inputSlot>
+        </input>
+
+        <output>
+            <outputSlot>
+                <name>BWA_INDEX</name>
+                <type>
+                    <id>BWA_INDEX</id>
+                    <versionExactly>0.5</versionExactly>
+                </type>
+            </outputSlot>
+
+        </output>
+    </executableIOSchema>
+</taskConfig>

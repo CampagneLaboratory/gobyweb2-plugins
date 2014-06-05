@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<taskConfig xsi:noNamespaceSchemaLocation="../../../schemas/plugins.xsd"
+            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <name>NYoSH-based task to run BWA</name>
+        <id>GOBY_VARIANT_CALL_TASK_NYOSH</id>
+    <help>NYoSH-based task to run BWA</help>
+    <version>1.0</version>
+    <requires>
+        <resource>
+            <id>GOBY</id>
+            <versionAtLeast>20131006122450</versionAtLeast>
+        </resource>
+        <resource>
+            <id>MPS</id>
+            <versionAtLeast>129.380</versionAtLeast>
+        </resource>
+    </requires>
+    <files>
+        <file>
+            <id>RUN_MODEL_SCRIPT</id>
+            <filename>run_model.sh</filename>
+        </file>
+        <file>
+            <id>PLUGIN_JAR</id>
+            <filename>plugin.jar</filename>
+        </file>
+    </files>
+    <executableIOSchema >
+        <input>
+            <inputSlot>
+                <name>REFERENCE_INDEX</name>
+                <type maxOccurs="100" minOccurs="0">
+                    <id>GOBY_INDEX</id>
+                    <versionAtMost>1.0</versionAtMost>
+                </type>
+            </inputSlot>
+            <inputSlot>
+                <name>FATHER_ALIGNMENT</name>
+                <type maxOccurs="100" minOccurs="0">
+                    <id>GOBY_ALIGNMENT</id>
+                    <versionAtMost>1.0</versionAtMost>
+                </type>
+            </inputSlot>
+            <inputSlot>
+                <name>MOTHER_ALIGNMENT</name>
+                <type maxOccurs="100" minOccurs="0">
+                    <id>GOBY_ALIGNMENT</id>
+                    <versionAtMost>1.0</versionAtMost>
+                </type>
+            </inputSlot>
+            <inputSlot>
+                <name>PATIENT_BLOOD_ALIGNMENT</name>
+                <type maxOccurs="100" minOccurs="0">
+                    <id>GOBY_ALIGNMENT</id>
+                    <versionAtMost>1.0</versionAtMost>
+                </type>
+            </inputSlot>
+            <inputSlot>
+                <name>PATIENT_SKIN_ALIGNMENT</name>
+                <type maxOccurs="100" minOccurs="0">
+                    <id>GOBY_ALIGNMENT</id>
+                    <versionAtMost>1.0</versionAtMost>
+                </type>
+            </inputSlot>
+            <inputSlot>
+                <name>ALN_TABLE</name>
+                <type maxOccurs="100" minOccurs="0">
+                    <id>PLAIN_TEXT</id>
+                    <versionAtMost>1.0</versionAtMost>
+                </type>
+            </inputSlot>
+            <inputSlot>
+                <name>COVARIATE_TABLE</name>
+                <type maxOccurs="100" minOccurs="0">
+                    <id>PLAIN_TEXT</id>
+                    <versionAtMost>1.0</versionAtMost>
+                </type>
+            </inputSlot>
+        </input>
+
+        <output>
+            <outputSlot>
+                <name>VCF_TABLE</name>
+                <type>
+                    <id>VCF</id>
+                    <versionExactly>1.0</versionExactly>
+                </type>
+            </outputSlot>
+
+        </output>
+    </executableIOSchema>
+</taskConfig>
