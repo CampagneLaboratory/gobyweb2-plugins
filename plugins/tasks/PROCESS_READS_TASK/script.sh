@@ -31,7 +31,7 @@ function plugin_task {
     MAX_RETRIES=4
     RETURN_STATUS=1
     GOBY_JAR_DIR="goby"
-    export JAVA_OPTS="${PLUGIN_NEED_PROCESS_JVM}"
+    export JAVA_OPTS="-Xms${PLUGIN_NEED_PROCESS_JVM} -Xmx${PLUGIN_NEED_PROCESS_JVM}"
 
     #
     # I (i.e., Kevin Dorff, early versions) have, on occasion, gotten errors from running
@@ -49,7 +49,7 @@ function plugin_task {
         chmod +x ${RESOURCES_GROOVY_EXECUTABLE}
         ${RESOURCES_GROOVY_EXECUTABLE} -cp ${GOBY_DIR}:${RESOURCES_GOBYWEB_SERVER_SIDE_GLOBAL_GOBY_JAR}:${RESOURCES_GOBYWEB_SERVER_SIDE_ICB_GROOVY_SUPPORT_JAR} \
             ${RESOURCES_PROCESS_READS_PROCESS_SAMPLES} \
-            --jvm-flags "${PLUGIN_NEED_PROCESS_JVM}" \
+            --jvm-flags "${JAVA_OPTS}" \
             --goby-jar-dir ${JOB_DIR}/goby \
             --cluster-reads-dir ./CONVERTED ${READ_FILES_LIST} \
             --sample-tag ${PLUGINS_TASK_PROCESS_READS_TASK_TAG} \
