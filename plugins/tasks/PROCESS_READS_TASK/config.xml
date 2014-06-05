@@ -22,7 +22,7 @@
         <need scope="INSTALL_ARTIFACTS" key="excl" value="true"/>
         <need scope="INSTALL_ARTIFACTS" key="h_vmem" value="4G"/>
         <need scope="INSTALL_ARTIFACTS" key="virtual_free" value="6G"/>
-        <need scope="PROCESS_JVM" value="8G"/>
+        <need scope="PROCESS_JVM" value="8g"/>
     </runtime>
     <options>
         <!--validation>
