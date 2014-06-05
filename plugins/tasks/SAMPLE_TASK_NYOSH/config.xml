@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<taskConfig xsi:noNamespaceSchemaLocation="../../../schemas/plugins.xsd"
+            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <name>A sample NYoSH-based task</name>
+        <id>SAMPLE_TASK_NYOSH</id>
+    <help>A sample NYoSH-based task</help>
+    <version>1.0</version>
+    <requires>
+            <resource>
+            <id>GOBYWEB_SERVER_SIDE</id>
+            <versionAtLeast>1.1</versionAtLeast>
+        </resource>
+        <resource>
+            <id>MPS</id>
+            <versionAtLeast>129.350</versionAtLeast>
+        </resource>
+    </requires>
+    <files>
+        <file>
+            <id>RUN_MODEL_SCRIPT</id>
+            <filename>run_model.sh</filename>
+        </file>
+        <file>
+            <id>PLUGIN_JAR</id>
+            <filename>plugin.jar</filename>
+        </file>
+    </files>
+    <executableIOSchema >
+        <input>
+            <inputSlot>
+                <name>INPUT_READS</name>
+                <type maxOccurs="10" minOccurs="0">
+                    <id>COMPACT_READS</id>
+                    <versionAtMost>1.1</versionAtMost>
+                </type>
+            </inputSlot>
+            <inputSlot>
+                <name>TEXT</name>
+                <type minOccurs="1" maxOccurs="10">
+                    <id>PLAIN_TEXT</id>
+                    <versionAtMost>1.0</versionAtMost>
+                </type>
+            </inputSlot>
+            <inputSlot>
+                <name>IMAGE</name>
+                <type minOccurs="0">
+                    <id>PNG</id>
+                    <versionAtMost>1.0</versionAtMost>
+                </type>
+            </inputSlot>
+        </input>
+        <output>
+            <outputSlot>
+                <name>STATS</name>
+                <type>
+                    <id>TSV</id>
+                    <versionExactly>1.0</versionExactly>
+                </type>
+            </outputSlot>
+            <outputSlot>
+                <name>FOO</name>
+                <type minOccurs="0">
+                    <id>PNG</id>
+                    <versionExactly>1.0</versionExactly>
+                </type>
+            </outputSlot>
+
+            <outputSlot>
+                <name>VCF</name>
+                <type minOccurs="0">
+                    <id>VCF</id>
+                    <versionExactly>1.0</versionExactly>
+                </type>
+            </outputSlot>
+        </output>
+    </executableIOSchema>
+</taskConfig>
