@@ -6,7 +6,7 @@
 #  TAG
 #
 # Otherwise, they do not fail, but they silently don't publish anything.
-# If the functions are invoked within an oge_wrapper script or a plugin's script.sh, such variables should be available by default as they are defined in the constant.sh
+# If the functions are invoked within an oge_wrapper script or a plugin's script.sh, such variables should be available by default as they are defined in the constants.sh
 
 function isEnabled {
     if [ -n "$BROKER_HOSTNAME" ] && [ -n "$BROKER_PORT" ] && [ -n "$PLUGIN_NEED_DEFAULT_JVM_OPTIONS" ] && [ -n "$TAG" ]
@@ -42,7 +42,7 @@ function debug {
 }
 
 function info {
-    echo "Publish infor message"
+    echo "Publish info message"
     if isEnabled; then
         publish "$1" "INFO"
     fi
