@@ -11,53 +11,57 @@
 function isEnabled {
     if [ -n "$BROKER_HOSTNAME" ] && [ -n "$BROKER_PORT" ] && [ -n "$PLUGIN_NEED_DEFAULT_JVM_OPTIONS" ] && [ -n "$TAG" ]
     then
-        echo "log enabled"
         return 0
     else
-        echo "log not enabled"
         return 1
     fi
 }
 
 function publish {
-    java ${PLUGIN_NEED_DEFAULT_JVM_OPTIONS} -cp ${RESOURCES_MERCURY_LIB}:${RESOURCES_MERCURY_PROPERTIES} \
-        -Dlog4j.configuration=file:${RESOURCES_MERCURY_LOG_PROPERTIES} \
-        org.campagnelab.mercury.cli.JobInterface --broker-hostname ${BROKER_HOSTNAME} --broker-port ${BROKER_PORT} \
-        --job-tag ${TAG} \
-        --text-message "$1"
+    if isEnabled; then
+        if [ $# -eq 5 ]; then
+            java ${PLUGIN_NEED_DEFAULT  _JVM_OPTIONS} -cp ${RESOURCES_MERCURY_LIB}:${RESOURCES_MERCURY_PROPERTIES} \
+                -Dlog4j.configuration=file:${RESOURCES_MERCURY_LOG_PROPERTIES} \
+                org.campagnelab.mercury.cli.JobInterface --broker-hostname ${BROKER_HOSTNAME} --broker-port ${BROKER_PORT} \
+                --job-tag ${TAG} \
+                --category "$1" \
+                --description "$2" \
+                --phase "$3" \
+                --index $4 \
+                --num-of-parts $5
+         else
+            java ${PLUGIN_NEED_DEFAULT_JVM_OPTIONS} -cp ${RESOURCES_MERCURY_LIB}:${RESOURCES_MERCURY_PROPERTIES} \
+                -Dlog4j.configuration=file:${RESOURCES_MERCURY_LOG_PROPERTIES} \
+                org.campagnelab.mercury.cli.JobInterface --broker-hostname ${BROKER_HOSTNAME} --broker-port ${BROKER_PORT} \
+                --job-tag ${TAG} \
+                --category "$1" \
+                --description "$2" \
+                --phase "$3"
+         fi
+    fi
 }
 
 function trace {
     echo "Publish trace message"
-    if isEnabled; then
-        publish "$1" "TRACE"
-    fi
+    publish "TRACE" $@
 }
 
 function debug {
     echo "Publish debug message"
-    if isEnabled; then
-        publish "$1" "DEBUG"
-    fi
+    publish "DEBUG" $@
 }
 
 function info {
     echo "Publish info message"
-    if isEnabled; then
-        publish "$1" "INFO"
-    fi
+    publish "INFO" $@
 }
 
 function error {
     echo "Publish error message"
-    if isEnabled; then
-        publish "$1" "ERROR"
-    fi
+    publish "ERROR" $@
 }
 
 function fatal {
     echo "Publish fatal message"
-    if isEnabled; then
-        publish "$1" "FATAL"
-    fi
+    publish "FATAL" $@
 }
