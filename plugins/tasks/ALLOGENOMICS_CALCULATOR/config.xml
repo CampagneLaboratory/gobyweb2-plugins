@@ -17,6 +17,8 @@
     <id>ALLOGENOMICS_CALCULATOR</id>
     <help>Calculates allogenomics scores for pairs of transplant donor and recipients.</help>
     <version>1.0</version>
+    <disabled>true</disabled>
+
     <!--disabled>true</disabled-->
     <requires>
         <resource>
