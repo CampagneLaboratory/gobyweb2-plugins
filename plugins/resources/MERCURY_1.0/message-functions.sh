@@ -20,7 +20,7 @@ function isEnabled {
 function publish {
     if isEnabled; then
         if [ $# -eq 5 ]; then
-            java ${PLUGIN_NEED_DEFAULT  _JVM_OPTIONS} -cp ${RESOURCES_MERCURY_LIB}:${RESOURCES_MERCURY_PROPERTIES} \
+            java ${PLUGIN_NEED_DEFAULT_JVM_OPTIONS} -cp ${RESOURCES_MERCURY_LIB}:${RESOURCES_MERCURY_PROPERTIES} \
                 -Dlog4j.configuration=file:${RESOURCES_MERCURY_LOG_PROPERTIES} \
                 org.campagnelab.mercury.cli.JobInterface --broker-hostname ${BROKER_HOSTNAME} --broker-port ${BROKER_PORT} \
                 --job-tag ${TAG} \
@@ -43,25 +43,25 @@ function publish {
 
 function trace {
     echo "Publish trace message"
-    publish "TRACE" $@
+    publish "TRACE" "$@"
 }
 
 function debug {
     echo "Publish debug message"
-    publish "DEBUG" $@
+    publish "DEBUG" "$@"
 }
 
 function info {
     echo "Publish info message"
-    publish "INFO" $@
+    publish "INFO" "$@"
 }
 
 function error {
     echo "Publish error message"
-    publish "ERROR" $@
+    publish "ERROR" "$@"
 }
 
 function fatal {
     echo "Publish fatal message"
-    publish "FATAL" $@
+    publish "FATAL" "$@"
 }
