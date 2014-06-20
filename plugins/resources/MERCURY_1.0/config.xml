@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<!--
+  ~ Copyright (c) 2011-2012  by Cornell University  and the  Cornell Research Foundation,
+  ~ Inc. All Rights Reserved.
+  ~
+  ~ GobyWeb plugins  are released  under the LGPL3 license,  unless  otherwise specified
+  ~ by the license of a specific plugin. See the file LGPL3.license in this distribution
+  ~ for a copy of the LGPL license.
+  ~
+  ~ When a plugin is not released under the LGPL3 license,  the comments  at the top  of
+  ~ the plugin's config.xml will indicate how that specific plugin is released/licensed.
+  -->
+<resourceConfig xsi:noNamespaceSchemaLocation="../../../schemas/plugins.xsd"
+                xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <name>Mercury messaging API</name>
+    <id>MERCURY</id>
+    <help>A messagingAPI that allows jobs to publish messages in a AMPQ-enabled messaging broker.</help>
+    <version>1.0</version>
+    <files>
+        <file>
+            <id>LIB</id>
+            <filename>mercury.jar</filename>
+        </file>
+        <file>
+            <id>FUNCTIONS</id>
+            <filename>message-functions.sh</filename>
+        </file>
+        <file>
+            <id>LOG_PROPERTIES</id>
+            <filename>mercury-log4j.properties</filename>
+        </file>
+        <file>
+            <id>MERCURY_PROPERTIES</id>
+            <filename>mercury.properties</filename>
+        </file>
+    </files>
+</resourceConfig>

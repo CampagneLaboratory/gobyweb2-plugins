@@ -5,6 +5,7 @@
         <id>MINIA_TASK_NYOSH</id>
     <help>NYoSH-based task to run minia</help>
     <version>1.0</version>
+    <disabled>true</disabled>
     <requires>
         <resource>
             <id>MINIA</id>
