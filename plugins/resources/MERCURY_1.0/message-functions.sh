@@ -20,7 +20,7 @@ function isEnabled {
 function publish {
     if isEnabled; then
         if [ $# -eq 5 ]; then
-            java ${PLUGIN_NEED_DEFAULT_JVM_OPTIONS} -cp ${RESOURCES_MERCURY_LIB}:${RESOURCES_MERCURY_PROPERTIES} \
+            java ${PLUGIN_NEED_DEFAULT_JVM_OPTIONS} -cp ${RESOURCES_MERCURY_LIB} \
                 -Dlog4j.configuration=file:${RESOURCES_MERCURY_LOG_PROPERTIES} \
                 org.campagnelab.mercury.cli.JobInterface --broker-hostname ${BROKER_HOSTNAME} --broker-port ${BROKER_PORT} \
                 --job-tag ${TAG} \
@@ -28,15 +28,17 @@ function publish {
                 --description "$2" \
                 --phase "$3" \
                 --index $4 \
-                --num-of-parts $5
+                --num-of-parts $5 \
+                --jndi-config "${JOB_DIR}/mercury.properties"
          else
-            java ${PLUGIN_NEED_DEFAULT_JVM_OPTIONS} -cp ${RESOURCES_MERCURY_LIB}:${RESOURCES_MERCURY_PROPERTIES} \
+            java ${PLUGIN_NEED_DEFAULT_JVM_OPTIONS} -cp ${RESOURCES_MERCURY_LIB} \
                 -Dlog4j.configuration=file:${RESOURCES_MERCURY_LOG_PROPERTIES} \
                 org.campagnelab.mercury.cli.JobInterface --broker-hostname ${BROKER_HOSTNAME} --broker-port ${BROKER_PORT} \
                 --job-tag ${TAG} \
                 --category "$1" \
                 --description "$2" \
-                --phase "$3"
+                --phase "$3" \
+                --jndi-config "${JOB_DIR}/mercury.properties"
          fi
     fi
 }
