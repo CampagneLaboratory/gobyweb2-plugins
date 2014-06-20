@@ -16,6 +16,8 @@
     <id>ALLOGENOMICS_SCORING_TOOL</id>
     <help>The Allogenomics scoring tool. See http://allogenomics.campagnelab.org.</help>
     <version>1.1.5</version>
+    <disabled>true</disabled>
+
     <files>
         <file>
             <id>ALLOGENOMICS_JAR</id>
