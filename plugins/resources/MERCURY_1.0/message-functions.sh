@@ -18,7 +18,9 @@ function isEnabled {
 }
 
 function publish {
+
     if isEnabled; then
+        STARTTIME=$(($(date +%s%N)/1000000))
         if [ $# -eq 5 ]; then
             java ${PLUGIN_NEED_DEFAULT_JVM_OPTIONS} -cp ${RESOURCES_MERCURY_LIB} \
                 -Dlog4j.configuration=file:${RESOURCES_MERCURY_LOG_PROPERTIES} \
@@ -40,30 +42,27 @@ function publish {
                 --phase "$3" \
                 --jndi-config "${JOB_DIR}/mercury.properties"
          fi
+        ENDTIME=$(($(date +%s%N)/1000000))
+        echo "The message was published in $(($ENDTIME - $STARTTIME)) ms."
     fi
 }
 
 function trace {
-    echo "Publish trace message"
     publish "TRACE" "$@"
 }
 
 function debug {
-    echo "Publish debug message"
     publish "DEBUG" "$@"
 }
 
 function info {
-    echo "Publish info message"
     publish "INFO" "$@"
 }
 
 function error {
-    echo "Publish error message"
     publish "ERROR" "$@"
 }
 
 function fatal {
-    echo "Publish fatal message"
     publish "FATAL" "$@"
 }
