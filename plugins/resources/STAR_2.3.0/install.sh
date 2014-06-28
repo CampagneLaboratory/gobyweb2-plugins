@@ -41,7 +41,7 @@ function plugin_install_artifact {
             elif [ "$ORGANISM" = "MUS_MUSCULUS" ]; then
                 rm -f ${SJDB}
                 ${RESOURCES_FETCH_URL_SCRIPT} ftp://ftp2.cshl.edu/gingeraslab/tracks/STARrelease/STARgenomes/SpliceJunctionDatabases/${SJDB}
-                cp ${SJDB}  ${SJDB}.fixed
+                sed -e 's/^chr//' ${SJDB}  >${SJDB}.fixed
                 SPLICE_SITES_OPTION=" --sjdbFileChrStartEnd ${SJDB}.fixed --sjdbOverhang 49"
             fi
             #INPUT_FASTA_NO_GZ=genome.fasta
