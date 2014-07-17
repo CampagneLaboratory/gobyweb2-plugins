@@ -2,12 +2,12 @@
 
 
 function install_plugin_mandatory_artifacts {
-    debug "Installing plugin mandatory resources"
+    debug "Installing plugin mandatory resources" "resources"
     install_plugin_artifacts_internal "only-mandatory"
 }
 
 function install_plugin_artifacts {
-    debug "Installing plugin resources"
+    debug "Installing plugin resources" "resources"
     install_plugin_artifacts_internal "all"
 }
 
@@ -28,7 +28,7 @@ function install_plugin_artifacts_internal {
                 --install --installation-type ${installation_type} --log-dir ${TMPDIR}/steplogs
        local STATUS=$?
        if [ ${STATUS} != 0 ]; then
-           error "Unable to install artifacts. Aborting"
+           error "Unable to install artifacts. Aborting" "resources"
            java -Xms40m -Xmx250m -cp ${JOB_DIR}/goby/serverside-dependencies.jar::${JOB_DIR}/goby/stepslogger.jar \
                                org.campagnelab.stepslogger.StepsLogTool \
                                --action view \
@@ -44,7 +44,7 @@ function install_plugin_artifacts_internal {
 
 
 
-       trace "Expose environment variables for artifacts.."
+       trace "Expose environment variables for artifacts.." "resources"
        cd ${TMPDIR}
        rm -f exports.sh
        ${JOB_DIR}/artifact-manager.sh \
