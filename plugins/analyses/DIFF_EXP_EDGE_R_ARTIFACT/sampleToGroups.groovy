@@ -47,11 +47,5 @@ int execute(final Object gobywebObj, final File tempDir) {
  */
 public String alignmentBasename(Object alignment) {
 
-    // some versions of GobyWeb stored "tag-basename" in the basename.
-    if (alignment.basename.startsWith(alignment.alignJob.tag)) {
-        return "${alignment.basename}"
-    } else {
-        // if the basename does not include the tag, make sure we return a filename that includes it:
-        return "${alignment.alignJob.tag}-${alignment.basename}"
-    }
+    return "${alignment.basename}"
 }
