@@ -52,6 +52,6 @@ public String alignmentBasename(Object alignment) {
         return "${alignment.basename}"
     } else {
         // if the basename does not include the tag, make sure we return a filename that includes it:
-        return "${alignment.alignJob.tag}-${alignment.basename}}"
+        return "${alignment.alignJob.tag}-${alignment.basename}"
     }
 }
