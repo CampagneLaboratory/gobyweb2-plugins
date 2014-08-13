@@ -27,23 +27,11 @@ function plugin_install_artifact {
             mkdir -p ${INDEX_DIR}
             GENOME_DIR=$(eval echo \${RESOURCES_ARTIFACTS_ENSEMBL_GENOMES_TOPLEVEL_${ORGANISM}_${BUILD_NUMBER}_${ENSEMBL_RELEASE}})
             FAI_INDEXED_GENOME_DIR=$(eval echo \${RESOURCES_ARTIFACTS_FAI_INDEXED_GENOMES_SAMTOOLS_FAI_INDEX_${ORGANISM}_${BUILD_NUMBER}_${ENSEMBL_RELEASE}})
-
+            GTF_ANNOTATIONS=$(eval echo \${RESOURCES_ARTIFACTS_ENSEMBL_GTF_ANNOTATIONS_${ORGANISM}_${BUILD_NUMBER}_${ENSEMBL_RELEASE}})
 
             NUM_THREADS=`grep physical  /proc/cpuinfo |grep id|wc -l`
-            SJDB=gencode.v14.annotation.gtf.sjdb
-            SPLICE_SITES_OPTION=""
-            if [ "$ORGANISM" = "HOMO_SAPIENS" ]; then
 
-                rm -f ${SJDB}
-                ${RESOURCES_FETCH_URL_SCRIPT} ftp://ftp2.cshl.edu/gingeraslab/tracks/STARrelease/STARgenomes/SpliceJunctionDatabases/${SJDB}
-                sed -e 's/^chr//' ${SJDB}  >${SJDB}.fixed
-                SPLICE_SITES_OPTION=" --sjdbFileChrStartEnd ${SJDB}.fixed --sjdbOverhang 49"
-            elif [ "$ORGANISM" = "MUS_MUSCULUS" ]; then
-                rm -f ${SJDB}
-                ${RESOURCES_FETCH_URL_SCRIPT} ftp://ftp2.cshl.edu/gingeraslab/tracks/STARrelease/STARgenomes/SpliceJunctionDatabases/${SJDB}
-                sed -e 's/^chr//' ${SJDB}  >${SJDB}.fixed
-                SPLICE_SITES_OPTION=" --sjdbFileChrStartEnd ${SJDB}.fixed --sjdbOverhang 49"
-            fi
+            SPLICE_SITES_OPTION=" --sjdbGTFfile ${GTF_ANNOTATIONS}/genome.gtf --sjdbOverhang 49"
             #INPUT_FASTA_NO_GZ=genome.fasta
 
             INPUT_FASTA_NO_GZ=${FAI_INDEXED_GENOME_DIR}/genome-toplevel.fasta
