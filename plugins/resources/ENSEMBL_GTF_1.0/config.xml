@@ -12,7 +12,7 @@
   -->
 <resourceConfig xsi:noNamespaceSchemaLocation="../../../schemas/plugins.xsd"
         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
-    <name>Ensembl Genomes</name>
+    <name>Ensembl GTF annotations</name>
     <id>ENSEMBL_GTF</id>
     <help>GTF annotations obtained from Ensembl</help>
     <version>1.0</version>
