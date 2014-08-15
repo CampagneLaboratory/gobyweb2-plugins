@@ -20,7 +20,8 @@ function isEnabled {
 function publish {
 
     if isEnabled; then
-        STARTTIME=$(($(date +%s%N)/1000000))
+        # Disable timing statistics, the following expression causes an error on MacOS:
+        #STARTTIME=$(($(date +%s%N)/1000000))
         if [ $# -eq 5 ]; then
             java ${PLUGIN_NEED_DEFAULT_JVM_OPTIONS} -cp ${RESOURCES_MERCURY_LIB} \
                 -Dlog4j.configuration=file:${RESOURCES_MERCURY_LOG_PROPERTIES} \
@@ -42,8 +43,8 @@ function publish {
                 --phase "$3" \
                 --jndi-config "${JOB_DIR}/mercury.properties"
          fi
-        ENDTIME=$(($(date +%s%N)/1000000))
-        echo "The message was published in $(($ENDTIME - $STARTTIME)) ms."
+        #ENDTIME=$(($(date +%s%N)/1000000))
+        #echo "The message was published in $(($ENDTIME - $STARTTIME)) ms."
     fi
 }
 
