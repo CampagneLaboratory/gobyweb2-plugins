@@ -47,13 +47,6 @@
         </input>
         <output>
             <outputSlot>
-                <name>EXECUTION_LOG</name>
-                <type maxOccurs="1" minOccurs="1">
-                    <id>TXT</id>
-                    <versionAtLeast>1.0</versionAtLeast>
-                </type>
-            </outputSlot>
-            <outputSlot>
                 <name>LUCENE_TABLE</name>
                 <type maxOccurs="1" minOccurs="1">
                     <id>LUCENE_INDEX</id>

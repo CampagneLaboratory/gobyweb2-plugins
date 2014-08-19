@@ -23,7 +23,7 @@ function plugin_install_artifact {
 
               cd ${installation_path};
               cp  ${CACHED_FILE} ${L}/biomart-packed.tar.gz
-              tar -xvf ${L}/biomart-packed.tar.gz
+              gzip -c -d ${L}/biomart-packed.tar.gz | tar -xvf -
               if [ -e ${installation_path}/exon-annotations.tsv ]; then
                  return 0
               else
