@@ -1,4 +1,15 @@
-import java.util.regex.Pattern
+
+import org.campagnelab.mercury.cli.JobInterface
+
+//broker host
+def hostname = args[0]
+
+//broker port
+def port = args[1]
+
+def tag = args[2]
+
+def jobDir = args[3]
 
 def traceMap = [:]
 
@@ -86,9 +97,13 @@ new File('.').eachFile { File file ->
 traceMap = traceMap.sort { it.value }
 
 traceMap.reverseEach { trace, number ->
-
-    println "-- Occured $number times -----------------------------------------"
-    println trace
-    println "------------------------------------------------------------------"
-
+    def args = [
+        "--broker-hostname", hostname,
+        "--broker-port", port,
+        "--job-tag", tag,
+        "--description", trace,
+        "--phase", "POST-PROCESS",
+        "--category", "ERROR",
+        "--jndi-config", "${jobDir}/mercury.properties"]
+    JobInterface.processAPI(args as String[] )
 }
