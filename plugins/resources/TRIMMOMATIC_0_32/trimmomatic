@@ -1,0 +1,5 @@
+MEM=$1
+shift
+. ${TMPDIR}/exports.sh
+# Execute the trimmomatic jar from the artifact repository:
+java -Xms${MEM} -Xmx${MEM} -jar ${RESOURCES_ARTIFACTS_TRIMMOMATIC_BINARIES}/trimmomatic.jar "$@"
