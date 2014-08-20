@@ -42,11 +42,7 @@ function plugin_task {
         jobDieUponError "failed to convert TSV results to Lucene Table"
      fi
 
-     REGISTERED_TAGS=`${FILESET_COMMAND} --push LUCENE_TABLE: *.lucene.index `
-     dieUponError "Failed to push back the Lucene Table Result"
-
-     ALL_REGISTERED_TAGS="${REGISTERED_TAGS} "
-     info "The following tags were registered by this plugin: ${ALL_REGISTERED_TAGS}"
+     push_filesets LUCENE_TABLE *.lucene.index
      exit 0
 }
 
