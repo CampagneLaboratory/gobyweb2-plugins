@@ -102,7 +102,7 @@ traceMap.reverseEach { trace, number ->
         "--broker-port", port,
         "--job-tag", tag,
         "--description", trace,
-        "--phase", "POST-PROCESS",
+        "--phase", "post_process",
         "--category", "ERROR",
         "--jndi-config", "${jobDir}/mercury.properties"]
     JobInterface.processAPI(args as String[] )
