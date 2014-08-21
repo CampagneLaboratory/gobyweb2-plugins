@@ -106,4 +106,7 @@ traceMap.reverseEach { trace, number ->
         "--category", "ERROR",
         "--jndi-config", "${jobDir}/mercury.properties"]
     JobInterface.processAPI(args as String[] )
+    println "done"
 }
+
+System.exit(0)
