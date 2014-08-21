@@ -13,6 +13,8 @@ def jobDir = args[3]
 
 def traceMap = [:]
 
+def warningLines = []
+
 // Number of lines to keep in buffer
 def BUFFER_SIZE = 100
 
@@ -32,30 +34,32 @@ def REPLACE_PATTERNS = [
         '<([\\w:]+)?TransaktionsTid>[^<]+?</([\\w:]+)?TransaktionsTid>'
 ]
 
+def NO_SUCH_FILE_LINE_PATTERN = '.*: No such file or directory$'
+
 new File('.').eachFile { File file ->
     if (file.name.contains('.log') || file.name.contains('.out') || file.name.matches("[A-Z]{7}\\..*")) {
 
-      //  println "Scanning filename="+file.name
+        //  println "Scanning filename="+file.name
         def bufferLines = []
 
         file.withReader { Reader reader ->
-            int lineUpCount=0
+            int lineUpCount = 0
             while (reader.ready()) {
                 def String line = reader.readLine()
                 if (line.matches(TRACE_LINE_PATTERN)) {
                     //println "Matched trace line pattern: "+line
                     def trace = []
-                    for(def i = bufferLines.size() - 1; i >= 0; i--) {
+                    for (def i = bufferLines.size() - 1; i >= 0; i--) {
                         lineUpCount++
                         if (!bufferLines[i].matches(LOG_LINE_PATTERN)) {
-                         //   println "Did not match LOG_LINE_PATTERN: "+bufferLines[i]
+                            //   println "Did not match LOG_LINE_PATTERN: "+bufferLines[i]
 
                             trace.add(0, bufferLines[i])
-                            if (lineUpCount>5) {
+                            if (lineUpCount > 5) {
                                 break
                             };
                         } else {
-                       //     println "Matched LOG_LINE_PATTERN: "+bufferLines[i]
+                            //     println "Matched LOG_LINE_PATTERN: "+bufferLines[i]
                             trace.add(0, bufferLines[i])
                             break
                         }
@@ -72,7 +76,7 @@ new File('.').eachFile { File file ->
                             }
                         }
                     }
-                    lineUpCount=0
+                    lineUpCount = 0
                     def traceString = trace.join("\n")
                     REPLACE_PATTERNS.each { pattern ->
                         traceString = traceString.replaceAll(pattern, '')
@@ -82,6 +86,8 @@ new File('.').eachFile { File file ->
                     } else {
                         traceMap.put(traceString, 1)
                     }
+                } else if (line.matches(NO_SUCH_FILE_LINE_PATTERN)) {
+                    warningLines.add(line)
                 }
                 // Keep the buffer of last lines.
                 bufferLines.add(line)
@@ -98,15 +104,26 @@ traceMap = traceMap.sort { it.value }
 
 traceMap.reverseEach { trace, number ->
     def args = [
-        "--broker-hostname", hostname,
-        "--broker-port", port,
-        "--job-tag", tag,
-        "--description", trace,
-        "--phase", "post_process",
-        "--category", "ERROR",
-        "--jndi-config", "${jobDir}/mercury.properties"]
-    JobInterface.processAPI(args as String[] )
-    println "done"
+            "--broker-hostname", hostname,
+            "--broker-port", port,
+            "--job-tag", tag,
+            "--description", trace,
+            "--phase", "post_process",
+            "--category", "ERROR",
+            "--jndi-config", "${jobDir}/mercury.properties"]
+    JobInterface.processAPI(args as String[])
+}
+
+warningLines.each { line ->
+    def args = [
+            "--broker-hostname", hostname,
+            "--broker-port", port,
+            "--job-tag", tag,
+            "--description", line,
+            "--phase", "post_process",
+            "--category", "ERROR",
+            "--jndi-config", "${jobDir}/mercury.properties"]
+    JobInterface.processAPI(args as String[])
 }
 
 System.exit(0)
