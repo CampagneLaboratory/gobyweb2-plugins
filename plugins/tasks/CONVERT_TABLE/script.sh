@@ -22,8 +22,10 @@ function plugin_task {
         ${RESOURCES_GOBYWEB_SERVER_SIDE_TSV_VCF_TO_SQLITE} \
         --job-start-status "${JOB_START_STATUS}" \
         --queue-writer-prefix-variable QUEUE_WRITER \
-        --export-format lucene   *.vcf
+        --export-format lucene   *.vcf* # * to match .vcf.gz
+
         jobDieUponError "failed to convert VCF results to Lucene Table"
+
      fi
 
      ${FILESET_COMMAND} --has-fileset INPUT_TSV
@@ -38,8 +40,14 @@ function plugin_task {
         ${RESOURCES_GOBYWEB_SERVER_SIDE_TSV_VCF_TO_SQLITE} \
         --job-start-status "${JOB_START_STATUS}" \
         --queue-writer-prefix-variable QUEUE_WRITER \
-        --export-format lucene  *.tsv
+        --export-format lucene  *.tsv* # * to match .tsv.gz
+
         jobDieUponError "failed to convert TSV results to Lucene Table"
+     fi
+
+     if [ ! -e *.lucene.index ]; then
+         error "Unable to produce output. Check logs for details. JOB_DIR="${JOB_DIR}
+         fail;
      fi
 
      push_filesets LUCENE_TABLE *.lucene.index
