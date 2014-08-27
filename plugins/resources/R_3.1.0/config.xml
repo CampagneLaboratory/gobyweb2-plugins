@@ -12,19 +12,17 @@
   -->
 <resourceConfig xsi:noNamespaceSchemaLocation="../../../schemas/plugins.xsd"
                 xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
-    <name>EdgeR</name>
-    <id>EDGER</id>
-    <help>EdgeR package from Bioconductor</help>
-    <version>3.6.8</version>
-    <requires>
-        <resource>
-            <id>R</id>
-            <versionAtLeast>3.1.0</versionAtLeast>
-        </resource>
-
-    </requires>
+    <name>R language</name>
+    <id>R</id>
+    <help>R language. Auto-install with artifacts.</help>
+    <version>3.1.0</version>
     <artifacts>
-        <artifact id="BINARIES" order="1">
-        </artifact>
+        <artifact id="BINARIES" order="1"/>
     </artifacts>
+    <files>
+        <file>
+            <id>SHELL_SCRIPT</id>
+            <filename>run-R</filename>
+        </file>
+    </files>
 </resourceConfig>
