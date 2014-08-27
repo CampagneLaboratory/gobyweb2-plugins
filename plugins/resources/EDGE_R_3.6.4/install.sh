@@ -19,11 +19,11 @@ function plugin_install_artifact {
             ${RUN_R} CMD INSTALL Cairo_${VERSION}.tar.gz --library=${installation_path}/
 
             VERSION="3.20.8"
-            ${RESOURCES_FETCH_URL_SCRIPT} http://www.bioconductor.org/packages/2.10/bioc/src/contrib/limma_${VERSION}.tar.gz
+            ${RESOURCES_FETCH_URL_SCRIPT} http://www.bioconductor.org/packages/release/bioc/src/contrib/limma_${VERSION}.tar.gz
             ${RUN_R} CMD INSTALL limma_${VERSION}.tar.gz --library=${installation_path}/
 
             VERSION="3.6.4"
-            ${RESOURCES_FETCH_URL_SCRIPT} http://bioconductor.org/packages/2.10/bioc/src/contrib/edgeR_${VERSION}.tar.gz
+            ${RESOURCES_FETCH_URL_SCRIPT} http://www.bioconductor.org/packages/release/bioc/src/contrib/edgeR_${VERSION}.tar.gz
             ${RUN_R} CMD INSTALL edgeR_${VERSION}.tar.gz --library=${installation_path}/
 
 
