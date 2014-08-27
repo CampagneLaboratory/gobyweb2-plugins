@@ -1,7 +1,7 @@
 #!/bin/sh
 
 #
-. constants.sh
+. ${JOB_DIR}/constants.sh
 
 READ_FILES_LIST=""
 
@@ -79,28 +79,36 @@ function plugin_task {
 
      # push back the output stats:
      OUTPUT_STATS_REGISTERED_TAGS=`${FILESET_COMMAND} --push OUTPUT_STATS: output-stats.properties `
+     #OUTPUT_STATS_REGISTERED_TAGS=$(push_filesets OUTPUT_STATS output-stats.properties)
      dieUponError "Failed to push back the reads statistics properties file"
-
      echo "Read statistics registered the following FileSet instances: ${OUTPUT_STATS_REGISTERED_TAGS}"
+     info "OUTPUT_STATS:[${OUTPUT_STATS_REGISTERED_TAGS}]" "${JOB_REGISTERED_FILESETS_STATUS}"
+
      ALL_REGISTERED_TAGS="OUTPUT_STATS:[${OUTPUT_STATS_REGISTERED_TAGS}]"
 
      # push back the quality stats:
      QUALITY_REGISTERED_TAGS=`${FILESET_COMMAND} --push READ_QUALITY_STATS: CONVERTED/*.quality-stats.tsv `
+     #QUALITY_REGISTERED_TAGS=$(push_filesets READ_QUALITY_STATS CONVERTED/*.quality-stats.tsv)
      dieUponError "Failed to push back the quality stats."
-
      echo "PROCESS_READS registered the following FileSet instances: ${QUALITY_REGISTERED_TAGS}"
+     info "READ_QUALITY_STATS:[${QUALITY_REGISTERED_TAGS}]" "${JOB_REGISTERED_FILESETS_STATUS}"
      ALL_REGISTERED_TAGS="${ALL_REGISTERED_TAGS} READ_QUALITY_STATS:[${QUALITY_REGISTERED_TAGS}]"
 
      # push back the weight files:
      WEIGHT_REGISTERED_TAGS=`${FILESET_COMMAND} --push WEIGHT_FILES: *.*weights`
      dieUponError "Failed to push back the weight files."
-
+     #WEIGHT_REGISTERED_TAGS=$(push_filesets WEIGHT_FILES *.*weights)
      echo "PROCESS_READS registered the following FileSet instances: ${WEIGHT_REGISTERED_TAGS}"
+     info "WEIGHT_FILES:[${WEIGHT_REGISTERED_TAGS}]" "${JOB_REGISTERED_FILESETS_STATUS}"
+
      ALL_REGISTERED_TAGS="${ALL_REGISTERED_TAGS} WEIGHT_FILES:[${WEIGHT_REGISTERED_TAGS}]"
+
+     #push_filesets COMPACT_READ_FILES *.compact-reads
 
      # push back the generated compact-reads:
      REGISTERED_TAGS=`${FILESET_COMMAND} --push -a WEIGHT_TAGS="${WEIGHT_REGISTERED_TAGS}" -a QUALITY_TAGS="${QUALITY_REGISTERED_TAGS}" -a STATS_TAGS="${OUTPUT_STATS_REGISTERED_TAGS}" COMPACT_READ_FILES: *.compact-reads`
-     dieUponError "Failed to push back the compact-reads file."
+     info "COMPACT_READ_FILES:[${REGISTERED_TAGS}]" "${JOB_REGISTERED_FILESETS_STATUS}"
+     #dieUponError "Failed to push back the compact-reads file."
 
 
      ALL_REGISTERED_TAGS="${ALL_REGISTERED_TAGS} COMPACT_READ_FILES:[${REGISTERED_TAGS}]"
