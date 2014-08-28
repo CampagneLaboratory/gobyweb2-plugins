@@ -2,7 +2,7 @@
 <taskConfig xsi:noNamespaceSchemaLocation="../../../schemas/plugins.xsd"
             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
     <name>Process Reads</name>
-    <id>PROCESS_READS_TAS_WITH_ATTRIBUTESK</id>
+    <id>PROCESS_READS_TAS_WITH_ATTRIBUTES</id>
     <help>Process read files after upload to convert them to compact reads.</help>
     <version>1.0</version>
     <requires>
