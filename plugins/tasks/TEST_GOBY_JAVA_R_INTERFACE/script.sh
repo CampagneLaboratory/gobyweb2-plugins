@@ -1,7 +1,7 @@
 #!/bin/sh
 
 #
-. constants.sh
+. ${JOB_DIR}/constants.sh
 
 READ_FILES_LIST=""
 

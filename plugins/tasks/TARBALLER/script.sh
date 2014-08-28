@@ -1,7 +1,7 @@
 #!/bin/sh
 
 #
-. constants.sh
+. ${JOB_DIR}/constants.sh
 
 TXT_FILES_LIST=""
 JPEG_FILES_LIST=""
