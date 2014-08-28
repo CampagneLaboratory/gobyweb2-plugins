@@ -1,7 +1,6 @@
-#!/bin/sh
 
-#
 . ${JOB_DIR}/constants.sh
+. ${RESOURCES_BASH_LIBRARY_MAPS_IN_BASH3}
 
 READ_FILES_LIST=""
 
@@ -19,6 +18,19 @@ function plugin_task {
      dieUponError "Failed to fetch uploaded files ${READ_FILES_LIST}"
      echo ${READ_FILES_LIST}
 
+     ATTRIBUTES_FILE=`${FILESET_COMMAND} --fetch-attributes UPLOADS_FILES`
+     dieUponError "Failed to fetch uploaded attributes ${ATTRIBUTES_FILE}"
+     echo ${ATTRIBUTES_FILE}
+     #parse the attributes and store them in a map
+     ATTRIBUTES_MAP_NAME=UPLOADS_FILES
+     populateMapFromPropertiesFile $ATTRIBUTES_MAP_NAME $ATTRIBUTES_FILE
+     getKeySet $ATTRIBUTES_MAP_NAME
+     for id in $keySet
+     do
+        get $ATTRIBUTES_MAP_NAME $id
+        echo "${id}=${value}"
+        echo
+     done
      MERGE_PLAN_FILE=`${FILESET_COMMAND} --fetch UPLOAD_MERGE_PLAN`
      dieUponError "Failed to fetch merge plan ${MERGE_PLAN_FILE}"
      echo ${MERGE_PLAN_FILE}
@@ -38,6 +50,12 @@ function plugin_task {
     # this such as stale nfs and java launch errors.
     # Here I will repeat up to MAX_RETRIES times before actually failing
     #
+    get $ATTRIBUTES_MAP_NAME READS_PLATFORM
+    READS_PLATFORM=$value
+    get $ATTRIBUTES_MAP_NAME BASENAME
+    SAMPLE_NAME=$value
+    get $ATTRIBUTES_MAP_NAME COLOR_SPACE
+    COLOR_SPACE=$value
     until [ ${RETURN_STATUS} -eq 0 ] || [ ${CURRENT_RETRY} -gt ${MAX_RETRIES} ]; do
         if [ ${CURRENT_RETRY} -gt 1 ]; then
             ${QUEUE_WRITER} --tag ${TAG} --status ${JOB_START_STATUS} --description "Previous attempt to process reads failed. This will be retried up to ${MAX_RETRIES} times." --index 0 --job-type job-part
@@ -55,9 +73,9 @@ function plugin_task {
             --sample-tag ${PLUGINS_TASK_PROCESS_READS_TASK_TAG} \
             --first-file-tag ${PLUGINS_TASK_PROCESS_READS_TASK_TAG} \
             --quality-encoding ${PLUGINS_TASK_PROCESS_READS_TASK_QUALITY_ENCODING} \
-            --platform ${PLUGINS_TASK_PROCESS_READS_TASK_READS_PLATFORM} \
-            --sample-name ${PLUGINS_TASK_PROCESS_READS_TASK_SAMPLE_NAME} \
-            --color-space ${PLUGINS_TASK_PROCESS_READS_TASK_READS_COLOR_SPACE} \
+            --platform ${READS_PLATFORM} \
+            --sample-name ${SAMPLE_NAME} \
+            --color-space ${COLOR_SPACE} \
             --ssh-prefix ${WEB_SERVER_SSH_PREFIX} \
             --web-files-dir REMOVE_THIS_OPTION \
             --merge-plan-filename ${MERGE_PLAN_FILE} \
@@ -105,8 +123,24 @@ function plugin_task {
 
      #push_filesets COMPACT_READ_FILES *.compact-reads
 
+     #get the attributes we need from input slot
+     get $ATTRIBUTES_MAP_NAME BISULFITE_SAMPLE
+     BISULFITE_SAMPLE=$value
+     get $ATTRIBUTES_MAP_NAME ORGANISM
+     ORGANISM=$value
+     get $ATTRIBUTES_MAP_NAME PAIRED_END_DIRECTIONS
+     PAIRED_END_DIRECTIONS=$value
+     get $ATTRIBUTES_MAP_NAME LIB_PROTOCOL_PRESERVE_STRAND
+     LIB_PROTOCOL_PRESERVE_STRAND=$value
+     #the following lines simulate the behavior of ICBStringUtils.safeFilename(basename) to create a correct reads label
+     READS_LABEL=${BASENAME// /-}
+     READS_LABEL=${READS_LABEL//--/-}
+     READS_LABEL=${READS_LABEL//__/_}
+     READS_LABEL=${READS_LABEL//[^a-zA-Z0-9\\-._]/_}
+     ATTRIBUTES_TO_ATTACH="-a READS_LABEL=\"${READS_LABEL}\" -a READS_PLATFORM=\"${READS_PLATFORM}\" -a BISULFITE_SAMPLE=\"${BISULFITE_SAMPLE}\" -a COLOR_SPACE=\"${COLOR_SPACE}\" -a ORGANISM=\"${ORGANISM}\" -a PAIRED_END_DIRECTIONS=\"${PAIRED_END_DIRECTIONS}\" -a LIB_PROTOCOL_PRESERVE_STRAND=\"${LIB_PROTOCOL_PRESERVE_STRAND}\" -a BASENAME=\"${SAMPLE_NAME}\""
+
      # push back the generated compact-reads:
-     REGISTERED_TAGS=`${FILESET_COMMAND} --push -a WEIGHT_TAGS="${WEIGHT_REGISTERED_TAGS}" -a QUALITY_TAGS="${QUALITY_REGISTERED_TAGS}" -a STATS_TAGS="${OUTPUT_STATS_REGISTERED_TAGS}" COMPACT_READ_FILES: *.compact-reads`
+     REGISTERED_TAGS=`${FILESET_COMMAND} --push ${ATTRIBUTES_TO_ATTACH} -a WEIGHT_TAGS="${WEIGHT_REGISTERED_TAGS}" -a QUALITY_TAGS="${QUALITY_REGISTERED_TAGS}" -a STATS_TAGS="${OUTPUT_STATS_REGISTERED_TAGS}" COMPACT_READ_FILES: *.compact-reads`
      info "COMPACT_READ_FILES:[${REGISTERED_TAGS}]" "${JOB_REGISTERED_FILESETS_STATUS}"
      #dieUponError "Failed to push back the compact-reads file."
 
@@ -117,5 +151,3 @@ function plugin_task {
      ${QUEUE_WRITER} --tag ${PLUGINS_TASK_PROCESS_READS_TASK_TAG} --status ${JOB_PART_COMPLETED_STATUS} --description "Processing of sample on cluster completed" --index 0 --job-type job-part
     return 0
 }
-
-
