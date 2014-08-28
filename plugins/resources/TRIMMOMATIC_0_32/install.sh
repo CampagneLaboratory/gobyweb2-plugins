@@ -13,8 +13,12 @@ function plugin_install_artifact {
             ${RESOURCES_FETCH_URL_SCRIPT} http://www.usadellab.org/cms/uploads/supplementary/Trimmomatic/Trimmomatic-${VERSION}.zip  Trimmomatic.zip
             unzip Trimmomatic.zip
             cd Trimmomatic-${VERSION}
-            cp trimmomatic-${VERSION}.jar ${installation_path}/
-            return 1
+            cp trimmomatic-${VERSION}.jar ${installation_path}/trimmomatic.jar
+            if [ -e ${installation_path}/trimmomatic.jar ]; then
+               return 0
+            else
+               return 127
+            fi
             ;;
 
         *)  echo "Resource artifact id not recognized: "+$id
