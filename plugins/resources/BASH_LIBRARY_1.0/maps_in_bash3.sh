@@ -34,33 +34,20 @@
 # the format of each line in the file must be Key=Value
 populateMapFromPropertiesFile() {
     mapName=$1; file=$2;
+    while IFS=$'=' read key value
+        do
+        if [ -n "$key" ]; then #skip empty
+           echo "line: ${key} = ${value}"
+           put $mapName $key "${value}"
 
-    while read line; do
-        line=`echo $line | awk '{split($0,a, /[#!]/); print a[1]}'`
-        read -rd '' line <<< "$line" # trim decommented line
-        read -rd '' line <<< "$line" # trim decommented line
-       if [ -n "$line" ]; then #skip empty
-            #echo "[$line]"
-            splitidx=`expr index "$line" '[=:]'` # get the first index of the equals sign or colon
-            if [ $splitidx = 0 ]; then
-                key="$line"
-                val=""
-            else
-                key=${line:0:$splitidx-1} # string before assignment operator
-                val=${line:$splitidx} # string after assignment operator
-            fi
         fi
-        read -rd '' key <<< "$key" # trim string
-        key=${key//./|} # nasty ugly hack for associative arrays not being allowed to have periods in the key
-        read -rd '' val <<< "$val" #trim string
-        put $mapName $key $val
     done < $file
 }
 
 # store a new key in a map, if the map is simulated, it doen not need to be created
 # parameters: mapname, key, value
 put() {
-    if [ "$#" != 3 ]; then exit 1; fi
+    if [ "$#" != 3 ]; then return; fi
     mapName=$1; key=$2; value=`echo $3 | sed -e "s/ /:SP:/g"`
     eval map="\"\$$mapName\""
     map="`echo "$map" | sed -e "s/--$key=[^ ]*//g"` --$key=$value"
@@ -92,7 +79,7 @@ get() {
 getKeySet() {
     if [ "$#" != 1 ];
     then
-        exit 1;
+        return;
     fi
 
     mapName=$1;
