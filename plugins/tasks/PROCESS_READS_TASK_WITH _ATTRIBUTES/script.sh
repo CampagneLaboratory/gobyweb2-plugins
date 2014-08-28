@@ -1,7 +1,6 @@
-#!/bin/sh
 
-#
 . ${JOB_DIR}/constants.sh
+. ${RESOURCES_BASH_LIBRARY_MAPS_IN_BASH3}
 
 READ_FILES_LIST=""
 
@@ -19,6 +18,19 @@ function plugin_task {
      dieUponError "Failed to fetch uploaded files ${READ_FILES_LIST}"
      echo ${READ_FILES_LIST}
 
+     ATTRIBUTES_FILE=`${FILESET_COMMAND} --fetch-attributes UPLOADS_FILES`
+     dieUponError "Failed to fetch uploaded attributes ${ATTRIBUTES_FILE}"
+     echo ${ATTRIBUTES_FILE}
+     #parse the attributes and store them in a map
+     ATTRIBUTES_MAP_NAME=UPLOADS_FILES
+     populateMapFromPropertiesFile $ATTRIBUTES_MAP_NAME $ATTRIBUTES_FILE
+     getKeySet $ATTRIBUTES_MAP_NAME
+     for id in $keySet
+     do
+        get ATTRIBUTES_MAP_NAME $id
+        echo "${id}=${value}"
+        echo
+     done
      MERGE_PLAN_FILE=`${FILESET_COMMAND} --fetch UPLOAD_MERGE_PLAN`
      dieUponError "Failed to fetch merge plan ${MERGE_PLAN_FILE}"
      echo ${MERGE_PLAN_FILE}
@@ -117,5 +129,3 @@ function plugin_task {
      ${QUEUE_WRITER} --tag ${PLUGINS_TASK_PROCESS_READS_TASK_TAG} --status ${JOB_PART_COMPLETED_STATUS} --description "Processing of sample on cluster completed" --index 0 --job-type job-part
     return 0
 }
-
-
