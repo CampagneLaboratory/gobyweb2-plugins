@@ -14,6 +14,10 @@
             <id>PROCESS_READS</id>
             <versionAtLeast>1.0</versionAtLeast>
         </resource>
+        <resource>
+            <id>BASH_LIBRARY</id>
+            <versionAtLeast>1.0</versionAtLeast>
+        </resource>
     </requires>
     <runtime>
         <need scope="PROCESS" key="excl" value="false"/>
