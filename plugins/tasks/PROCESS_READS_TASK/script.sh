@@ -99,21 +99,21 @@ function plugin_task {
      OUTPUT_STATS_REGISTERED_TAGS=`${FILESET_COMMAND} --push OUTPUT_STATS: output-stats.properties `
      dieUponError "Failed to push back the reads statistics properties file"
      echo "Read statistics registered the following FileSet instances: ${OUTPUT_STATS_REGISTERED_TAGS}"
-     info "OUTPUT_STATS:[${OUTPUT_STATS_REGISTERED_TAGS}]" "${JOB_REGISTERED_FILESETS_STATUS}"
+     #info "OUTPUT_STATS:[${OUTPUT_STATS_REGISTERED_TAGS}]" "${JOB_REGISTERED_FILESETS_STATUS}"
      ALL_REGISTERED_TAGS="OUTPUT_STATS:[${OUTPUT_STATS_REGISTERED_TAGS}]"
 
      # push back the quality stats:
      QUALITY_REGISTERED_TAGS=`${FILESET_COMMAND} --push READ_QUALITY_STATS: CONVERTED/*.quality-stats.tsv `
      dieUponError "Failed to push back the quality stats."
      echo "PROCESS_READS registered the following FileSet instances: ${QUALITY_REGISTERED_TAGS}"
-     info "READ_QUALITY_STATS:[${QUALITY_REGISTERED_TAGS}]" "${JOB_REGISTERED_FILESETS_STATUS}"
+     #info "READ_QUALITY_STATS:[${QUALITY_REGISTERED_TAGS}]" "${JOB_REGISTERED_FILESETS_STATUS}"
      ALL_REGISTERED_TAGS="${ALL_REGISTERED_TAGS} READ_QUALITY_STATS:[${QUALITY_REGISTERED_TAGS}]"
 
      # push back the weight files:
      WEIGHT_REGISTERED_TAGS=`${FILESET_COMMAND} --push WEIGHT_FILES: *.*weights`
      dieUponError "Failed to push back the weight files."
      echo "PROCESS_READS registered the following FileSet instances: ${WEIGHT_REGISTERED_TAGS}"
-     info "WEIGHT_FILES:[${WEIGHT_REGISTERED_TAGS}]" "${JOB_REGISTERED_FILESETS_STATUS}"
+     #info "WEIGHT_FILES:[${WEIGHT_REGISTERED_TAGS}]" "${JOB_REGISTERED_FILESETS_STATUS}"
      ALL_REGISTERED_TAGS="${ALL_REGISTERED_TAGS} WEIGHT_FILES:[${WEIGHT_REGISTERED_TAGS}]"
 
 
@@ -148,7 +148,7 @@ function plugin_task {
      ATTRIBUTES_TO_ATTACH="$ATTRIBUTES_TO_ATTACH -a INPUT_READ_LENGTH=${INPUT_READ_LENGTH} -a PAIRED_END_ALIGNMENT=${PAIRED_END_ALIGNMENT}"
      # push back the generated compact-reads:
      REGISTERED_TAGS=`${FILESET_COMMAND} --push $ATTRIBUTES_TO_ATTACH -a WEIGHT_TAGS="${WEIGHT_REGISTERED_TAGS}" -a QUALITY_TAGS="${QUALITY_REGISTERED_TAGS}" -a STATS_TAGS="${OUTPUT_STATS_REGISTERED_TAGS}" COMPACT_READ_FILES: *.compact-reads`
-     info "COMPACT_READ_FILES:[${REGISTERED_TAGS}]" "${JOB_REGISTERED_FILESETS_STATUS}"
+     #info "COMPACT_READ_FILES:[${REGISTERED_TAGS}]" "${JOB_REGISTERED_FILESETS_STATUS}"
      #dieUponError "Failed to push back the compact-reads file."
 
 
