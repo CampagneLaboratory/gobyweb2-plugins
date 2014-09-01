@@ -37,9 +37,7 @@ populateMapFromPropertiesFile() {
     while IFS=$'=' read key value
         do
         if [ -n "$key" ]; then #skip empty
-           echo "line: ${key} = ${value}"
-           put $mapName $key "${value}"
-
+            put $mapName $key "${value}"
         fi
     done < $file
 }
