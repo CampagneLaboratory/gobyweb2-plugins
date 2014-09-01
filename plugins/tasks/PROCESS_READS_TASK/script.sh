@@ -24,13 +24,6 @@ function plugin_task {
      #parse the attributes and store them in a map
      ATTRIBUTES_MAP_NAME=UPLOADS_FILES
      populateMapFromPropertiesFile $ATTRIBUTES_MAP_NAME $ATTRIBUTES_FILE
-     getKeySet $ATTRIBUTES_MAP_NAME
-     for id in $keySet
-     do
-        get $ATTRIBUTES_MAP_NAME $id
-        echo "${id}=${value}"
-        echo
-     done
      MERGE_PLAN_FILE=`${FILESET_COMMAND} --fetch UPLOAD_MERGE_PLAN`
      dieUponError "Failed to fetch merge plan ${MERGE_PLAN_FILE}"
      echo ${MERGE_PLAN_FILE}
