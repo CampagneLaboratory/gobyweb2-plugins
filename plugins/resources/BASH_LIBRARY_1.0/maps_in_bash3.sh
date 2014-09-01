@@ -70,7 +70,11 @@ get() {
         esac
         if [ "$valueFound" == "true" ]; then break; fi
     done
-    value=`echo $value | sed -e "s/:SP:/ /g"`
+    if [ "$valueFound" == "true" ]; then
+        value=`echo $value | sed -e "s/:SP:/ /g"`
+    else
+        value=""
+    fi
 }
 
 # get all the keys in the map
