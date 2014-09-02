@@ -525,10 +525,11 @@ public class TaskProcessSample {
             } else {
                 File prevLocalFile = stepTwoFiles[0]
                 localFile = new File("${storedName}")
+                localFile.delete() //delete target if exists
                 println "Single file. renaming ${prevLocalFile} to ${localFile}"
-                prevLocalFile.renameTo(localFile)
+                FileUtils.copyFile(prevLocalFile, localFile)
             }
-
+            println "Preparing stats file..."
             //String mergePlanFilename = "${clusterReadsDir}/${firstFileTag}.details.txt"
             statsWriter = (new File(outStatsFilename)).newWriter(false)
             statsWriter.writeLine "ngFile.tag=${firstFileTag}"
@@ -536,6 +537,7 @@ public class TaskProcessSample {
             statsWriter.writeLine "ngFile.storedDir=${clusterReadsDir}"
             statsWriter.writeLine "ngFile.size=${localFile.length()}"
             if (localFile && localFile.exists()) {
+                println "Generating reads length..."
                 getReadLengths(localFile)
                 getReadQualityStats(localFile)
                 calculateHeptamersWeights(localFile)
@@ -543,6 +545,7 @@ public class TaskProcessSample {
                     calculateGCWeights(localFile)
                 }
             } else {
+                println "local file does not exist..."
                 retval = 2
             }
             statsWriter.writeLine "sample.readyToAlign=true"
