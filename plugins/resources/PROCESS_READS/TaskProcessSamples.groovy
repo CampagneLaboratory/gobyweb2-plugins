@@ -351,6 +351,7 @@ public class TaskProcessSample {
         final Map<String, SampleDetails> filenameToSampleDetailsMap
 
         // When the detailsFile is read from here, it should contain files for ONE sample name
+        println "Read merge plan from ${mergePlanFilename}"
         final Map<String, List<SampleDetails>> detailsMap = SampleDetailsUtil.readSampleDetails(mergePlanFilename)
         println "Map before removing pairs: ${detailsMap}"
         pairedSamplesFound = SampleDetailsUtil.removePairs(detailsMap)
@@ -361,14 +362,19 @@ public class TaskProcessSample {
             // Since we've removed pairs, we can re-obtain processFilenames from the detailsMap.
             // Make a map of the process filenames without the tag to the process filename
             Map<String, String> noTagToProcessMap = [:]
+            println "processFilePaths: ${processFilePaths}"
+
             processFilePaths.each { String filePath ->
-                noTagToProcessMap[new File(filePath).getName().substring(8)] = filePath
+                noTagToProcessMap[new File(filePath).getName()] = filePath
             }
+            println "noTagToProcessMap: ${noTagToProcessMap}"
+
             // Copy just the ones that aren't part 1 of the pair (just part 0)
             processFilePaths.clear()
             (detailsMap[sampleName])*.filename.each { final String filename ->
                 processFilePaths.add(noTagToProcessMap[filename])
             }
+            println "processFilePaths: ${processFilePaths}"
             renamePairFiles(filenameToSampleDetailsMap, processFilePaths, noTagToProcessMap)
         } else {
             println "No pairs found in map"
@@ -451,7 +457,7 @@ public class TaskProcessSample {
                     } else {
                         if (pairedSamplesFound) {
                             // Original filename lowercase without tag from processFilename
-                            final String originalFilenameLc = processFilePath.toLowerCase().substring(8)
+                            final String originalFilenameLc = processFilePath
                             final SampleDetails sampleDetails = filenameToSampleDetailsMap[originalFilenameLc]
                             def pairIndicatorsList = sampleDetails?.pairIndicatorsList()
                             if (pairIndicatorsList) {
@@ -806,19 +812,25 @@ public class TaskProcessSample {
     private renamePairFiles(final Map<String, SampleDetails> filenameToSampleDetailsMap,
                             final List<String> processFilenames,
                             final Map<String, String> noTagToProcessMap) {
+        println "filenameToSampleDetailsMap: ${filenameToSampleDetailsMap}"
+        println "noTagToProcessMap: ${noTagToProcessMap}"
         for (final String processFilename in processFilenames) {
-            final String firstInPairNoTagLc = processFilename.toLowerCase().substring(8).toLowerCase()
+            final String firstInPairNoTagLc = new File(processFilename).getName().toLowerCase()
             final SampleDetails sampleDetails = filenameToSampleDetailsMap[firstInPairNoTagLc]
             if (sampleDetails) {
                 final String pairKey = makePairFilename(firstInPairNoTagLc, sampleDetails.pairIndicatorsList())
                 if (pairKey) {
+                    println "pairKey=${pairKey}"
                     def originalPairFilename = noTagToProcessMap[pairKey]
                     if (originalPairFilename) {
                         final String newPairFilename = makePairFilename(processFilename, sampleDetails.pairIndicatorsList())
                         final File renameFrom = new File("${workDir}/${originalPairFilename}")
                         final File renameTo = new File("${workDir}/${newPairFilename}")
                         println "Renaming pair from ${renameFrom} to ${renameTo} (first is ${processFilename})"
-                        renameFrom.renameTo(renameTo)
+                        FileUtils.copyFile(renameFrom, renameTo)
+                        FileUtils.deleteQuietly(renameFrom)
+                    } else {
+                        println "originalPairFilename=${originalPairFilename} not found"
                     }
                 } else {
                     println "pairKey=${pairKey} not found"
@@ -838,20 +850,24 @@ public class TaskProcessSample {
      * @return
      */
     public makePairFilename(final String firstFilename, final List<String> pairIndicators) {
+        println "firstFilename: ${firstFilename}"
+        println "pairIndicators: ${pairIndicators}"
         if (!firstFilename || !pairIndicators) {
             return null
         }
-        final String pairIndicator1 = pairIndicators[0]
-        final String pairIndicator2 = pairIndicators[1]
-        final int firstTokenPos = firstFilename.lastIndexOf(pairIndicator1);
+        String filenameNoExt = FilenameUtils.removeExtension(firstFilename)
+        println "filenameNoExt: ${filenameNoExt}"
+        final String pairIndicator1 = pairIndicators[0].toLowerCase()
+        final String pairIndicator2 = pairIndicators[1].toLowerCase()
+        final int firstTokenPos = filenameNoExt.lastIndexOf(pairIndicator1);
         if (firstTokenPos == -1) {
             // No pairIndicator1 token. Not the first file in a pair.
             return null;
         }
         final StringBuilder pairFilenameSb = new StringBuilder();
-        pairFilenameSb.append(firstFilename.substring(0, firstTokenPos));
+        pairFilenameSb.append(filenameNoExt.substring(0, firstTokenPos));
         pairFilenameSb.append(pairIndicator2);
-        pairFilenameSb.append(firstFilename.substring(firstTokenPos + pairIndicator1.length()));
+        pairFilenameSb.append(filenameNoExt.substring(firstTokenPos + pairIndicator1.length()));
         return pairFilenameSb.toString();
     }
 }
