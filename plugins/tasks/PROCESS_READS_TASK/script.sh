@@ -141,9 +141,7 @@ function plugin_task {
      ATTRIBUTES_TO_ATTACH="$ATTRIBUTES_TO_ATTACH -a INPUT_READ_LENGTH=${INPUT_READ_LENGTH} -a PAIRED_END_ALIGNMENT=${PAIRED_END_ALIGNMENT}"
      # push back the generated compact-reads:
      REGISTERED_TAGS=`${FILESET_COMMAND} --push $ATTRIBUTES_TO_ATTACH -a WEIGHT_TAGS="${WEIGHT_REGISTERED_TAGS}" -a QUALITY_TAGS="${QUALITY_REGISTERED_TAGS}" -a STATS_TAGS="${OUTPUT_STATS_REGISTERED_TAGS}" COMPACT_READ_FILES: *.compact-reads`
-     #info "COMPACT_READ_FILES:[${REGISTERED_TAGS}]" "${JOB_REGISTERED_FILESETS_STATUS}"
-     #dieUponError "Failed to push back the compact-reads file."
-
+     dieUponError "Failed to push back the compact-reads file."
 
      ALL_REGISTERED_TAGS="${ALL_REGISTERED_TAGS} COMPACT_READ_FILES:[${REGISTERED_TAGS}]"
      echo "The following tags were registered by this plugin: ${ALL_REGISTERED_TAGS}"
