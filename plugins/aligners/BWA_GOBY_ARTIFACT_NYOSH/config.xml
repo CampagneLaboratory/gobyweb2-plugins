@@ -12,10 +12,11 @@
   -->
 <alignerConfig xsi:noNamespaceSchemaLocation="../../../schemas/plugins.xsd"
                xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
-    <name>BWA with Goby support (auto-install)</name>
+    <name>BWA with Goby support NYoSh (auto-install)</name>
     <id>BWA_GOBY_ARTIFACT_NYOSH</id>
     <help>Version of BWA that supports Goby formats natively, auto-install version of the plugin.</help>
     <version>1.2</version>
+    <disabled>true</disabled>
     <supportsColorSpace>true</supportsColorSpace>
     <supportsGobyAlignments>true</supportsGobyAlignments>
     <supportsPairedEndAlignments>true</supportsPairedEndAlignments>
