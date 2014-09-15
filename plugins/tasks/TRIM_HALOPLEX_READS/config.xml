@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<!--
+  ~ Copyright (c) 2011-2014  by Cornell University  and the  Cornell Research Foundation,
+  ~ Inc. All Rights Reserved.
+  ~
+  ~ GobyWeb plugins  are released  under the LGPL3 license,  unless  otherwise specified
+  ~ by the license of a specific plugin. See the file LGPL3.license in this distribution
+  ~ for a copy of the LGPL license.
+  ~
+  ~ When a plugin is not released under the LGPL3 license,  the comments  at the top  of
+  ~ the plugin's config.xml will indicate how that specific plugin is released/licensed.
+  -->
+
+<taskConfig xsi:noNamespaceSchemaLocation="../../../schemas/plugins.xsd"
+            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <name>Trim Haloplex Reads</name>
+    <id>TRIM_HALOPLEX_READS</id>
+    <help>Trim reads obtained with the Agilent Haloplex Exome Assay.</help>
+    <version>1.0</version>
+    <requires>
+        <resource>
+            <id>TRIMMOMATIC</id>
+            <versionAtLeast>0.32</versionAtLeast>
+        </resource>
+        <resource>
+            <id>GOBY</id>
+            <versionAtLeast>20131006122446</versionAtLeast>
+        </resource>
+    </requires>
+    <files>
+        <file>
+            <id>RUN_MODEL_SCRIPT</id>
+            <filename>run_model.sh</filename>
+        </file>
+        <file>
+            <id>PLUGIN_JAR</id>
+            <filename>plugin.jar</filename>
+        </file>
+    </files>
+    <runtime>
+        <need scope="PROCESS" key="excl" value="false"/>
+        <need scope="PROCESS" key="h_vmem" value="4G"/>
+        <need scope="PROCESS" key="virtual_free" value="6G"/>
+        <need scope="INSTALL_ARTIFACTS" key="excl" value="true"/>
+        <need scope="INSTALL_ARTIFACTS" key="h_vmem" value="4G"/>
+        <need scope="INSTALL_ARTIFACTS" key="virtual_free" value="6G"/>
+        <need scope="ALIGN" key="os" value="rhel5.4"/>
+        <need scope="PROCESS_JVM" value="4G"/>
+    </runtime>
+    <options>
+
+        <option >
+            <id>PAIR_INDICATOR_1</id>
+            <name>Indicator for first read in pair</name>
+            <help>The part of the filename that indicates that the file contains first reads in pair (default: _R1).
+            </help>
+            <required>false</required>
+            <defaultsTo>_R1</defaultsTo>
+            <type>STRING</type>
+            <autoFormat>false</autoFormat>
+        </option>
+        <option>
+            <id>PAIR_INDICATOR_2</id>
+            <name>Indicator for second read in pair</name>
+            <help>The part of the filename that indicates that the file contains first reads in pair (default: _R2).
+            </help>
+            <required>false</required>
+            <defaultsTo>_R2</defaultsTo>
+            <type>STRING</type>
+            <autoFormat>false</autoFormat>
+        </option>
+    </options>
+    <executableIOSchema>
+        <input>
+            <inputSlot>
+                <name>Input Reads</name>
+                <type minOccurs="1" maxOccurs="unbounded">
+                    <id>FASTQ_GZ</id>
+                    <versionAtLeast>1.0</versionAtLeast>
+                </type>
+            </inputSlot>
+        </input>
+        <output>
+            <outputSlot>
+                <name>COMPACT_READS</name>
+                <type minOccurs="1" maxOccurs="unbounded">
+                    <id>COMPACT_READS</id>
+                    <versionAtLeast>1.0</versionAtLeast>
+                </type>
+            </outputSlot>
+        </output>
+    </executableIOSchema>
+
+</taskConfig>
