@@ -248,6 +248,7 @@ Categories=["FORMULA1", "FORMULA2", "FORMULA3", FORMULA4", "false:None]
             <name>Exon counts</name>
             <help>Estimate exon counts.</help>
             <type>BOOLEAN</type>
+            <defaultsTo>false</defaultsTo>
         </option>
         <option hiddenWhen="NOT matches(ANNOTATION_SOURCE,GENE_EXON_OTHER)">
             <id>ESTIMATE_COUNTS_OTHER</id>
@@ -255,6 +256,7 @@ Categories=["FORMULA1", "FORMULA2", "FORMULA3", FORMULA4", "false:None]
             <name>Other counts</name>
             <help>Estimate other counts. The other category represents intergenic regions.</help>
             <type>BOOLEAN</type>
+            <defaultsTo>false</defaultsTo>
         </option>
     </options>
     <outputSchema>
