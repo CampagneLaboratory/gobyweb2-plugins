@@ -11,8 +11,8 @@ function plugin_install_artifact {
             LETTER=b
             ${RESOURCES_FETCH_URL_SCRIPT} https://github.com/alexdobin/STAR/archive/STAR_${VERSION}${LETTER}.tar.gz
             gzip -c -d  STAR_${VERSION}${LETTER}.tar.gz |tar -xvf -
-            (cd STAR_${VERSION}${LETTER}; make)
-            cp STAR_${VERSION}${LETTER}/STAR ${installation_path}/
+            (cd STAR-STAR_${VERSION}${LETTER}; make)
+            cp STAR-STAR_${VERSION}${LETTER}/STAR ${installation_path}/
             return 0
             ;;
 
