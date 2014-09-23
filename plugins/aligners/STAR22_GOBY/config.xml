@@ -29,7 +29,7 @@
     <requires>
         <resource>
             <id>STAR</id>
-            <versionAtLeast>2.4.0</versionAtLeast>
+            <versionAtLeast>2.3.0.6</versionAtLeast>
         </resource>
         <resource>
             <id>GOBY</id>

@@ -16,6 +16,7 @@
     <id>STAR</id>
     <help>Version of STAR writing to Goby format.</help>
     <version>2.4.0</version>
+    <disabled>true</disabled>
     <!-- 2.3.0e -->
      <requires>
          <resource>

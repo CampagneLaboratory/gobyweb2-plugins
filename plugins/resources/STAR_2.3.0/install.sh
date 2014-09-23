@@ -9,7 +9,7 @@ function plugin_install_artifact {
         'EXECUTABLE' )
             VERSION=2.3.0
             LETTER=e
-            ${RESOURCES_FETCH_URL_SCRIPT} ftp://ftp2.cshl.edu/gingeraslab/tracks/STARrelease/${VERSION}/STAR_${VERSION}${LETTER}.tgz
+            ${RESOURCES_FETCH_URL_SCRIPT} https://rna-star.googlecode.com/files/STAR_${VERSION}${LETTER}.tgz
             gzip -c -d  STAR_${VERSION}${LETTER}.tgz |tar -xvf -
             (cd STAR_${VERSION}${LETTER}; make)
             cp STAR_${VERSION}${LETTER}/STAR ${installation_path}/
