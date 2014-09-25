@@ -18,7 +18,7 @@ function plugin_install_artifact {
             ${RESOURCES_FETCH_URL_SCRIPT} http://cran.r-project.org/src/contrib/Cairo_${VERSION}.tar.gz
             ${RUN_R} CMD INSTALL Cairo_${VERSION}.tar.gz --library=${installation_path}/
 
-            VERSION="3.20.8"
+            VERSION="3.20.9"
             ${RESOURCES_FETCH_URL_SCRIPT} http://www.bioconductor.org/packages/release/bioc/src/contrib/limma_${VERSION}.tar.gz
             ${RUN_R} CMD INSTALL limma_${VERSION}.tar.gz --library=${installation_path}/
 
