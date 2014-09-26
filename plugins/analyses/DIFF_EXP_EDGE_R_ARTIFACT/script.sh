@@ -126,7 +126,7 @@ function plugin_alignment_analysis_combine {
       if [ "$HAS_EXONS" != "1" ]; then
 
         EDGE_R_OUTPUT="output=exon-stats.tsv mdsPlotOutput=mds.png smearPlotOutput=smear.png"
-        run_R -f ${RESOURCES_EDGE_R_SCRIPT_R_SCRIPT} --slave --quiet --no-rest/ore --no-save --no-readline --args input=${EXON_OUT_FILENAME} ${EDGE_R_OUTPUT} ${SAMPLE_GROUP_MAPPING} elementType=EXON normalizationMethod=${NORMALIZATION_FACTORS_METHOD} dispersionMethod=${DISPERSION_METHOD} filterFlag=${FILTERING}
+        run_R -f ${RESOURCES_EDGE_R_SCRIPT_R_SCRIPT} --slave --quiet --no-restore --no-save --no-readline --args input=${EXON_OUT_FILENAME} ${EDGE_R_OUTPUT} ${SAMPLE_GROUP_MAPPING} elementType=EXON normalizationMethod=${NORMALIZATION_FACTORS_METHOD} dispersionMethod=${DISPERSION_METHOD} filterFlag=${FILTERING}
         cp ${EXON_OUT_FILENAME} counts-table.tsv
       fi
       if [ "${HAS_GENES}" != "1" ] && [ "${HAS_EXONS}" != "1" ]; then
