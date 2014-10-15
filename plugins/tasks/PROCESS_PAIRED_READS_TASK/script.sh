@@ -63,7 +63,7 @@ function plugin_task {
             --jvm-flags "${JAVA_OPTS}" \
             --goby-jar-dir ${JOB_DIR}/goby \
             --cluster-reads-dir ./CONVERTED ${READ_FILES_LIST} \
-            --sample-tag ${PLUGINS_TASK_PROCESS_READS_PAIRED_TASK_TAG} \
+            --sample-tag ${PLUGINS_TASK_PROCESS_PAIRED_READS_TASK_TAG} \
             --first-file-tag ${PLUGINS_TASK_PROCESS_PAIRED_READS_TASK_TAG} \
             --quality-encoding ${PLUGINS_TASK_PROCESS_PAIRED_READS_TASK_QUALITY_ENCODING} \
             --platform ${READS_PLATFORM} \
