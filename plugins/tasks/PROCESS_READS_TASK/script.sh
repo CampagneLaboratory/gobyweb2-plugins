@@ -1,8 +1,9 @@
 
 . ${JOB_DIR}/constants.sh
-#If the following sourcing fails, that means that the plugin has been executed with gobyweb_server_side > 2.5.0.
-#In this case, message functions are imported from Mercury resource so the failure is tolerated.
-. ${JOB_DIR}/message-functions-wrappers.sh || true
+#If a broker is not specified, we switch to the old file-based mechanism defined by GobyWeb.
+if [ -z "$BROKER_HOSTNAME" ]; then
+    . ${JOB_DIR}/message-functions-wrappers.sh || true
+fi
 . ${RESOURCES_BASH_LIBRARY_MAPS_IN_BASH3}
 
 READ_FILES_LIST=""
