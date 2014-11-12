@@ -2,7 +2,7 @@
 . ${JOB_DIR}/constants.sh
 #If a broker is not specified, we switch to the old file-based mechanism defined by GobyWeb.
 if [ -z "$BROKER_HOSTNAME" ]; then
-    . ${JOB_DIR}/message-functions-wrappers.sh || true
+    . ${RESOURCES_GOBYWEB_SERVER_SIDE_MESSAGE_WRAPPERS} || true
 fi
 . ${RESOURCES_BASH_LIBRARY_MAPS_IN_BASH3}
 
@@ -144,6 +144,7 @@ function plugin_task {
      ATTRIBUTES_TO_ATTACH="$ATTRIBUTES_TO_ATTACH -a PAIRED_END_DIRECTIONS=${PAIRED_END_DIRECTIONS} -a LIB_PROTOCOL_PRESERVE_STRAND=${LIB_PROTOCOL_PRESERVE_STRAND} -a BASENAME=${SAMPLE_NAME}"
      ATTRIBUTES_TO_ATTACH="$ATTRIBUTES_TO_ATTACH -a INPUT_READ_LENGTH=${INPUT_READ_LENGTH} -a PAIRED_END_ALIGNMENT=${PAIRED_END_ALIGNMENT}"
      # push back the generated compact-reads:
+     info "Publish compact-reads in FSA"
      REGISTERED_TAGS=`${FILESET_COMMAND} --push $ATTRIBUTES_TO_ATTACH -a WEIGHT_TAGS="${WEIGHT_REGISTERED_TAGS}" -a QUALITY_TAGS="${QUALITY_REGISTERED_TAGS}" -a STATS_TAGS="${OUTPUT_STATS_REGISTERED_TAGS}" COMPACT_READ_FILES: *.compact-reads`
      dieUponError "Failed to push back the compact-reads file."
 
