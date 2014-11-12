@@ -2,7 +2,7 @@
 . ${JOB_DIR}/constants.sh
 #If a broker is not specified, we switch to the old file-based mechanism defined by GobyWeb.
 if [ -z "$BROKER_HOSTNAME" ]; then
-    . ${JOB_DIR}/message-functions-wrappers.sh || true
+    . ${RESOURCES_GOBYWEB_SERVER_SIDE_MESSAGE_WRAPPERS} || true
 fi
 . ${RESOURCES_BASH_LIBRARY_MAPS_IN_BASH3}
 
