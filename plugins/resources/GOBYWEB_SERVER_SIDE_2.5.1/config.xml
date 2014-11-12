@@ -87,6 +87,10 @@
             <id>GRAB_EXCEPTIONS</id>
             <filename>GrabExceptions.groovy</filename>
         </file>
+        <file>
+            <id>MESSAGE_WRAPPERS</id>
+            <filename>message-functions-wrapper.sh</filename>
+        </file>
 
     </files>
 </resourceConfig>
