@@ -14,9 +14,11 @@
                 xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
     <name>Ensembl API</name>
     <id>ENSEMBL_API</id>
+
     <help>Ensembl API. See http://useast.ensembl.org/info/docs/api/api_installation.html. Auto-install with artifacts.
     </help>
     <version>77.1.0</version>
+    <disabled>true</disabled>
    <requires>
        <resource>
            <id>FETCH_URL</id>
