@@ -15,6 +15,7 @@
     <id>VARIANT_EFFECT_PREDICTOR</id>
     <help>Variant effect predictor. See http://useast.ensembl.org/info/docs/variation/vep/vep_script.html. Auto-install with artifacts.</help>
     <version>77.1.0</version>
+    <disabled>true</disabled>
     <requires>
         <resource>
             <id>ENSEMBL_API</id>
