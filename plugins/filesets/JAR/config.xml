@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<fileSetConfig xsi:noNamespaceSchemaLocation="../../../schemas/plugins.xsd"
+               xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <name>Java Archive</name>
+    <id>JAR</id>
+    <help>A Java Archive.</help>
+    <version>1.0</version>
+    <mimeType>application/java-archive</mimeType>
+    <files>
+        <selector>
+            <id>JAVA_ARCHIVE</id>
+            <pattern>*.JAR</pattern>
+            <mandatory>true</mandatory>
+        </selector>
+    </files>
+</fileSetConfig>
