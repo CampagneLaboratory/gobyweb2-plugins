@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<!--
+  ~ Copyright (c) 2011-2014  by Cornell University  and the  Cornell Research Foundation,
+  ~ Inc. All Rights Reserved.
+  ~
+  ~ GobyWeb plugins  are released  under the LGPL3 license,  unless  otherwise specified
+  ~ by the license of a specific plugin. See the file LGPL3.license in this distribution
+  ~ for a copy of the LGPL license.
+  ~
+  ~ When a plugin is not released under the LGPL3 license,  the comments  at the top  of
+  ~ the plugin's config.xml will indicate how that specific plugin is released/licensed.
+  -->
+
+<taskConfig xsi:noNamespaceSchemaLocation="../../../schemas/plugins.xsd"
+            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <name>Execute plugin tests</name>
+    <id>GOBYWEB_PLUGIN_TEST_RUNNER</id>
+    <help>Execute plugin tests included in the input jar as JUnit test cases or suites and produce reports in both XML and TXT formats.
+    </help>
+    <version>1.0</version>
+    <requires>
+        <resource>
+            <id>MAVEN</id>
+            <versionAtLeast>3.0.5</versionAtLeast>
+        </resource>
+    </requires>
+    <files>
+        <file>
+            <id>PLUGIN_RUNNER</id>
+            <filename>GobyWebPluginRunner.jar</filename>
+        </file>
+        <file>
+            <id>POM</id>
+            <filename>pom.xml</filename>
+        </file>
+    </files>
+    <runtime>
+        <need scope="PROCESS" key="excl" value="false"/>
+        <need scope="PROCESS" key="h_vmem" value="2G"/>
+        <need scope="PROCESS" key="virtual_free" value="2G"/>
+        <need scope="INSTALL_ARTIFACTS" key="excl" value="true"/>
+        <need scope="INSTALL_ARTIFACTS" key="h_vmem" value="2G"/>
+        <need scope="INSTALL_ARTIFACTS" key="virtual_free" value="2G"/>
+        <need scope="PROCESS_JVM" value="1G"/>
+    </runtime>
+    <executableIOSchema>
+        <input>
+            <inputSlot>
+                <name>TEST_CLASSES</name>
+                <type maxOccurs="1" minOccurs="1">
+                    <id>JAR</id>
+                    <versionAtLeast>1.0</versionAtLeast>
+                </type>
+            </inputSlot>
+        </input>
+        <output>
+            <outputSlot>
+                <name>REPORT</name>
+                <type>
+                    <id>TXT</id>
+                    <versionExactly>1.0</versionExactly>
+                </type>
+            </outputSlot>
+        </output>
+    </executableIOSchema>
+
+</taskConfig>
