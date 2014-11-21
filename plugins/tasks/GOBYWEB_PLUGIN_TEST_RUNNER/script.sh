@@ -14,7 +14,7 @@ function plugin_task {
     rm -rf ./additionalTests/
     ${RESOURCES_ARTIFACTS_MAVEN_DISTRIBUTION}/bin/mvn clean
     ${RESOURCES_ARTIFACTS_MAVEN_DISTRIBUTION}/bin/mvn process-test-resources
-    ${RESOURCES_ARTIFACTS_MAVEN_DISTRIBUTION}/bin/mvn surefire:test -Dtest=${TEST_NAMES}
+    ${RESOURCES_ARTIFACTS_MAVEN_DISTRIBUTION}/bin/mvn surefire:test -Dtest=${PLUGINS_TASK_GOBYWEB_PLUGIN_TEST_RUNNER_TEST_NAMES}
     # Surefire report directory will be: ./target/plugins-reports
 }
 
