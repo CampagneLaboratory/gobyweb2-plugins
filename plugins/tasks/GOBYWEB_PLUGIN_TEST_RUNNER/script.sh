@@ -1,5 +1,6 @@
 
-
+export M2_HOME="${RESOURCES_ARTIFACTS_MAVEN_DISTRIBUTION}"
+export MAVEN_OPTS="-Xms256m -Xmx512m"
 
 function plugin_task {
     ${FILESET_COMMAND} --has-fileset TEST_CLASSES
@@ -12,10 +13,8 @@ function plugin_task {
     mkdir ./source
     cp "${TEST_CLASSES_JAR}" ./source/JarWithTests.jar
     rm -rf ./additionalTests/
-    ${RESOURCES_ARTIFACTS_MAVEN_DISTRIBUTION}/bin/mvn clean
-    ${RESOURCES_ARTIFACTS_MAVEN_DISTRIBUTION}/bin/mvn process-test-resources
-    ${RESOURCES_ARTIFACTS_MAVEN_DISTRIBUTION}/bin/mvn surefire:test -Dtest=${PLUGINS_TASK_GOBYWEB_PLUGIN_TEST_RUNNER_TEST_NAMES}
+    ${RESOURCES_ARTIFACTS_MAVEN_DISTRIBUTION}/bin/mvn -f ${JOB_DIR}/pom.xml clean
+    ${RESOURCES_ARTIFACTS_MAVEN_DISTRIBUTION}/bin/mvn -f ${JOB_DIR}/pom.xml process-test-resources
+    ${RESOURCES_ARTIFACTS_MAVEN_DISTRIBUTION}/bin/mvn -f ${JOB_DIR}/pom.xml surefire:test -Dtest=${PLUGINS_TASK_GOBYWEB_PLUGIN_TEST_RUNNER_TEST_NAMES}
     # Surefire report directory will be: ./target/plugins-reports
 }
-
-plugin_task
