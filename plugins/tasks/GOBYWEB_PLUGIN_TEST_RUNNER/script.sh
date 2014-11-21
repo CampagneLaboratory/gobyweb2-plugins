@@ -13,7 +13,8 @@ function plugin_task {
     cp "${TEST_CLASSES_JAR}" ./source/JarWithTests.jar
     rm -rf ./additionalTests/
     mvn clean
-    mvn test
+    mvn process-test-resources
+    mvn surefire:test -Dtest=*
     # Surefire report directory will be: ./target/plugins-reports
 }
 
