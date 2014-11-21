@@ -1,6 +1,6 @@
 
 export M2_HOME="${RESOURCES_ARTIFACTS_MAVEN_DISTRIBUTION}"
-export MAVEN_OPTS="-Xms256m -Xmx512m"
+export MAVEN_OPTS="-Xms512m -Xmx1g"
 
 function plugin_task {
     ${FILESET_COMMAND} --has-fileset TEST_CLASSES
@@ -9,7 +9,6 @@ function plugin_task {
     TEST_CLASSES_JAR=`${FILESET_COMMAND} --fetch TEST_CLASSES`
     dieUponError "Failed to fetch test classes files ${TEST_CLASSES_JAR}"
     echo ${TEST_CLASSES_JAR}
-
     mkdir ${JOB_DIR}/source
     cp "${TEST_CLASSES_JAR}" ${JOB_DIR}/source/JarWithTests.jar
     rm -rf ./additionalTests/

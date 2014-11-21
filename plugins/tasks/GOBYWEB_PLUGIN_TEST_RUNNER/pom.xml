@@ -36,6 +36,8 @@
                 <artifactId>maven-surefire-plugin</artifactId>
                 <version>2.18</version>
                 <configuration>
+                    <forkMode>never</forkMode>
+                    <argLine>-Xms1G -Xmx1G</argLine>
                     <additionalClasspathElements>
                         <additionalClasspathElement>${project.basedir}/GobyWebPluginRunner.jar
                         </additionalClasspathElement>
