@@ -9,7 +9,7 @@
     <files>
         <selector>
             <id>JAVA_ARCHIVE</id>
-            <pattern>*.JAR</pattern>
+            <pattern>*.jar</pattern>
             <mandatory>true</mandatory>
         </selector>
     </files>
