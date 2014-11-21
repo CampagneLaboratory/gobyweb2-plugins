@@ -12,9 +12,9 @@ function plugin_task {
     mkdir ./source
     cp "${TEST_CLASSES_JAR}" ./source/JarWithTests.jar
     rm -rf ./additionalTests/
-    mvn clean
-    mvn process-test-resources
-    mvn surefire:test -Dtest=${TEST_NAMES}
+    ${RESOURCES_ARTIFACTS_MAVEN_DISTRIBUTION}/bin/mvn clean
+    ${RESOURCES_ARTIFACTS_MAVEN_DISTRIBUTION}/bin/mvn process-test-resources
+    ${RESOURCES_ARTIFACTS_MAVEN_DISTRIBUTION}/bin/mvn surefire:test -Dtest=${TEST_NAMES}
     # Surefire report directory will be: ./target/plugins-reports
 }
 
