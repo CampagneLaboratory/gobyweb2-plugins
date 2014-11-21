@@ -43,6 +43,19 @@
         <need scope="INSTALL_ARTIFACTS" key="virtual_free" value="2G"/>
         <need scope="PROCESS_JVM" value="1G"/>
     </runtime>
+    <options>
+           <option>
+               <id>TEST_NAMES</id>
+               <name>Test Names</name>
+               <help>A comma separated list of the tests to execute. These tests must be in the TEST_CLASSES Jar.
+                   See http://maven.apache.org/surefire/maven-surefire-plugin/examples/single-test.html#</help>
+               <type>STRING</type>
+               <required>false</required>
+               <defaultsTo>*</defaultsTo>
+               <flagFormat>%s</flagFormat>
+               <includeSpaces>false</includeSpaces>
+           </option>
+    </options>
     <executableIOSchema>
         <input>
             <inputSlot>
