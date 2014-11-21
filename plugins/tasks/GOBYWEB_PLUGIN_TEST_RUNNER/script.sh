@@ -16,4 +16,6 @@ function plugin_task {
     ${RESOURCES_ARTIFACTS_MAVEN_DISTRIBUTION}/bin/mvn -f ${JOB_DIR}/pom.xml process-test-resources
     ${RESOURCES_ARTIFACTS_MAVEN_DISTRIBUTION}/bin/mvn -f ${JOB_DIR}/pom.xml surefire:test -Dtest=${PLUGINS_TASK_GOBYWEB_PLUGIN_TEST_RUNNER_TEST_NAMES}
     # Surefire report directory will be: ./target/plugins-reports
+    REPORT=`cat ${JOB_DIR}/target/plugins-reports/*.txt`
+    info "${REPORT}" 'post_process'
 }
