@@ -14,7 +14,7 @@ function plugin_task {
     rm -rf ./additionalTests/
     mvn clean
     mvn process-test-resources
-    mvn surefire:test -Dtest=*
+    mvn surefire:test -Dtest=${TEST_NAMES}
     # Surefire report directory will be: ./target/plugins-reports
 }
 
