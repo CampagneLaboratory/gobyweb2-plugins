@@ -10,8 +10,8 @@ function plugin_task {
     dieUponError "Failed to fetch test classes files ${TEST_CLASSES_JAR}"
     echo ${TEST_CLASSES_JAR}
 
-    mkdir ./source
-    cp "${TEST_CLASSES_JAR}" ./source/JarWithTests.jar
+    mkdir ${JOB_DIR}/source
+    cp "${TEST_CLASSES_JAR}" ${JOB_DIR}/source/JarWithTests.jar
     rm -rf ./additionalTests/
     ${RESOURCES_ARTIFACTS_MAVEN_DISTRIBUTION}/bin/mvn -f ${JOB_DIR}/pom.xml clean
     ${RESOURCES_ARTIFACTS_MAVEN_DISTRIBUTION}/bin/mvn -f ${JOB_DIR}/pom.xml process-test-resources
