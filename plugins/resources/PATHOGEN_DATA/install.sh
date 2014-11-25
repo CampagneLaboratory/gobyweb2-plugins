@@ -35,7 +35,7 @@ function plugin_install_artifact {
 
         'MICROBIAL' )
             #fetch RNA sequences
-            ${RESOURCES_FETCH_URL_SCRIPT_PATTERN} "ftp://ftp.ncbi.nlm.nih.gov/refseq/release/microbial/" "microbial.*.rna.fna.gz"
+            ${RESOURCES_FETCH_URL_SCRIPT_PATTERN} "ftp://ftp.ncbi.nlm.nih.gov/refseq/release/bacteria/" "bacteria.*.rna.fna.gz"
             #Concatenate them
             cat *.fna.gz > micro.all.fna.gz
             #Extract them to one big fasta file
