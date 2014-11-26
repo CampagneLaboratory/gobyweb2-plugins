@@ -24,7 +24,7 @@ int execute(final Object gobywebObj, final File tempDir) {
         writeGetReadsFunction(gobywebObj,writer)
         writer.println ""
         gobywebObj.allAlignments().eachWithIndex {alignment, index ->
-            writer.println "PLUGIN_READS[${index + 1}]=${alignment.getReads().getBasename()}"
+            writer.println "PLUGIN_READS[${index + 1}]=${alignment.getBasename()}"
             writer.println "PLUGIN_BASENAMES[${index + 1}]=${alignmentFilename(alignment)}"
         }
         (1..(gobywebObj.numberOfGroups)).each {
