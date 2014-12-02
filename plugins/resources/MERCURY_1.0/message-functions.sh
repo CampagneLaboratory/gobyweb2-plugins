@@ -67,3 +67,16 @@ function error {
 function fatal {
     publish "FATAL" "$@"
 }
+
+# Parameters:
+# $1 the name of the topic to delete
+function deleteTopic {
+    if isEnabled; then
+      java ${PLUGIN_NEED_DEFAULT_JVM_OPTIONS} -cp ${RESOURCES_MERCURY_LIB} \
+                -Dlog4j.configuration=file:${RESOURCES_MERCURY_LOG_PROPERTIES} \
+                org.campagnelab.mercury.cli.ManagementInterface --broker-hostname ${BROKER_HOSTNAME} --broker-port ${BROKER_PORT} \
+                --topic-name "$1" \
+                --action delete \
+                --jndi-config "${JOB_DIR}/mercury.properties"
+    fi
+}
