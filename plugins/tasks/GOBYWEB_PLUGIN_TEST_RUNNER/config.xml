@@ -55,6 +55,15 @@
                <flagFormat>%s</flagFormat>
                <includeSpaces>false</includeSpaces>
            </option>
+        <option>
+            <id>COPY_BACK_LOCATION</id>
+            <name>Copy back location</name>
+            <help>The location where the test results will be copied.</help>
+            <type>STRING</type>
+            <required>false</required>
+            <flagFormat>%s</flagFormat>
+            <includeSpaces>false</includeSpaces>
+        </option>
     </options>
     <executableIOSchema>
         <input>
