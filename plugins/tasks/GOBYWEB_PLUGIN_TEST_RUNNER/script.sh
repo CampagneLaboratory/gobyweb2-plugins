@@ -18,4 +18,8 @@
         # Surefire report directory will be: ./target/plugins-reports
         REPORT=`cat ${JOB_DIR}/target/plugins-reports/*.txt`
         info "${REPORT}" 'post_process'
+        if [[ -z "$PLUGINS_TASK_GOBYWEB_PLUGIN_TEST_RUNNER_COPY_BACK_LOCATION" ]]; then
+          scp ${JOB_DIR}/target/plugins-reports/*.*  ${PLUGINS_TASK_GOBYWEB_PLUGIN_TEST_RUNNER_COPY_BACK_LOCATION}
+          info "Test results copied at ${PLUGINS_TASK_GOBYWEB_PLUGIN_TEST_RUNNER_COPY_BACK_LOCATION}" 'post_process'
+        fi
     }
