@@ -19,7 +19,7 @@
         REPORT=`cat ${JOB_DIR}/target/plugins-reports/*.txt`
         info "${REPORT}" 'post_process'
         if [ -n "${PLUGINS_TASK_GOBYWEB_PLUGIN_TEST_RUNNER_COPY_BACK_LOCATION}" ]; then
-          scp -r ${JOB_DIR}/target/plugins-reports  ${PLUGINS_TASK_GOBYWEB_PLUGIN_TEST_RUNNER_COPY_BACK_LOCATION}
+          scp ${JOB_DIR}/target/plugins-reports/*.xml  ${PLUGINS_TASK_GOBYWEB_PLUGIN_TEST_RUNNER_COPY_BACK_LOCATION}
           info "Test results copied at ${PLUGINS_TASK_GOBYWEB_PLUGIN_TEST_RUNNER_COPY_BACK_LOCATION}" 'post_process'
         fi
     }
