@@ -23,6 +23,7 @@
     <maximumNumberOfGroups>1</maximumNumberOfGroups>
     <supportsTranscriptAlignments>false</supportsTranscriptAlignments>
     <splitProcessCombine>true</splitProcessCombine>
+    <producesTabDelimitedOutput>true</producesTabDelimitedOutput>
     <producesVariantCallingFormatOutput>false</producesVariantCallingFormatOutput>
     <supportsGobyAlignments>true</supportsGobyAlignments>
     <copyWeightFiles>false</copyWeightFiles>
