@@ -66,8 +66,7 @@ function plugin_alignment_analysis_combine {
    OUTPUT_FORMAT=${PLUGINS_ALIGNMENT_ANALYSIS_SEQ_VAR_GOBY_OUTPUT_FORMAT}
    NUM_TOP_HITS=${PLUGINS_ALIGNMENT_ANALYSIS_SEQ_VAR_GOBY_NUM_TOP_HITS}
 
-        run_goby ${PLUGIN_NEED_COMBINE_JVM} fdr \
-          --tsv \
+        run_goby ${PLUGIN_NEED_COMBINE_JVM} fdr \Rmeove
           ${PART_RESULT_FILES}  \
           --output ${TMPDIR}/${TAG}-inferred-sex.tsv
 
