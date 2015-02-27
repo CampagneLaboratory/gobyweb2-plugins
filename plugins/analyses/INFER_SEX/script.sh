@@ -59,15 +59,15 @@ function plugin_alignment_analysis_process {
 
 function plugin_alignment_analysis_combine {
 
-   RESULT_FILE=stats.vcf.gz
+   RESULT_FILE=${RESULT_DIR}/${TAG}-inferred-sex.tsv
    shift
    PART_RESULT_FILES=$*
 
    OUTPUT_FORMAT=${PLUGINS_ALIGNMENT_ANALYSIS_SEQ_VAR_GOBY_OUTPUT_FORMAT}
    NUM_TOP_HITS=${PLUGINS_ALIGNMENT_ANALYSIS_SEQ_VAR_GOBY_NUM_TOP_HITS}
 
-        run_goby ${PLUGIN_NEED_COMBINE_JVM} fdr \Rmeove
+        run_goby ${PLUGIN_NEED_COMBINE_JVM} fdr \
           ${PART_RESULT_FILES}  \
-          --output ${TMPDIR}/${TAG}-inferred-sex.tsv
+          --output ${RESULT_FILE}
 
 }
