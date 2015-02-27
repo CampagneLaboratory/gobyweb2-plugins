@@ -41,8 +41,8 @@
         <need scope="PROCESS" key="virtual_free" value="5G"/>
         <need scope="PROCESS_JVM" value="4G"/>
         <need scope="COMBINE" key="excl" value="false"/>
-        <need scope="COMBINE" key="h_vmem" value="5G"/>
-        <need scope="COMBINE" key="virtual_free" value="5G"/>
+        <need scope="COMBINE" key="h_vmem" value="8G"/>
+        <need scope="COMBINE" key="virtual_free" value="8G"/>
         <need scope="COMBINE_JVM" value="4G"/>
     </runtime>
 
