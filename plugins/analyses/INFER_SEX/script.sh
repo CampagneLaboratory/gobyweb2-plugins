@@ -48,7 +48,7 @@ function plugin_alignment_analysis_process {
    shift
    shift
    NEXT_LINE=$[${ARRAY_JOB_INDEX} + 1]
-   ALIGNMENT=`head -${NEXT_LINE} ${SLICING_PLAN_FILENAME} | tail -1`
+   ALIGNMENT=`head -${ARRAY_JOB_INDEX} ${SLICING_PLAN_FILENAME} | tail -1`
 
      # Note that we override the grid jvm flags to request only 4Gb:
      run_goby ${PLUGIN_NEED_PROCESS_JVM} infer-sex  ${ALIGNMENT} -o ${TAG}-stats-${ARRAY_JOB_INDEX}.tsv
