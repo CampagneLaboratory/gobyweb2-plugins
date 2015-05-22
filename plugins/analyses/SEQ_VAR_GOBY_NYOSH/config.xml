@@ -12,7 +12,7 @@
   -->
 <alignmentAnalysisConfig xsi:noNamespaceSchemaLocation="../../../schemas/plugins.xsd"
                          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
-    <name>Sequence Variation Analyses with Goby</name>
+    <name>Sequence Variation Analyses with Goby (NYoSh)</name>
     <id>SEQ_VAR_GOBY_NYOSH</id>
     <dbLegacyId>Compare sequence variants</dbLegacyId>
     <help>Compares groups of samples and produce output about sequence variants observed in the alignments. Implemented
