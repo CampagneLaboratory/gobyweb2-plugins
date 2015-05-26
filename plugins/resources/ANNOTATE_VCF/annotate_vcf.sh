@@ -30,6 +30,8 @@ function annotate_vep {
 
     inputCopy=`basename "${input%.vcf}-copy.vcf"`
 
+    tag=${RANDOM}
+
 
     if [ "${doAnnotate}" == "true" ]; then
 
@@ -37,37 +39,38 @@ function annotate_vep {
         # Disable  --allow_non_variant on April 15 2013 because it produced invalid VCF for sites without annotated variants
         # Instead, we retrieve annotations from vep, extract these annotations to a TSV format, and annotate the original
         # VCF with the new column from the TSV.
-        ${RESOURCES_VARIANT_EFFECT_PREDICTOR_SCRIPT} --format vcf -i ${input} -o annotatedInput.vcf --species ${org} \
+        ${RESOURCES_VARIANT_EFFECT_PREDICTOR_SCRIPT} --format vcf -i ${input} -o annotatedInput-${tag}.vcf --species ${org} \
            --force_overwrite --host useastdb.ensembl.org --vcf
         dieUponError
         export PERL5LIB=${RESOURCES_ARTIFACTS_VCF_TOOLS_BINARIES}/lib/perl5/site_perl:${PERL5LIB}
-        ${RESOURCES_ARTIFACTS_VCF_TOOLS_BINARIES}/bin/vcf-sort annotatedInput.vcf > sorted.vcf
-        ${RESOURCES_TABIX_BGZIP_EXEC_PATH} sorted.vcf
-        ${RESOURCES_TABIX_EXEC_PATH} -p vcf sorted.vcf.gz
+        ${RESOURCES_ARTIFACTS_VCF_TOOLS_BINARIES}/bin/vcf-sort annotatedInput-${tag}.vcf > sorted-${tag}.vcf
+        ${RESOURCES_TABIX_BGZIP_EXEC_PATH} sorted-${tag}.vcf
+        ${RESOURCES_TABIX_EXEC_PATH} -p vcf sorted-${tag}.vcf.gz
         # VCF-query refuses to print the same column twice, we need to add this column manually with awk..
-        ${RESOURCES_ARTIFACTS_VCF_TOOLS_BINARIES}/bin/vcf-query sorted.vcf.gz -f '%CHROM\t%POS\t%INFO/CSQ\n' >output-dumb.tsv
-        awk '{print $1"\t"$2"\t"($2+1)"\t"$3}' output-dumb.tsv >output.tsv;
+        ${RESOURCES_ARTIFACTS_VCF_TOOLS_BINARIES}/bin/vcf-query sorted-${tag}.vcf.gz -f '%CHROM\t%POS\t%INFO/CSQ\n' >output-dumb-${tag}.tsv
+        awk '{print $1"\t"$2"\t"($2+1)"\t"$3}' output-dumb-${tag}.tsv >output-${tag}.tsv;
         #cp output.tsv ${JOB_DIR}/
-        ${RESOURCES_TABIX_BGZIP_EXEC_PATH} output.tsv
-        ${RESOURCES_TABIX_EXEC_PATH} -p vcf output.tsv.gz
+        ${RESOURCES_TABIX_BGZIP_EXEC_PATH} output-${tag}.tsv
+        ${RESOURCES_TABIX_EXEC_PATH} -p vcf output-${tag}.tsv.gz
 
-        cp ${input} input.vcf
-        ${RESOURCES_TABIX_BGZIP_EXEC_PATH} input.vcf
-        ${RESOURCES_TABIX_EXEC_PATH} -p vcf input.vcf.gz
+        cp ${input} input-${tag}.vcf
+        ${RESOURCES_TABIX_BGZIP_EXEC_PATH} input-${tag}.vcf
+        ${RESOURCES_TABIX_EXEC_PATH} -p vcf input-${tag}.vcf.gz
 
-        ${RESOURCES_ARTIFACTS_VCF_TOOLS_BINARIES}/bin/vcf-sort ${input} > raw-input-sorted.vcf
+        ${RESOURCES_ARTIFACTS_VCF_TOOLS_BINARIES}/bin/vcf-sort ${input} > raw-input-sorted-${tag}.vcf
         cat >${TMPDIR}/attributes.lst <<EOF
 key=INFO,ID=VariantEffectPrediction,Number=1,Type=String,Description="Variant Effect Predictions"
 EOF
         # vcf-annotate will try to find tabix in the path. Put a link to the correct one in the local directory:
         ln -s ${JOB_DIR}/tabix tabix
 
-         cat raw-input-sorted.vcf | ${RESOURCES_ARTIFACTS_VCF_TOOLS_BINARIES}/bin/vcf-annotate  \
-                      -a output.tsv.gz \
+         cat raw-input-sorted-${tag}.vcf | ${RESOURCES_ARTIFACTS_VCF_TOOLS_BINARIES}/bin/vcf-annotate  \
+                      -a output-${tag}.tsv.gz \
                       -d ${TMPDIR}/attributes.lst \
-                      -c CHROM,FROM,TO,INFO/VariantEffectPrediction >output-with-vep-info.vcf
+                      -c CHROM,FROM,TO,INFO/VariantEffectPrediction >output-with-vep-info-${tag}.vcf
          dieUponError
-         cp output-with-vep-info.vcf ${JOB_DIR}/
+         # when debugging, copy to JOB_DIR for inspection:
+         #cp output-with-vep-info-${tag}.vcf ${JOB_DIR}/output-with-vep-info-${tag}.vcf
 cat >${TMPDIR}/nonSynomymousFilter.pl   <<EOF
 
 # Filter all variants that do not change the coding sequence according to the Variant Effect Prediction Info column.
@@ -91,12 +94,12 @@ cat >${TMPDIR}/nonSynomymousFilter.pl   <<EOF
 }
 EOF
          if [ "${doKeepOnlyNonSynonymous}" == "true" ]; then
-            cat output-with-vep-info.vcf | ${RESOURCES_ARTIFACTS_VCF_TOOLS_BINARIES}/bin/vcf-annotate \
+            cat output-with-vep-info-${tag}.vcf | ${RESOURCES_ARTIFACTS_VCF_TOOLS_BINARIES}/bin/vcf-annotate \
                       -f nonSynomymousFilter.pl \
                       >${outputNoGzExtension}
             dieUponError
          else
-           cp output-with-vep-info.vcf ${outputNoGzExtension}
+           cp output-with-vep-info-${tag}.vcf ${outputNoGzExtension}
          fi
 
         compressWhenNeeded ${output}
