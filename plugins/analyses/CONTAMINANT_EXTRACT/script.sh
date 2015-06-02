@@ -97,7 +97,7 @@ function plugin_alignment_analysis_process {
 	dieUponError "Could not assemble reads."
 	
 	#create counts index of assembled file for E-value computation
-	${RESOURCES_LAST_INDEXER} -x assembled "assembled${CURRENT_PART}.fasta"
+	${RESOURCES_ARTIFACTS_LAST_ARTIFACT_BINARIES}/bin/lastdb -x assembled "assembled${CURRENT_PART}.fasta"
 	dieUponError "Could not index assembled file"
 
 
@@ -116,8 +116,7 @@ function plugin_alignment_analysis_process {
     fi
 
 	#run alignment and print results into tsv format
-	${RESOURCES_LAST_EXEC_PATH} -f 0 ${REF_BASENAME} "assembled${CURRENT_PART}.fasta" | \
-  		${RESOURCES_LAST_EXPECT} ${REF_BASENAME}.prj assembled.prj - | \
+	${RESOURCES_ARTIFACTS_LAST_ARTIFACT_BINARIES}/bin/lastal -f 0 ${REF_BASENAME} "assembled${CURRENT_PART}.fasta" | \
   		sed '/^#/ d' | \
   		awk '{print $2, "\t", "'${SPLIT_NAME}'", "\t", $7, "\t", $9, "\t", $1, "\t", $13}' > "${TAG}-results-${CURRENT_PART}.tsv"
   		
@@ -143,12 +142,14 @@ function plugin_alignment_analysis_process {
 	else
 		echo "using LAST to realign reads to contigs"
 		
-		${RESOURCES_LAST_INDEXER} "assembled${CURRENT_PART}" "assembled${CURRENT_PART}.fasta"
+		${RESOURCES_ARTIFACTS_LAST_ARTIFACT_BINARIES}/lastdb "assembled${CURRENT_PART}" "assembled${CURRENT_PART}.fasta"
 		dieUponError "Could not index assembled file with last"
 		
 		run_goby 4g compact-to-fasta --input "unmatched${CURRENT_PART}.compact-reads" --output "unmatched${CURRENT_PART}.fasta"
-		
-		${RESOURCES_LAST_EXEC_PATH} "assembled${CURRENT_PART}" "unmatched${CURRENT_PART}.fasta" > "realignment${CURRENT_PART}.maf"
+        # Use parallelization for the last search:
+		${RESOURCES_ARTIFACTS_LAST_ARTIFACT_BINARIES}/parallel-fasta "${RESOURCES_ARTIFACTS_LAST_ARTIFACT_BINARIES}/bin/lastal -e60 assembled${CURRENT_PART}"  < "unmatched${CURRENT_PART}.fasta"  > "realignment${CURRENT_PART}.maf"
+
+	#	#RESOURCES_ARTIFACTS_LAST_ARTIFACT_BINARIES}/bin/lastal "assembled${CURRENT_PART}" "unmatched${CURRENT_PART}.fasta" > "realignment${CURRENT_PART}.maf"
 		
 		run_goby 4g last-to-compact --only-maf --input "realignment${CURRENT_PART}" --output "realignment${CURRENT_PART}"
 	fi
