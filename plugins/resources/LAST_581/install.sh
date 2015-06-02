@@ -19,7 +19,6 @@ function plugin_install_artifact {
                     mkdir ${installation_path}/bin/
                     cp src/lastdb ${installation_path}/bin/
                     cp src/lastal ${installation_path}/bin/
-                    cp src/lastex ${installation_path}/bin/
                     cp -r scripts ${installation_path}/
                     cp -r examples ${installation_path}/
                 )
