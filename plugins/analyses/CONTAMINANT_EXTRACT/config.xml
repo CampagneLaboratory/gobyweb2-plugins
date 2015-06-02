@@ -41,7 +41,7 @@
             <versionAtLeast>20120518</versionAtLeast>
         </resource>
         <resource>
-            <id>LAST</id>
+            <id>LAST_ARTIFACT</id>
             <versionAtLeast>581</versionAtLeast>
         </resource>
         <resource>
