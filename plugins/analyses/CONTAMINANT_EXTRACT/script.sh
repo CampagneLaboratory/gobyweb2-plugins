@@ -155,16 +155,16 @@ function plugin_alignment_analysis_process {
   	
   	
   	run_goby 2g alignment-to-transcript-counts --parallel "realignment${CURRENT_PART}" -o "realignment${CURRENT_PART}"
-  	
+    local REDUCED_BASENAME=${CURRENT_PART}
   	#format output
   	awk 'NR > 1 { print "'${REDUCED_BASENAME}'", "\t", $2, "\t", int($3), "\t", (int($3) * 100) / '${NUM_UNMATCHED_READS}' }' \
   	   < "realignment${CURRENT_PART}-transcript-counts.txt" > "${TAG}-realignment-${CURRENT_PART}.tsv"
   	
   	dieUponError "Formatting output failed"
   	
-  	#copy working dir files to a temp folder so i can look at them
-  	mkdir -p ${SGE_O_WORKDIR}/tempoutput/part${CURRENT_PART}
-  	cp * ${SGE_O_WORKDIR}/tempoutput/part${CURRENT_PART}
+  	#copy working dir files to a temp folder so when we need to look at them
+  	#mkdir -p ${SGE_O_WORKDIR}/tempoutput/part${CURRENT_PART}
+  	#cp * ${SGE_O_WORKDIR}/tempoutput/part${CURRENT_PART}
   	
   	#copy assembled files back
   	mkdir -p ${SGE_O_WORKDIR}/contigs
