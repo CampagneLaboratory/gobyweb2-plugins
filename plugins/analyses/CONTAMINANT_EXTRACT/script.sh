@@ -147,7 +147,7 @@ function plugin_alignment_analysis_process {
 		
 		run_goby 4g compact-to-fasta --input "unmatched${CURRENT_PART}.compact-reads" --output "unmatched${CURRENT_PART}.fasta"
         # Use parallelization for the last search:
-		${RESOURCES_ARTIFACTS_LAST_ARTIFACT_BINARIES}/parallel-fasta "${RESOURCES_ARTIFACTS_LAST_ARTIFACT_BINARIES}/bin/lastal -e60 assembled${CURRENT_PART}"  < "unmatched${CURRENT_PART}.fasta"  > "realignment${CURRENT_PART}.maf"
+		${RESOURCES_ARTIFACTS_LAST_ARTIFACT_BINARIES}/scripts/parallel-fasta "${RESOURCES_ARTIFACTS_LAST_ARTIFACT_BINARIES}/bin/lastal -e60 assembled${CURRENT_PART}"  < "unmatched${CURRENT_PART}.fasta"  > "realignment${CURRENT_PART}.maf"
 
 	#	#RESOURCES_ARTIFACTS_LAST_ARTIFACT_BINARIES}/bin/lastal "assembled${CURRENT_PART}" "unmatched${CURRENT_PART}.fasta" > "realignment${CURRENT_PART}.maf"
 		
