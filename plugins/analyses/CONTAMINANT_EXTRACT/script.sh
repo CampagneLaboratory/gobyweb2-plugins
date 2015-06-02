@@ -142,7 +142,7 @@ function plugin_alignment_analysis_process {
 	else
 		echo "using LAST to realign reads to contigs"
 		
-		${RESOURCES_ARTIFACTS_LAST_ARTIFACT_BINARIES}/lastdb "assembled${CURRENT_PART}" "assembled${CURRENT_PART}.fasta"
+		${RESOURCES_ARTIFACTS_LAST_ARTIFACT_BINARIES}/bin/lastdb "assembled${CURRENT_PART}" "assembled${CURRENT_PART}.fasta"
 		dieUponError "Could not index assembled file with last"
 		
 		run_goby 4g compact-to-fasta --input "unmatched${CURRENT_PART}.compact-reads" --output "unmatched${CURRENT_PART}.fasta"
