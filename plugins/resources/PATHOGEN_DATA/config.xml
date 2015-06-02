@@ -16,7 +16,7 @@
     <id>PATHOGEN_DATA</id>
     <help>Pathogen data with viral and bacterial nucleotide sequences.
     </help>
-    <version>1.0</version>
+    <version>1.1</version>
     <requires>
         <resource>
             <id>FETCH_URL</id>
