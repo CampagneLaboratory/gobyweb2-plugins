@@ -18,7 +18,7 @@
         mapped to the organism of origin. This plugin will create contigs from unmapped reads, and try to align these
         contigs to viral, fungal or bacterial nucleotide sequences to identify potential sample contaminants/pathogens.
     </help>
-    <version>1.7</version>
+    <version>1.8</version>
     <analysisType>DiffExp</analysisType>
     <minimumNumberOfGroups>1</minimumNumberOfGroups>
     <maximumNumberOfGroups>10</maximumNumberOfGroups>
@@ -42,7 +42,7 @@
         </resource>
         <resource>
             <id>LAST</id>
-            <versionAtLeast>230</versionAtLeast>
+            <versionAtLeast>581</versionAtLeast>
         </resource>
         <resource>
             <id>EXTRACT_NONMATCHED</id>

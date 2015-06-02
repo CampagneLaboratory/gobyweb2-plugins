@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <!--
-  ~ Copyright (c) 2011-2013  by Cornell University  and the  Cornell Research Foundation,
+  ~ Copyright (c) 2011-2014  by Cornell University  and the  Cornell Research Foundation,
   ~ Inc. All Rights Reserved.
   ~
   ~ GobyWeb plugins  are released  under the LGPL3 license,  unless  otherwise specified
@@ -12,24 +12,12 @@
   -->
 <resourceConfig xsi:noNamespaceSchemaLocation="../../../schemas/plugins.xsd"
                 xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
-    <name>Pathogen data</name>
-    <id>PATHOGEN_DATA</id>
-    <help>Pathogen data with viral and bacterial nucleotide sequences.
-    </help>
-    <version>1.0</version>
-    <requires>
-        <resource>
-            <id>FETCH_URL</id>
-            <versionAtLeast>1.2</versionAtLeast>
-        </resource>
-        <resource>
-            <id>LAST_ARTIFACT</id>
-            <versionAtLeast>581</versionAtLeast>
-        </resource>
-    </requires>
+    <name>Last (auto-install)</name>
+    <id>LAST_ARTIFACT</id>
+    <help>Last aligner. Obtained from http://last.cbrc.jp/</help>
+    <version>581</version>
     <artifacts>
-        <artifact id="FUNGI" order="1"/>
-        <artifact id="MICROBIAL" order="2"/>
-        <artifact id="VIRAL" order="3"/>
+        <artifact id="BINARIES"></artifact>
     </artifacts>
+
 </resourceConfig>
