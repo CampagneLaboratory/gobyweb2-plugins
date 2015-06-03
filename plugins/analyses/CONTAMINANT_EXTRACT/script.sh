@@ -121,7 +121,7 @@ function plugin_alignment_analysis_process {
   		sed '/^#/ d' | \
   		awk '{print $2, "\t", "'${SPLIT_NAME}'", "\t", $7, "\t", $9, "\t", $1, "\t", substr($14,3)}' > "${TAG}-results-${CURRENT_PART}.tsv"
   	dieUponError "Could not align assembled file"
-  	head -1000 sample.tsv >${JOB_DIR}/sample-${CURRENT_PART}.tsv
+  	#head -1000 sample.tsv >${JOB_DIR}/sample-${CURRENT_PART}.tsv
   	
   	if [ "${PLUGINS_ALIGNMENT_ANALYSIS_CONTAMINANT_EXTRACT_ALIGNER}" == "BWA" ]; then
 		echo "using BWA to realign reads to contigs"
@@ -158,7 +158,6 @@ function plugin_alignment_analysis_process {
   	#format output, writing the LAST e-value to the realignment.tsv file
   	awk 'NR > 1 { print "'${SPLIT_NAME}'", "\t", $2, "\t", int($4), "\t", (int($4) * 100) / '${NUM_UNMATCHED_READS}' }' \
   	   < "realignment${CURRENT_PART}-transcript-counts.txt" > "${TAG}-realignment-${CURRENT_PART}.tsv"
-  	
   	dieUponError "Formatting output failed"
   	
   	#copy working dir files to a temp folder so when we need to look at them
