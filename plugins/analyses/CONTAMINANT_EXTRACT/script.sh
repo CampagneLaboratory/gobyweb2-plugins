@@ -119,7 +119,7 @@ function plugin_alignment_analysis_process {
 	${RESOURCES_ARTIFACTS_GNU_PARALLEL_BINARIES}/bin/parallel --gnu --pipe --recstart '>' "${RESOURCES_ARTIFACTS_LAST_ARTIFACT_BINARIES}/bin/lastal -f 0 ${REF_BASENAME} "  < "assembled${CURRENT_PART}.fasta" |\
   		tee sample.tsv | \
   		sed '/^#/ d' | \
-  		awk '{print $2, "\t", "'${SPLIT_NAME}'", "\t", $7, "\t", $9, "\t", $1, "\t", $14}' > "${TAG}-results-${CURRENT_PART}.tsv"
+  		awk '{print $2, "\t", "'${SPLIT_NAME}'", "\t", $7, "\t", $9, "\t", $1, "\t", substr($14,3)}' > "${TAG}-results-${CURRENT_PART}.tsv"
   	dieUponError "Could not align assembled file"
   	head -1000 sample.tsv >${JOB_DIR}/sample-${CURRENT_PART}.tsv
   	
