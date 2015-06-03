@@ -3,4 +3,4 @@ set +xv
 . ${JOB_DIR}/auto-options.sh
 . ${TMPDIR}/exports.sh
 set -x
-${RESOURCES_ARTIFACTS_GNU_PARALLEL_BINARIES}/bin/parallel
+${RESOURCES_ARTIFACTS_GNU_PARALLEL_BINARIES}/bin/parallel "$@"
