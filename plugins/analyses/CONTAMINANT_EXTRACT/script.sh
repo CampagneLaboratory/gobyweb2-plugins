@@ -157,8 +157,8 @@ function plugin_alignment_analysis_process {
   	
   	run_goby 2g alignment-to-transcript-counts --parallel "realignment${CURRENT_PART}" -o "realignment${CURRENT_PART}"
     local REDUCED_BASENAME=${CURRENT_PART}
-  	#format output
-  	awk 'NR > 1 { print "'${REDUCED_BASENAME}'", "\t", $2, "\t", int($3), "\t", (int($3) * 100) / '${NUM_UNMATCHED_READS}' }' \
+  	#format output, writing the LAST e-value to the realignment.tsv file
+  	awk 'NR > 1 { print "'${REDUCED_BASENAME}'", "\t", $2, "\t", int($4), "\t", (int($4) * 100) / '${NUM_UNMATCHED_READS}' }' \
   	   < "realignment${CURRENT_PART}-transcript-counts.txt" > "${TAG}-realignment-${CURRENT_PART}.tsv"
   	
   	dieUponError "Formatting output failed"
