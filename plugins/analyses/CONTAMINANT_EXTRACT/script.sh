@@ -116,14 +116,12 @@ function plugin_alignment_analysis_process {
     fi
 
 	#run alignment and print results into tsv format
-	${RESOURCES_ARTIFACTS_LAST_ARTIFACT_BINARIES}/bin/lastal -f 0 ${REF_BASENAME} "assembled${CURRENT_PART}.fasta" | \
+	${RESOURCES_ARTIFACTS_GNU_PARALLEL_BINARIES}/bin/parallel --gnu --pipe --recstart '>' "${RESOURCES_ARTIFACTS_LAST_ARTIFACT_BINARIES}/bin/lastal -f 0 ${REF_BASENAME} "  < "assembled${CURRENT_PART}.fasta" |\
+  		tee sample.tsv | \
   		sed '/^#/ d' | \
-  		awk '{print $2, "\t", "'${SPLIT_NAME}'", "\t", $7, "\t", $9, "\t", $1, "\t", $13}' > "${TAG}-results-${CURRENT_PART}.tsv"
-  		
-  	ls
-  	
+  		awk '{print $2, "\t", "'${SPLIT_NAME}'", "\t", $7, "\t", $9, "\t", $1, "\t", $14}' > "${TAG}-results-${CURRENT_PART}.tsv"
   	dieUponError "Could not align assembled file"
-  	
+  	head -1000 sample.tsv >${JOB_DIR}/sample-${CURRENT_PART}.tsv
   	
   	if [ "${PLUGINS_ALIGNMENT_ANALYSIS_CONTAMINANT_EXTRACT_ALIGNER}" == "BWA" ]; then
 		echo "using BWA to realign reads to contigs"
@@ -147,8 +145,8 @@ function plugin_alignment_analysis_process {
 		
 		run_goby 4g compact-to-fasta --input "unmatched${CURRENT_PART}.compact-reads" --output "unmatched${CURRENT_PART}.fasta"
         # Use parallelization for the last search:
-		${RESOURCES_ARTIFACTS_GNU_PARALLEL_BINARIES}bin/parallel --gnu --pipe --recstart '>' "${RESOURCES_ARTIFACTS_LAST_ARTIFACT_BINARIES}/bin/lastal -e60 assembled${CURRENT_PART}"  < "unmatched${CURRENT_PART}.fasta"  > "realignment${CURRENT_PART}.maf"
-
+		${RESOURCES_ARTIFACTS_GNU_PARALLEL_BINARIES}/bin/parallel --gnu --pipe --recstart '>' "${RESOURCES_ARTIFACTS_LAST_ARTIFACT_BINARIES}/bin/lastal -e60 assembled${CURRENT_PART}"  < "unmatched${CURRENT_PART}.fasta"  > "realignment${CURRENT_PART}.maf"
+        dieUponError "Failed to align reads to contigs"
 	#	#RESOURCES_ARTIFACTS_LAST_ARTIFACT_BINARIES}/bin/lastal "assembled${CURRENT_PART}" "unmatched${CURRENT_PART}.fasta" > "realignment${CURRENT_PART}.maf"
 		
 		run_goby 4g last-to-compact --only-maf --input "realignment${CURRENT_PART}" --output "realignment${CURRENT_PART}"
@@ -158,7 +156,7 @@ function plugin_alignment_analysis_process {
   	run_goby 2g alignment-to-transcript-counts --parallel "realignment${CURRENT_PART}" -o "realignment${CURRENT_PART}"
     local REDUCED_BASENAME=${CURRENT_PART}
   	#format output, writing the LAST e-value to the realignment.tsv file
-  	awk 'NR > 1 { print "'${REDUCED_BASENAME}'", "\t", $2, "\t", int($4), "\t", (int($4) * 100) / '${NUM_UNMATCHED_READS}' }' \
+  	awk 'NR > 1 { print "'${SPLIT_NAME}'", "\t", $2, "\t", int($4), "\t", (int($4) * 100) / '${NUM_UNMATCHED_READS}' }' \
   	   < "realignment${CURRENT_PART}-transcript-counts.txt" > "${TAG}-realignment-${CURRENT_PART}.tsv"
   	
   	dieUponError "Formatting output failed"
@@ -169,7 +167,7 @@ function plugin_alignment_analysis_process {
   	
   	#copy assembled files back
   	mkdir -p ${SGE_O_WORKDIR}/contigs
-  	cp "assembled${CURRENT_PART}.fasta" "${SGE_O_WORKDIR}/contigs/${TAG}-assembled-${REDUCED_BASENAME}.fasta"
+  	cp "assembled${CURRENT_PART}.fasta" "${SGE_O_WORKDIR}/contigs/${TAG}-assembled-${SPLIT_NAME}.fasta"
   	dieUponError "Could not copy back assembled reads"
 }
 
