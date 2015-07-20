@@ -208,8 +208,11 @@ function plugin_alignment_analysis_combine {
     fi
 
 	
+
+	#set the amount of memory allocated needed by the groovy script.
+	export JAVA_OPTS="-Xms3G -Xmx3G"
+
 	#create full output and output summary tsv files
-	
 	${SGE_O_WORKDIR}/OutputFormatter.groovy ${ACCESSION_NAME_MAP} ${TEMPFILE_FULL} ${OUTPUT_FILE_FULL} \
 			${OUTPUT_FILE_SUMM} ${PLUGINS_ALIGNMENT_ANALYSIS_CONTAMINANT_EXTRACT_EVALUE_THRESHOLD} \
 			${PLUGINS_ALIGNMENT_ANALYSIS_CONTAMINANT_EXTRACT_IDENTITY_THRESHOLD}
