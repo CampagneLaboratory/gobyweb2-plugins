@@ -34,11 +34,11 @@
         </resource>
     </requires>
     <runtime>
-        <need scope="GLOBAL" key="h_vmem" value="5G"/>
-        <need scope="GLOBAL" key="virtual_free" value="5G"/>
+        <need scope="GLOBAL" key="h_vmem" value="10G"/>
+        <need scope="GLOBAL" key="virtual_free" value="10G"/>
         <need scope="PROCESS" key="excl" value="false"/>
-        <need scope="PROCESS" key="h_vmem" value="5G"/>
-        <need scope="PROCESS" key="virtual_free" value="5G"/>
+        <need scope="PROCESS" key="h_vmem" value="10G"/>
+        <need scope="PROCESS" key="virtual_free" value="10G"/>
         <need scope="PROCESS_JVM" value="8G"/>
         <need scope="COMBINE" key="excl" value="false"/>
         <need scope="COMBINE" key="h_vmem" value="8G"/>
