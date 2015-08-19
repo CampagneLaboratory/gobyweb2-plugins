@@ -13,7 +13,7 @@ function plugin_install_artifact {
             tar -xzvf R-${VERSION}.tar.gz
 
             cd R-${VERSION}
-            ./configure --prefix=${installation_path}  --enable-R-shlib
+            ./configure --prefix=${installation_path} --enable-R-shlib --with-x=no
             make
             make install
 
