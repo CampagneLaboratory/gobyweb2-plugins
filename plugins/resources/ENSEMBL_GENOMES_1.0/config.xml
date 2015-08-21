@@ -14,8 +14,8 @@
         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
     <name>Ensembl Genomes</name>
     <id>ENSEMBL_GENOMES</id>
-    <help>Genome sequences obtained from Ensembl</help>
-    <version>1.2</version>
+    <help>Genome sequences obtained from Ensembl, or custom sequences</help>
+    <version>1.3</version>
     <requires>
         <resource>
             <id>FETCH_URL</id>
@@ -27,8 +27,8 @@
         <artifact order="1" id="TOPLEVEL">
             <attributes>
                 <attribute name="organism"/>
-                <attribute name="reference-build"/>
-                <attribute name="ensembl-version-number"/>
+                <attribute name="reference-build"/><!-- Use CUSTOM to install a custom sequence -->
+                <attribute name="ensembl-version-number"/><!-- For CUSTOM, use the tag of a fileset of type fasta -->
             </attributes>
         </artifact>
     </artifacts>
