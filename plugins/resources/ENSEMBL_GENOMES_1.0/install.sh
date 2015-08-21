@@ -3,7 +3,7 @@ function plugin_install_artifact {
 
     id=$1
     installation_path=$2
-
+set -x
     case ${id} in
 
 
@@ -17,7 +17,7 @@ function plugin_install_artifact {
             BUILD_NUMBER=`echo ${GENOME_REFERENCE_ID} | awk -F\. '{print $1}'`
 
             if [ "${BUILD_NUMBER}" = "CUSTOM" ]; then
-                install_custom_fasta ${GENOME_REFERENCE_ID}
+                install_custom_fasta ${ENSEMBL_RELEASE}
             else
                 if [ "${BUILD_NUMBER}" = "GRCh37" -o "${BUILD_NUMBER}" = "1000GENOMES" ]; then
                     # For human, use the compatible 1000g assembly instead of the Ensembl build: (coordinates are compatible),
@@ -48,11 +48,11 @@ function plugin_install_artifact {
 
 }
 function install_custom_fasta() {
-   id=$1
-   FASTA_FILE_TAG=`echo ${GENOME_REFERENCE_ID} | awk -F\. '{print $(NF)}'`
+
+   FASTA_FILE_TAG=$1
    # TODO: use fileset --fetch with tag to retrieve the file (to be implemented in the plugins-sdk command line).
    # TODO: For now, just copy from a fixed directory.
-   cp ~gobyweb/tmp/custom-ref-${FASTA_FILE_TAG}.fa.gz custom-${FASTA_FILE_TAG}.dna.toplevel.fa.gz
+   cp ~gobyweb/customs/custom-ref-${FASTA_FILE_TAG}.fa.gz custom-${FASTA_FILE_TAG}.dna.toplevel.fa.gz
 }
 
 function get_attribute_values() {
