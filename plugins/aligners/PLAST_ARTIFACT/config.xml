@@ -31,12 +31,12 @@
         </resource>
         <resource>
             <id>LAST_ARTIFACT</id>
-            <versionExactly>456</versionExactly>
+            <versionExactly>581</versionExactly>
         </resource>
 
         <resource>
             <id>LAST_INDEX</id>
-            <versionAtLeast>456.1</versionAtLeast>
+            <versionAtLeast>581.1</versionAtLeast>
         </resource>
         <resource>
             <id>PLAST</id>
