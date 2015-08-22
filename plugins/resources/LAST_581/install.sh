@@ -21,6 +21,12 @@ function plugin_install_artifact {
                     cp src/lastal ${installation_path}/bin/
                     cp -r scripts ${installation_path}/
                     cp -r examples ${installation_path}/
+                    # older versions of last defined scripts with the .sh or .py extension. Create links to
+                    # maintain backward compatibility:
+                    ln -s ${installation_path}/last-map-probs.py ${installation_path}/last-map-probs
+                    ln -s ${installation_path}/last-pair-probs.py ${installation_path}/last-pair-probs
+                    ln -s ${installation_path}/last-merge-batches.py ${installation_path}/last-merge-batches
+
                 )
             if [ -e ${installation_path}/bin/lastal ]; then
                return 0
