@@ -21,7 +21,7 @@ expose_artifact_environment_variables
 
 
     RESOURCES_LAST_EXEC_PATH=${RESOURCES_ARTIFACTS_LAST_ARTIFACT_BINARIES}/bin/lastal
-    RESOURCES_LAST_MERGE_BATCHES_EXEC=${RESOURCES_ARTIFACTS_LAST_ARTIFACT_BINARIES}/scripts/last-merge-batches.py
+    RESOURCES_LAST_MAP_PROBS_EXEC=${RESOURCES_ARTIFACTS_LAST_ARTIFACT_BINARIES}/scripts/last-map-probs.py
 
 
     ORG=` echo ${ORGANISM} | tr [:lower:] [:upper:]  `
