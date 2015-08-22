@@ -31,7 +31,7 @@
         </resource>
         <resource>
             <id>LAST_ARTIFACT</id>
-            <versionAtLeast>581</versionAtLeast>
+            <versionAtLeast>581.2</versionAtLeast>
         </resource>
         <resource>
             <id>LAST_INDEX</id>
