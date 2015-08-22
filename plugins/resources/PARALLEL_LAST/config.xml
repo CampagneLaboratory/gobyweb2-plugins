@@ -16,7 +16,7 @@
     <id>PLAST</id>
     <help>Wrapper to run last in parallel on a dedicated node./</help>
 
-    <version>1.2</version>
+    <version>1.3</version>
     
     <files>
         <file>
