@@ -14,9 +14,8 @@
                 xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
     <name>GobyWeb server side tools</name>
     <id>GOBYWEB_SERVER_SIDE</id>
-    <help>Server side tools used by many GobyWeb plugins.</help>
+    <help>Server side tools used by many GobyWeb plugins (Java 7 + plugins-SDK support).</help>
     <version>2.6</version>
-    <disabled>true</disabled>
     <requires>
         <resource>
             <id>GROOVY</id>
