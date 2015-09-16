@@ -34,7 +34,7 @@ EOT
                       make
                       make install)
 
-                (${RESOURCES_FETCH_URL_SCRIPT} ftp://ftp.csx.cam.ac.uk/pub/software/programming/pcre/pcre-8.21.tar.gz
+                (${RESOURCES_FETCH_URL_SCRIPT} ftp://ftp.csx.cam.ac.uk/pub/software/programming/pcre/pcre-8.37.tar.gz
                       tar zxvf pcre-8.21.tar.gz
                       cd pcre-8.21
                       ./configure --prefix=${installation_path}
