@@ -21,7 +21,6 @@ expose_artifact_environment_variables
 
 
     RESOURCES_LAST_EXEC_PATH=${RESOURCES_ARTIFACTS_LAST_ARTIFACT_BINARIES}/bin/lastal
-    RESOURCES_LAST_MERGE_BATCHES_EXEC=${RESOURCES_ARTIFACTS_LAST_ARTIFACT_BINARIES}/scripts/last-merge-batches.py
     RESOURCES_LAST_MAP_PROBS_EXEC=${RESOURCES_ARTIFACTS_LAST_ARTIFACT_BINARIES}/scripts/last-map-probs.py
 
 
@@ -39,12 +38,12 @@ expose_artifact_environment_variables
     fi
 
     ${RESOURCES_LAST_EXEC_PATH} -i1 -s2 -Q1 -d${PLUGINS_ALIGNER_PLAST_ARTIFACT_D} \
-        -e${PLUGINS_ALIGNER_PLAST_ARTIFACT_E} ${INDEX_DIRECTORY}/index ${READS_FASTQ} -o ${TEMP_FILENAME}.maf
+        -e${PLUGINS_ALIGNER_PLAST_ARTIFACT_E} ${INDEX_DIRECTORY}/index ${READS_FASTQ} > ${TEMP_FILENAME}.maf
     # dieUponError "last could not align reads"
 
     if [ "${PAIRED_END_ALIGNMENT}" == "true" ]; then
         ${RESOURCES_LAST_EXEC_PATH} -i1 -s2 -Q1 -d${PLUGINS_ALIGNER_PLAST_ARTIFACT_D} \
-           -e${PLUGINS_ALIGNER_PLAST_ARTIFACT_E} ${INDEX_DIRECTORY}/index ${PAIRS_FASTQ} -o ${TEMP_FILENAME}-pairs.maf
+           -e${PLUGINS_ALIGNER_PLAST_ARTIFACT_E} ${INDEX_DIRECTORY}/index ${PAIRS_FASTQ} > ${TEMP_FILENAME}-pairs.maf
       #  dieUponError "last could not align paired reads"
         ${RESOURCES_ARTIFACTS_LAST_ARTIFACT_BINARIES}/scripts/last-pair-probs.py ${TEMP_FILENAME}.maf ${TEMP_FILENAME}-pairs.maf > ${TEMP_FILENAME}-2.maf
         if [ $? != 0 ]; then

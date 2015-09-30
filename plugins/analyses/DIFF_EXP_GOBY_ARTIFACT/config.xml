@@ -29,7 +29,7 @@
     <requires>
         <resource>
             <id>GOBY</id>
-            <versionAtLeast>20120722101632</versionAtLeast>
+            <versionAtLeast>20150822175223</versionAtLeast>
         </resource>
         <resource>
             <id>ENSEMBL_ANNOTATIONS</id>

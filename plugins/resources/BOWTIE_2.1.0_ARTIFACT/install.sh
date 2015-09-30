@@ -18,7 +18,7 @@ function plugin_install_artifact {
                 cp bowtie2 ${installation_path}/
                 cp bowtie2-build ${installation_path}/
                 cp bowtie2-align ${installation_path}/
-                cp bowtie2-inpect ${installation_path}/
+                cp bowtie2-inspect ${installation_path}/
                 chmod +x ${installation_path}/*
             )
             if [ -e ${installation_path}/bowtie2 ]; then
