@@ -16,7 +16,9 @@ function plugin_install_artifact {
                     gzip  -c -d  boost.tar.gz|tar -xvf -
                     cd boost_1_59_0
                     ./bootstrap.sh --prefix=${installation_path}
-                    ./b2 install
+                    # install will `fail' with status 1 because we don't install optional components. See http://stackoverflow.com/questions/12906829/failed-updating-58-targets-when-trying-to-build-boost-what-happened
+                    # ignore the 1 status.
+                    ./b2 install || echo "success"
                 )
             if [ -e ${installation_path}/lib ]; then
                return 0
