@@ -11,7 +11,7 @@ function plugin_install_artifact {
             ${RESOURCES_FETCH_URL_SCRIPT} https://github.com/pachterlab/kallisto/archive/v$VERSION.tar.gz kallisto.tar.gz
             tar -zxvf kallisto.tar.gz
             cd kallisto-$VERSION
-            make build
+            mkdir build
             cd build
             cmake -DCMAKE_INSTALL_PREFIX=${installation_path}  ..
             make
