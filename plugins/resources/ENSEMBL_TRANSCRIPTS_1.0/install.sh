@@ -22,9 +22,7 @@ set -x
                 if ["${BUILD_NUMBER}" = "1000GENOMES" ]; then
                  fail "1000GENOMES is not supported for transcripts."
                 else
-                ftp://ftp.ensembl.org/pub/release-82/fasta/homo_sapiens/cdna/Homo_sapiens.GRCh38.cdna.all.fa.gz
-                    ${RESOURCES_FETCH_URL_SCRIPT_PATTERN} "ftp://ftp.ensembl.org/pub/release-${ENSEMBL_RELEASE}/fasta/${ORG_LOWERCASE}/cdna/" ".dna.toplevel.fa.gz"
-
+                  ${RESOURCES_FETCH_URL_SCRIPT_PATTERN} "ftp://ftp.ensembl.org/pub/release-${ENSEMBL_RELEASE}/fasta/${ORG_LOWERCASE}/cdna/" ".cdna.all.fa.gz"
                 fi
             fi
             cp *.cdna.all.fa.gz ${installation_path}/transcripts-all.fasta.gz
