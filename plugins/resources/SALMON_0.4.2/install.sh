@@ -23,7 +23,7 @@ function plugin_install_artifact {
                     rm -fr  CMakeCache.txt CMakeFiles
                     export BOOST_INCLUDEDIR=${RESOURCES_ARTIFACTS_BOOST_LIB_BINARIES}/include
                     export BOOST_LIBRARYDIR=${RESOURCES_ARTIFACTS_BOOST_LIB_BINARIES}/lib
-                    cmake -DBOOST_ROOT=${RESOURCES_ARTIFACTS_BOOST_LIB_BINARIES} -DCMAKE_INSTALL_PREFIX=${installation_path} -DBOOST_INCLUDEDIR=${BOOST_INCLUDEDIR} -DBOOST_LIBRARYDIR=${BOOST_LIBRARYDIR}
+                    cmake  -DFETCH_BOOST=TRUE -DCMAKE_INSTALL_PREFIX=${installation_path}
                     make
                     make install
 # Create a setup script, which will set LD_LIBRARY_PATH:

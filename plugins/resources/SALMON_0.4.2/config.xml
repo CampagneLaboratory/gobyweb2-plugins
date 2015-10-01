@@ -16,12 +16,12 @@
     <id>SALMON</id>
     <help>Salmon pseudo-aligner. Obtained from https://combine-lab.github.io/salmon</help>
     <version>0.4.2</version>
-    <requires>
+    <!--requires> Salmon now installs BOOST directly.
         <resource>
             <id>BOOST_LIB</id>
             <versionAtLeast>1.59.0</versionAtLeast>
         </resource>
-    </requires>
+    </requires-->
     <artifacts>
         <artifact id="BINARIES"></artifact>
     </artifacts>
