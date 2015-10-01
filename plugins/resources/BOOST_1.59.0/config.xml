@@ -15,7 +15,7 @@
     <name>Boost libraries</name>
     <id>BOOST_LIB</id>
     <help>Boost libraries, from http://www.boost.org/</help>
-    <version>1.59.0</version>
+    <version>1.59.0.2</version>
     <artifacts>
         <artifact id="BINARIES"></artifact>
     </artifacts>

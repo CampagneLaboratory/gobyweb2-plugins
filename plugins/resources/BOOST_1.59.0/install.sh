@@ -15,7 +15,7 @@ function plugin_install_artifact {
                     ${RESOURCES_FETCH_URL_SCRIPT} http://sourceforge.net/projects/boost/files/boost/1.59.0/boost_1_59_0.tar.gz/download boost.tar.gz
                     gzip  -c -d  boost.tar.gz|tar -xvf -
                     cd boost_1_59_0
-                    ./bootstrap.sh --prefix=${installation_path}
+                    ./bootstrap.sh --prefix=${installation_path} --with-libraries=atomic,chrono,container,date_time,exception,filesystem,graph,graph_parallel,math,program_options,system,thread,timer,iostreams,serialization
                     # install will `fail' with status 1 because we don't install optional components. See http://stackoverflow.com/questions/12906829/failed-updating-58-targets-when-trying-to-build-boost-what-happened
                     # ignore the 1 status.
                     ./b2 install || echo "success"
