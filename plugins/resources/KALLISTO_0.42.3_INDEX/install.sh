@@ -9,13 +9,16 @@ function plugin_install_artifact {
         'INDEX' )
 
                 (
-                VERSION="0.42.3"
-                    set -x
-                    ENSEMBL_TRANSCRIPTS_DIR=$(eval echo \${RESOURCES_ARTIFACTS_ENSEMBL_TRANSCRIPTS_TOPLEVEL_${ORGANISM}_${BUILD_NUMBER}_${ENSEMBL_RELEASE}})
-                    cp ${ENSEMBL_TRANSCRIPTS_DIR}/*.fasta.gz transcripts.fa.gz
-                    gunzip  transcripts.fa.gz
-                    ${RESOURCES_ARTIFACTS_KALLISTO_BINARIES}/bin/kallisto index -i transcripts_index transcripts.fasta
-                    cp transcripts_index ${installation_path}/
+                  ORGANISM=$3
+                  BUILD_NUMBER=$4
+                  ENSEMBL_RELEASE=$5
+                  VERSION="0.42.3"
+                  set -x
+                  ENSEMBL_TRANSCRIPTS_DIR=$(eval echo \${RESOURCES_ARTIFACTS_ENSEMBL_TRANSCRIPTS_TOPLEVEL_${ORGANISM}_${BUILD_NUMBER}_${ENSEMBL_RELEASE}})
+                  cp ${ENSEMBL_TRANSCRIPTS_DIR}/*.fasta.gz transcripts.fasta.gz
+                  gunzip  transcripts.fasta.gz
+                  ${RESOURCES_ARTIFACTS_KALLISTO_BINARIES}/bin/kallisto index -i transcripts_index transcripts.fasta
+                  cp transcripts_index ${installation_path}/
                 )
             if [ -e ${installation_path}/transcripts_index ]; then
                return 0
