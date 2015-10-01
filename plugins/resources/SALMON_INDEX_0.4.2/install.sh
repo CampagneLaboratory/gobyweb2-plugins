@@ -6,7 +6,7 @@ function plugin_install_artifact {
 
     case ${id} in
 
-        'BINARIES' )
+        'INDEX' )
 
                 (
                 VERSION="0.4.2"

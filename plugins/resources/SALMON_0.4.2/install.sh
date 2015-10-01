@@ -12,26 +12,18 @@ function plugin_install_artifact {
                 VERSION="0.4.2"
                     set -x
                     yum install -y autoconf268.noarch
-                    # relying on fetching boost is not very stable: the Fossies archive could ban your IP if you download boost too often
-                    # This is not a problem when gobyweb caches downloads, but inside a container the cache does not contain the archive..
-                    # yum install -y boost.i686
-                    ${RESOURCES_FETCH_URL_SCRIPT} http://sourceforge.net/projects/boost/files/boost/1.59.0/boost_1_59_0.tar.gz/download boost.tar.gz
-                    gzip  -c -d  boost.tar.gz|tar -xvf -
-                    cd boost_1_59_0
-                    ./bootstrap.sh --prefix=${installation_path}
-                    ./b2 install
-                    cd ..
                     ${RESOURCES_FETCH_URL_SCRIPT} https://github.com/COMBINE-lab/salmon/archive/v${VERSION}.tar.gz Salmon-src-dist.tar.gz
                     ls -ltrh
                     gzip  -c -d Salmon-src-dist.tar.gz |tar -xvf -
-
                     cd  salmon-${VERSION}
 
 # the doc told us to, but we don't or the file CMakeLists.txt cannot be found
 #                    mkdir build
 #                    cd build
                     rm -fr  CMakeCache.txt CMakeFiles
-                    cmake  -DCMAKE_INSTALL_PREFIX=${installation_path} -DBOOST_ROOT=${RESOURCES_ARTIFACT_BOOST_LIB_BINARIES} # -DFETCH_BOOST=TRUE
+                    export BOOST_INCLUDEDIR=${RESOURCES_ARTIFACTS_BOOST_LIB_BINARIES}/include
+                    export BOOST_LIBRARYDIR=${RESOURCES_ARTIFACTS_BOOST_LIB_BINARIES}/lib
+                    cmake -DBOOST_ROOT=${RESOURCES_ARTIFACTS_BOOST_LIB_BINARIES} -DCMAKE_INSTALL_PREFIX=${installation_path} -DBOOST_INCLUDEDIR=${BOOST_INCLUDEDIR} -DBOOST_LIBRARYDIR=${BOOST_LIBRARYDIR}
                     make
                     make install
 # Create a setup script, which will set LD_LIBRARY_PATH:
