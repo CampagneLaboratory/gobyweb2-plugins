@@ -53,14 +53,15 @@ function plugin_install_artifact {
             mkdir -p $installation_path/auto-load/usr/lib
             mkdir -p gcc-build && cd gcc-build
 
-            # find mv .py command is due to this ldconfig error (gcc copies some .py files into /usr/local/lib64/)
-            # ldconfig: /usr/local/lib/../lib64/libstdc++.so.6.0.20-gdb.py is not an ELF file - it has the wrong magic bytes at the start.
             ${SOURCE_DIR}/configure --enable-shared --prefix=$installation_path  --enable-bootstrap --enable-languages=c,c++ --enable-libgomp --enable-threads=posix --with-gmp=$installation_path --with-mpfr=$installation_path \
              --with-mpc=$installation_path --with-fpmath=sse --disable-multilib
             # force to create sym links instead of hard links (not allowed in the artifact repo mounted on docker)
             alias ln='ln -s'
             echo "alias ln='ln -s'" >> $HOME/.bashrc
             make && make install
+
+            # find mv .py command is due to this ldconfig error (gcc copies some .py files into /usr/local/lib64/)
+            # ldconfig: /usr/local/lib/../lib64/libstdc++.so.6.0.20-gdb.py is not an ELF file - it has the wrong magic bytes at the start.
             find . -iname "*.py" -exec mv {} $installation_path/auto-load/usr/lib/ \; && ldconfig
 
             if [ -e ${installation_path}/bin/gcc ] && [ -e ${installation_path}/bin/g++ ]; then
