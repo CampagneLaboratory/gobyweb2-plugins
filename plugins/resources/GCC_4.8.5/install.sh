@@ -7,12 +7,9 @@ function plugin_install_artifact {
 
         'BINARIES' )
             VERSION="4.8.5"
-            #installation_path=/tmp/gcc-bin
-            set -x
             ${RESOURCES_FETCH_URL_SCRIPT} http://ftp.gnu.org/gnu/gcc/gcc-$VERSION/gcc-$VERSION.tar.gz gcc-$VERSION.tar.gz
             tar -zxvf gcc-$VERSION.tar.gz
             cd gcc-$VERSION
-            LOGFILE=/tmp/gcc_install.log
             SOURCE_DIR=$(pwd)
 
             ## from here: script adapted from https://gist.github.com/pmalek/5da2e947a51aa773da80
