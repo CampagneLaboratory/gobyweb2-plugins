@@ -12,29 +12,18 @@
   -->
 <resourceConfig xsi:noNamespaceSchemaLocation="../../../schemas/plugins.xsd"
                 xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
-    <name>Salmon index</name>
-    <id>SALMON_INDEX</id>
-    <help>Transcript index for salmon pseudo-aligner.</help>
-    <version>0.4.2</version>
-   <requires>
-       <resource>
-           <id>SALMON</id>
-           <versionAtLeast>0.4.2</versionAtLeast>
-       </resource>
-       <resource>
-           <id>ENSEMBL_TRANSCRIPTS</id>
-           <versionAtLeast>1.0</versionAtLeast>
-       </resource>
-   </requires>
+    <name>Salmon</name>
+    <id>SALMON</id>
+    <help>Salmon pseudo-aligner. Obtained from https://combine-lab.github.io/salmon</help>
+    <version>0.5.0</version>
+    <!--requires> Salmon now installs BOOST directly.
+        <resource>
+            <id>BOOST_LIB</id>
+            <versionAtLeast>1.59.0</versionAtLeast>
+        </resource>
+    </requires-->
     <artifacts>
-        <artifact id="INDEX">
-            <attributes>
-                <attribute name="organism"/>
-                <attribute name="reference-build"/><!-- Use CUSTOM to install a custom sequence -->
-                <attribute name="ensembl-version-number"/><!-- For CUSTOM, use the tag of a fileset of type fasta -->
-            </attributes>
-        </artifact>
-
+        <artifact id="BINARIES"></artifact>
     </artifacts>
 
 </resourceConfig>

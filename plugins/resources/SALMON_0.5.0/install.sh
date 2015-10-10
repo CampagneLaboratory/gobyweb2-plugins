@@ -9,7 +9,7 @@ function plugin_install_artifact {
         'BINARIES' )
 
                 (
-                VERSION="0.4.2"
+                VERSION="0.5.0"
                     set -x
                     yum install -y autoconf268.noarch
                     ${RESOURCES_FETCH_URL_SCRIPT} https://github.com/COMBINE-lab/salmon/archive/v${VERSION}.tar.gz Salmon-src-dist.tar.gz

@@ -9,7 +9,7 @@ function plugin_install_artifact {
         'INDEX' )
 
                 (
-                VERSION="0.4.2"
+                VERSION="0.5.0"
                     set -x
                     . ${RESOURCES_ARTIFACTS_SALMON_BINARIES}/setup.sh
                     cp ${RESOURCES_ARTIFACTS_ENSEMBL_TRANSCRIPTS_TOPLEVEL}/*.fa.gz transcripts.fa.gz
