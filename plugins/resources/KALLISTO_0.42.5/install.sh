@@ -8,7 +8,7 @@ function plugin_install_artifact {
         'BINARIES' )
             VERSION="0.42.5"
             set -x
-            ${RESOURCES_FETCH_URL_SCRIPT} https://github.com/pachterlab/kallisto/releases/download/v$VERSION/kallisto_linux-v$VERSION.tar.gz kallisto.tar.gz
+            ${RESOURCES_FETCH_URL_SCRIPT} https://github.com/pachterlab/kallisto/archive/v$VERSION.tar.gz kallisto.tar.gz
             tar -zxvf kallisto.tar.gz
             cd kallisto-$VERSION
             mkdir build
