@@ -9,7 +9,6 @@ function plugin_install_artifact {
             VERSION="8u92"
             VERSIONALT="1.80_92"
             set -x
-http://download.oracle.com/otn-pub/java/jdk/$VERSION-b14/jre-$VERSION-linux-x64.tar.gz
             ${RESOURCES_FETCH_URL_SCRIPT} http://download.oracle.com/otn-pub/java/jdk/$VERSION-b14/jre-$VERSION-linux-x64.tar.gz java.tar.gz
             tar -zxvf java.tar.gz -C /${installation_path}
             cd jre$VERSIONALT
