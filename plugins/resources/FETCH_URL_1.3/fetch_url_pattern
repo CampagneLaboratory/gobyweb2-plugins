@@ -1,0 +1,62 @@
+#!/bin/bash
+URL_CACHE_ROOT=~/url-cache
+
+. ${JOB_DIR}/auto-options.sh
+
+. $RESOURCES_BASH_LIBRARY_CALCULATE_MD5
+
+function fetch_url_pattern {
+   url=$1
+   pattern=$2
+
+   if [ $# -ge 3 ]; then
+      URL_CACHE_ROOT=$3
+      echo "URL_CACHE_ROOT=${URL_CACHE_ROOT}"
+   fi
+   if [ $# -ge 4 ]; then
+            COOKIES="--cookie $4"
+            echo "COOKIES=${COOKIES}"
+      fi
+   echo "Fetching patterns from url ${url}"
+   echo "Pattern: ${pattern}"
+
+   FILENAMES=`curl -l  "${url}" | grep ${pattern}`
+
+   for filename in $FILENAMES
+   do
+       FILE_URL="${url}/${filename}"
+       echo "Downloading ${FILE_URL}"
+       calculateMD5 "${url}/${filename}"
+       MD5=$RESULT
+       echo "${MD5}"
+
+       while [ -e ${URL_CACHE_ROOT}/${MD5}/BUSY ]
+       do
+             # wait until another resource has finished working on cache.
+             echo "Waiting while another process grabs the url. Detected BUSY lock at ${URL_CACHE_ROOT}/${MD5} for ${FILE_URL}"
+             sleep 30
+       done
+
+       if [ -e ${URL_CACHE_ROOT}/${MD5} -a ${URL_CACHE_ROOT}/${MD5}/READY  ]; then
+         cp ${URL_CACHE_ROOT}/${MD5}/${filename} ./${filename}
+       else
+
+          mkdir -p ${URL_CACHE_ROOT}/${MD5}
+          touch ${URL_CACHE_ROOT}/${MD5}/BUSY
+          echo ${FILE_URL} >${URL_CACHE_ROOT}/${MD5}/url.txt
+          curl ${COOKIES} --insecure --location ${FILE_URL} > ${URL_CACHE_ROOT}/${MD5}/${filename}
+          if [ $? == 0 ]; then
+            cp ${URL_CACHE_ROOT}/${MD5}/${filename} ./${filename}
+            touch ${URL_CACHE_ROOT}/${MD5}/READY
+          else
+             rm -fr ${URL_CACHE_ROOT}/${MD5}/${filename}
+             touch  ${URL_CACHE_ROOT}/${MD5}/FAILED
+             echo "Download failed for url ${FILE_URL}"
+          fi
+       fi
+       rm -f ${URL_CACHE_ROOT}/${MD5}/BUSY
+   done
+
+}
+
+fetch_url_pattern "$@"

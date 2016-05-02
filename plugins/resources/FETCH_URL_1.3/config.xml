@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<!--
+  ~ Copyright (c) 2011-2013  by Cornell University  and the  Cornell Research Foundation,
+  ~ Inc. All Rights Reserved.
+  ~
+  ~ GobyWeb plugins  are released  under the LGPL3 license,  unless  otherwise specified
+  ~ by the license of a specific plugin. See the file LGPL3.license in this distribution
+  ~ for a copy of the LGPL license.
+  ~
+  ~ When a plugin is not released under the LGPL3 license,  the comments  at the top  of
+  ~ the plugin's config.xml will indicate how that specific plugin is released/licensed.
+  -->
+<resourceConfig xsi:noNamespaceSchemaLocation="../../../schemas/plugins.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <name>Fetch and cache URL content</name>
+    <id>FETCH_URL</id>
+    <help>Fetch and cache URL content. This resource uses curl to download data from URLs. It then caches the content in a configurable
+    cache directory. The cache is used whenever the same URL needs to be fetched again.</help>
+    <version>1.3</version>
+    <requires>
+        <resource>
+            <id>BASH_LIBRARY</id>
+            <versionAtLeast>1.0</versionAtLeast>
+        </resource>
+    </requires>
+    <files>
+        <file>
+            <id>SCRIPT</id>
+            <filename>fetch_url</filename>
+        </file>
+        <file>
+            <id>SCRIPT_PATTERN</id>
+            <filename>fetch_url_pattern</filename>
+        </file>
+    </files>
+</resourceConfig>
