@@ -9,7 +9,7 @@ function plugin_install_artifact {
             VERSION="8u92"
             VERSIONALT="1.80_92"
             set -x
-            ${RESOURCES_FETCH_URL_SCRIPT} http://download.oracle.com/otn-pub/java/jdk/$VERSION-b14/jdk-$VERSION-linux-x64.tar.gz java.tar.gz
+            ${RESOURCES_FETCH_URL_SCRIPT} http://download.oracle.com/otn-pub/java/jdk/$VERSION-b14/jdk-$VERSION-linux-x64.tar.gz java.tar.gz "" "gpw_e24=http%3A%2F%2Fwww.oracle.com%2F; oraclelicense=accept-securebackup-cookie"
             tar -zxvf java.tar.gz -C /${installation_path}
             cd jre$VERSIONALT
             if [ -e ${installation_path}/bin/java ]; then
