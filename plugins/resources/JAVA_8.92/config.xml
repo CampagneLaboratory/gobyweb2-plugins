@@ -14,12 +14,12 @@
                 xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
     <name>java</name>
     <id>JAVA</id>
-    <help>Java runtime</help>
+    <help>Java sdk</help>
     <version>1.8</version>
     <requires>
         <resource>
             <id>FETCH_URL</id>
-            <versionAtLeast>1.8</versionAtLeast>
+            <versionAtLeast>1.2</versionAtLeast>
         </resource>
     </requires>
     <artifacts>
