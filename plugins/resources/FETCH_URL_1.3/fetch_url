@@ -14,13 +14,14 @@ function fetch_url {
           filename=`basename ${url}`
    fi
    if [ $# -ge 3 ]; then
-      URL_CACHE_ROOT=$3
-      echo "URL_CACHE_ROOT=${URL_CACHE_ROOT}"
+          COOKIES="--cookie \"$3\""
+          echo "COOKIES=${COOKIES}"
    fi
    if [ $# -ge 4 ]; then
-         COOKIES=$4
-         echo "COOKIES=${COOKIES}"
+      URL_CACHE_ROOT=$4
+      echo "URL_CACHE_ROOT=${URL_CACHE_ROOT}"
    fi
+
    echo "Fetching url ${url}"
 
 
@@ -45,7 +46,7 @@ function fetch_url {
       touch ${URL_CACHE_ROOT}/${MD5}/BUSY
       echo ${url} >${URL_CACHE_ROOT}/${MD5}/url.txt
       echo “hi”
-      curl ${COOKIES} ${url} > ${URL_CACHE_ROOT}/${MD5}/${filename}
+      curl ${COOKIES} --insecure --location ${url} > ${URL_CACHE_ROOT}/${MD5}/${filename}
       if [ $? == 0 ]; then
         echo "cp ${URL_CACHE_ROOT}/${MD5}/${filename} ./${filename}"
         cp ${URL_CACHE_ROOT}/${MD5}/${filename} ./${filename}
