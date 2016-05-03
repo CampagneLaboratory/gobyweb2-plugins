@@ -19,7 +19,7 @@
     <requires>
         <resource>
             <id>FETCH_URL</id>
-            <versionAtLeast>1.2</versionAtLeast>
+            <versionAtLeast>1.3</versionAtLeast>
         </resource>
     </requires>
     <artifacts>
