@@ -18,7 +18,7 @@ function fetch_url {
       echo "URL_CACHE_ROOT=${URL_CACHE_ROOT}"
    fi
    if [ $# -ge 4 ]; then
-         COOKIES="--cookie $4"
+         COOKIES=$4
          echo "COOKIES=${COOKIES}"
    fi
    echo "Fetching url ${url}"
@@ -44,7 +44,8 @@ function fetch_url {
       mkdir -p ${URL_CACHE_ROOT}/${MD5}
       touch ${URL_CACHE_ROOT}/${MD5}/BUSY
       echo ${url} >${URL_CACHE_ROOT}/${MD5}/url.txt
-      curl ${COOKIES} --insecure --location ${url} > ${URL_CACHE_ROOT}/${MD5}/${filename}
+      echo “hi”
+      curl ${COOKIES} ${url} > ${URL_CACHE_ROOT}/${MD5}/${filename}
       if [ $? == 0 ]; then
         echo "cp ${URL_CACHE_ROOT}/${MD5}/${filename} ./${filename}"
         cp ${URL_CACHE_ROOT}/${MD5}/${filename} ./${filename}
