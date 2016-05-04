@@ -40,20 +40,26 @@ function plugin_install_artifact {
 
             # install gmp
             cd ${SOURCE_DIR}/gmp
-            ./configure --enable-shared --enable-static --prefix=$installation_path && \
+            mkdir $installation_path/gmp
+            ./configure --enable-shared --enable-static --prefix=$installation_path/gmp && \
             make && make check && make install
+            make distclean
             echo "gmp Installed"
 
             # install mpfr
             cd ${SOURCE_DIR}/mpfr
-            ./configure --enable-shared --enable-static --prefix=$installation_path --with-gmp=$installation_path && \
+            mkdir $installation_path/mpfr
+            ./configure --enable-shared --enable-static --prefix=$installation_path/mpfr --with-gmp=$installation_path/gmp && \
             make && make check && make install
+            make distclean
             echo "mpfr Installed"
 
             # install mpc
             cd ${SOURCE_DIR}/mpc
-            ./configure --enable-shared --enable-static --prefix=$installation_path --with-gmp=$installation_path --with-mpfr=$installation_path && \
+            mkdir $installation_path/mpc
+            ./configure --enable-shared --enable-static --prefix=$installation_path/mpc --with-gmp=$installation_path/gmp --with-mpfr=$installation_path/mpfr && \
             make && make check && make install
+            make distclean
             echo "mpc Installed"
 
             echo $installation_path/lib/ >> /etc/ld.so.conf
@@ -64,13 +70,13 @@ function plugin_install_artifact {
             ulimit -s 32768 # for gcc tests
             mkdir -p $installation_path/auto-load/usr/lib
             mkdir -p gcc-build && cd gcc-build
-            make distclean
-            ${SOURCE_DIR}/configure --enable-shared --prefix=$installation_path  --enable-bootstrap --enable-languages=c,c++ --enable-libgomp --enable-threads=posix --with-gmp=$installation_path --with-mpfr=$installation_path \
-             --with-mpc=$installation_path --with-fpmath=sse --disable-multilib
+            ${SOURCE_DIR}/configure --enable-shared --prefix=$installation_path  --enable-bootstrap --enable-languages=c,c++ --enable-libgomp --enable-threads=posix --with-gmp=$installation_path/gmp --with-mpfr=$installation_path/mpfr \
+             --with-mpc=$installation_path/mpc --with-fpmath=sse --disable-multilib MAKEINFO=missing
             # force to create sym links instead of hard links (not allowed in the artifact repo mounted on docker)
             alias ln='ln -s'
             echo "alias ln='ln -s'" >> $HOME/.bashrc
-            make && make install
+            make
+            make install
 
             # find mv .py command is due to this ldconfig error (gcc copies some .py files into /usr/local/lib64/)
             # ldconfig: /usr/local/lib/../lib64/libstdc++.so.6.0.20-gdb.py is not an ELF file - it has the wrong magic bytes at the start.
