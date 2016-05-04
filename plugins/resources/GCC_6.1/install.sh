@@ -37,7 +37,7 @@ function plugin_install_artifact {
               echo "There is no mpc directory in $(pwd). Please run download_prerequisites."
               return 127
             fi
-
+<<"TRYAUTOINSTALL"
             # install gmp
             cd ${SOURCE_DIR}/gmp
             mkdir $installation_path/gmp
@@ -61,7 +61,7 @@ function plugin_install_artifact {
             make && make check && make install
             make distclean
             echo "mpc Installed"
-
+TRYAUTOINSTALL
             echo $installation_path/lib/ >> /etc/ld.so.conf
             echo $installation_path/lib64/ >> /etc/ld.so.conf
             ldconfig
@@ -70,7 +70,8 @@ function plugin_install_artifact {
             ulimit -s 32768 # for gcc tests
             mkdir -p $installation_path/auto-load/usr/lib
             mkdir -p gcc-build && cd gcc-build
-            ${SOURCE_DIR}/configure --enable-shared --prefix=$installation_path  --enable-bootstrap --enable-languages=c,c++ --enable-libgomp --enable-threads=posix --with-gmp=$installation_path/gmp --with-mpfr=$installation_path/mpfr \
+            ${SOURCE_DIR}/configure --enable-shared --prefix=$installation_path  --enable-bootstrap --enable-languages=c,c++ --enable-libgomp --enable-threads=posix --with-fpmath=sse --disable-multilib MAKEINFO=missing
+            # ${SOURCE_DIR}/configure --enable-shared --prefix=$installation_path  --enable-bootstrap --enable-languages=c,c++ --enable-libgomp --enable-threads=posix --with-gmp=$installation_path/gmp --with-mpfr=$installation_path/mpfr \
              --with-mpc=$installation_path/mpc --with-fpmath=sse --disable-multilib MAKEINFO=missing
             # force to create sym links instead of hard links (not allowed in the artifact repo mounted on docker)
             alias ln='ln -s'
