@@ -8,6 +8,7 @@ function plugin_install_artifact {
 
         'BINARIES' )
             VERSION="6.1.0"
+            PROCUNITS=$(nproc)
             set -x
             #${RESOURCES_FETCH_URL_SCRIPT} http://mirrors-usa.go-parts.com/gcc/releases/gcc-$VERSION/gcc-$VERSION.tar.gz gcc.tar.gz
             #${RESOURCES_FETCH_URL_SCRIPT} http://mirrors.concertpass.com/gcc/releases/gcc-$VERSION/gcc-$VERSION.tar.gz gcc.tar.gz
@@ -52,7 +53,7 @@ function plugin_install_artifact {
             # force to create sym links instead of hard links (not allowed in the artifact repo mounted on docker)
             alias ln='ln -s'
             echo "alias ln='ln -s'" >> $HOME/.bashrc
-            make
+            make -j $PROCUNITS
             make install
 
             if [ -e ${installation_path}/bin/gcc ] && [ -e ${installation_path}/bin/g++ ]; then
