@@ -37,31 +37,7 @@ function plugin_install_artifact {
               echo "There is no mpc directory in $(pwd). Please run download_prerequisites."
               return 127
             fi
-<<"TRYAUTOINSTALL"
-            # install gmp
-            cd ${SOURCE_DIR}/gmp
-            mkdir $installation_path/gmp
-            ./configure --enable-shared --enable-static --prefix=$installation_path/gmp && \
-            make && make check && make install
-            make distclean
-            echo "gmp Installed"
 
-            # install mpfr
-            cd ${SOURCE_DIR}/mpfr
-            mkdir $installation_path/mpfr
-            ./configure --enable-shared --enable-static --prefix=$installation_path/mpfr --with-gmp=$installation_path/gmp && \
-            make && make check && make install
-            make distclean
-            echo "mpfr Installed"
-
-            # install mpc
-            cd ${SOURCE_DIR}/mpc
-            mkdir $installation_path/mpc
-            ./configure --enable-shared --enable-static --prefix=$installation_path/mpc --with-gmp=$installation_path/gmp --with-mpfr=$installation_path/mpfr && \
-            make && make check && make install
-            make distclean
-            echo "mpc Installed"
-TRYAUTOINSTALL
             echo $installation_path/lib/ >> /etc/ld.so.conf
             echo $installation_path/lib64/ >> /etc/ld.so.conf
             ldconfig
@@ -78,10 +54,6 @@ TRYAUTOINSTALL
             echo "alias ln='ln -s'" >> $HOME/.bashrc
             make
             make install
-
-            # find mv .py command is due to this ldconfig error (gcc copies some .py files into /usr/local/lib64/)
-            # ldconfig: /usr/local/lib/../lib64/libstdc++.so.6.0.20-gdb.py is not an ELF file - it has the wrong magic bytes at the start.
-            find . -iname "*.py" -exec mv {} $installation_path/auto-load/usr/lib/ \; && ldconfig
 
             if [ -e ${installation_path}/bin/gcc ] && [ -e ${installation_path}/bin/g++ ]; then
                echo "gcc $VERSION Installed!"
