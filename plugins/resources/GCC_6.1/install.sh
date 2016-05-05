@@ -10,9 +10,9 @@ function plugin_install_artifact {
             VERSION="6.1.0"
             PROCUNITS=$(nproc)
             set -x
-            #${RESOURCES_FETCH_URL_SCRIPT} http://mirrors-usa.go-parts.com/gcc/releases/gcc-$VERSION/gcc-$VERSION.tar.gz gcc.tar.gz
+            ${RESOURCES_FETCH_URL_SCRIPT} http://mirrors-usa.go-parts.com/gcc/releases/gcc-$VERSION/gcc-$VERSION.tar.gz gcc.tar.gz
             #${RESOURCES_FETCH_URL_SCRIPT} http://mirrors.concertpass.com/gcc/releases/gcc-$VERSION/gcc-$VERSION.tar.gz gcc.tar.gz
-            ${RESOURCES_FETCH_URL_SCRIPT} file://~/usr/gcc/gcc.tar.gz gcc.tar.gz
+            #${RESOURCES_FETCH_URL_SCRIPT} file://~/usr/gcc/gcc.tar.gz gcc.tar.gz
             tar -zxvf gcc.tar.gz
             cd gcc-$VERSION
             SOURCE_DIR=$(pwd)
