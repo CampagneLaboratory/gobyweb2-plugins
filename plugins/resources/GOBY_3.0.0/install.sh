@@ -1,4 +1,4 @@
-# Installation script for STAR version 2.2.0g
+# Installation script for GOBY version 3.0.0
 function plugin_install_artifact {
 
     id=$1
