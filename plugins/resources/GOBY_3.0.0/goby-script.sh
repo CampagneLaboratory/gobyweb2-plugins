@@ -30,10 +30,5 @@ function goby {
 
 
 function set_home {
-   WORKING_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
-    if [[ $OSTYPE == "cygwin" ]]; then
-        WORKING_DIR=`cygpath -m "${WORKING_DIR}"`
-    fi
-
-    export GOBY_HOME=${WORKING_DIR}
+    export GOBY_HOME=${RESOURCES_ARTIFACTS_GOBY_JAR}
 }
