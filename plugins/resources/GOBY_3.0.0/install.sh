@@ -3,7 +3,7 @@ function plugin_install_artifact {
 
     id=$1
     installation_path=$2
-    set -x
+
     case ${id} in
 
         'JAR' )
@@ -16,7 +16,7 @@ function plugin_install_artifact {
             ant -f build.xml jar
             mv goby.jar ${installation_path}
             mkdir ${installation_path}/models
-            mv /models/* ${installation_path}/models
+            mv ./models/* ${installation_path}/models
             chmod +x ${installation_path}/*
             if [ -e ${installation_path}/goby.jar ]; then
                 return 0
