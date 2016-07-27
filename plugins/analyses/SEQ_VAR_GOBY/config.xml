@@ -30,7 +30,7 @@
     <requires>
         <resource>
             <id>GOBY</id>
-            <versionExactly>3.0.0</versionExactly>
+            <versionExactly>3.0.0.1</versionExactly>
         </resource>
         <resource>
             <id>VCF_TOOLS</id>
@@ -50,7 +50,7 @@
         </resource>
         <resource>
             <id>GOBY_INDEXED_GENOMES</id>
-            <versionAtLeast>1.0</versionAtLeast>
+            <versionAtLeast>1.0.1</versionAtLeast>
         </resource>
     </requires>
     <runtime>

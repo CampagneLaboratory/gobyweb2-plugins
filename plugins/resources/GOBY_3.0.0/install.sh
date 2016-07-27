@@ -6,13 +6,13 @@ function plugin_install_artifact {
     set -x
     case ${id} in
 
-        'GOBY' )
+        'JAR' )
 
             VERSION="3.0.0"
 
             git clone git@bitbucket.org:campagnelaboratory/goby.git
             cd goby
-            git checkout tags/3.0.0
+            git checkout tags/${VERSION}
             ant -f build.xml jar
             mv goby.jar ${installation_path}
             mkdir ${installation_path}/models

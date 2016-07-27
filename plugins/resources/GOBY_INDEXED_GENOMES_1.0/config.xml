@@ -15,11 +15,11 @@
     <name>Goby indexed genomes</name>
     <id>GOBY_INDEXED_GENOMES</id>
     <help>Genome indexed with Goby build-sequence-cache tool.</help>
-    <version>1.0</version>
+    <version>1.0.1</version>
     <requires>
         <resource>
             <id>GOBY</id>
-            <versionExactly>3.0.0</versionExactly>
+            <versionExactly>3.0.0.1</versionExactly>
         </resource>
         <resource>
             <id>ENSEMBL_GENOMES</id>

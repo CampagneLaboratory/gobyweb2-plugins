@@ -14,7 +14,7 @@
     <name>Goby</name>
     <id>GOBY</id>
     <help>Goby framework and toolbox. See http://goby.campagnelab.org.</help>
-    <version>3.0.0</version>
+    <version>3.0.0.1</version>
     <artifacts>
         <artifact id="JAR"/>
     </artifacts>
