@@ -5,7 +5,7 @@ function plugin_install_artifact {
 
     case ${id} in
 
-        'BINARIES' )
+        'LINUX_BINARIES' )
             VERSION="8u45"
             VERSIONALT="1.8.0_45"
             set -x
