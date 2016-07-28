@@ -1,4 +1,5 @@
 function plugin_install_artifact {
+    set -x
 
     id=$1
     installation_path=$2
