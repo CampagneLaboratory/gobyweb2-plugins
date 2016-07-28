@@ -64,6 +64,7 @@
         <need scope="COMBINE" key="h_vmem" value="50G"/>
         <need scope="COMBINE" key="virtual_free" value="50G"/>
         <need scope="COMBINE_JVM" value="45G"/>
+        <artifacts scope="SUBMIT" required="true"/>
     </runtime>
 
     <options>
