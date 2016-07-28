@@ -8,7 +8,7 @@ function plugin_install_artifact {
 
         'JAR' )
 
-            VERSION="3.0.0"
+            VERSION="3.0.0.3"
 
             git clone git@bitbucket.org:campagnelaboratory/goby.git
             cd goby
