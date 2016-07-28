@@ -23,7 +23,7 @@
         </resource>
     </requires>
     <artifacts>
-        <artifact id="BINARIES"></artifact>
+        <artifact id="LINUX_BINARIES"></artifact>
     </artifacts>
     
 </resourceConfig>
