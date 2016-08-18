@@ -9,7 +9,9 @@ function plugin_install_artifact {
         'JAR' )
 
             VERSION="3.0.0.3"
-
+            mkdir -p $HOME/.ssh && touch $HOME/.ssh/known_hosts
+            ssh-keyscan github.com >> $HOME/.ssh/known_hosts
+            ssh-keyscan bitbucket.org >> $HOME/.ssh/known_hosts
             git clone git@bitbucket.org:campagnelaboratory/goby.git
             cd goby
             git checkout tags/${VERSION}
