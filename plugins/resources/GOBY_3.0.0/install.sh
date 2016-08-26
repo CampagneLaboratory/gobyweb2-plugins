@@ -8,11 +8,8 @@ function plugin_install_artifact {
 
         'JAR' )
 
-            VERSION="3.0.0.3"
-
-            git clone git@bitbucket.org:campagnelaboratory/goby.git
-            cd goby
-            git checkout tags/${VERSION}
+            git clone git@bitbucket.org:campagnelaboratory/goby3.git
+            cd goby3
             export JAVA_HOME=${RESOURCES_ARTIFACTS_JAVA_LINUX_BINARIES}
             ant -f build.xml jar
             mv goby.jar ${installation_path}

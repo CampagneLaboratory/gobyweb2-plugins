@@ -19,7 +19,7 @@
     <requires>
         <resource>
             <id>GOBY</id>
-            <versionExactly>3.0.0.5</versionExactly>
+            <versionExactly>3.0.0.6</versionExactly>
         </resource>
         <resource>
             <id>ENSEMBL_GENOMES</id>
