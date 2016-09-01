@@ -1,5 +1,5 @@
 #!/bin/bash
-URL_CACHE_ROOT=~/url-cache
+URL_CACHE_ROOT=/Users/mas2182/url-cache
 
 . ${JOB_DIR}/auto-options.sh
 
