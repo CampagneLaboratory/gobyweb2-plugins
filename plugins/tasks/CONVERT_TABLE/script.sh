@@ -27,7 +27,7 @@ function plugin_task {
         jobDieUponError "failed to convert VCF results to Lucene Table"
 
      fi
-
+                                                                                                          q
      ${FILESET_COMMAND} --has-fileset INPUT_TSV
      if [ $? -eq 0 ]; then
 
