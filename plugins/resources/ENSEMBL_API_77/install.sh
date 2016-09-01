@@ -58,25 +58,25 @@ function plugin_install_artifact {
             mv ensembl-tools-release-${VERSION} ensembl-tools
             rm ensembl-tools-${VERSION}.zip
 
-            ${RESOURCES_FETCH_URL_SCRIPT} http://bioperl.org/DIST/old_releases/bioperl-1.2.3.tar.gz
-            gzip -c -d bioperl-1.2.3.tar.gz |tar -xf -
+            ${RESOURCES_FETCH_URL_SCRIPT} http://archive.ubuntu.com/ubuntu/pool/universe/b/bioperl/bioperl_1.6.923.orig.tar.gz
+            gzip -c -d bioperl_1.6.923.orig.tar.gz |tar -xf -
             if [ ! $? -eq 0 ]; then
                     return 1
             fi
-            rm bioperl-1.2.3.tar.gz
+            rm bioperl_1.6.923.orig.tar.gz
 
             cd ..
             cp -r src ${installation_path}/
             if [ ! $? -eq 0 ]; then
                     return 1
             fi
-            ln -s ${installation_path}/src/bioperl-1.2.3 ${installation_path}/bioperl
+            ln -s ${installation_path}/src/BioPerl-1.6.923 ${installation_path}/bioperl
 
             if [ ! $? -eq 0 ]; then
                     return 1
             fi
 cat >${installation_path}/setup.sh <<EOF
-PERL5LIB=\${PERL5LIB}:\${RESOURCES_ARTIFACTS_ENSEMBL_API_INSTALL_DIR}/src/bioperl-1.2.3
+PERL5LIB=\${PERL5LIB}:\${RESOURCES_ARTIFACTS_ENSEMBL_API_INSTALL_DIR}/src/BioPerl-1.6.923
 PERL5LIB=\${PERL5LIB}:\${RESOURCES_ARTIFACTS_ENSEMBL_API_INSTALL_DIR}/src/ensembl/modules
 PERL5LIB=\${PERL5LIB}:\${RESOURCES_ARTIFACTS_ENSEMBL_API_INSTALL_DIR}/src/ensembl-compara/modules
 PERL5LIB=\${PERL5LIB}:\${RESOURCES_ARTIFACTS_ENSEMBL_API_INSTALL_DIR}/src/ensembl-variation/modules
@@ -113,6 +113,7 @@ EOF
 #uncomment for testing with the SDK command line resource install:
 #ORGANISM=homo_sapiens
 #GENOME_REFERENCE_ID=1000GENOMES.37
+                ORGANISM=$3
                 ORG_LOWERCASE=`echo  ${ORGANISM}| tr '[:upper:]' '[:lower:]'`
                 ${RESOURCES_FETCH_URL_SCRIPT} ftp://ftp.ensembl.org/pub/release-${VERSION}/variation/VEP/${ORG_LOWERCASE}_vep_${VERSION}.tar.gz
 
