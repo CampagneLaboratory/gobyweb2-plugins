@@ -113,6 +113,7 @@ EOF
 #uncomment for testing with the SDK command line resource install:
 #ORGANISM=homo_sapiens
 #GENOME_REFERENCE_ID=1000GENOMES.37
+                ORGANISM=$3
                 ORG_LOWERCASE=`echo  ${ORGANISM}| tr '[:upper:]' '[:lower:]'`
                 ${RESOURCES_FETCH_URL_SCRIPT} ftp://ftp.ensembl.org/pub/release-${VERSION}/variation/VEP/${ORG_LOWERCASE}_vep_${VERSION}.tar.gz
 
