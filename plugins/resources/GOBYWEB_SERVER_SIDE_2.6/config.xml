@@ -40,6 +40,14 @@
             <filename>icb-groovy-support.jar</filename>
         </file>
         <file>
+            <id>JSAP_JAR</id>
+            <filename>jsap-2.1.2.jar</filename>
+        </file>
+        <file>
+            <id>COMMONS_IO_JAR</id>
+            <filename>commons-io-2.4.jar</filename>
+        </file>
+        <file>
             <id>DEPENDENCIES_JAR</id>
             <filename>serverside-dependencies.jar</filename>
         </file>
