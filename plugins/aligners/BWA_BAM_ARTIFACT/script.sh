@@ -32,7 +32,7 @@ function plugin_align {
     ALIGNER_OPTIONS="${PLUGINS_ALIGNER_BWA_BAM_ARTIFACT_ALIGNER_OPTIONS}"
     ALL_OTHER_OPTIONS="${PLUGINS_ALIGNER_BWA_BAM_ARTIFACT_ALL_OTHER_OPTIONS}"
     # set the number of threads to the number of cores available on the server:
-    NUM_THREADS=`grep physical  /proc/cpuinfo |grep id|wc -l`
+    BWA_GOBY_NUM_THREADS=`grep physical  /proc/cpuinfo |grep id|wc -l`
 
     set -x
     if [ "${PAIRED_END_ALIGNMENT}" == "true" ]; then
