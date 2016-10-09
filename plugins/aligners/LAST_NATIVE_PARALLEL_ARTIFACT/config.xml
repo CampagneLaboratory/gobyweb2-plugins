@@ -31,11 +31,11 @@
         </resource>
         <resource>
             <id>LAST_ARTIFACT</id>
-            <versionAtLeast>581.2</versionAtLeast>
+            <versionAtLeast>759.1</versionAtLeast>
         </resource>
         <resource>
             <id>LAST_INDEX</id>
-            <versionAtLeast>581.1</versionAtLeast>
+            <versionAtLeast>759.1</versionAtLeast>
         </resource>
 
     </requires>
