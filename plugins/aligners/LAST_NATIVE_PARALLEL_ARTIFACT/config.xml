@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<!--
+  ~ Copyright (c) 2011-2012  by Cornell University  and the  Cornell Research Foundation,
+  ~ Inc. All Rights Reserved.
+  ~
+  ~ GobyWeb plugins  are released  under the LGPL3 license,  unless  otherwise specified
+  ~ by the license of a specific plugin. See the file LGPL3.license in this distribution
+  ~ for a copy of the LGPL license.
+  ~
+  ~ When a plugin is not released under the LGPL3 license,  the comments  at the top  of
+  ~ the plugin's config.xml will indicate how that specific plugin is released/licensed.
+  -->
+<alignerConfig xsi:noNamespaceSchemaLocation="../../../schemas/plugins.xsd"
+               xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <name>Last (with native parallelization)</name>
+    <id>LAST_NATIVE_PARALELL_ARTIFACT</id>
+    <help>Alignment with Last, using native -P parallelization in lastal.</help>
+    <version>1.0</version>
+    <supportsColorSpace>false</supportsColorSpace>
+    <supportsGobyAlignments>true</supportsGobyAlignments>
+    <supportsPairedEndAlignments>true</supportsPairedEndAlignments>
+    <supportsBAMAlignments>false</supportsBAMAlignments>
+    <supportsGobyReads>true</supportsGobyReads>
+    <supportsFastqReads>false</supportsFastqReads>
+    <supportsFastaReads>false</supportsFastaReads>
+    <indexDirectory>/scratchLocal/gobyweb/input-data/reference-db/%VERSION%/%ORGANISM%/%SPACE%/last</indexDirectory>
+    <requires>
+        <resource>
+            <id>GOBY</id>
+            <versionAtLeast>20140222104439</versionAtLeast>
+        </resource>
+        <resource>
+            <id>LAST_ARTIFACT</id>
+            <versionAtLeast>581.2</versionAtLeast>
+        </resource>
+        <resource>
+            <id>LAST_INDEX</id>
+            <versionAtLeast>581.1</versionAtLeast>
+        </resource>
+
+    </requires>
+    <runtime>
+        <need scope="ALIGN" key="excl" value="true"/>
+        <need scope="ALIGN" key="h_vmem" value="40G"/>
+        <need scope="ALIGN" key="virtual_free" value="4G"/>
+        <need scope="ALIGN_JVM" value="4G"/>
+        <need scope="ALIGNMENT_POST_PROCESSING" key="excl" value="false"/>
+        <need scope="ALIGNMENT_POST_PROCESSING" key="h_vmem" value="11G"/>
+        <need scope="ALIGNMENT_POST_PROCESSING" key="virtual_free" value="11G"/>
+    </runtime>
+
+    <options>
+        <option>
+            <id>ALIGNER_OPTIONS</id>
+            <dbLegacyId>alignerAdvancedOptions</dbLegacyId>
+            <name>Other aligner options</name>
+            <help>Provide any additional Last option here following the syntax expected by the Goby align mode with last
+                aligner.
+            </help>
+            <required>false</required>
+            <defaultsTo></defaultsTo>
+            <type>STRING</type>
+            <flagFormat>%s</flagFormat>
+            <includeSpaces>true</includeSpaces>
+        </option>
+        <option>
+            <id>D</id>
+            <name>d</name>
+            <help>Minimum score for gapless alignments.</help>
+            <required>true</required>
+            <defaultsTo>108</defaultsTo>
+            <type>INTEGER</type>
+            <autoFormat>false</autoFormat>
+        </option>
+        <option>
+            <id>E</id>
+            <name>e</name>
+            <help>Minimum score for gapped alignments.</help>
+            <required>true</required>
+            <defaultsTo>120</defaultsTo>
+            <type>INTEGER</type>
+            <autoFormat>false</autoFormat>
+        </option>
+        <option>
+            <id>S</id>
+            <name>s</name>
+            <help>Score threshold for last-map-probs.py. Should be high enough to
+                avoid random, spurious alignments: otherwise, the mismap probabilities
+                will not be reliable. A threshold of 150 is often reasonable. For
+                instance, if we compare 50 bp reads to the human genome, we expect a
+                random alignment with score >= 150 once every few thousand reads.
+            </help>
+            <required>true</required>
+            <defaultsTo>150</defaultsTo>
+            <type>INTEGER</type>
+            <autoFormat>false</autoFormat>
+        </option>
+    </options>
+</alignerConfig>
