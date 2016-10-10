@@ -19,5 +19,10 @@
     <artifacts>
         <artifact id="BINARIES"></artifact>
     </artifacts>
-
+    <requires>
+        <resource>
+            <id>GCC</id>
+            <versionAtLeast>6.1.0</versionAtLeast>
+        </resource>
+    </requires>
 </resourceConfig>

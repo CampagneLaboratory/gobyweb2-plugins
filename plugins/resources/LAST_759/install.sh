@@ -15,7 +15,8 @@ function plugin_install_artifact {
 
                     cd  last-${VERSION}
                     echo "${VERSION}" > src/version.hh
-                    make
+                   # slchoose gcc               4.7.4      gcc4_64_rhel54
+                    make CXX=${RESOURCES_GCC_BINARIES}
                     mkdir ${installation_path}/bin/
                     cp src/lastdb ${installation_path}/bin/
                     cp src/lastal ${installation_path}/bin/
