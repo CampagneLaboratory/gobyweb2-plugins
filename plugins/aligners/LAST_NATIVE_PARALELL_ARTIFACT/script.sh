@@ -16,7 +16,10 @@
 . ${RESOURCES_GOBY_SHELL_SCRIPT}
 
 # override the number of alignment parts to make larger chunks:
-NUMBER_OF_ALIGN_PARTS=100
+NUMBER_OF_ALIGN_PARTS=`echo $(( NUMBER_OF_ALIGN_PARTS / 20 ))`
+if [ ${NUMBER_OF_ALIGN_PARTS} -lt 1 ]; then
+    NUMBER_OF_ALIGN_PARTS=1
+fi
 
 function plugin_align {
 
