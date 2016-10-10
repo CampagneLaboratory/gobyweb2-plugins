@@ -8,7 +8,13 @@ function plugin_install_artifact {
 
         'BINARIES' )
             VERSION="6.1.0"
-            PROCUNITS=$(nproc)
+            NUM_THREADS=`grep physical  /proc/cpuinfo |grep id|wc -l`
+            NUM_THREADS=$((${NUM_THREADS} - 2))
+            if [ ${NUM_THREADS} -lt 2 ]; then
+              # Make sure we use at least two threads:
+             NUM_THREADS=2
+            fi
+            PROCUNITS=${NUM_THREADS}
             set -x
             ${RESOURCES_FETCH_URL_SCRIPT} http://mirrors-usa.go-parts.com/gcc/releases/gcc-$VERSION/gcc-$VERSION.tar.gz gcc.tar.gz
             #${RESOURCES_FETCH_URL_SCRIPT} http://mirrors.concertpass.com/gcc/releases/gcc-$VERSION/gcc-$VERSION.tar.gz gcc.tar.gz
