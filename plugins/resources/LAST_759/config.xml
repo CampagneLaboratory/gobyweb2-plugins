@@ -15,7 +15,7 @@
     <name>Last (auto-install)</name>
     <id>LAST_ARTIFACT</id>
     <help>Last aligner. Obtained from http://last.cbrc.jp/</help>
-    <version>759.1</version>
+    <version>759.2</version>
     <artifacts>
         <artifact id="BINARIES"></artifact>
     </artifacts>
