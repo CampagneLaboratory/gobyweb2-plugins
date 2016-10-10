@@ -16,13 +16,14 @@
     <id>LAST_ARTIFACT</id>
     <help>Last aligner. Obtained from http://last.cbrc.jp/</help>
     <version>759.2</version>
-    <artifacts>
-        <artifact id="BINARIES"></artifact>
-    </artifacts>
     <requires>
         <resource>
             <id>GCC</id>
             <versionAtLeast>6.1.0</versionAtLeast>
         </resource>
     </requires>
+    <artifacts>
+        <artifact id="BINARIES"></artifact>
+    </artifacts>
+
 </resourceConfig>
