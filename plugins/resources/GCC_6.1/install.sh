@@ -44,10 +44,14 @@ function plugin_install_artifact {
               echo "There is no mpc directory in $(pwd). Please run download_prerequisites."
               return 127
             fi
-
-            echo $installation_path/lib/ >> /etc/ld.so.conf
-            echo $installation_path/lib64/ >> /etc/ld.so.conf
-            ldconfig
+            # The setup.sh file will be sourced by users of this artifact:
+cat >${installation_path}/setup.sh <<EOT
+export LD_LIBRARY_PATH=${installation_path}/lib:${installation_path}/lib64:\${LD_LIBRARY_PATH}
+EOT
+        . ${installation_path}/setup.sh
+         #   echo $installation_path/lib/ >> /etc/ld.so.conf
+         #   echo $installation_path/lib64/ >> /etc/ld.so.conf
+         #   ldconfig
 
             cd ${SOURCE_DIR}/
             ulimit -s 32768 # for gcc tests
