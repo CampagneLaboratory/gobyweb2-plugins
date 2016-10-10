@@ -19,7 +19,7 @@
     <requires>
         <resource>
             <id>GCC</id>
-            <versionAtLeast>6.1.0</versionAtLeast>
+            <versionAtLeast>6.1.0.1</versionAtLeast>
         </resource>
     </requires>
     <artifacts>

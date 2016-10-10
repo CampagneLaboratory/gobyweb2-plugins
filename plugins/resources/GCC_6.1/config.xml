@@ -15,7 +15,7 @@
     <name>gcc</name>
     <id>GCC</id>
     <help>GNU compiler collection. Assumes mirrors-usa.go-parts.com is mirroring gcc</help>
-    <version>6.1.0</version>
+    <version>6.1.0.1</version>
     <requires>
         <resource>
             <id>FETCH_URL</id>
