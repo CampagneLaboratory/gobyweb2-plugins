@@ -15,7 +15,7 @@ function plugin_install_artifact {
 
                     cd  last-${VERSION}
                     echo "${VERSION}" > src/version.hh
-                    slchoose gcc               4.7.4      gcc4_64_rhel54
+                #    slchoose gcc               4.7.4      gcc4_64_rhel54
                    # make CXX=${RESOURCES_GCC_BINARIES}
                     make
                     mkdir ${installation_path}/bin/
