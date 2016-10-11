@@ -45,15 +45,14 @@ expose_artifact_environment_variables
         ${RESOURCES_LAST_EXEC_PATH} -i1 -s2 -Q1 -d${PLUGINS_ALIGNER_PLAST_ARTIFACT_D} \
            -e${PLUGINS_ALIGNER_PLAST_ARTIFACT_E} ${INDEX_DIRECTORY}/index ${PAIRS_FASTQ} > ${TEMP_FILENAME}-pairs.maf
       #  dieUponError "last could not align paired reads"
-        ${RESOURCES_ARTIFACTS_LAST_ARTIFACT_BINARIES}/scripts/last-pair-probs.py ${TEMP_FILENAME}.maf ${TEMP_FILENAME}-pairs.maf > ${TEMP_FILENAME}-2.maf
+        ${RESOURCES_ARTIFACTS_LAST_ARTIFACT_BINARIES}/bin/last-pair-probs ${TEMP_FILENAME}.maf ${TEMP_FILENAME}-pairs.maf > ${TEMP_FILENAME}-2.maf
         if [ $? != 0 ]; then
 
            cat ${TEMP_FILENAME}.maf ${TEMP_FILENAME}-pairs.maf > ${TEMP_FILENAME}-2.maf
         fi
       #  dieUponError "last could not last-pair-probs.py"
     else
-        cat ${TEMP_FILENAME}.maf | ${RESOURCES_LAST_MAP_PROBS_EXEC} -s${PLUGINS_ALIGNER_PLAST_ARTIFACT_S} > ${TEMP_FILENAME}-2.maf
-
+        cat ${TEMP_FILENAME}.maf |  ${RESOURCES_ARTIFACTS_LAST_ARTIFACT_BINARIES}/bin/last-map-probs -s${PLUGINS_ALIGNER_PLAST_ARTIFACT_S} > ${TEMP_FILENAME}-2.maf
      #   dieUponError "last could not last-map-probs.py"
     fi
 
