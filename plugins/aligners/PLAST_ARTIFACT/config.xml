@@ -113,5 +113,14 @@
             <type>INTEGER</type>
             <autoFormat>false</autoFormat>
         </option>
+        <option>
+            <id>CHUNK_SIZE</id>
+            <name>Chunk_size</name>
+            <help>The number of bytes of compressed reads file to give to a single align part.</help>
+            <required>false</required>
+            <defaultsTo>200000000</defaultsTo>
+            <type>INTEGER</type>
+            <autoFormat>false</autoFormat>
+        </option>
     </options>
 </alignerConfig>
