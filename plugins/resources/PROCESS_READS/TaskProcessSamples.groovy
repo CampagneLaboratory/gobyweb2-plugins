@@ -113,7 +113,7 @@ public class TaskProcessSample {
                 <flaggedOption>
                     <id>merge-plan-filename</id>
                     <longFlag>merge-plan-filename</longFlag>
-                    <required>true</required>
+                    <required>false</required>
                     <help>The name of the file that contains the merge plan (formerly details.tsv file).</help>
                 </flaggedOption>
                 <flaggedOption>
