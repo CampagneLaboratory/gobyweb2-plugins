@@ -114,7 +114,7 @@
             <autoFormat>false</autoFormat>
         </option>
         <option>
-            <id>CHUNK_SIZE</id>
+            <id>ALIGN_PART_CHUNK_SIZE</id>
             <name>Chunk_size</name>
             <help>The number of bytes of compressed reads file to give to a single align part.</help>
             <required>false</required>
