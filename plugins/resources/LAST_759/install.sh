@@ -15,19 +15,21 @@ function plugin_install_artifact {
 
                     cd  last-${VERSION}
                     echo "${VERSION}" > src/version.hh
-                #    slchoose gcc               4.7.4      gcc4_64_rhel54
-                   # make CXX=${RESOURCES_GCC_BINARIES}
-                    make
-                    mkdir ${installation_path}/bin/
-                    cp src/lastdb ${installation_path}/bin/
-                    cp src/lastal ${installation_path}/bin/
+
+                    make CXXFLAGS=-O3
+                    make install prefix=${installation_path}
+                    #mkdir ${installation_path}/bin/
+                    #cp src/lastdb ${installation_path}/bin/
+                    #cp src/lastal ${installation_path}/bin/
+                    #cp src/last-pair-probs ${installation_path}/bin/
+                    #cp src/last-split ${installation_path}/bin/
                     cp -r scripts ${installation_path}/
                     cp -r examples ${installation_path}/
                     # older versions of last defined scripts with the .sh or .py extension. Create links to
                     # maintain backward compatibility:
                     cd ${installation_path}/scripts/
                     ln -s  last-map-probs last-map-probs.py
-                )
+                    )
             if [ -e ${installation_path}/bin/lastal ]; then
                return 0
             else

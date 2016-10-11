@@ -6,7 +6,7 @@ OUTPUT=$4
 PAIRED_END_ALIGNMENT=$5
 
 NUM_THREADS=`grep physical  /proc/cpuinfo |grep id|wc -l`
-NUM_THREADS=$((${NUM_THREADS} - 2))
+NUM_THREADS=$((${NUM_THREADS} /2))
 if [ ${NUM_THREADS} -lt 2 ]; then
    # Make sure we use at least two threads:
    NUM_THREADS=2

@@ -15,7 +15,7 @@
     <name>Last (with goby run-parallel)</name>
     <id>PLAST_ARTIFACT</id>
     <help>Parallel alignment with Last. Uses the goby run-parallel mode.</help>
-    <version>1.6</version>
+    <version>1.7</version>
     <supportsColorSpace>false</supportsColorSpace>
     <supportsGobyAlignments>true</supportsGobyAlignments>
     <supportsPairedEndAlignments>true</supportsPairedEndAlignments>
@@ -31,15 +31,15 @@
         </resource>
         <resource>
             <id>LAST_ARTIFACT</id>
-            <versionAtLeast>581.2</versionAtLeast>
+            <versionAtLeast>759.5</versionAtLeast>
         </resource>
         <resource>
             <id>LAST_INDEX</id>
-            <versionAtLeast>581.1</versionAtLeast>
+            <versionAtLeast>759</versionAtLeast>
         </resource>
         <resource>
             <id>PLAST</id>
-            <versionAtLeast>1.3</versionAtLeast>
+            <versionAtLeast>1.5</versionAtLeast>
         </resource>
     </requires>
     <files>
@@ -52,7 +52,7 @@
         <need scope="ALIGN" key="excl" value="true"/>
         <need scope="ALIGN" key="h_vmem" value="8000G"/>
         <need scope="ALIGN" key="virtual_free" value="4G"/>
-        <need scope="ALIGN_JVM" value="4G"/>
+        <need scope="ALIGN_JVM" value="8G"/>
         <need scope="ALIGNMENT_POST_PROCESSING" key="excl" value="false"/>
         <need scope="ALIGNMENT_POST_PROCESSING" key="h_vmem" value="11G"/>
         <need scope="ALIGNMENT_POST_PROCESSING" key="virtual_free" value="11G"/>
