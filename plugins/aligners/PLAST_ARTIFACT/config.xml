@@ -104,5 +104,14 @@
             <type>INTEGER</type>
             <autoFormat>false</autoFormat>
         </option>
+        <option>
+            <id>I</id>
+            <name>i</name>
+            <help>Number of byte of query sequence per batch.</help>
+            <required>true</required>
+            <defaultsTo>10000</defaultsTo>
+            <type>INTEGER</type>
+            <autoFormat>false</autoFormat>
+        </option>
     </options>
 </alignerConfig>
