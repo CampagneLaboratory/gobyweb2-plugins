@@ -7,14 +7,15 @@ function plugin_install_artifact {
     case ${id} in
 
         'JAR' )
-
-            git clone git@bitbucket.org:campagnelaboratory/goby3.git
-            cd goby3
+            VERSION="3.0.2"
+            ${RESOURCES_FETCH_URL_SCRIPT} http://chagall.med.cornell.edu/goby/releases/archive/release-goby_${VERSION}.tgz
+            tar -zxvf release-goby_${VERSION}.tgz
+            cd release-goby_${VERSION}
+            unzip goby_${VERSION}-goby.zip
             export JAVA_HOME=${RESOURCES_ARTIFACTS_JAVA_LINUX_BINARIES}
-            ant -f build.xml jar
-            mv goby.jar ${installation_path}
+            mv goby_${VERSION}/goby.jar ${installation_path}
             mkdir ${installation_path}/models
-            mv ./models/* ${installation_path}/models
+            mv goby_${VERSION}/models/* ${installation_path}/models
             chmod +x ${installation_path}/*
             if [ -e ${installation_path}/goby.jar ]; then
                 return 0

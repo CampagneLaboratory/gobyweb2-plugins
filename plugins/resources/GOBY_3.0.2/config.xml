@@ -14,11 +14,15 @@
     <name>Goby</name>
     <id>GOBY</id>
     <help>Goby framework and toolbox. See http://goby.campagnelab.org.</help>
-    <version>3.0.0.6</version>
+    <version>3.0.2</version>
     <requires>
         <resource>
             <id>JAVA</id>
             <versionAtLeast>1.8</versionAtLeast>
+        </resource>
+        <resource>
+            <id>FETCH_URL</id>
+            <versionAtLeast>1.2</versionAtLeast>
         </resource>
     </requires>
     <artifacts>
