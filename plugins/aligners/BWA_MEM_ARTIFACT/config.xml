@@ -48,20 +48,9 @@
     </runtime>
     <options>
         <option>
-            <id>ALN_OPTIONS</id>
-            <name>Options for aln phase</name>
-            <help>Provide any additional BWA option here following the syntax expected by bwa aln.</help>
-            <required>false</required>
-            <defaultsTo></defaultsTo>
-            <type>STRING</type>
-            <flagFormat>%s</flagFormat>
-            <includeSpaces>true</includeSpaces>
-            <autoFormat>false</autoFormat>
-        </option>
-        <option>
-            <id>SAMPE_SAMSE_OPTIONS</id>
-            <name>Options for samse/sampe phase</name>
-            <help>Provide any additional BWA option here following the syntax expected by bwa samse/sampe.</help>
+            <id>MEM_OPTIONS</id>
+            <name>Options for bwa mem</name>
+            <help>Provide any additional options here following the syntax expected by bwa mem.</help>
             <required>false</required>
             <defaultsTo></defaultsTo>
             <type>STRING</type>
@@ -83,53 +72,6 @@
             <flagFormat>-n %s</flagFormat>
             <includeSpaces>true</includeSpaces>
         </option>
-        <option>
-            <id>MAXIMUM_NUMBER_GAP_OPENS</id>
-            <dbLegacyId>bwaMaximumNumberGapOpens</dbLegacyId>
-            <name>Max Number Gap Opens</name>
-            <help>Maximum number of gap opens</help>
-            <required>true</required>
-            <autoFormat>true</autoFormat>
-            <defaultsTo>1</defaultsTo>
-            <type>INTEGER</type>
-            <flagFormat>-o %s</flagFormat>
-            <includeSpaces>true</includeSpaces>
-        </option>
-        <option>
-            <id>MAXIMUM_NUMBER_GAP_EXTENSIONS</id>
-            <dbLegacyId>bwaMaximumNumberGapExtensions</dbLegacyId>
-            <name>Max Number Gap Extensions</name>
-            <help>Maximum number of gap extensions, -1 for k-difference mode (disallowing long gaps)</help>
-            <required>true</required>
-            <autoFormat>true</autoFormat>
-            <defaultsTo>-1</defaultsTo>
-            <type>INTEGER</type>
-            <flagFormat>-e %s</flagFormat>
-            <includeSpaces>true</includeSpaces>
-        </option>
-        <!--option>
-            <id>align_type</id>
-            <name>Alignment type</name>
-            <help>Help text</help>
-            <required>false</required>
-            <type>CATEGORY</type>
-            <categories>
-                <category>cmet</category>
-                <category>other</category>
-            </categories>
-            <autoFormat>true</autoFormat>
-            <flagFormat>&dash;&dash;align-type=%s</flagFormat>
-            <includeSpaces>true</includeSpaces>
-        </option>
-        <option>
-            <id>some_flag</id>
-            <name>Some flag</name>
-            <help>Help text</help>
-            <required>false</required>
-            <type>BOOLEAN</type>
-            <autoFormat>true</autoFormat>
-            <flagFormat>&dash;&dash;flag</flagFormat>
-            <includeSpaces>true</includeSpaces>
-        </option-->
+
     </options>
 </alignerConfig>
