@@ -15,7 +15,7 @@
     <name>BWA with Goby support</name>
     <id>BWA07</id>
     <help>BWA 0.7+.</help>
-    <version>0.7.15.2</version>
+    <version>0.7.15.3</version>
     <requires>
         <resource>
             <id>FAI_INDEXED_GENOMES</id>
