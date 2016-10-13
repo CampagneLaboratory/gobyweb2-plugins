@@ -15,7 +15,7 @@
 
 # OTHER_ALIGNMENT_ANALYSIS_OPTIONS = any options defined by the end-user or assembled with the auto-format mechanism.
 
-. ${RESOURCES_GOBY3_SHELL_SCRIPT}
+. ${RESOURCES_GOBY_SHELL_SCRIPT}
 
 function plugin_alignment_analysis_split {
 

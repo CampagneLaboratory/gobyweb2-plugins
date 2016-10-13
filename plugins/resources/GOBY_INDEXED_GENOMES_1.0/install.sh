@@ -4,7 +4,7 @@ function plugin_install_artifact {
     id=$1
     installation_path=$2
 
-    . ${RESOURCES_GOBY3_SHELL_SCRIPT}
+    . ${RESOURCES_GOBY_SHELL_SCRIPT}
 
     case ${id} in
 
