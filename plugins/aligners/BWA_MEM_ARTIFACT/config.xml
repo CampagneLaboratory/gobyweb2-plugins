@@ -15,7 +15,7 @@
     <name>BWA mem (auto-install)</name>
     <id>BWA_MEM_ARTIFACT</id>
     <help>BWA mem, result converted to Goby format</help>
-    <version>1.0</version>
+    <version>1.0.1</version>
     <supportsColorSpace>true</supportsColorSpace>
     <supportsGobyAlignments>true</supportsGobyAlignments>
     <supportsPairedEndAlignments>true</supportsPairedEndAlignments>
