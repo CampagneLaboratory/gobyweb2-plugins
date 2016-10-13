@@ -7,16 +7,16 @@ function plugin_install_artifact {
     case ${id} in
 
         'EXECUTABLE' )
-           VERISON="0.7.15"
+           VERSION="0.7.15"
             (${RESOURCES_FETCH_URL_SCRIPT} http://downloads.sourceforge.net/project/bio-bwa/bwa-0.7.15.tar.bz2?r=https%3A%2F%2Fsourceforge.net%2Fprojects%2Fbio-bwa%2Ffiles%2F&ts=1476387328&use_mirror=heanet  bwa-${VERSION}.bzip2
             bunzip2 bwa-${VERSION}.tar.bz2
             tar -xvf bwa-${VERSION}.tar
-            cd    bwa-${VERSION}
+            cd   bwa-${VERSION}
             make
             cp bwa ${installation_path}/bwa
             chmod +x ${installation_path}/bwa
             )
-            if [ -e ${installation_path}/bin/bwa ]; then
+            if [ -e ${installation_path}/bwa ]; then
                 return 0
             else
                return 127
