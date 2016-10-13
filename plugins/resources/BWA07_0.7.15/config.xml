@@ -21,6 +21,10 @@
             <id>FAI_INDEXED_GENOMES</id>
             <versionAtLeast>1.1</versionAtLeast>
         </resource>
+        <resource>
+            <id>FETCH_URL</id>
+            <versionAtLeast>1.3</versionAtLeast>
+        </resource>
     </requires>
 
     <artifacts>
