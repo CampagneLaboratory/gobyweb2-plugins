@@ -11,8 +11,8 @@
   ~ the plugin's config.xml will indicate how that specific plugin is released/licensed.
   -->
 <resourceConfig xsi:noNamespaceSchemaLocation="../../../schemas/plugins.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
-    <name>Goby</name>
-    <id>GOBY</id>
+    <name>Goby3</name>
+    <id>GOBY3</id>
     <help>Goby framework and toolbox. See http://goby.campagnelab.org.</help>
     <version>3.0.2</version>
     <requires>
