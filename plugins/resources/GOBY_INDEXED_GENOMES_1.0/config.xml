@@ -18,8 +18,8 @@
     <version>1.0.1</version>
     <requires>
         <resource>
-            <id>GOBY</id>
-            <versionExactly>3.0.0.6</versionExactly>
+            <id>GOBY3</id>
+            <versionAtLeast>3.0.2</versionAtLeast>
         </resource>
         <resource>
             <id>ENSEMBL_GENOMES</id>
