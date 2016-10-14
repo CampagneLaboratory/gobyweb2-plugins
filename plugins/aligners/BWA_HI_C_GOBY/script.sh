@@ -11,7 +11,8 @@
 # INDEX_PREFIX = name of the indexed database to search
 
 # ALIGNER_OPTIONS = any BWA options the end-user would like to set
-. ${RESOURCES_GOBY_SHELL_SCRIPT}
+
+. ${RESOURCES_GOBY3_SHELL_SCRIPT}
 
 function plugin_align {
 
