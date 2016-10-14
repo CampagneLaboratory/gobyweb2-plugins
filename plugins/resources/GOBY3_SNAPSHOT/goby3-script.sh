@@ -18,7 +18,7 @@ function run_goby {
 }
 
 
-function goby {
+function goby3 {
    set -x
    set -T
    set_home
