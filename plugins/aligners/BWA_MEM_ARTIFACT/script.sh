@@ -26,7 +26,7 @@ function plugin_align {
     BUILD_NUMBER=`echo ${GENOME_REFERENCE_ID} | awk -F\. '{print $1}' | tr [:lower:] [:upper:] `
     ENSEMBL_RELEASE=`echo ${GENOME_REFERENCE_ID} | awk -F\. '{print $(NF)}'| tr [:lower:] [:upper:] `
 
-    INDEX_DIR=$(eval echo \${RESOURCES_ARTIFACTS_BWA_WITH_GOBY_ARTIFACT_INDEX_${ORG}_${BUILD_NUMBER}_${ENSEMBL_RELEASE}})/index
+    INDEX_DIR=$(eval echo \${RESOURCES_ARTIFACTS_BWA07_INDEX_${ORG}_${BUILD_NUMBER}_${ENSEMBL_RELEASE}})/index
 
     NUM_THREADS=`grep physical  /proc/cpuinfo |grep id|wc -l`
     NUM_THREADS=$((${NUM_THREADS} - 2))
@@ -44,7 +44,7 @@ function plugin_align {
         # PAIRED END alignment, native aligner
 
         run_goby ${PLUGIN_NEED_ALIGN_JVM} compact-to-fasta -i ${READS} -t fastq \
-            --start-position ${START_POSITION} --end-position ${END_POSITION} ${READS} \
+            --start-position ${START_POSITION} --end-position ${END_POSITION}  \
             -o read1.fq -p read2.fq
         dieUponError "compact read to fastq failed (paired end), sub-task ${CURRENT_PART} of ${NUMBER_OF_PARTS}, failed"
 
@@ -54,7 +54,7 @@ function plugin_align {
     else
         # Single end alignment, native aligner
        run_goby ${PLUGIN_NEED_ALIGN_JVM} compact-to-fasta -i ${READS} -t fastq \
-            --start-position ${START_POSITION} --end-position ${END_POSITION} ${READS} \
+            --start-position ${START_POSITION} --end-position ${END_POSITION}  \
             -o read1.fq
         dieUponError "compact read to fastq failed (paired end), sub-task ${CURRENT_PART} of ${NUMBER_OF_PARTS}, failed"
 
