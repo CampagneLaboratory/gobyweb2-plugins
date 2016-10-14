@@ -76,7 +76,7 @@
             <flagFormat>-n %s</flagFormat>
             <includeSpaces>true</includeSpaces>
         </option>
-        <!--option>
+        <option>
             <id>ALIGN_PART_CHUNK_SIZE</id>
             <name>Chunk_size</name>
             <help>The number of bytes of compressed reads file to give to a single align part.</help>
@@ -84,6 +84,6 @@
             <defaultsTo>200000000</defaultsTo>
             <type>INTEGER</type>
             <autoFormat>false</autoFormat>
-        </option-->
+        </option>
     </options>
 </alignerConfig>
