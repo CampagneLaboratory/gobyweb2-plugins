@@ -43,7 +43,7 @@ function plugin_align {
     if [ "${PAIRED_END_ALIGNMENT}" == "true" ]; then
         # PAIRED END alignment, native aligner
 
-        run_goby ${PLUGIN_NEED_ALIGN_JVM} compact-to-fasta paired-content.compact-reads -t fastq \
+        run_goby ${PLUGIN_NEED_ALIGN_JVM} compact-to-fasta -i ${READS} -t fastq \
             --start-position ${START_POSITION} --end-position ${END_POSITION} ${READS} \
             -o read1.fq -p read2.fq
         dieUponError "compact read to fastq failed (paired end), sub-task ${CURRENT_PART} of ${NUMBER_OF_PARTS}, failed"
@@ -53,7 +53,7 @@ function plugin_align {
 
     else
         # Single end alignment, native aligner
-       run_goby ${PLUGIN_NEED_ALIGN_JVM} compact-to-fasta paired-content.compact-reads -t fastq \
+       run_goby ${PLUGIN_NEED_ALIGN_JVM} compact-to-fasta -i ${READS} -t fastq \
             --start-position ${START_POSITION} --end-position ${END_POSITION} ${READS} \
             -o read1.fq
         dieUponError "compact read to fastq failed (paired end), sub-task ${CURRENT_PART} of ${NUMBER_OF_PARTS}, failed"
