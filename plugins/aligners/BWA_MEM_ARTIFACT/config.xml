@@ -31,8 +31,8 @@
             <versionAtLeast>0.7.15.1</versionAtLeast>
         </resource>
         <resource>
-            <id>GOBY</id>
-            <versionAtLeast>20120216154520</versionAtLeast>
+            <id>GOBY3</id>
+            <versionAtLeast>3.0.3.SNAPSHOT</versionAtLeast>
         </resource>
     </requires>
     <runtime>
