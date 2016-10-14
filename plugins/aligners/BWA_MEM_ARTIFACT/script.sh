@@ -63,7 +63,7 @@ function plugin_align {
         dieUponError "SE alignment failed, sub-task ${CURRENT_PART} of ${NUMBER_OF_PARTS}, failed"
     fi
     set -x
-    cp output.sam ${JOB_DIR}/output-${CURRENT_PART}.sam
+   # cp output.sam ${JOB_DIR}/output-${CURRENT_PART}.sam
     export GENOME_DIR=$(eval echo \${RESOURCES_ARTIFACTS_GOBY_INDEXED_GENOMES_SEQUENCE_CACHE_${ORG}_${BUILD_NUMBER}_${ENSEMBL_RELEASE}})
     run_goby ${PLUGIN_NEED_ALIGN_JVM} sam-to-compact -i output.sam -o ${OUTPUT} --genome ${GENOME_DIR}/random-access-genome
     dieUponError "SAM conversion to Goby fomat failed, sub-task ${CURRENT_PART} of ${NUMBER_OF_PARTS}, failed"
