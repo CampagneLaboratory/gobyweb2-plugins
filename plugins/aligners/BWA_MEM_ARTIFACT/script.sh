@@ -26,6 +26,7 @@ function plugin_align {
     BUILD_NUMBER=`echo ${GENOME_REFERENCE_ID} | awk -F\. '{print $1}' | tr [:lower:] [:upper:] `
     ENSEMBL_RELEASE=`echo ${GENOME_REFERENCE_ID} | awk -F\. '{print $(NF)}'| tr [:lower:] [:upper:] `
 
+
     INDEX_DIR=$(eval echo \${RESOURCES_ARTIFACTS_BWA07_INDEX_${ORG}_${BUILD_NUMBER}_${ENSEMBL_RELEASE}})/index
 
     NUM_THREADS=`grep physical  /proc/cpuinfo |grep id|wc -l`
@@ -61,6 +62,8 @@ function plugin_align {
         nice ${BWA_GOBY_EXEC_PATH} mem  -t ${NUM_THREADS}  ${MEM_OPTIONS}  ${INDEX_DIR} read1.fq >output.sam
         dieUponError "SE alignment failed, sub-task ${CURRENT_PART} of ${NUMBER_OF_PARTS}, failed"
     fi
-    run_goby ${PLUGIN_NEED_ALIGN_JVM} sam-to-compact -i output.sam -o ${OUTPUT}
+    set -x
+    echo    GENOME_DIR=$(eval echo \${RESOURCES_ARTIFACTS_GOBY_INDEXED_GENOMES_SEQUENCE_CACHE_${ORGANISM}_${BUILD_NUMBER}_${ENSEMBL_RELEASE}})
+    run_goby ${PLUGIN_NEED_ALIGN_JVM} sam-to-compact -i output.sam -o ${OUTPUT} #--genome GENOME_DIR/index
     dieUponError "SAM conversion to Goby fomat failed, sub-task ${CURRENT_PART} of ${NUMBER_OF_PARTS}, failed"
 }
