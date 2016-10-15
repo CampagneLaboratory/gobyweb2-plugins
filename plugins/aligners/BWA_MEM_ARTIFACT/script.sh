@@ -70,6 +70,6 @@ function plugin_align {
      ${RESOURCES_SAMTOOLS_EXEC_PATH} calmd -u sam_sorted.bam ${INDEXED_GENOME_DIR}/*toplevel.fasta >Aligned.out.bam
     # cp Aligned.out.bam ${JOB_DIR}/output-${CURRENT_PART}.bam
 
-    run_goby ${PLUGIN_NEED_ALIGN_JVM} sam-to-compact -i Aligned.out.bam -o ${OUTPUT}  --read-names-are-query-indices
+    run_goby ${PLUGIN_NEED_ALIGN_JVM} sam-to-compact -i Aligned.out.bam -o ${OUTPUT}  --genome ${GENOME_DIR}/random-access-genome --read-names-are-query-indices
     dieUponError "SAM conversion to Goby fomat failed, sub-task ${CURRENT_PART} of ${NUMBER_OF_PARTS}, failed"
 }
