@@ -14,7 +14,7 @@
     <name>Variation Analysis</name>
     <id>DLVARIATION</id>
     <help>Deep learning variation model toolbox. See https://github.com/CampagneLaboratory/variationanalysis/releases.</help>
-    <version>1.0.3.0</version>
+    <version>1.0.3.-1000</version>
     <requires>
         <resource>
             <id>JAVA</id>
@@ -23,10 +23,6 @@
         <resource>
             <id>FETCH_URL</id>
             <versionAtLeast>1.2</versionAtLeast>
-        </resource>
-        <resource>
-            <id>DLVARIATION</id>
-            <versionAtLeast>1.0.3.-1000</versionAtLeast>
         </resource>
     </requires>
     <artifacts>
