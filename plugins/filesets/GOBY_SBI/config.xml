@@ -5,7 +5,7 @@
     <id>GOBY_SBI</id>
     <help>Sequence Base Information (.sbi/.sbip) format</help>
     <version>1.0</version>
-    <mimeType>application/goby.sbi</mimeType>
+    <mimeType>application/goby_sbi</mimeType>
     <files>
         <selector matchAttribute="BASENAME">
             <id>SBI</id>
