@@ -1,0 +1,158 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<!--
+  ~ Copyright (c) 2011-2012  by Cornell University  and the  Cornell Research Foundation,
+  ~ Inc. All Rights Reserved.
+  ~
+  ~ GobyWeb plugins  are released  under the LGPL3 license,  unless  otherwise specified
+  ~ by the license of a specific plugin. See the file LGPL3.license in this distribution
+  ~ for a copy of the LGPL license.
+  ~
+  ~ When a plugin is not released under the LGPL3 license,  the comments  at the top  of
+  ~ the plugin's config.xml will indicate how that specific plugin is released/licensed.
+  -->
+<alignmentAnalysisConfig xsi:noNamespaceSchemaLocation="../../../schemas/plugins.xsd"
+                         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <name>Sequence Variation Analyses with Goby</name>
+    <id>SEQUENCE_BASE_INFORMATION</id>
+    <dbLegacyId>SEQUENCE_BASE_INFORMATION</dbLegacyId>
+    <help>Produce sbi/.sbip files from Goby alignments.
+    </help>
+    <version>1.0.0</version>
+    <analysisType>SequenceVariants</analysisType>
+    <minimumNumberOfGroups>1</minimumNumberOfGroups>
+    <maximumNumberOfGroups>50</maximumNumberOfGroups>
+    <supportsTranscriptAlignments>false</supportsTranscriptAlignments>
+    <splitProcessCombine>true</splitProcessCombine>
+    <producesVariantCallingFormatOutput>true</producesVariantCallingFormatOutput>
+    <supportsGobyAlignments>true</supportsGobyAlignments>
+    <copyWeightFiles>false</copyWeightFiles>
+    <requires>
+        <resource>
+            <id>GOBY3</id>
+            <versionExactly>3.0.3.-3</versionExactly>
+        </resource>
+        <resource>
+            <id>VARIATION_ANALYSIS</id>
+            <versionExactly>1.0.2</versionExactly>
+        </resource>
+        <resource>
+            <id>GOBY_INDEXED_GENOMES</id>
+            <versionAtLeast>1.0.1</versionAtLeast>
+        </resource>
+    </requires>
+    <runtime>
+        <need scope="GLOBAL" key="h_vmem" value="18G"/>
+        <need scope="GLOBAL" key="virtual_free" value="20G"/>
+        <need scope="PROCESS" key="excl" value="false"/>
+        <need scope="PROCESS" key="h_vmem" value="9G"/>
+        <need scope="PROCESS" key="virtual_free" value="9G"/>
+        <need scope="PROCESS_JVM" value="6G"/>
+        <need scope="COMBINE" key="excl" value="false"/>
+        <need scope="COMBINE" key="h_vmem" value="50G"/>
+        <need scope="COMBINE" key="virtual_free" value="50G"/>
+        <need scope="COMBINE_JVM" value="45G"/>
+        <artifacts scope="SUBMIT" required="true"/>
+    </runtime>
+
+    <options>
+        <option>
+            <id>OUTPUT_FORMAT</id>
+            <dbLegacyId>analysisType_compare_sequence_variants</dbLegacyId>
+            <name>Type of analysis and output format</name>
+            <help>Determines the type of sequence variation analysis to perform and the output format.</help>
+            <required>true</required>
+            <defaultsTo>GENOTYPES</defaultsTo>
+            <type>CATEGORY</type>
+            <categories>
+                <category>
+                    <id>SEQUENCE_BASE_INFORMATION</id>
+                    <name>sbi/sbip</name>
+                    <value>SEQUENCE_BASE_INFORMATION</value>
+                    <help>Produce sbi/sbip files for deep learning training.</help>
+                    <dbLegacyValue>sbi_sbip</dbLegacyValue>
+                </category>
+            </categories>
+            <autoFormat>true</autoFormat>
+            <flagFormat>--format=%s</flagFormat>
+            <includeSpaces>true</includeSpaces>
+        </option>
+        <option>
+            <id>REALIGN_AROUND_INDELS</id>
+            <dbLegacyId>realignment_option</dbLegacyId>
+            <name>Realign reads near indels</name>
+            <help>When this option is active, reads are realigned around indels and this can help prevent alignment
+                artifacts.
+            </help>
+            <required>true</required>
+            <defaultsTo>false</defaultsTo>
+            <type>BOOLEAN</type>
+            <autoFormat>false</autoFormat>
+        </option>
+        <option>
+            <id>CALL_INDELS</id>
+            <name>Call indels</name>
+            <help>When this option is active, indels are called and reported in the VCF output file. Please be advised
+                that the VCF output may become incompatible with various tools, as rules for reporting indels in VCF are
+                far from clearly described and various tools are known to interpret the VCF specification differently.
+            </help>
+            <required>false</required>
+            <defaultsTo>false</defaultsTo>
+            <type>BOOLEAN</type>
+            <autoFormat>false</autoFormat>
+        </option>
+        <option>
+            <id>FORCE_DIPLOID</id>
+            <name>Diploid genome</name>
+            <help>When this option is active, genotype calls are forced to be diploid. Use when you know that the
+                genome the reads were generated from was diploid.
+            </help>
+            <required>false</required>
+            <defaultsTo>false</defaultsTo>
+            <type>BOOLEAN</type>
+            <autoFormat>false</autoFormat>
+        </option>
+        <option>
+            <id>MINIMUM_VARIATION_SUPPORT</id>
+            <name>Minimum variation support</name>
+            <help>Minimum number of reads that must have the variation for the variation to be reported in the output
+            </help>
+            <required>true</required>
+            <defaultsTo>1</defaultsTo>
+            <type>INTEGER</type>
+            <autoFormat>false</autoFormat>
+        </option>
+        <option>
+            <id>THRESHOLD_DISTINCT_READ_INDICES</id>
+            <name>Minimum number of distinct read indices</name>
+            <help>Number of distinct read indices a position has to have to be reported in the output.</help>
+            <required>true</required>
+            <defaultsTo>1</defaultsTo>
+            <type>INTEGER</type>
+            <autoFormat>false</autoFormat>
+        </option>
+
+    </options>
+
+    <outputSchema>
+        <outputFile>
+            <id>SBI</id>
+            <name>.sbi file</name>
+            <required>true</required>
+            <mimeType>application/goby_sbi</mimeType>
+            <tableName>sbi</tableName>
+            <filename>out.sbi</filename>
+            <help>View the .sbi file.
+            </help>
+        </outputFile>
+        <outputFile>
+            <id>SBIP</id>
+            <name>.sbip (sbi properties) file</name>
+            <required>true</required>
+            <mimeType>text/x-java-properties</mimeType>
+            <tableName>sbi</tableName>
+            <filename>out.sbip</filename>
+            <help>View the .sbip (properties) file.
+            </help>
+        </outputFile>
+    </outputSchema>
+</alignmentAnalysisConfig>
