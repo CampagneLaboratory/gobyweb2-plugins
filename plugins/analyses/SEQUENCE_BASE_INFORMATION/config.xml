@@ -12,7 +12,7 @@
   -->
 <alignmentAnalysisConfig xsi:noNamespaceSchemaLocation="../../../schemas/plugins.xsd"
                          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
-    <name>Sequence Variation Analyses with Goby</name>
+    <name>Sequence Variation to .sbi/.sbip</name>
     <id>SEQUENCE_BASE_INFORMATION</id>
     <dbLegacyId>SEQUENCE_BASE_INFORMATION</dbLegacyId>
     <help>Produce sbi/.sbip files from Goby alignments.
