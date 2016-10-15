@@ -135,16 +135,15 @@
 
     <outputSchema>
         <outputFile>
-            <id>SBI</id>
-            <name>.sbi file</name>
+            <id>GOBY_SBI</id>
+            <name>.sbi/sbip files</name>
             <required>true</required>
             <mimeType>application/goby_sbi</mimeType>
-            <tableName>sbi</tableName>
             <filename>out.sbi</filename>
             <help>View the .sbi file.
             </help>
         </outputFile>
-        <outputFile>
+        <!--outputFile>
             <id>SBIP</id>
             <name>.sbip (sbi properties) file</name>
             <required>true</required>
@@ -153,6 +152,6 @@
             <filename>out.sbip</filename>
             <help>View the .sbip (properties) file.
             </help>
-        </outputFile>
+        </outputFile-->
     </outputSchema>
 </alignmentAnalysisConfig>

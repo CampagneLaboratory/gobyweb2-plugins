@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<fileSetConfig xsi:noNamespaceSchemaLocation="../../../schemas/plugins.xsd"
+               xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <name>Goby sbi/sbip files</name>
+    <id>GOBY_SBI</id>
+    <help>Sequence Base Information (.sbi/.sbip) format</help>
+    <version>1.0</version>
+    <mimeType>application/goby.sbi</mimeType>
+    <files>
+        <selector matchAttribute="BASENAME">
+            <id>SBI</id>
+            <pattern>*.sbi</pattern>
+            <mandatory>true</mandatory>
+        </selector>
+        <selector matchAttribute="BASENAME">
+            <id>SBIP</id>
+            <pattern>*.sbip</pattern>
+            <mandatory>true</mandatory>
+        </selector>
+    </files>
+    <attributes>
+        <attribute name="BASENAME"/>
+        <attribute name="TAG"/>
+        <attribute name="ORGANISM"/>
+        <attribute name="GENOME_REFERENCE_ID"/>
+    </attributes>
+</fileSetConfig>
