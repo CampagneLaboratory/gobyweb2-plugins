@@ -115,7 +115,7 @@ function plugin_alignment_analysis_combine {
    shift
    PART_RESULT_FILES=$*
 
-   java -cp ${RESOURCES_ARTIFACTS_DLVARIATION_JAR}/model-training-bin.jar  -Xmx${PLUGIN_NEED_COMBINE_JVM}  \
+   ${RESOURCES_ARTIFACTS_JAVA_LINUX_BINARIES}/bin/java -cp ${RESOURCES_ARTIFACTS_DLVARIATION_JAR}/model-training-bin.jar  -Xmx${PLUGIN_NEED_COMBINE_JVM}  \
                                         org.campagnelab.dl.varanalysis.intermediaries.Randomizer2 \
                                                     ${JOB_DIR}/split-results/*.sbi ${TMPDIR}/${TAG}-out
 
