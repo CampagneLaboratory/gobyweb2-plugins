@@ -20,10 +20,10 @@
     <version>1.0.0</version>
     <analysisType>SequenceVariants</analysisType>
     <minimumNumberOfGroups>1</minimumNumberOfGroups>
-    <maximumNumberOfGroups>50</maximumNumberOfGroups>
+    <maximumNumberOfGroups>1</maximumNumberOfGroups>
     <supportsTranscriptAlignments>false</supportsTranscriptAlignments>
     <splitProcessCombine>true</splitProcessCombine>
-    <producesVariantCallingFormatOutput>true</producesVariantCallingFormatOutput>
+    <producesVariantCallingFormatOutput>false</producesVariantCallingFormatOutput>
     <supportsGobyAlignments>true</supportsGobyAlignments>
     <copyWeightFiles>false</copyWeightFiles>
     <requires>

@@ -15,7 +15,7 @@
 
 # OTHER_ALIGNMENT_ANALYSIS_OPTIONS = any options defined by the end-user or assembled with the auto-format mechanism.
 
-. ${RESOURCES_GOBY_SHELL_SCRIPT}
+. ${RESOURCES_GOBY3_SHELL_SCRIPT}
 
 function plugin_alignment_analysis_split {
 
@@ -24,7 +24,7 @@ function plugin_alignment_analysis_split {
   shift
   shift
   goby suggest-position-slices \
-          --number-of-bytes 50000000 \
+          --number-of-bytes 5000000 \
           --output ${SPLICING_PLAN_RESULT} \
           $*
 }
@@ -93,7 +93,7 @@ function plugin_alignment_analysis_process {
            --genome ${SEQUENCE_CACHE_DIR}/random-access-genome \
            --minimum-variation-support ${MINIMUM_VARIATION_SUPPORT} \
            --threshold-distinct-read-indices ${THRESHOLD_DISTINCT_READ_INDICES} \
-           --output ${TAG}-out-${ARRAY_JOB_INDEX}  \
+           --output ${TAG}-out-${CURRENT_PART}  \
            --call-indels ${CALL_INDELS_OPTION} \
            --diploid ${FORCE_DIPLOID}  \
            ${ENTRIES_FILES}
@@ -101,8 +101,8 @@ function plugin_alignment_analysis_process {
       dieUponError  "Compare sequence variations part, sub-task ${CURRENT_PART} failed."
       mkdir -p ${JOB_DIR}/split-results
       dieUponError  "cannot create split-results directory. sub-task ${CURRENT_PART} failed."
-      cp ${TAG}-out-${ARRAY_JOB_INDEX}.sbi  ${JOB_DIR}/split-results/
-      cp ${TAG}-out-${ARRAY_JOB_INDEX}.sbip  ${JOB_DIR}/split-results/
+      cp ${TAG}-out-${CURRENT_PART}.sbi  ${JOB_DIR}/split-results/
+      cp ${TAG}-out-${CURRENT_PART}.sbip  ${JOB_DIR}/split-results/
       ${QUEUE_WRITER} --tag ${TAG} --status ${JOB_PART_DIFF_EXP_STATUS} --description "End discover-sequence-variations for part # ${ARRAY_JOB_INDEX}." --index ${CURRENT_PART} --job-type job-part
       # Create an empty TSV file
       touch ${TAG}-out-${ARRAY_JOB_INDEX}.tsv
