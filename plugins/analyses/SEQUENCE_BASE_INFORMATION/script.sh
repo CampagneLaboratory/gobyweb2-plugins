@@ -24,7 +24,7 @@ function plugin_alignment_analysis_split {
   shift
   shift
   goby suggest-position-slices \
-          --number-of-bytes 5000000 \
+          --number-of-bytes 50000000 \
           --output ${SPLICING_PLAN_RESULT} \
           $*
 }
@@ -103,6 +103,16 @@ function plugin_alignment_analysis_process {
       dieUponError  "cannot create split-results directory. sub-task ${CURRENT_PART} failed."
       cp ${TAG}-out-${CURRENT_PART}.sbi  ${JOB_DIR}/split-results/
       cp ${TAG}-out-${CURRENT_PART}.sbip  ${JOB_DIR}/split-results/
+
+      mkdir -p ${JOB_DIR}/split-mutated
+      dieUponError  "cannot create split-mutated directory. sub-task ${CURRENT_PART} failed."
+      ${RESOURCES_ARTIFACTS_JAVA_LINUX_BINARIES}/bin/java -cp ${RESOURCES_ARTIFACTS_DLVARIATION_JAR}/model-training-bin.jar  -Xmx${PLUGIN_NEED_COMBINE_JVM}  \
+                                        org.campagnelab.dl.varanalysis.intermediaries.Mutator2 \
+                                        ${TAG}-out-${CURRENT_PART}.sbi ${TAG}-mutated-${CURRENT_PART}.sbi
+
+      cp ${TAG}-mutated-${CURRENT_PART}.sbi   ${JOB_DIR}/split-mutated/
+      cp ${TAG}-mutated-${CURRENT_PART}.sbip  ${JOB_DIR}/split-mutated/
+
       ${QUEUE_WRITER} --tag ${TAG} --status ${JOB_PART_DIFF_EXP_STATUS} --description "End discover-sequence-variations for part # ${ARRAY_JOB_INDEX}." --index ${CURRENT_PART} --job-type job-part
       # Create an empty TSV file
       touch ${TAG}-out-${ARRAY_JOB_INDEX}.tsv
@@ -116,8 +126,12 @@ function plugin_alignment_analysis_combine {
    PART_RESULT_FILES=$*
 
    ${RESOURCES_ARTIFACTS_JAVA_LINUX_BINARIES}/bin/java -cp ${RESOURCES_ARTIFACTS_DLVARIATION_JAR}/model-training-bin.jar  -Xmx${PLUGIN_NEED_COMBINE_JVM}  \
+                                        org.campagnelab.dl.varanalysis.intermediaries.QuickConcat \
+                                        -i  ${JOB_DIR}/split-results/*.sbi -o ${TMPDIR}/${TAG}-out
+
+   ${RESOURCES_ARTIFACTS_JAVA_LINUX_BINARIES}/bin/java -cp ${RESOURCES_ARTIFACTS_DLVARIATION_JAR}/model-training-bin.jar  -Xmx${PLUGIN_NEED_COMBINE_JVM}  \
                                         org.campagnelab.dl.varanalysis.intermediaries.Randomizer2 \
-                                        -i  ${JOB_DIR}/split-results/*.sbi -o ${TMPDIR}/${TAG}-out \
+                                        -i  ${JOB_DIR}/split-mutated/*.sbi -o ${TMPDIR}/${TAG}-mutated-out \
                                         --records-per-bucket 2000000 --chunk-size 10000
 
    mkdir -p ${JOB_DIR}/results

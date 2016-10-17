@@ -48,9 +48,9 @@
         <need scope="PROCESS" key="virtual_free" value="9G"/>
         <need scope="PROCESS_JVM" value="6G"/>
         <need scope="COMBINE" key="excl" value="false"/>
-        <need scope="COMBINE" key="h_vmem" value="50G"/>
+        <need scope="COMBINE" key="h_vmem" value="60G"/>
         <need scope="COMBINE" key="virtual_free" value="50G"/>
-        <need scope="COMBINE_JVM" value="45G"/>
+        <need scope="COMBINE_JVM" value="55G"/>
         <artifacts scope="SUBMIT" required="true"/>
     </runtime>
 
