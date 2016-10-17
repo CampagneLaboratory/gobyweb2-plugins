@@ -106,7 +106,8 @@ function plugin_alignment_analysis_process {
 
       mkdir -p ${JOB_DIR}/split-mutated
       dieUponError  "cannot create split-mutated directory. sub-task ${CURRENT_PART} failed."
-      ${RESOURCES_ARTIFACTS_JAVA_LINUX_BINARIES}/bin/java -cp ${RESOURCES_ARTIFACTS_DLVARIATION_JAR}/model-training-bin.jar  -Xmx${PLUGIN_NEED_COMBINE_JVM}  \
+      ${RESOURCES_ARTIFACTS_JAVA_LINUX_BINARIES}/bin/java -Xmx${PLUGIN_NEED_PROCESS_JVM}  \
+                                        -cp ${RESOURCES_ARTIFACTS_DLVARIATION_JAR}/model-training-bin.jar \
                                         org.campagnelab.dl.varanalysis.intermediaries.Mutator2 \
                                         ${TAG}-out-${CURRENT_PART}.sbi ${TAG}-mutated-${CURRENT_PART}.sbi
 
