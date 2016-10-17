@@ -44,8 +44,8 @@
         <need scope="GLOBAL" key="h_vmem" value="18G"/>
         <need scope="GLOBAL" key="virtual_free" value="20G"/>
         <need scope="PROCESS" key="excl" value="false"/>
-        <need scope="PROCESS" key="h_vmem" value="12G"/>
-        <need scope="PROCESS" key="virtual_free" value="12G"/>
+        <need scope="PROCESS" key="h_vmem" value="13G"/>
+        <need scope="PROCESS" key="virtual_free" value="15G"/>
         <need scope="PROCESS_JVM" value="10G"/>
         <need scope="COMBINE" key="excl" value="false"/>
         <need scope="COMBINE" key="h_vmem" value="60G"/>
