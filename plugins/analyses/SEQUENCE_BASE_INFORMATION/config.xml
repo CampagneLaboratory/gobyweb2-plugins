@@ -20,7 +20,7 @@
     <version>1.1.0</version>
     <analysisType>SequenceVariants</analysisType>
     <minimumNumberOfGroups>1</minimumNumberOfGroups>
-    <maximumNumberOfGroups>1</maximumNumberOfGroups>
+    <maximumNumberOfGroups>10</maximumNumberOfGroups>
     <supportsTranscriptAlignments>false</supportsTranscriptAlignments>
     <splitProcessCombine>true</splitProcessCombine>
     <producesTabDelimitedOutput>true</producesTabDelimitedOutput>
