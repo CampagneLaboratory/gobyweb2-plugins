@@ -29,11 +29,11 @@
     <requires>
         <resource>
             <id>GOBY3</id>
-            <versionExactly>3.0.3.-2</versionExactly>
+            <versionExactly>3.0.3.-1</versionExactly>
         </resource>
         <resource>
             <id>DLVARIATION</id>
-            <versionAtLeast>1.0.3.-1000</versionAtLeast>
+            <versionAtLeast>1.0.3.-998</versionAtLeast>
         </resource>
         <resource>
             <id>GOBY_INDEXED_GENOMES</id>
@@ -48,9 +48,9 @@
         <need scope="PROCESS" key="virtual_free" value="15G"/>
         <need scope="PROCESS_JVM" value="10G"/>
         <need scope="COMBINE" key="excl" value="false"/>
-        <need scope="COMBINE" key="h_vmem" value="60G"/>
-        <need scope="COMBINE" key="virtual_free" value="50G"/>
-        <need scope="COMBINE_JVM" value="55G"/>
+        <need scope="COMBINE" key="h_vmem" value="45G"/>
+        <need scope="COMBINE" key="virtual_free" value="30G"/>
+        <need scope="COMBINE_JVM" value="40G"/>
         <artifacts scope="SUBMIT" required="true"/>
     </runtime>
 
