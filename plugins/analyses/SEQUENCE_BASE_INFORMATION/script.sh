@@ -138,6 +138,9 @@ function plugin_alignment_analysis_combine {
    mkdir -p ${JOB_DIR}/results
    cp ${TMPDIR}/${TAG}-out.sbi* ${RESULT_DIR}/${TAG}
    cp ${TMPDIR}/${TAG}-mutated-out* ${RESULT_DIR}/${TAG}
+   # Make a backup of the results in case the web app fails to display (https://bitbucket.org/campagnelaboratory/gobyweb/issues/20/alignment-analysis-job-completed-but-error):
+   mkdir ${JOB_DIR}/results-copy
+   cp  ${TMPDIR}/${TAG}-out.sbi* ${TMPDIR}/${TAG}-mutated-out*  ${JOB_DIR}/results-copy
    echo "a\tb\tc\n1\t2\3\n" >${RESULT_FILE}
    cp ${RESULT_FILE} ${RESULT_DIR}/${TAG}-out.tsv
    cp ${RESULT_FILE} ${RESULT_DIR}/${TAG}.tsv
