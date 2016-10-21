@@ -122,7 +122,7 @@ function plugin_alignment_analysis_process {
 
 function plugin_alignment_analysis_combine {
 
-   RESULT_FILE=stats.vcf.gz
+   RESULT_FILE=out.tsv
    shift
    PART_RESULT_FILES=$*
 
@@ -136,7 +136,11 @@ function plugin_alignment_analysis_combine {
                                         --records-per-bucket 2000000 --chunk-size 10000
 
    mkdir -p ${JOB_DIR}/results
-   cp ${TMPDIR}/${TAG}-out.sbi* ${JOB_DIR}/results
-    ${QUEUE_WRITER} --tag ${TAG} --status ${JOB_PART_DIFF_EXP_STATUS} --description "Result written to JOB_DIR/results (will not be pushed to web server) # ${ARRAY_JOB_INDEX}." --index ${CURRENT_PART} --job-type job-part
+   cp ${TMPDIR}/${TAG}-out.sbi* ${RESULT_DIR}/${TAG}
+   cp ${TMPDIR}/${TAG}-mutated-out* ${RESULT_DIR}/${TAG}
+   echo "a\tb\tc\n1\t2\3\n" >${RESULT_FILE}
+   cp ${RESULT_FILE} ${RESULT_DIR}/${TAG}-out.tsv
+   cp ${RESULT_FILE} ${RESULT_DIR}/${TAG}.tsv
+   ${QUEUE_WRITER} --tag ${TAG} --status ${JOB_PART_DIFF_EXP_STATUS} --description "Result written to JOB_DIR/results (will not be pushed to web server) # ${ARRAY_JOB_INDEX}." --index ${CURRENT_PART} --job-type job-part
    echo "Result written to JOB_DIR/results (will not be pushed to web server)">  ${TMPDIR}/${TAG}-out.tsv
 }
