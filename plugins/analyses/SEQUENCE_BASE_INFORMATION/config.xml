@@ -17,7 +17,7 @@
     <dbLegacyId>SEQUENCE_BASE_INFORMATION</dbLegacyId>
     <help>Produce sbi/.sbip files from Goby alignments.
     </help>
-    <version>1.1.0</version>
+    <version>1.1.1</version>
     <analysisType>SequenceVariants</analysisType>
     <minimumNumberOfGroups>1</minimumNumberOfGroups>
     <maximumNumberOfGroups>10</maximumNumberOfGroups>
@@ -127,6 +127,15 @@
             <help>Number of distinct read indices a position has to have to be reported in the output.</help>
             <required>true</required>
             <defaultsTo>1</defaultsTo>
+            <type>INTEGER</type>
+            <autoFormat>false</autoFormat>
+        </option>
+        <option>
+            <id>RECORDS_PER_BUCKET</id>
+            <name>Number of records per bucket</name>
+            <help>Shuffling phase: number of records per bucket. Large bucket sizes require more memory for sorting each bucket, but require less files to complete shuffling.</help>
+            <required>true</required>
+            <defaultsTo>500000</defaultsTo>
             <type>INTEGER</type>
             <autoFormat>false</autoFormat>
         </option>

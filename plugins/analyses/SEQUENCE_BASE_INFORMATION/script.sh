@@ -130,10 +130,11 @@ function plugin_alignment_analysis_combine {
                                         org.campagnelab.dl.varanalysis.intermediaries.QuickConcat \
                                         -i  ${JOB_DIR}/split-results/*.sbi -o ${TMPDIR}/${TAG}-out
 
+   RECORDS_PER_BUCKET=${PLUGINS_ALIGNMENT_ANALYSIS_SEQUENCE_BASE_INFORMATION_RECORDS_PER_BUCKET}
    ${RESOURCES_ARTIFACTS_JAVA_LINUX_BINARIES}/bin/java -cp ${RESOURCES_ARTIFACTS_DLVARIATION_JAR}/model-training-bin.jar  -Xmx${PLUGIN_NEED_COMBINE_JVM}  \
                                         org.campagnelab.dl.varanalysis.intermediaries.Randomizer2 \
                                         -i  ${JOB_DIR}/split-mutated/*.sbi -o ${TMPDIR}/${TAG}-mutated-out \
-                                        --records-per-bucket 2000000 --chunk-size 10000
+                                        --records-per-bucket ${RECORDS_PER_BUCKET} --chunk-size 10000
 
    mkdir -p ${JOB_DIR}/results
    cp ${TMPDIR}/${TAG}-out.sbi* ${RESULT_DIR}/${TAG}
