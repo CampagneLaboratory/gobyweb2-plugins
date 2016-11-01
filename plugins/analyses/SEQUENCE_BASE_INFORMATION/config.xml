@@ -33,7 +33,7 @@
         </resource>
         <resource>
             <id>DLVARIATION</id>
-            <versionExactly>1.0.3.-995</versionExactly>
+            <versionExactly>1.0.3.-800</versionExactly>
         </resource>
         <resource>
             <id>GOBY_INDEXED_GENOMES</id>
