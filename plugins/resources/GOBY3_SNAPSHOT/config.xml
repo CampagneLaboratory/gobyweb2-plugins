@@ -14,7 +14,7 @@
     <name>Goby3</name>
     <id>GOBY3</id>
     <help>Goby framework and toolbox. See http://goby.campagnelab.org.</help>
-    <version>3.0.3.-11</version>
+    <version>3.0.3.-12</version>
     <requires>
         <resource>
             <id>JAVA</id>
