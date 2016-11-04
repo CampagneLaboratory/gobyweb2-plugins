@@ -29,11 +29,11 @@
     <requires>
         <resource>
             <id>GOBY3</id>
-            <versionExactly>3.0.3.-13</versionExactly>
+            <versionExactly>3.0.3.-20</versionExactly>
         </resource>
         <resource>
             <id>DLVARIATION</id>
-            <versionExactly>1.0.3.-800</versionExactly>
+            <versionExactly>1.0.3.-801</versionExactly>
         </resource>
         <resource>
             <id>GOBY_INDEXED_GENOMES</id>
