@@ -17,7 +17,7 @@
     <dbLegacyId>SEQUENCE_BASE_INFORMATION</dbLegacyId>
     <help>Produce sbi/.sbip files from Goby alignments.
     </help>
-    <version>1.1.1</version>
+    <version>1.2</version>
     <analysisType>SequenceVariants</analysisType>
     <minimumNumberOfGroups>1</minimumNumberOfGroups>
     <maximumNumberOfGroups>10</maximumNumberOfGroups>
@@ -137,6 +137,26 @@
             <required>true</required>
             <defaultsTo>500000</defaultsTo>
             <type>INTEGER</type>
+            <autoFormat>false</autoFormat>
+        </option>
+        <option>
+            <id>RANDOM_SEED</id>
+            <name>Random Seed</name>
+            <help>Seed use to sample records. Only used when sampling rate is lower than 1.0.
+            </help>
+            <required>true</required>
+            <defaultsTo>2390239</defaultsTo>
+            <type>INTEGER</type>
+            <autoFormat>false</autoFormat>
+        </option>
+        <option>
+            <id>SAMPLING_RATE</id>
+            <name>Sampling Rate</name>
+            <help>Ratio of sites to write to output. The default writes all sites. Use 0.1 to sample 10% of sites.
+            </help>
+            <required>true</required>
+            <defaultsTo>1.0</defaultsTo>
+            <type>DOUBLE</type>
             <autoFormat>false</autoFormat>
         </option>
 
