@@ -109,7 +109,10 @@ function plugin_alignment_analysis_process {
       ${RESOURCES_ARTIFACTS_JAVA_LINUX_BINARIES}/bin/java -Xmx${PLUGIN_NEED_PROCESS_JVM}  \
                                         -cp ${RESOURCES_ARTIFACTS_DLVARIATION_JAR}/model-training-bin.jar \
                                         org.campagnelab.dl.varanalysis.intermediaries.Mutator2 \
-                                        ${TAG}-out-${CURRENT_PART}.sbi ${TAG}-mutated-${CURRENT_PART}.sbi
+                                        ${TAG}-out-${CURRENT_PART}.sbi ${TAG}-mutated-${CURRENT_PART}.sbi \
+                                        -x SequenceBaseInformationOutputFormat:sampling-rate=${SAMPLING_RATE} \
+                                        -x SequenceBaseInformationOutputFormat:random-seed=${RANDOM_SEED}
+
 
       cp ${TAG}-mutated-${CURRENT_PART}.sbi   ${JOB_DIR}/split-mutated/
       cp ${TAG}-mutated-${CURRENT_PART}.sbip  ${JOB_DIR}/split-mutated/
@@ -134,7 +137,7 @@ function plugin_alignment_analysis_combine {
    ${RESOURCES_ARTIFACTS_JAVA_LINUX_BINARIES}/bin/java -cp ${RESOURCES_ARTIFACTS_DLVARIATION_JAR}/model-training-bin.jar  -Xmx${PLUGIN_NEED_COMBINE_JVM}  \
                                         org.campagnelab.dl.varanalysis.intermediaries.Randomizer2 \
                                         -i  ${JOB_DIR}/split-mutated/*.sbi -o ${TMPDIR}/${TAG}-mutated-out \
-                                        --records-per-bucket ${RECORDS_PER_BUCKET} --chunk-size 10000
+                                        --records-per-bucket ${RECORDS_PER_BUCKET} --chunk-size 50
 
    mkdir -p ${JOB_DIR}/results
    cp ${TMPDIR}/${TAG}-out.sbi* ${RESULT_DIR}/${TAG}
