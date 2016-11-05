@@ -96,6 +96,8 @@ function plugin_alignment_analysis_process {
            --output ${TAG}-out-${CURRENT_PART}  \
            --call-indels ${CALL_INDELS_OPTION} \
            --diploid ${FORCE_DIPLOID}  \
+           -x SequenceBaseInformationOutputFormat:sampling-rate=${SAMPLING_RATE} \
+           -x SequenceBaseInformationOutputFormat:random-seed=${RANDOM_SEED} \
            ${ENTRIES_FILES}
 
       dieUponError  "Compare sequence variations part, sub-task ${CURRENT_PART} failed."
@@ -109,10 +111,7 @@ function plugin_alignment_analysis_process {
       ${RESOURCES_ARTIFACTS_JAVA_LINUX_BINARIES}/bin/java -Xmx${PLUGIN_NEED_PROCESS_JVM}  \
                                         -cp ${RESOURCES_ARTIFACTS_DLVARIATION_JAR}/model-training-bin.jar \
                                         org.campagnelab.dl.varanalysis.intermediaries.Mutator2 \
-                                        ${TAG}-out-${CURRENT_PART}.sbi ${TAG}-mutated-${CURRENT_PART}.sbi \
-                                        -x SequenceBaseInformationOutputFormat:sampling-rate=${SAMPLING_RATE} \
-                                        -x SequenceBaseInformationOutputFormat:random-seed=${RANDOM_SEED}
-
+                                        ${TAG}-out-${CURRENT_PART}.sbi ${TAG}-mutated-${CURRENT_PART}.sbi
 
       cp ${TAG}-mutated-${CURRENT_PART}.sbi   ${JOB_DIR}/split-mutated/
       cp ${TAG}-mutated-${CURRENT_PART}.sbip  ${JOB_DIR}/split-mutated/
