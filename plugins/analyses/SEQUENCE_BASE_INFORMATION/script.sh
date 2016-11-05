@@ -96,8 +96,8 @@ function plugin_alignment_analysis_process {
            --output ${TAG}-out-${CURRENT_PART}  \
            --call-indels ${CALL_INDELS_OPTION} \
            --diploid ${FORCE_DIPLOID}  \
-           -x SequenceBaseInformationOutputFormat:sampling-rate=${SAMPLING_RATE} \
-           -x SequenceBaseInformationOutputFormat:random-seed=${RANDOM_SEED} \
+           -x SequenceBaseInformationOutputFormat:sampling-rate=${PLUGINS_ALIGNMENT_ANALYSIS_SEQUENCE_BASE_INFORMATION_SAMPLING_RATE} \
+           -x SequenceBaseInformationOutputFormat:random-seed=${PLUGINS_ALIGNMENT_ANALYSIS_SEQUENCE_BASE_INFORMATION_RANDOM_SEED} \
            ${ENTRIES_FILES}
 
       dieUponError  "Compare sequence variations part, sub-task ${CURRENT_PART} failed."
