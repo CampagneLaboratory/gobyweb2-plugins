@@ -137,8 +137,8 @@ function plugin_alignment_analysis_combine {
                                         --records-per-bucket ${RECORDS_PER_BUCKET} --chunk-size 10000
 
    mkdir -p ${JOB_DIR}/results
-   cp ${TMPDIR}/${TAG}-out.sbi* ${RESULT_DIR}/${TAG}
-   cp ${TMPDIR}/${TAG}-mutated-out* ${RESULT_DIR}/${TAG}
+   cp ${TMPDIR}/${TAG}-out.sbi* ${RESULT_DIR}/
+   cp ${TMPDIR}/${TAG}-mutated-out* ${RESULT_DIR}/
    # Make a backup of the results in case the web app fails to display (https://bitbucket.org/campagnelaboratory/gobyweb/issues/20/alignment-analysis-job-completed-but-error):
    mkdir ${JOB_DIR}/results-copy
    cp  ${TMPDIR}/${TAG}-out.sbi* ${TMPDIR}/${TAG}-mutated-out*  ${JOB_DIR}/results-copy
