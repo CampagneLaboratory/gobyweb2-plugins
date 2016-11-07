@@ -96,6 +96,8 @@ function plugin_alignment_analysis_process {
            --output ${TAG}-out-${CURRENT_PART}  \
            --call-indels ${CALL_INDELS_OPTION} \
            --diploid ${FORCE_DIPLOID}  \
+           -x SequenceBaseInformationOutputFormat:sampling-rate=${PLUGINS_ALIGNMENT_ANALYSIS_SEQUENCE_BASE_INFORMATION_SAMPLING_RATE} \
+           -x SequenceBaseInformationOutputFormat:random-seed=${PLUGINS_ALIGNMENT_ANALYSIS_SEQUENCE_BASE_INFORMATION_RANDOM_SEED} \
            ${ENTRIES_FILES}
 
       dieUponError  "Compare sequence variations part, sub-task ${CURRENT_PART} failed."
@@ -134,7 +136,7 @@ function plugin_alignment_analysis_combine {
    ${RESOURCES_ARTIFACTS_JAVA_LINUX_BINARIES}/bin/java -cp ${RESOURCES_ARTIFACTS_DLVARIATION_JAR}/model-training-bin.jar  -Xmx${PLUGIN_NEED_COMBINE_JVM}  \
                                         org.campagnelab.dl.varanalysis.tools.Randomize \
                                         -i  ${JOB_DIR}/split-mutated/*.sbi -o ${TMPDIR}/${TAG}-mutated-out \
-                                        --records-per-bucket ${RECORDS_PER_BUCKET} --chunk-size 10000
+                                        --records-per-bucket ${RECORDS_PER_BUCKET} --chunk-size 50
 
    mkdir -p ${JOB_DIR}/results
    cp ${TMPDIR}/${TAG}-out.sbi* ${RESULT_DIR}/
