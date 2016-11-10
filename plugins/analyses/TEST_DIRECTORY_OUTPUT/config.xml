@@ -40,12 +40,6 @@
         <need scope="COMBINE_JVM" value="40G"/>
         <artifacts scope="SUBMIT" required="true"/>
     </runtime>
-
-    <options>
-
-
-    </options>
-
     <outputSchema>
         <outputFile>
             <id>GOBY_SBI</id>
