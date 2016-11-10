@@ -12,7 +12,7 @@
   -->
 <alignmentAnalysisConfig xsi:noNamespaceSchemaLocation="../../../schemas/plugins.xsd"
                          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
-    <name>Sequence Variation to .sbi/.sbip</name>
+    <name>Test directory output</name>
     <id>TEST_DIRECTORY_OUTPUT</id>
     <dbLegacyId>TEST_DIRECTORY_OUTPUT</dbLegacyId>
     <help>Testing output as directory.
