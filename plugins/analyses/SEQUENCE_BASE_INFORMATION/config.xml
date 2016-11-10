@@ -172,7 +172,7 @@
             <help>View the .sbi file.</help>
         </outputFile>
         <outputFile>
-            <id>GOBY_SBI</id>
+            <id>GOBY_SBIP</id>
             <name>.sbi/sbip files</name>
             <required>true</required>
             <mimeType>application/goby_sbi</mimeType>
