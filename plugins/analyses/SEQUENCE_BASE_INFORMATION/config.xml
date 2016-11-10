@@ -168,10 +168,18 @@
             <name>.sbi/sbip files</name>
             <required>true</required>
             <mimeType>application/goby_sbi</mimeType>
-            <filename>out.sbi</filename>
-            <help>View the .sbi file.
-            </help>
+            <filename>mutated-randomized.sbi</filename>
+            <help>View the .sbi file.</help>
         </outputFile>
+        <outputFile>
+            <id>GOBY_SBI</id>
+            <name>.sbi/sbip files</name>
+            <required>true</required>
+            <mimeType>application/goby_sbi</mimeType>
+            <filename>mutated-randomized.sbip</filename>
+            <help>View the .sbip file.</help>
+        </outputFile>
+
         <!--outputFile>
             <id>SBIP</id>
             <name>.sbip (sbi properties) file</name>
