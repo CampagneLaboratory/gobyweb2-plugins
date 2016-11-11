@@ -130,25 +130,18 @@ function plugin_alignment_analysis_combine {
 
    ${RESOURCES_ARTIFACTS_JAVA_LINUX_BINARIES}/bin/java -cp ${RESOURCES_ARTIFACTS_DLVARIATION_JAR}/model-training-bin.jar  -Xmx${PLUGIN_NEED_COMBINE_JVM}  \
                                         org.campagnelab.dl.varanalysis.intermediaries.QuickConcat \
-                                        -i  ${JOB_DIR}/split-results/*.sbi -o ${TMPDIR}/${TAG}-out
+                                        -i  ${JOB_DIR}/split-results/*.sbi -o out
 
    RECORDS_PER_BUCKET=${PLUGINS_ALIGNMENT_ANALYSIS_SEQUENCE_BASE_INFORMATION_RECORDS_PER_BUCKET}
    ${RESOURCES_ARTIFACTS_JAVA_LINUX_BINARIES}/bin/java -cp ${RESOURCES_ARTIFACTS_DLVARIATION_JAR}/model-training-bin.jar  -Xmx${PLUGIN_NEED_COMBINE_JVM}  \
                                         org.campagnelab.dl.varanalysis.tools.Randomize \
-                                        -i  ${JOB_DIR}/split-mutated/*.sbi -o ${TMPDIR}/${TAG}-mutated-randomized \
+                                        -i  ${JOB_DIR}/split-mutated/*.sbi -o mutated-randomized \
                                         --records-per-bucket ${RECORDS_PER_BUCKET} --chunk-size 50
 
-   cp ${TMPDIR}/${TAG}-mutated-randomized.sbi ./mutated-randomized.sbi
-   cp ${TMPDIR}/${TAG}-mutated-randomized.sbip ./mutated-randomized.sbip
-  # mkdir -p ${JOB_DIR}/results
-  # cp ${TMPDIR}/${TAG}-out.sbi* ${RESULT_DIR}/${TAG}
-  # cp ${TMPDIR}/${TAG}-mutated-randomized* ${RESULT_DIR}/${TAG}
-   # Make a backup of the results in case the web app fails to display (https://bitbucket.org/campagnelaboratory/gobyweb/issues/20/alignment-analysis-job-completed-but-error):
+      # Make a backup of the results in case the web app fails to display (https://bitbucket.org/campagnelaboratory/gobyweb/issues/20/alignment-analysis-job-completed-but-error):
    mkdir ${JOB_DIR}/results-copy
-   cp  ${TMPDIR}/${TAG}-out.sbi* ${TMPDIR}/${TAG}-mutated-out*  ${JOB_DIR}/results-copy
-   echo "a\tb\tc\n1\t2\3\n" >${RESULT_FILE}
-   cp ${RESULT_FILE} ${RESULT_DIR}/${TAG}-out.tsv
-   cp ${RESULT_FILE} ${RESULT_DIR}/${TAG}.tsv
-   ${QUEUE_WRITER} --tag ${TAG} --status ${JOB_PART_DIFF_EXP_STATUS} --description "Result written to JOB_DIR/results (will not be pushed to web server) # ${ARRAY_JOB_INDEX}." --index ${CURRENT_PART} --job-type job-part
+   cp  ${TMPDIR}/out.sbi* ${TMPDIR}/mutated-randomized*  ${JOB_DIR}/results-copy/
+
+     ${QUEUE_WRITER} --tag ${TAG} --status ${JOB_PART_DIFF_EXP_STATUS} --description "Result written to JOB_DIR/results (will not be pushed to web server) # ${ARRAY_JOB_INDEX}." --index ${CURRENT_PART} --job-type job-part
    echo "Result written to JOB_DIR/results (will not be pushed to web server)">  ${TMPDIR}/${TAG}-out.tsv
 }
