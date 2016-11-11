@@ -9,7 +9,7 @@
     <directories>
         <selector>
             <id>DIRECTORY</id>
-            <pattern>output-directory</pattern>
+            <pattern>*-output-directory</pattern>
             <mandatory>true</mandatory>
         </selector>
     </directories>
