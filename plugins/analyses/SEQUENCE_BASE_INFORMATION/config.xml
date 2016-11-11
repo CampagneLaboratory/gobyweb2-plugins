@@ -179,15 +179,6 @@
             <filename>out.sbi*</filename>
             <help>View the .sbi/.sbip files.</help>
         </outputFile>
-        <!--outputFile>
-            <id>SBIP</id>
-            <name>.sbip (sbi properties) file</name>
-            <required>true</required>
-            <mimeType>text/x-java-properties</mimeType>
-            <tableName>sbi</tableName>
-            <filename>out.sbip</filename>
-            <help>View the .sbip (properties) file.
-            </help>
-        </outputFile-->
+
     </outputSchema>
 </alignmentAnalysisConfig>
