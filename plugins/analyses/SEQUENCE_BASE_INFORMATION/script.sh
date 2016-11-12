@@ -141,7 +141,5 @@ function plugin_alignment_analysis_combine {
       # Make a backup of the results in case the web app fails to display (https://bitbucket.org/campagnelaboratory/gobyweb/issues/20/alignment-analysis-job-completed-but-error):
    mkdir ${JOB_DIR}/results-copy
    cp  ${TMPDIR}/out.sbi* ${TMPDIR}/mutated-randomized*  ${JOB_DIR}/results-copy/
-
-     ${QUEUE_WRITER} --tag ${TAG} --status ${JOB_PART_DIFF_EXP_STATUS} --description "Result written to JOB_DIR/results (will not be pushed to web server) # ${ARRAY_JOB_INDEX}." --index ${CURRENT_PART} --job-type job-part
-   echo "Result written to JOB_DIR/results (will not be pushed to web server)">  ${TMPDIR}/${TAG}-out.tsv
-}
+   ${QUEUE_WRITER} --tag ${TAG} --status ${JOB_PART_DIFF_EXP_STATUS} --description "Result written to JOB_DIR/results-copy ${ARRAY_JOB_INDEX}." --index ${CURRENT_PART} --job-type job-part
+ }
