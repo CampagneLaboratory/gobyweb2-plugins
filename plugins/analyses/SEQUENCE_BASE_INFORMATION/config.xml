@@ -165,7 +165,7 @@
     <outputSchema>
         <outputFile>
             <id>MUTATED_RANDOMIZED_SBI</id>
-            <name>.sbi/sbip files</name>
+            <name>mutated randomized</name>
             <required>true</required>
             <mimeType>application/goby_sbi</mimeType>
             <filename>mutated-randomized.sbi*</filename>
@@ -173,7 +173,7 @@
         </outputFile>
         <outputFile>
             <id>OUT_SBI</id>
-            <name>.sbi/sbip files</name>
+            <name>raw</name>
             <required>true</required>
             <mimeType>application/goby_sbi</mimeType>
             <filename>out.sbi*</filename>
