@@ -7,8 +7,8 @@ function plugin_install_artifact {
     case ${id} in
 
         'JAR' )
-            VERSION="1.0.3-SNAPSHOT"
-            ${RESOURCES_FETCH_URL_SCRIPT} https://www.dropbox.com/s/hvs1zmmi1l7ko3d/model-training-${VERSION}-bin.jar
+            VERSION="1.1-SNAPSHOT"
+            ${RESOURCES_FETCH_URL_SCRIPT} https://www.dropbox.com/s/05m0ox95hpxchp0/somatic-${VERSION}-bin.jar
 
             mv model-training-${VERSION}-bin.jar ${installation_path}/model-training-bin.jar
 

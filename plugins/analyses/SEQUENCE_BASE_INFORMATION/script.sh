@@ -110,8 +110,8 @@ function plugin_alignment_analysis_process {
       dieUponError  "cannot create split-mutated directory. sub-task ${CURRENT_PART} failed."
       ${RESOURCES_ARTIFACTS_JAVA_LINUX_BINARIES}/bin/java -Xmx${PLUGIN_NEED_PROCESS_JVM}  \
                                         -cp ${RESOURCES_ARTIFACTS_DLVARIATION_JAR}/model-training-bin.jar \
-                                        org.campagnelab.dl.varanalysis.intermediaries.Mutator2 \
-                                        ${TAG}-out-${CURRENT_PART}.sbi ${TAG}-mutated-${CURRENT_PART}.sbi
+                                        org.campagnelab.dl.somatic.tools.Mutator2 \
+                                        -i ${TAG}-out-${CURRENT_PART}.sbi -o ${TAG}-mutated-${CURRENT_PART}.sbi
 
       cp ${TAG}-mutated-${CURRENT_PART}.sbi   ${JOB_DIR}/split-mutated/
       cp ${TAG}-mutated-${CURRENT_PART}.sbip  ${JOB_DIR}/split-mutated/
@@ -129,7 +129,7 @@ function plugin_alignment_analysis_combine {
    PART_RESULT_FILES=$*
 
    ${RESOURCES_ARTIFACTS_JAVA_LINUX_BINARIES}/bin/java -cp ${RESOURCES_ARTIFACTS_DLVARIATION_JAR}/model-training-bin.jar  -Xmx${PLUGIN_NEED_COMBINE_JVM}  \
-                                        org.campagnelab.dl.varanalysis.intermediaries.QuickConcat \
+                                        org.campagnelab.dl.somatic.tools.QuickConcat \
                                         -i  ${JOB_DIR}/split-results/*.sbi -o out
 
    RECORDS_PER_BUCKET=${PLUGINS_ALIGNMENT_ANALYSIS_SEQUENCE_BASE_INFORMATION_RECORDS_PER_BUCKET}
