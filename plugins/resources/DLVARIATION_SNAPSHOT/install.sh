@@ -10,9 +10,9 @@ function plugin_install_artifact {
             VERSION="1.1-SNAPSHOT"
             ${RESOURCES_FETCH_URL_SCRIPT} https://www.dropbox.com/s/05m0ox95hpxchp0/somatic-${VERSION}-bin.jar
 
-            mv model-training-${VERSION}-bin.jar ${installation_path}/model-training-bin.jar
+            mv somatic-${VERSION}-bin.jar ${installation_path}/somatic-bin.jar
 
-            if [ -e ${installation_path}/model-training-bin.jar ]; then
+            if [ -e ${installation_path}/somatic-bin.jar ]; then
                 return 0
             else
                return 127

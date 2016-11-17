@@ -109,7 +109,7 @@ function plugin_alignment_analysis_process {
       mkdir -p ${JOB_DIR}/split-mutated
       dieUponError  "cannot create split-mutated directory. sub-task ${CURRENT_PART} failed."
       ${RESOURCES_ARTIFACTS_JAVA_LINUX_BINARIES}/bin/java -Xmx${PLUGIN_NEED_PROCESS_JVM}  \
-                                        -cp ${RESOURCES_ARTIFACTS_DLVARIATION_JAR}/model-training-bin.jar \
+                                        -cp ${RESOURCES_ARTIFACTS_DLVARIATION_JAR}/somatic-bin.jar \
                                         org.campagnelab.dl.somatic.tools.Mutator2 \
                                         -i ${TAG}-out-${CURRENT_PART}.sbi -o ${TAG}-mutated-${CURRENT_PART}.sbi
 
@@ -128,12 +128,12 @@ function plugin_alignment_analysis_combine {
    shift
    PART_RESULT_FILES=$*
 
-   ${RESOURCES_ARTIFACTS_JAVA_LINUX_BINARIES}/bin/java -cp ${RESOURCES_ARTIFACTS_DLVARIATION_JAR}/model-training-bin.jar  -Xmx${PLUGIN_NEED_COMBINE_JVM}  \
+   ${RESOURCES_ARTIFACTS_JAVA_LINUX_BINARIES}/bin/java -cp ${RESOURCES_ARTIFACTS_DLVARIATION_JAR}/somatic-bin.jar  -Xmx${PLUGIN_NEED_COMBINE_JVM}  \
                                         org.campagnelab.dl.somatic.tools.QuickConcat \
                                         -i  ${JOB_DIR}/split-results/*.sbi -o out
 
    RECORDS_PER_BUCKET=${PLUGINS_ALIGNMENT_ANALYSIS_SEQUENCE_BASE_INFORMATION_RECORDS_PER_BUCKET}
-   ${RESOURCES_ARTIFACTS_JAVA_LINUX_BINARIES}/bin/java -cp ${RESOURCES_ARTIFACTS_DLVARIATION_JAR}/model-training-bin.jar  -Xmx${PLUGIN_NEED_COMBINE_JVM}  \
+   ${RESOURCES_ARTIFACTS_JAVA_LINUX_BINARIES}/bin/java -cp ${RESOURCES_ARTIFACTS_DLVARIATION_JAR}/somatic-bin.jar  -Xmx${PLUGIN_NEED_COMBINE_JVM}  \
                                         org.campagnelab.dl.varanalysis.tools.Randomize \
                                         -i  ${JOB_DIR}/split-mutated/*.sbi -o mutated-randomized \
                                         --records-per-bucket ${RECORDS_PER_BUCKET} --chunk-size 50
