@@ -17,7 +17,7 @@
     <dbLegacyId>SEQUENCE_BASE_INFORMATION</dbLegacyId>
     <help>Produce sbi/.sbip files from Goby alignments.
     </help>
-    <version>1.2</version>
+    <version>1.2.1</version>
     <analysisType>SequenceVariants</analysisType>
     <minimumNumberOfGroups>1</minimumNumberOfGroups>
     <maximumNumberOfGroups>10</maximumNumberOfGroups>
@@ -29,7 +29,7 @@
     <requires>
         <resource>
             <id>GOBY3</id>
-            <versionExactly>3.0.3.-20</versionExactly>
+            <versionExactly>3.0.3.-21</versionExactly>
         </resource>
         <resource>
             <id>DLVARIATION</id>
