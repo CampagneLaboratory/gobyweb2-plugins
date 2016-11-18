@@ -110,7 +110,7 @@ function plugin_alignment_analysis_process {
       dieUponError  "cannot create split-mutated directory. sub-task ${CURRENT_PART} failed."
       ${RESOURCES_ARTIFACTS_JAVA_LINUX_BINARIES}/bin/java -Xmx${PLUGIN_NEED_PROCESS_JVM}  \
                                         -cp ${RESOURCES_ARTIFACTS_DLVARIATION_JAR}/somatic-bin.jar \
-                                        org.campagnelab.dl.somatic.tools.Mutator2 \
+                                        org.campagnelab.dl.somatic.tools.Mutate \
                                         -i ${TAG}-out-${CURRENT_PART}.sbi -o ${TAG}-mutated-${CURRENT_PART}.sbi \
                                         --strategy ${PLUGINS_ALIGNMENT_ANALYSIS_SEQUENCE_BASE_INFORMATION_STRATEGY}
 
