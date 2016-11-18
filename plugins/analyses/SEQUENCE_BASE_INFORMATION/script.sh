@@ -111,7 +111,8 @@ function plugin_alignment_analysis_process {
       ${RESOURCES_ARTIFACTS_JAVA_LINUX_BINARIES}/bin/java -Xmx${PLUGIN_NEED_PROCESS_JVM}  \
                                         -cp ${RESOURCES_ARTIFACTS_DLVARIATION_JAR}/somatic-bin.jar \
                                         org.campagnelab.dl.somatic.tools.Mutator2 \
-                                        -i ${TAG}-out-${CURRENT_PART}.sbi -o ${TAG}-mutated-${CURRENT_PART}.sbi
+                                        -i ${TAG}-out-${CURRENT_PART}.sbi -o ${TAG}-mutated-${CURRENT_PART}.sbi \
+                                        --strategy ${PLUGINS_ALIGNMENT_ANALYSIS_SEQUENCE_BASE_INFORMATION_STRATEGY}
 
       cp ${TAG}-mutated-${CURRENT_PART}.sbi   ${JOB_DIR}/split-mutated/
       cp ${TAG}-mutated-${CURRENT_PART}.sbip  ${JOB_DIR}/split-mutated/
