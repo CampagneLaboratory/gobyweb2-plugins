@@ -33,7 +33,7 @@
         </resource>
         <resource>
             <id>DLVARIATION</id>
-            <versionExactly>1.1.-2</versionExactly>
+            <versionExactly>1.1.-3</versionExactly>
         </resource>
         <resource>
             <id>GOBY_INDEXED_GENOMES</id>
@@ -133,7 +133,9 @@
         <option>
             <id>RECORDS_PER_BUCKET</id>
             <name>Number of records per bucket</name>
-            <help>Shuffling phase: number of records per bucket. Large bucket sizes require more memory for sorting each bucket, but require less files to complete shuffling.</help>
+            <help>Shuffling phase: number of records per bucket. Large bucket sizes require more memory for sorting each
+                bucket, but require less files to complete shuffling.
+            </help>
             <required>true</required>
             <defaultsTo>500000</defaultsTo>
             <type>INTEGER</type>
@@ -152,11 +154,43 @@
         <option>
             <id>SAMPLING_RATE</id>
             <name>Sampling Rate</name>
-            <help>Ratio of sites to write to output. The default writes all sites. Use 0.1 to sample 10 per cent of sites.
+            <help>Ratio of sites to write to output. The default writes all sites. Use 0.1 to sample 10 per cent of
+                sites.
             </help>
             <required>true</required>
             <defaultsTo>1.0</defaultsTo>
             <type>DOUBLE</type>
+            <autoFormat>false</autoFormat>
+        </option>
+        <option>
+            <id>STRATEGY</id>
+            <name>Strategy classname</name>
+            <help>Classname of the stragegy to mutate records. The strategy must match the number of samples/groups. Use PAIR_ for two samples, TRIO for three samples.</help>
+            <required>true</required>
+            <defaultsTo>PAIR_TWO_CANONICAL</defaultsTo>
+            <type>CATEGORY</type>
+            <categories>
+                <category>
+                    <id>PAIR_ONE_CANONICAL</id>
+                    <name>OneSampleCanonicalSimulationStrategy</name>
+                    <value>org.campagnelab.dl.somatic.intermediaries.OneSampleCanonicalSimulationStrategy</value>
+                    <help>Requires the germline sample to be canonical.</help>
+                </category>
+                <category>
+                    <id>PAIR_TWO_CANONICAL</id>
+                    <name>TwoSampleCanonicalSimulationStrategy</name>
+                    <value>org.campagnelab.dl.somatic.intermediaries.TwoSampleCanonicalSimulationStrategy</value>
+                    <help>Requires both somatic and germline samples to be canonical.</help>
+                </category>
+                <category>
+                    <id>TRIO_MENDELIAN</id>
+                    <name>SimulationStrategyImplTrio</name>
+                    <value>org.campagnelab.dl.somatic.intermediaries.SimulationStrategyImplTrio</value>
+                    <help>Requires canonical sites to follow mendelian inheritance rules among mother father
+                        offspring.</help>
+                </category>
+
+            </categories>
             <autoFormat>false</autoFormat>
         </option>
 
