@@ -113,6 +113,7 @@ function plugin_alignment_analysis_process {
                                         org.campagnelab.dl.somatic.tools.Mutate \
                                         -i ${TAG}-out-${CURRENT_PART}.sbi -o ${TAG}-mutated-${CURRENT_PART}.sbi \
                                         --strategy ${PLUGINS_ALIGNMENT_ANALYSIS_SEQUENCE_BASE_INFORMATION_STRATEGY}
+      dieUponError  "cannot create mutated file. sub-task ${CURRENT_PART} failed."
 
       cp ${TAG}-mutated-${CURRENT_PART}.sbi   ${JOB_DIR}/split-mutated/
       cp ${TAG}-mutated-${CURRENT_PART}.sbip  ${JOB_DIR}/split-mutated/
@@ -132,12 +133,14 @@ function plugin_alignment_analysis_combine {
    ${RESOURCES_ARTIFACTS_JAVA_LINUX_BINARIES}/bin/java -cp ${RESOURCES_ARTIFACTS_DLVARIATION_JAR}/somatic-bin.jar  -Xmx${PLUGIN_NEED_COMBINE_JVM}  \
                                         org.campagnelab.dl.somatic.tools.QuickConcat \
                                         -i  ${JOB_DIR}/split-results/*.sbi -o out
+   dieUponError  "cannot QuickConcat. sub-task concat failed."
 
    RECORDS_PER_BUCKET=${PLUGINS_ALIGNMENT_ANALYSIS_SEQUENCE_BASE_INFORMATION_RECORDS_PER_BUCKET}
    ${RESOURCES_ARTIFACTS_JAVA_LINUX_BINARIES}/bin/java -cp ${RESOURCES_ARTIFACTS_DLVARIATION_JAR}/somatic-bin.jar  -Xmx${PLUGIN_NEED_COMBINE_JVM}  \
                                         org.campagnelab.dl.varanalysis.tools.Randomize \
                                         -i  ${JOB_DIR}/split-mutated/*.sbi -o mutated-randomized \
                                         --records-per-bucket ${RECORDS_PER_BUCKET} --chunk-size 50
+   dieUponError  "cannot Randomize. sub-task concat failed."
 
       # Make a backup of the results in case the web app fails to display (https://bitbucket.org/campagnelaboratory/gobyweb/issues/20/alignment-analysis-job-completed-but-error):
    mkdir ${JOB_DIR}/results-copy
