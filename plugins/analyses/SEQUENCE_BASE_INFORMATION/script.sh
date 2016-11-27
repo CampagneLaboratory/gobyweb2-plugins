@@ -169,7 +169,7 @@ function plugin_alignment_analysis_combine {
         cp  ${TMPDIR}/out.sbi* ${TMPDIR}/mutated-randomized*  ${JOB_DIR}/results-copy/
  else
       echo "Producing annotated file."
-      ${RESOURCES_ARTIFACTS_JAVA_LINUX_BINARIES}/bin/java -cp ${RESOURCES_ARTIFACTS_DLVARIATION_JAR}/somatic-bin.jar
+      ${RESOURCES_ARTIFACTS_JAVA_LINUX_BINARIES}/bin/java -cp ${RESOURCES_ARTIFACTS_DLVARIATION_JAR}/somatic-bin.jar \
                                             -Xmx${PLUGIN_NEED_COMBINE_JVM}  \
                                              org.campagnelab.dl.somatic.tools.QuickConcat \
                                              -i  ${JOB_DIR}/results-annotated/*.sbi -o out-annotated
