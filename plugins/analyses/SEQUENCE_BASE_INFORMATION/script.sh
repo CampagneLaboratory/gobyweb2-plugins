@@ -132,11 +132,11 @@ function plugin_alignment_analysis_process {
          ${RESOURCES_ARTIFACTS_JAVA_LINUX_BINARIES}/bin/java -cp ${RESOURCES_ARTIFACTS_DLVARIATION_JAR}/somatic-bin.jar -Xmx${PLUGIN_NEED_PROCESS_JVM}   \
                                                  org.campagnelab.dl.somatic.tools.CombineWithGoldStandard \
                                                  --sampling-fraction ${PLUGINS_ALIGNMENT_ANALYSIS_SEQUENCE_BASE_INFORMATION_ANNOTATION_SAMPLING_RATE} \
-                                                 --annotations ${JOB_DIR}/results-annotated/annotations.tsv
+                                                 --annotations ${JOB_DIR}/results-annotated/annotations.tsv \
                                                  -i ${TAG}-out-${CURRENT_PART}.sbi  \
                                                  -o ${TAG}-out-${CURRENT_PART}-annotated.sbi
 
-        cp ${TAG}-out-${CURRENT_PART}-annotated.sbi ${JOB_DIR}/results-annotated/
+        cp ${TAG}-out-${CURRENT_PART}-annotated.sbi* ${JOB_DIR}/results-annotated/
     fi
 
       ${QUEUE_WRITER} --tag ${TAG} --status ${JOB_PART_DIFF_EXP_STATUS} --description "End discover-sequence-variations for part # ${ARRAY_JOB_INDEX}." --index ${CURRENT_PART} --job-type job-part
