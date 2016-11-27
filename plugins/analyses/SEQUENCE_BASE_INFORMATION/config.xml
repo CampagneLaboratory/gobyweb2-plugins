@@ -193,7 +193,37 @@
             </categories>
             <autoFormat>false</autoFormat>
         </option>
-
+        <option>
+            <id>ANNOTATIONS</id>
+            <name>Gold Standatd Annotations</name>
+            <help>Annotations in tab delimited format: chromsome tab position for location of true somatic variations.
+            </help>
+            <required>false</required>
+            <defaultsTo>false</defaultsTo>
+            <type>BOOLEAN</type>
+            <autoFormat>false</autoFormat>
+        </option>
+        <option hiddenWhen="NOT value(ANNOTATIONS)">
+            <id>ANNOTATION_FILE_URL</id>
+            <name>Annotations File URL</name>
+            <help>URL to download annotation file.
+            </help>
+            <required>false</required>
+            <defaultsTo>false</defaultsTo>
+            <type>STRING</type>
+            <autoFormat>false</autoFormat>
+        </option>
+        <option hiddenWhen="NOT value(ANNOTATIONS)">
+            <id>ANNOTATION_SAMPLING_RATE</id>
+            <name>Annotation Sampling Rate</name>
+            <help>Ratio of non-annotated sites to write to output. The default writes all sites. Use 0.001 to sample 0.1% per
+                cent of non-annotated sites.
+            </help>
+            <required>true</required>
+            <defaultsTo>1.0</defaultsTo>
+            <type>DOUBLE</type>
+            <autoFormat>false</autoFormat>
+        </option>
     </options>
 
     <outputSchema>
@@ -212,6 +242,14 @@
             <mimeType>application/goby_sbi</mimeType>
             <filename>out.sbi*</filename>
             <help>View the .sbi/.sbip files.</help>
+        </outputFile>
+        <outputFile>
+            <id>ANNOTATED_SBI</id>
+            <name>annotated</name>
+            <required>true</required>
+            <mimeType>application/goby_sbi</mimeType>
+            <filename>annotated.sbi*</filename>
+            <help>View the annotated .sbi/.sbip files. Typically annotated with gold-standard somatic variations to evaluate performance.</help>
         </outputFile>
 
     </outputSchema>
