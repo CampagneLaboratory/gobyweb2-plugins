@@ -32,7 +32,8 @@ function plugin_alignment_analysis_split {
      URL="${PLUGINS_ALIGNMENT_ANALYSIS_SEQUENCE_BASE_INFORMATION_ANNOTATION_FILE_URL}"
      echo "Fetching annotations from URL: ${URL}"
      mkdir -p ${JOB_DIR}/results-annotated
-     ${RESOURCES_FETCH_URL_SCRIPT} ${URL} annotations.tsv ${JOB_DIR}/results-annotated
+     ${RESOURCES_FETCH_URL_SCRIPT} ${URL} annotations.tsv
+     cp annotations.tsv  ${JOB_DIR}/results-annotated/
 
   fi
 }
@@ -128,7 +129,7 @@ function plugin_alignment_analysis_process {
           cp ${TAG}-mutated-${CURRENT_PART}.sbip  ${JOB_DIR}/split-mutated/
     else
 
-         ${RESOURCES_ARTIFACTS_JAVA_LINUX_BINARIES}/bin/java -cp ${RESOURCES_ARTIFACTS_DLVARIATION_JAR}/somatic-bin.jar  -Xmx${PLUGIN_NEED_COMBINE_JVM}  \
+         ${RESOURCES_ARTIFACTS_JAVA_LINUX_BINARIES}/bin/java -cp ${RESOURCES_ARTIFACTS_DLVARIATION_JAR}/somatic-bin.jar -Xmx${PLUGIN_NEED_PROCESS_JVM}   \
                                                  org.campagnelab.dl.somatic.tools.CombineWithGoldStandard \
                                                  --sampling-fraction ${PLUGINS_ALIGNMENT_ANALYSIS_SEQUENCE_BASE_INFORMATION_ANNOTATION_SAMPLING_RATE} \
                                                  --annotations ${JOB_DIR}/results-annotated/annotations.tsv
