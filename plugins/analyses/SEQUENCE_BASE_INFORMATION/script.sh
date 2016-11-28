@@ -172,7 +172,7 @@ function plugin_alignment_analysis_combine {
       ${RESOURCES_ARTIFACTS_JAVA_LINUX_BINARIES}/bin/java -cp ${RESOURCES_ARTIFACTS_DLVARIATION_JAR}/somatic-bin.jar \
                                             -Xmx${PLUGIN_NEED_COMBINE_JVM}  \
                                              org.campagnelab.dl.somatic.tools.QuickConcat \
-                                             -i  ${JOB_DIR}/results-annotated/*.sbi -o out-annotated
+                                             -i  ${JOB_DIR}/results-annotated/*-out-*-annotated.sbi -o out-annotated
       dieUponError  "cannot QuickConcat. sub-task concat failed."
       cp out-annotated.sbi* ${JOB_DIR}/results-annotated/
  fi
