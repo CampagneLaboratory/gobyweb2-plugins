@@ -248,7 +248,7 @@
             <name>annotated</name>
             <required>true</required>
             <mimeType>application/goby_sbi</mimeType>
-            <filename>annotated.sbi*</filename>
+            <filename>out-annotated.sbi*</filename>
             <help>View the annotated .sbi/.sbip files. Typically annotated with gold-standard somatic variations to evaluate performance.</help>
         </outputFile>
 
