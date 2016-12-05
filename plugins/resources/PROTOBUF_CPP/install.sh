@@ -27,7 +27,7 @@ EOT
                     make
                     make install)
 
-                (${RESOURCES_FETCH_URL_SCRIPT} http://protobuf.googlecode.com/files/protobuf-2.4.1.tar.gz
+                (${RESOURCES_FETCH_URL_SCRIPT} https://github.com/google/protobuf/releases/download/v2.4.1/protobuf-2.4.1.tar.gz
                       tar zxvf protobuf-2.4.1.tar.gz
                       cd protobuf-2.4.1
                       ./configure --prefix=${installation_path}
