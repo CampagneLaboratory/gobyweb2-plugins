@@ -36,10 +36,10 @@
 
 import com.martiansoftware.jsap.JSAPResult
 import edu.cornell.med.icb.util.ICBStringUtils
-import edu.cornell.med.icb.goby.modes.ConcatenateCompactReadsMode
-import edu.cornell.med.icb.goby.modes.CompactFileStatsMode
-import edu.cornell.med.icb.goby.modes.FastaToCompactMode
-import edu.cornell.med.icb.goby.modes.SampleQualityScoresMode
+import org.campagnelab.goby.modes.ConcatenateCompactReadsMode
+import org.campagnelab.goby.modes.CompactFileStatsMode
+import org.campagnelab.goby.modes.FastaToCompactMode
+import org.campagnelab.goby.modes.SampleQualityScoresMode
 import it.unimi.dsi.fastutil.objects.ObjectOpenHashSet
 import org.apache.commons.io.FileUtils
 import org.apache.commons.io.FilenameUtils
