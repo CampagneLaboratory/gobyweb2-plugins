@@ -7,7 +7,7 @@
     <version>1.0</version>
     <requires>
         <resource>
-            <id>GOBY_3.2.1</id>
+            <id>GOBY3</id>
             <versionAtLeast>3.2.1</versionAtLeast>
         </resource>
         <resource>
