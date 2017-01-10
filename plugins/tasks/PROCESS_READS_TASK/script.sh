@@ -68,7 +68,7 @@ function plugin_task {
         ${RESOURCES_GROOVY_EXECUTABLE} -cp ${RESOURCES_GOBY3_GOBY_JAR}:${GOBY_DIR}:${RESOURCES_GOBYWEB_SERVER_SIDE_COMMONS_IO_JAR}:${RESOURCES_GOBYWEB_SERVER_SIDE_ICB_GROOVY_SUPPORT_JAR}:${RESOURCES_GOBYWEB_SERVER_SIDE_JSAP_JAR} \
             ${RESOURCES_PROCESS_READS_PROCESS_SAMPLES} \
             --jvm-flags "${JAVA_OPTS}" \
-            --goby-jar-dir ${JOB_DIR}/goby \
+            --goby-jar-dir ${JOB_DIR} \
             --cluster-reads-dir ./CONVERTED ${READ_FILES_LIST} \
             --sample-tag ${PLUGINS_TASK_PROCESS_READS_TASK_TAG} \
             --first-file-tag ${PLUGINS_TASK_PROCESS_READS_TASK_TAG} \
