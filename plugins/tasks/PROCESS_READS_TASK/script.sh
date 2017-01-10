@@ -53,6 +53,9 @@ function plugin_task {
     SAMPLE_NAME=$value
     get $ATTRIBUTES_MAP_NAME COLOR_SPACE
     COLOR_SPACE=$value
+    #set Java 8
+    export JAVA_HOME=${RESOURCES_ARTIFACTS_JAVA_LINUX_BINARIES}
+    export PATH=${RESOURCES_ARTIFACTS_JAVA_LINUX_BINARIES}/nin;$PATH
     until [ ${RETURN_STATUS} -eq 0 ] || [ ${CURRENT_RETRY} -gt ${MAX_RETRIES} ]; do
         if [ ${CURRENT_RETRY} -gt 1 ]; then
             ${QUEUE_WRITER} --tag ${TAG} --status ${JOB_START_STATUS} --description "Previous attempt to process reads failed. This will be retried up to ${MAX_RETRIES} times." --index 0 --job-type job-part
@@ -62,7 +65,7 @@ function plugin_task {
         fi
         export QUEUE_WRITER
         chmod +x ${RESOURCES_GROOVY_EXECUTABLE}
-        ${RESOURCES_GROOVY_EXECUTABLE} -cp ${GOBY_DIR}:${RESOURCES_GOBYWEB_SERVER_SIDE_GLOBAL_GOBY_JAR}:${RESOURCES_GOBYWEB_SERVER_SIDE_COMMONS_IO_JAR}:${RESOURCES_GOBYWEB_SERVER_SIDE_ICB_GROOVY_SUPPORT_JAR}:${RESOURCES_GOBYWEB_SERVER_SIDE_JSAP_JAR} \
+        ${RESOURCES_GROOVY_EXECUTABLE} -cp ${RESOURCES_ARTIFACTS_GOBY_JAR}/goby.jar:${GOBY_DIR}:${RESOURCES_GOBYWEB_SERVER_SIDE_COMMONS_IO_JAR}:${RESOURCES_GOBYWEB_SERVER_SIDE_ICB_GROOVY_SUPPORT_JAR}:${RESOURCES_GOBYWEB_SERVER_SIDE_JSAP_JAR} \
             ${RESOURCES_PROCESS_READS_PROCESS_SAMPLES} \
             --jvm-flags "${JAVA_OPTS}" \
             --goby-jar-dir ${JOB_DIR}/goby \
