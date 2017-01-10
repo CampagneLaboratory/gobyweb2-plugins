@@ -55,7 +55,7 @@ function plugin_task {
     COLOR_SPACE=$value
     #set Java 8
     export JAVA_HOME=${RESOURCES_ARTIFACTS_JAVA_LINUX_BINARIES}
-    export PATH=${RESOURCES_ARTIFACTS_JAVA_LINUX_BINARIES}/nin;$PATH
+    export PATH=${RESOURCES_ARTIFACTS_JAVA_LINUX_BINARIES}/bin:${PATH}
     until [ ${RETURN_STATUS} -eq 0 ] || [ ${CURRENT_RETRY} -gt ${MAX_RETRIES} ]; do
         if [ ${CURRENT_RETRY} -gt 1 ]; then
             ${QUEUE_WRITER} --tag ${TAG} --status ${JOB_START_STATUS} --description "Previous attempt to process reads failed. This will be retried up to ${MAX_RETRIES} times." --index 0 --job-type job-part
