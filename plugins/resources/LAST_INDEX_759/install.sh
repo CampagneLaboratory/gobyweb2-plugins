@@ -20,7 +20,7 @@ function plugin_install_artifact {
             NUM_THREADS=`grep physical  /proc/cpuinfo |grep id|wc -l`
 
             INPUT_FASTA_NO_GZ=${FAI_INDEXED_GENOME_DIR}/genome-toplevel.fasta
-            VOLUME_SIZE_OPTION=`cat /proc/meminfo |grep MemTotal|awk '{print "-s "($2*3/4)"K"}'`
+            VOLUME_SIZE_OPTION=`cat /proc/meminfo |grep MemTotal|awk '{print "-s "($2*1/2)"K"}'`
             ${LASTDB} ${VOLUME_SIZE_OPTION} index ${INPUT_FASTA_NO_GZ}
             if [ $? != 0 ]; then
                return 1;
