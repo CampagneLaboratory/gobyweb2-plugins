@@ -44,7 +44,7 @@ function plugin_install_artifact {
                     ENSEMBL_RELEASE=$5
                     echo "Organism=${ORGANISM} Reference-build=${GENOME_REFERENCE_ID}"
 
-                    . ${RESOURCES_GOBY_SHELL_SCRIPT}
+                    . ${RESOURCES_GOBY3_SHELL_SCRIPT}
 
                     ORG=` echo ${ORGANISM} | tr [:lower:] [:upper:]  `
                     BUILD_NUMBER=`echo ${GENOME_REFERENCE_ID} | awk -F\. '{print $1}' | tr [:lower:] [:upper:] `
