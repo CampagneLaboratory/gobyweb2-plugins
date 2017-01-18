@@ -53,6 +53,11 @@
         <need scope="ALIGNMENT_POST_PROCESSING" key="excl" value="false"/>
         <need scope="ALIGNMENT_POST_PROCESSING" key="h_vmem" value="15G"/>
         <need scope="ALIGNMENT_POST_PROCESSING" key="virtual_free" value="15G"/>
+
+        <need scope="GLOBAL" key="excl" value="true"/>
+        <need scope="GLOBAL" key="h_vmem" value="12G"/>
+        <need scope="GLOBAL" key="virtual_free" value="12G"/>
+
     </runtime>
     <options>
         <option>
