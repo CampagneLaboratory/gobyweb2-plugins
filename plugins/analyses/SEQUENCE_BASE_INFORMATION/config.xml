@@ -195,8 +195,8 @@
         </option>
         <option>
             <id>ANNOTATIONS</id>
-            <name>Gold Standatd Annotations</name>
-            <help>Annotations in tab delimited format: chromsome tab position for location of true somatic variations.
+            <name>Gold Standard Annotations</name>
+            <help>Annotations in tab delimited format: chromosome tab position for location of true somatic variations.
             </help>
             <required>false</required>
             <defaultsTo>false</defaultsTo>
@@ -221,6 +221,36 @@
             </help>
             <required>true</required>
             <defaultsTo>1.0</defaultsTo>
+            <type>DOUBLE</type>
+            <autoFormat>false</autoFormat>
+        </option>
+        <option>
+            <id>GERMLINE_VARMAP</id>
+            <name>Genotype Varmap</name>
+            <help>True Genotypes in Goby varmap format. Must be produced with the vcf-to-varmap mode.
+            </help>
+            <required>false</required>
+            <defaultsTo>false</defaultsTo>
+            <type>BOOLEAN</type>
+            <autoFormat>false</autoFormat>
+        </option>
+        <option hiddenWhen="NOT value(GERMLINE_VARMAP)">
+            <id>VARMAP_FILE_URL</id>
+            <name>Varmap File URL</name>
+            <help>URL to download varmap file.
+            </help>
+            <required>false</required>
+            <defaultsTo>false</defaultsTo>
+            <type>STRING</type>
+            <autoFormat>false</autoFormat>
+        </option>
+        <option hiddenWhen="NOT value(GERMLINE_VARMAP)">
+            <id>VARMAP_SAMPLING_RATE</id>
+            <name>Varmap Sampling Rate</name>
+            <help>Ratio of non-true variants to write to output. Use 0.02 to sample 2% per cent of non-variant sites.
+            </help>
+            <required>true</required>
+            <defaultsTo>0.02</defaultsTo>
             <type>DOUBLE</type>
             <autoFormat>false</autoFormat>
         </option>

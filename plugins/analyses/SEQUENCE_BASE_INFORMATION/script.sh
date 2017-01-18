@@ -36,6 +36,14 @@ function plugin_alignment_analysis_split {
      cp annotations.tsv  ${JOB_DIR}/results-annotated/
 
   fi
+
+  if [ "${PLUGINS_ALIGNMENT_ANALYSIS_SEQUENCE_BASE_INFORMATION_GERMLINE_VARMAP}" = "true" ]; then
+     URL="${PLUGINS_ALIGNMENT_ANALYSIS_SEQUENCE_BASE_INFORMATION_VARMAP_FILE_URL}"
+     echo "Fetching annotations from URL: ${URL}"
+     mkdir -p ${JOB_DIR}/results-annotated
+     ${RESOURCES_FETCH_URL_SCRIPT} ${URL} true-genotypes.varmap
+     cp true-genotypes.varmap  ${JOB_DIR}/results-annotated/
+  fi
 }
 
 # This function return the number of parts in the slicing plan. It returns zero if the alignments could not be split.
@@ -89,7 +97,15 @@ function plugin_alignment_analysis_process {
      CALL_INDELS_OPTION=${PLUGINS_ALIGNMENT_ANALYSIS_SEQUENCE_BASE_INFORMATION_CALL_INDELS}
      FORCE_DIPLOID=${PLUGINS_ALIGNMENT_ANALYSIS_SEQUENCE_BASE_INFORMATION_FORCE_DIPLOID}
 
+     if [ "${PLUGINS_ALIGNMENT_ANALYSIS_SEQUENCE_BASE_INFORMATION_GERMLINE_VARMAP}" = "true" ]; then
+        VARMAP_OPTION=" -x SequenceBaseInformationOutputFormat:random-seed=3764 \
+        -x SequenceBaseInformationOutputFormat:sampling-rate=${PLUGINS_ALIGNMENT_ANALYSIS_SEQUENCE_BASE_INFORMATION_VARMAP_SAMPLING_RATE} \
+        -x SequenceBaseInformationOutputFormat:true-genotype-map=${JOB_DIR}/results-annotated/true-genotypes.varmap "
+     else
+        VARMAP_OPTION=" "
+     fi
      # Note that we override the grid jvm flags to request only 4Gb:
+
      run_goby ${PLUGIN_NEED_PROCESS_JVM} discover-sequence-variants \
            ${WINDOW_LIMITS} \
            --groups ${GROUPS_DEFINITION} \
@@ -103,12 +119,19 @@ function plugin_alignment_analysis_process {
            --threshold-distinct-read-indices ${THRESHOLD_DISTINCT_READ_INDICES} \
            --output ${TAG}-out-${CURRENT_PART}  \
            --call-indels ${CALL_INDELS_OPTION} \
-           --diploid ${FORCE_DIPLOID}  \
+           --diploid ${FORCE_DIPLOID} \
+            ${VARMAP_OPTIONS} \
            -x SequenceBaseInformationOutputFormat:sampling-rate=${PLUGINS_ALIGNMENT_ANALYSIS_SEQUENCE_BASE_INFORMATION_SAMPLING_RATE} \
            -x SequenceBaseInformationOutputFormat:random-seed=${PLUGINS_ALIGNMENT_ANALYSIS_SEQUENCE_BASE_INFORMATION_RANDOM_SEED} \
            ${ENTRIES_FILES}
      dieUponError  "Compare sequence variations part, sub-task ${CURRENT_PART} failed."
 
+    if [ "${PLUGINS_ALIGNMENT_ANALYSIS_SEQUENCE_BASE_INFORMATION_GERMLINE_VARMAP}" = "true" ]; then
+          # This is a genotype run. The results are already annotated. Copy and exit.
+          cp ${TAG}-out-${CURRENT_PART}.sbi  ${JOB_DIR}/split-results/
+          cp ${TAG}-out-${CURRENT_PART}.sbip  ${JOB_DIR}/split-results/
+          exit 0
+    fi
     if [ "${PLUGINS_ALIGNMENT_ANALYSIS_SEQUENCE_BASE_INFORMATION_ANNOTATIONS}" = "false" ]; then
 
           mkdir -p ${JOB_DIR}/split-results
