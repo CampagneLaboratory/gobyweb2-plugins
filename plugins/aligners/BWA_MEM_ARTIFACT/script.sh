@@ -68,7 +68,7 @@ function plugin_align {
      ${RESOURCES_SAMTOOLS_EXEC_PATH} view -S -b -u output.sam |${RESOURCES_SAMTOOLS_EXEC_PATH} sort - sam_sorted
      dieUponError "SAM sort failed, sub-task ${CURRENT_PART} of ${NUMBER_OF_PARTS}, failed"
 
-     ${RESOURCES_SAMTOOLS_EXEC_PATH} calmd -u sam_sorted.bam ${INDEXED_GENOME_DIR}/*toplevel.fasta >Aligned.out.bam
+     ${RESOURCES_SAMTOOLS_EXEC_PATH} calmd -E -u sam_sorted.bam ${INDEXED_GENOME_DIR}/*toplevel.fasta >Aligned.out.bam 2> /dev/null
      dieUponError "SAM calmd failed, sub-task ${CURRENT_PART} of ${NUMBER_OF_PARTS}, failed"
 
      export GENOME_DIR=$(eval echo \${RESOURCES_ARTIFACTS_GOBY_INDEXED_GENOMES_SEQUENCE_CACHE_${ORG}_${BUILD_NUMBER}_${ENSEMBL_RELEASE}})
