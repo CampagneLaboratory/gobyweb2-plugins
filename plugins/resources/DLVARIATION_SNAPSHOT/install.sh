@@ -13,7 +13,7 @@ function plugin_install_artifact {
             mv release-dlvariation_${VERSION}/* ${installation_path}/
             # Make version independent jars:
             cp ${installation_path}/somatic/target/somatic-${VERSION}-bin-native.jar ${installation_path}/somatic/target/somatic-bin-native.jar
-            cp ${installation_path}/gpus/target/gpus-${VERSION}-bin-native.jar ${installation_path}/gpus/target/gpus-bin-native.jar
+            cp ${installation_path}/gpus/target/gpus-${VERSION}.jar ${installation_path}/gpus/target/gpus-bin-native.jar
             cp ${installation_path}/genotype/target/genotype-${VERSION}-bin-native.jar ${installation_path}/genotype/target/genotype-bin-native.jar
 
             if [ -e ${installation_path}/somatic/target/somatic-bin-native.jar ]; then
