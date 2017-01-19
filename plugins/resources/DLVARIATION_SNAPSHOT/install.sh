@@ -7,12 +7,16 @@ function plugin_install_artifact {
     case ${id} in
 
         'JAR' )
-            VERSION="1.1-SNAPSHOT"
-            ${RESOURCES_FETCH_URL_SCRIPT} https://www.dropbox.com/s/05m0ox95hpxchp0/somatic-${VERSION}-bin.jar
+            VERSION="1.2.1-SNAPSHOT"
+            ${RESOURCES_FETCH_URL_SCRIPT} https://www.dropbox.com/s/ezygful01ejh9mu/release-dlvariation_${VERSION}.zip
+            unzip  release-dlvariation_${VERSION}.zip
+            mv release-dlvariation_${VERSION}/* ${installation_path}/
+            # Make version independent jars:
+            cp ${installation_path}/somatic/target/somatic-${VERSION}-bin-native.jar ${installation_path}/somatic/target/somatic-bin-native.jar
+            cp ${installation_path}/gpus/target/gpus-${VERSION}-bin-native.jar ${installation_path}/gpus/target/gpus-bin-native.jar
+            cp ${installation_path}/genotype/target/genotype-${VERSION}-bin-native.jar ${installation_path}/genotype/target/genotype-bin-native.jar
 
-            mv somatic-${VERSION}-bin.jar ${installation_path}/somatic-bin.jar
-
-            if [ -e ${installation_path}/somatic-bin.jar ]; then
+            if [ -e ${installation_path}/somatic/target/somatic-bin-native.jar ]; then
                 return 0
             else
                return 127
