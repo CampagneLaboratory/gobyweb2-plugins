@@ -25,6 +25,14 @@
             <id>FETCH_URL</id>
             <versionAtLeast>1.2</versionAtLeast>
         </resource>
+        <resource>
+            <id>GOBY3</id>
+            <versionAtLeast>3.2.1</versionAtLeast>
+        </resource>
+        <resource>
+            <id>JAVA</id>
+            <versionAtLeast>1.8</versionAtLeast>
+        </resource>
     </requires>
     <files>
         <file>

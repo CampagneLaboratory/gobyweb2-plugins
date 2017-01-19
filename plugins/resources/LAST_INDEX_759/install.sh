@@ -20,7 +20,7 @@ function plugin_install_artifact {
             NUM_THREADS=`grep physical  /proc/cpuinfo |grep id|wc -l`
 
             INPUT_FASTA_NO_GZ=${FAI_INDEXED_GENOME_DIR}/genome-toplevel.fasta
-            VOLUME_SIZE_OPTION=`cat /proc/meminfo |grep MemTotal|awk '{print "-s "($2*3/4)"K"}'`
+            VOLUME_SIZE_OPTION=`cat /proc/meminfo |grep MemTotal|awk '{print "-s "($2*1/2)"K"}'`
             ${LASTDB} ${VOLUME_SIZE_OPTION} index ${INPUT_FASTA_NO_GZ}
             if [ $? != 0 ]; then
                return 1;
@@ -44,7 +44,7 @@ function plugin_install_artifact {
                     ENSEMBL_RELEASE=$5
                     echo "Organism=${ORGANISM} Reference-build=${GENOME_REFERENCE_ID}"
 
-                    . ${RESOURCES_GOBY_SHELL_SCRIPT}
+                    . ${RESOURCES_GOBY3_SHELL_SCRIPT}
 
                     ORG=` echo ${ORGANISM} | tr [:lower:] [:upper:]  `
                     BUILD_NUMBER=`echo ${GENOME_REFERENCE_ID} | awk -F\. '{print $1}' | tr [:lower:] [:upper:] `

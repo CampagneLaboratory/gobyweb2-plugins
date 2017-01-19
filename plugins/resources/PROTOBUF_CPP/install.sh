@@ -27,16 +27,16 @@ EOT
                     make
                     make install)
 
-                (${RESOURCES_FETCH_URL_SCRIPT} http://protobuf.googlecode.com/files/protobuf-2.4.1.tar.gz
+                (${RESOURCES_FETCH_URL_SCRIPT} https://github.com/google/protobuf/releases/download/v2.4.1/protobuf-2.4.1.tar.gz
                       tar zxvf protobuf-2.4.1.tar.gz
                       cd protobuf-2.4.1
                       ./configure --prefix=${installation_path}
                       make
                       make install)
 
-                (${RESOURCES_FETCH_URL_SCRIPT} ftp://ftp.csx.cam.ac.uk/pub/software/programming/pcre/pcre-8.37.tar.gz
-                      tar zxvf pcre-8.37.tar.gz
-                      cd pcre-8.37
+                (${RESOURCES_FETCH_URL_SCRIPT} ftp://ftp.csx.cam.ac.uk/pub/software/programming/pcre/pcre-8.39.tar.gz
+                      tar zxvf pcre-8.39.tar.gz
+                      cd pcre-8.39
                       ./configure --prefix=${installation_path}
                       make
                       make install

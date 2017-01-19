@@ -62,14 +62,16 @@ function plugin_align {
         dieUponError "SE alignment failed, sub-task ${CURRENT_PART} of ${NUMBER_OF_PARTS}, failed"
     fi
     set -x
-     export GENOME_DIR=$(eval echo \${RESOURCES_ARTIFACTS_GOBY_INDEXED_GENOMES_SEQUENCE_CACHE_${ORG}_${BUILD_NUMBER}_${ENSEMBL_RELEASE}})
-     run_goby ${PLUGIN_NEED_ALIGN_JVM} sam-to-compact -i output.sam -o ${OUTPUT} --genome ${GENOME_DIR}/random-access-genome
+     export INDEXED_GENOME_DIR=$(eval echo \${RESOURCES_ARTIFACTS_FAI_INDEXED_GENOMES_SAMTOOLS_FAI_INDEX_${ORG}_${BUILD_NUMBER}_${ENSEMBL_RELEASE}})
 
      # ADD MD tags to the sam file with samtools: NB: we sort the BAM file because calmd is terribly slow on non-sorted input
-     ${RESOURCES_SAMTOOLS_EXEC_PATH} view -S -b -u Aligned.out.sam |${RESOURCES_SAMTOOLS_EXEC_PATH} sort - sam_sorted
-     ${RESOURCES_SAMTOOLS_EXEC_PATH} calmd -u sam_sorted.bam ${INDEXED_GENOME_DIR}/*toplevel.fasta >Aligned.out.bam
-    # cp Aligned.out.bam ${JOB_DIR}/output-${CURRENT_PART}.bam
+     ${RESOURCES_SAMTOOLS_EXEC_PATH} view -S -b -u output.sam |${RESOURCES_SAMTOOLS_EXEC_PATH} sort - sam_sorted
+     dieUponError "SAM sort failed, sub-task ${CURRENT_PART} of ${NUMBER_OF_PARTS}, failed"
 
-    run_goby ${PLUGIN_NEED_ALIGN_JVM} sam-to-compact -i Aligned.out.bam -o ${OUTPUT}  --genome ${GENOME_DIR}/random-access-genome --read-names-are-query-indices
-    dieUponError "SAM conversion to Goby fomat failed, sub-task ${CURRENT_PART} of ${NUMBER_OF_PARTS}, failed"
+     ${RESOURCES_SAMTOOLS_EXEC_PATH} calmd -E -u sam_sorted.bam ${INDEXED_GENOME_DIR}/*toplevel.fasta >Aligned.out.bam 2> /dev/null
+     dieUponError "SAM calmd failed, sub-task ${CURRENT_PART} of ${NUMBER_OF_PARTS}, failed"
+
+     export GENOME_DIR=$(eval echo \${RESOURCES_ARTIFACTS_GOBY_INDEXED_GENOMES_SEQUENCE_CACHE_${ORG}_${BUILD_NUMBER}_${ENSEMBL_RELEASE}})
+     run_goby ${PLUGIN_NEED_ALIGN_JVM} sam-to-compact -i Aligned.out.bam -o ${OUTPUT}  --genome ${GENOME_DIR}/random-access-genome --read-names-are-query-indices
+     dieUponError "SAM conversion to Goby format failed, sub-task ${CURRENT_PART} of ${NUMBER_OF_PARTS}, failed"
 }

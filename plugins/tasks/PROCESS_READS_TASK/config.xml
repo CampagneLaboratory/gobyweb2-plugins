@@ -7,8 +7,12 @@
     <version>1.0</version>
     <requires>
         <resource>
-            <id>GOBY</id>
-            <versionAtLeast>20140317155722</versionAtLeast>
+            <id>GOBY3</id>
+            <versionAtLeast>3.2.1</versionAtLeast>
+        </resource>
+        <resource>
+            <id>JAVA</id>
+            <versionAtLeast>1.8</versionAtLeast>
         </resource>
         <resource>
             <id>PROCESS_READS</id>

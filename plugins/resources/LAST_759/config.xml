@@ -15,7 +15,7 @@
     <name>Last (auto-install)</name>
     <id>LAST_ARTIFACT</id>
     <help>Last aligner. Obtained from http://last.cbrc.jp/</help>
-    <version>759.5</version>
+    <version>759.5.1</version>
     <!--requires>
         <resource>
             <id>GCC</id>

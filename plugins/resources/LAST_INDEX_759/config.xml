@@ -15,19 +15,19 @@
     <name>Last base level indices (auto-install)</name>
     <id>LAST_INDEX</id>
     <help>Base indices for the Last aligner.</help>
-    <version>759.1</version>
+    <version>759.2</version>
     <requires>
         <resource>
             <id>LAST_ARTIFACT</id>
-            <versionAtLeast>581</versionAtLeast>
+            <versionAtLeast>759.5.1</versionAtLeast>
         </resource>
         <resource>
             <id>FAI_INDEXED_GENOMES</id>
             <versionAtLeast>1.1.1</versionAtLeast>
         </resource>
         <resource>
-            <id>GOBY</id>
-            <versionAtLeast>20130413162635</versionAtLeast>
+            <id>GOBY3</id>
+            <versionAtLeast>3.2.1</versionAtLeast>
         </resource>
     </requires>
     <artifacts>
