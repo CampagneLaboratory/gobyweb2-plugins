@@ -177,15 +177,26 @@ function plugin_alignment_analysis_combine {
     PART_RESULT_FILES=$*
     if [ "${PLUGINS_ALIGNMENT_ANALYSIS_SEQUENCE_BASE_INFORMATION_ANNOTATIONS}" = "false" ]; then
 
-        ${RESOURCES_ARTIFACTS_DLVARIATION_JAR}/bin/concat.sh  ${PLUGIN_NEED_COMBINE_JVM} \
-                                            -i  ${JOB_DIR}/split-results/*.sbi -o out
-        dieUponError  "cannot QuickConcat. sub-task concat failed."
 
-        RECORDS_PER_BUCKET=${PLUGINS_ALIGNMENT_ANALYSIS_SEQUENCE_BASE_INFORMATION_RECORDS_PER_BUCKET}
-        ${RESOURCES_ARTIFACTS_DLVARIATION_JAR}/bin/randomize.sh  ${PLUGIN_NEED_COMBINE_JVM} \
+        if [ "${PLUGINS_ALIGNMENT_ANALYSIS_SEQUENCE_BASE_INFORMATION_GERMLINE_VARMAP}" = "true" ]; then
+            RECORDS_PER_BUCKET=${PLUGINS_ALIGNMENT_ANALYSIS_SEQUENCE_BASE_INFORMATION_RECORDS_PER_BUCKET}
+            ${RESOURCES_ARTIFACTS_DLVARIATION_JAR}/bin/randomize.sh  ${PLUGIN_NEED_COMBINE_JVM} \
+                                            -i ${JOB_DIR}/split-results/*.sbi -o out \
+                                            --records-per-bucket ${RECORDS_PER_BUCKET} --chunk-size 50
+            dieUponError  "cannot Randomize. sub-task concat failed."
+        else
+            ${RESOURCES_ARTIFACTS_DLVARIATION_JAR}/bin/concat.sh  ${PLUGIN_NEED_COMBINE_JVM} \
+                                            -i  ${JOB_DIR}/split-results/*.sbi -o out
+            dieUponError  "cannot QuickConcat. sub-task concat failed."
+
+            RECORDS_PER_BUCKET=${PLUGINS_ALIGNMENT_ANALYSIS_SEQUENCE_BASE_INFORMATION_RECORDS_PER_BUCKET}
+            ${RESOURCES_ARTIFACTS_DLVARIATION_JAR}/bin/randomize.sh  ${PLUGIN_NEED_COMBINE_JVM} \
                                             -i  ${JOB_DIR}/split-mutated/*.sbi -o mutated-randomized \
                                             --records-per-bucket ${RECORDS_PER_BUCKET} --chunk-size 50
         dieUponError  "cannot Randomize. sub-task concat failed."
+        fi
+
+
 
           # Make a backup of the results in case the web app fails to display (https://bitbucket.org/campagnelaboratory/gobyweb/issues/20/alignment-analysis-job-completed-but-error):
         mkdir -p ${JOB_DIR}/results-copy

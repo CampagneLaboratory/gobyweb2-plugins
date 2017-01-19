@@ -260,7 +260,7 @@
         <outputFile>
             <id>MUTATED_RANDOMIZED_SBI</id>
             <name>mutated randomized</name>
-            <required>true</required>
+            <required>false</required>
             <mimeType>application/goby_sbi</mimeType>
             <filename>mutated-randomized.sbi*</filename>
             <help>View the mutated and randomized .sbi/.sbip files.</help>
