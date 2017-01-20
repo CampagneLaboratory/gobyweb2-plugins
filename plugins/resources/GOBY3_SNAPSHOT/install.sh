@@ -7,8 +7,8 @@ function plugin_install_artifact {
     case ${id} in
 
         'JAR' )
-            VERSION="3.0.3-SNAPSHOT"
-            ${RESOURCES_FETCH_URL_SCRIPT} https://www.dropbox.com/s/afprsn3zbrza0tl/goby-${VERSION}.zip
+            VERSION="3.2.1-SNAPSHOT"
+            ${RESOURCES_FETCH_URL_SCRIPT} https://www.dropbox.com/s/n4p7vwovz6mdrl1/goby-${VERSION}.zip
             unzip goby-${VERSION}.zip
             export JAVA_HOME=${RESOURCES_ARTIFACTS_JAVA_LINUX_BINARIES}
             mv goby-${VERSION}/* ${installation_path}
