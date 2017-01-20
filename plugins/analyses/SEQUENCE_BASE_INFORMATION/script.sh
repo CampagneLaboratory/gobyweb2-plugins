@@ -98,11 +98,13 @@ function plugin_alignment_analysis_process {
      FORCE_DIPLOID=${PLUGINS_ALIGNMENT_ANALYSIS_SEQUENCE_BASE_INFORMATION_FORCE_DIPLOID}
 
      if [ "${PLUGINS_ALIGNMENT_ANALYSIS_SEQUENCE_BASE_INFORMATION_GERMLINE_VARMAP}" = "true" ]; then
-        VARMAP_OPTION=" -x SequenceBaseInformationOutputFormat:random-seed=3764 \
+        VARMAP_OPTIONS=" -x SequenceBaseInformationOutputFormat:random-seed=3764 \
         -x SequenceBaseInformationOutputFormat:sampling-rate=${PLUGINS_ALIGNMENT_ANALYSIS_SEQUENCE_BASE_INFORMATION_VARMAP_SAMPLING_RATE} \
         -x SequenceBaseInformationOutputFormat:true-genotype-map=${JOB_DIR}/results-annotated/true-genotypes.varmap "
      else
-        VARMAP_OPTION=" "
+        VARMAP_OPTIONS="  -x SequenceBaseInformationOutputFormat:sampling-rate=${PLUGINS_ALIGNMENT_ANALYSIS_SEQUENCE_BASE_INFORMATION_SAMPLING_RATE} \
+           -x SequenceBaseInformationOutputFormat:random-seed=${PLUGINS_ALIGNMENT_ANALYSIS_SEQUENCE_BASE_INFORMATION_RANDOM_SEED} \
+           "
      fi
      # Note that we override the grid jvm flags to request only 4Gb:
 
@@ -121,9 +123,7 @@ function plugin_alignment_analysis_process {
            --call-indels ${CALL_INDELS_OPTION} \
            --diploid ${FORCE_DIPLOID} \
             ${VARMAP_OPTIONS} \
-           -x SequenceBaseInformationOutputFormat:sampling-rate=${PLUGINS_ALIGNMENT_ANALYSIS_SEQUENCE_BASE_INFORMATION_SAMPLING_RATE} \
-           -x SequenceBaseInformationOutputFormat:random-seed=${PLUGINS_ALIGNMENT_ANALYSIS_SEQUENCE_BASE_INFORMATION_RANDOM_SEED} \
-           ${ENTRIES_FILES}
+            ${ENTRIES_FILES}
      dieUponError  "Compare sequence variations part, sub-task ${CURRENT_PART} failed."
 
     if [ "${PLUGINS_ALIGNMENT_ANALYSIS_SEQUENCE_BASE_INFORMATION_GERMLINE_VARMAP}" = "true" ]; then
