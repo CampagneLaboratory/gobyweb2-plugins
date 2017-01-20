@@ -29,7 +29,7 @@
     <requires>
         <resource>
             <id>GOBY3</id>
-            <versionExactly>3.2.1</versionExactly>
+            <versionAtLeast>3.2.1</versionAtLeast>
         </resource>
         <resource>
             <id>DLVARIATION</id>
