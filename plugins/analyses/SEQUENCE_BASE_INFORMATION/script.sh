@@ -99,6 +99,7 @@ function plugin_alignment_analysis_process {
 
      if [ "${PLUGINS_ALIGNMENT_ANALYSIS_SEQUENCE_BASE_INFORMATION_GERMLINE_VARMAP}" = "true" ]; then
         VARMAP_OPTIONS=" -x SequenceBaseInformationOutputFormat:random-seed=3764 \
+        -x SequenceBaseInformationOutputFormat:genomic-context-length=51 \
         -x SequenceBaseInformationOutputFormat:sampling-rate=${PLUGINS_ALIGNMENT_ANALYSIS_SEQUENCE_BASE_INFORMATION_VARMAP_SAMPLING_RATE} \
         -x SequenceBaseInformationOutputFormat:true-genotype-map=${JOB_DIR}/results-annotated/true-genotypes.varmap "
      else
