@@ -28,8 +28,8 @@
     <copyWeightFiles>false</copyWeightFiles>
     <requires>
         <resource>
-            <id>GOBY3</id>
-            <versionExactly>3.2.1.-2</versionExactly>
+            <id>GOBY3_INDELS</id>
+            <versionExactly>3.2.2.-1</versionExactly>
         </resource>
         <resource>
             <id>DLVARIATION</id>
