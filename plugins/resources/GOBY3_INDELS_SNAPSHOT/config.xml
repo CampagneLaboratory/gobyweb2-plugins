@@ -31,7 +31,7 @@
     <files>
          <file>
             <id>SHELL_SCRIPT</id>
-            <filename>goby3-script.sh</filename>
+            <filename>goby3-indels-script.sh</filename>
         </file>
     </files>
 
