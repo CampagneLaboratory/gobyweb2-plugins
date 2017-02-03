@@ -117,7 +117,7 @@
             <help>Minimum number of reads that must have the variation for the variation to be reported in the output
             </help>
             <required>true</required>
-            <defaultsTo>1</defaultsTo>
+            <defaultsTo>0</defaultsTo>
             <type>INTEGER</type>
             <autoFormat>false</autoFormat>
         </option>
