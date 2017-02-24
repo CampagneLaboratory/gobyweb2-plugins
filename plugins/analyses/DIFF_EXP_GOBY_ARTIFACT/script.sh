@@ -111,10 +111,10 @@ function plugin_alignment_analysis_combine {
           -o stats.tsv
 
    dieUponError "statistics evaluation failed."
-
-   if [ $RETURN_STATUS -eq 0 ]; then
-            IMAGE_OUTPUT_PNG=
-            R -f ${PLUGINS_ALIGNMENT_ANALYSIS_DIFF_EXP_GOBY_ARTIFACT_FILES_R_SCRIPT} --slave --quiet --no-restore --no-save --no-readline --args input=stats.tsv graphOutput=.png
-   fi
+   #FIXME: disabled on 2/24/17 because of problems with Cairo on the cluster. Re-enable when they will be fixed.
+   #if [ $RETURN_STATUS -eq 0 ]; then
+   #         IMAGE_OUTPUT_PNG=
+   #         R -f ${PLUGINS_ALIGNMENT_ANALYSIS_DIFF_EXP_GOBY_ARTIFACT_FILES_R_SCRIPT} --slave --quiet --no-restore --no-save --no-readline --args input=stats.tsv graphOutput=.png
+   #fi
 
 }
