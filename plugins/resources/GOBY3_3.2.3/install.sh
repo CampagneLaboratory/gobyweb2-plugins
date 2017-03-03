@@ -7,7 +7,7 @@ function plugin_install_artifact {
     case ${id} in
 
         'JAR' )
-            VERSION="3.2.4"
+            VERSION="3.2.3"
             ${RESOURCES_FETCH_URL_SCRIPT} http://chagall.med.cornell.edu/goby/releases/archive/release-goby_${VERSION}.tgz
             tar -zxvf release-goby_${VERSION}.tgz
             cd release-goby_${VERSION}
