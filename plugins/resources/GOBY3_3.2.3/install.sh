@@ -13,9 +13,9 @@ function plugin_install_artifact {
             cd release-goby_${VERSION}
             unzip goby_${VERSION}-bin.zip
             export JAVA_HOME=${RESOURCES_ARTIFACTS_JAVA_LINUX_BINARIES}
-            mv goby_${VERSION}/goby.jar ${installation_path}
+            mv goby-${VERSION}/goby.jar ${installation_path}
             mkdir ${installation_path}/models
-            mv goby_${VERSION}/models/* ${installation_path}/models
+            mv goby-${VERSION}/models/* ${installation_path}/models
             chmod +x ${installation_path}/*
             if [ -e ${installation_path}/goby.jar ]; then
                 return 0
