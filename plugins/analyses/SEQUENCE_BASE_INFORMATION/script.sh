@@ -144,7 +144,7 @@ function plugin_alignment_analysis_process {
 
           mkdir -p ${JOB_DIR}/split-mutated
           dieUponError  "cannot create split-mutated directory. sub-task ${CURRENT_PART} failed."
-          ${RESOURCES_ARTIFACTS_DLVARIATION_INDELS_JAR}/bin/mutate.sh ${PLUGIN_NEED_PROCESS_JVM}  \
+          ${RESOURCES_ARTIFACTS_DLVARIATION_JAR}/bin/mutate.sh ${PLUGIN_NEED_PROCESS_JVM}  \
                                             -i ${TAG}-out-${CURRENT_PART}.sbi -o ${TAG}-mutated-${CURRENT_PART}.sbi \
                                             --strategy ${PLUGINS_ALIGNMENT_ANALYSIS_SEQUENCE_BASE_INFORMATION_STRATEGY}
           dieUponError  "cannot create mutated file. sub-task ${CURRENT_PART} failed."
@@ -153,7 +153,7 @@ function plugin_alignment_analysis_process {
           cp ${TAG}-mutated-${CURRENT_PART}.sbip  ${JOB_DIR}/split-mutated/
     else
 
-         ${RESOURCES_ARTIFACTS_JAVA_LINUX_BINARIES}/bin/java -cp ${RESOURCES_ARTIFACTS_DLVARIATION_INDELS_JAR}/somatic/target/somatic-bin-native.jar -Xmx${PLUGIN_NEED_PROCESS_JVM}   \
+         ${RESOURCES_ARTIFACTS_JAVA_LINUX_BINARIES}/bin/java -cp ${RESOURCES_ARTIFACTS_DLVARIATION_JAR}/somatic/target/somatic-bin-native.jar -Xmx${PLUGIN_NEED_PROCESS_JVM}   \
                                                  org.campagnelab.dl.somatic.tools.CombineWithGoldStandard \
                                                  --sampling-fraction ${PLUGINS_ALIGNMENT_ANALYSIS_SEQUENCE_BASE_INFORMATION_ANNOTATION_SAMPLING_RATE} \
                                                  --annotations ${JOB_DIR}/results-annotated/annotations.tsv \
@@ -181,17 +181,17 @@ function plugin_alignment_analysis_combine {
 
         if [ "${PLUGINS_ALIGNMENT_ANALYSIS_SEQUENCE_BASE_INFORMATION_GERMLINE_VARMAP}" = "true" ]; then
             RECORDS_PER_BUCKET=${PLUGINS_ALIGNMENT_ANALYSIS_SEQUENCE_BASE_INFORMATION_RECORDS_PER_BUCKET}
-            ${RESOURCES_ARTIFACTS_DLVARIATION_INDELS_JAR}/bin/randomize.sh  ${PLUGIN_NEED_COMBINE_JVM} \
+            ${RESOURCES_ARTIFACTS_DLVARIATION_JAR}/bin/randomize.sh  ${PLUGIN_NEED_COMBINE_JVM} \
                                             -i ${JOB_DIR}/split-results/*.sbi -o out \
                                             --records-per-bucket ${RECORDS_PER_BUCKET} --chunk-size 50
             dieUponError  "cannot Randomize. sub-task concat failed."
         else
-            ${RESOURCES_ARTIFACTS_DLVARIATION_INDELS_JAR}/bin/concat.sh  ${PLUGIN_NEED_COMBINE_JVM} \
+            ${RESOURCES_ARTIFACTS_DLVARIATION_JAR}/bin/concat.sh  ${PLUGIN_NEED_COMBINE_JVM} \
                                             -i  ${JOB_DIR}/split-results/*.sbi -o out
             dieUponError  "cannot QuickConcat. sub-task concat failed."
 
             RECORDS_PER_BUCKET=${PLUGINS_ALIGNMENT_ANALYSIS_SEQUENCE_BASE_INFORMATION_RECORDS_PER_BUCKET}
-            ${RESOURCES_ARTIFACTS_DLVARIATION_INDELS_JAR}/bin/randomize.sh  ${PLUGIN_NEED_COMBINE_JVM} \
+            ${RESOURCES_ARTIFACTS_DLVARIATION_JAR}/bin/randomize.sh  ${PLUGIN_NEED_COMBINE_JVM} \
                                             -i  ${JOB_DIR}/split-mutated/*.sbi -o mutated-randomized \
                                             --records-per-bucket ${RECORDS_PER_BUCKET} --chunk-size 50
         dieUponError  "cannot Randomize. sub-task concat failed."
@@ -204,7 +204,7 @@ function plugin_alignment_analysis_combine {
         cp  ${TMPDIR}/out.sbi* ${TMPDIR}/mutated-randomized*  ${JOB_DIR}/results-copy/
  else
       echo "Producing annotated file."
-      ${RESOURCES_ARTIFACTS_DLVARIATION_INDELS_JAR}/bin/concat.sh  ${PLUGIN_NEED_COMBINE_JVM} \
+      ${RESOURCES_ARTIFACTS_DLVARIATION_JAR}/bin/concat.sh  ${PLUGIN_NEED_COMBINE_JVM} \
                                              -i  ${JOB_DIR}/results-annotated/*-out-*-annotated.sbi -o out-annotated
       dieUponError  "cannot QuickConcat. sub-task concat failed."
       cp out-annotated.sbi* ${JOB_DIR}/results-annotated/

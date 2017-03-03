@@ -1,4 +1,4 @@
-# Installation script for GOBY version 3.0.0
+# Installation script for dlvariation version
 function plugin_install_artifact {
 
     id=$1
@@ -7,8 +7,8 @@ function plugin_install_artifact {
     case ${id} in
 
         'JAR' )
-            VERSION="1.2.1-SNAPSHOT"
-            ${RESOURCES_FETCH_URL_SCRIPT} https://www.dropbox.com/s/ezygful01ejh9mu/release-dlvariation_${VERSION}.zip
+            VERSION="1.2.3"
+            ${RESOURCES_FETCH_URL_SCRIPT} http://chagall.med.cornell.edu/goby/releases/dlvariation/release-dlvariation_${VERSION}.zip
             unzip  release-dlvariation_${VERSION}.zip
             mv release-dlvariation_${VERSION}/* ${installation_path}/
             # Make version independent jars:

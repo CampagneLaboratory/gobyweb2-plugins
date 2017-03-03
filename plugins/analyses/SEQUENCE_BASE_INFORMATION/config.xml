@@ -32,8 +32,8 @@
             <versionExactly>3.2.3</versionExactly>
         </resource>
         <resource>
-            <id>DLVARIATION_INDELS</id>
-            <versionExactly>1.2.2.-1</versionExactly>
+            <id>DLVARIATION</id>
+            <versionExactly>1.2.3</versionExactly>
         </resource>
         <resource>
             <id>GOBY_INDEXED_GENOMES</id>
