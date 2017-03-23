@@ -15,7 +15,7 @@
 
 # OTHER_ALIGNMENT_ANALYSIS_OPTIONS = any options defined by the end-user or assembled with the auto-format mechanism.
 
-. ${RESOURCES_GOBY_SHELL_SCRIPT}
+. ${RESOURCES_GOBY3_SHELL_SCRIPT}
 
 function plugin_alignment_analysis_split {
 
@@ -101,7 +101,7 @@ function plugin_alignment_analysis_process {
     . ${RESOURCES_ARTIFACTS_RJAVA_BINARIES}/setup.sh
 
      # Note that we override the grid jvm flags to request only 4Gb:
-     run_goby ${PLUGIN_NEED_PROCESS_JVM} discover-sequence-variants \
+     run_goby_wrapper ${PLUGIN_NEED_PROCESS_JVM} discover-sequence-variants \
            ${WINDOW_LIMITS} \
            --groups ${GROUPS_DEFINITION} \
            --compare ${COMPARE_DEFINITION} \
@@ -191,7 +191,7 @@ function plugin_alignment_analysis_combine {
    else
        Q_VALUE_THRESHOLD=${PLUGINS_ALIGNMENT_ANALYSIS_SEQ_VAR_GOBY_Q_VALUE_THRESHOLD}
 
-        run_goby ${PLUGIN_NEED_COMBINE_JVM} fdr \
+        run_goby_wrapper ${PLUGIN_NEED_COMBINE_JVM} fdr \
           --vcf \
           --q-threshold ${Q_VALUE_THRESHOLD} \
           --top-hits ${NUM_TOP_HITS} \

@@ -29,8 +29,8 @@
     <copyWeightFiles>false</copyWeightFiles>
     <requires>
         <resource>
-            <id>GOBY</id>
-            <versionAtLeast>20130404182251</versionAtLeast>
+            <id>GOBY3</id>
+            <versionExactly>3.2.3.1</versionExactly>
         </resource>
         <resource>
             <id>VCF_TOOLS</id>
