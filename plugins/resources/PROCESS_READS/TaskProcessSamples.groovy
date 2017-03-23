@@ -69,7 +69,7 @@ public class TaskProcessSample {
                     <id>goby-jar-dir</id>
                     <longFlag>goby-jar-dir</longFlag>
                     <required>true</required>
-                    <help>The directory where the goby3.jar that will be use exists.</help>
+                    <help>The directory where the goby.jar that will be use exists.</help>
                 </flaggedOption>
                 <flaggedOption>
                     <id>jvm-flags</id>
@@ -736,7 +736,7 @@ public class TaskProcessSample {
                 if (colorSpace) {
                     colorSpaceOpt = "--color-space"
                 }
-                String cl = "java ${jvmFlags} -jar ${gobyJarDir}/goby3.jar -m reads-to-weights ${sample} ${colorSpaceOpt} --method heptamers --heptamer-info ${heptamerInfoFile}"
+                String cl = "java ${jvmFlags} -jar ${gobyJarDir}/goby.jar -m reads-to-weights ${sample} ${colorSpaceOpt} --method heptamers --heptamer-info ${heptamerInfoFile}"
                 println "Executing read-quality-stats / heptamers mode for ${sample}"
                 exec.queueMessage sampleTag, "Creating heptamer weights file"
                 def exitValue = exec.exec(cl)
@@ -762,7 +762,7 @@ public class TaskProcessSample {
                 if (colorSpace) {
                     colorSpaceOpt = "--color-space"
                 }
-                String cl = "java ${jvmFlags} -jar ${gobyJarDir}/goby3.jar -m reads-to-weights ${sample} ${colorSpaceOpt} --method gc "
+                String cl = "java ${jvmFlags} -jar ${gobyJarDir}/goby.jar -m reads-to-weights ${sample} ${colorSpaceOpt} --method gc "
                 println "Executing read-quality-stats / gc mode for ${sample}"
                 exec.queueMessage sampleTag, "Creating GC weights file"
                 def exitValue = exec.exec(cl)
@@ -784,7 +784,7 @@ public class TaskProcessSample {
         // TODO: add to queue "Determining read quality"
         println "getReadQualityStats for ${sample.getAbsolutePath()}"
         if (sample && sample.exists()) {
-            String cl = "java ${jvmFlags} -jar ${gobyJarDir}/goby3.jar -m read-quality-stats -o ${readQualChartFilename} ${sample} "
+            String cl = "java ${jvmFlags} -jar ${gobyJarDir}/goby.jar -m read-quality-stats -o ${readQualChartFilename} ${sample} "
             if (numberOfReads < 5000) {
                 cl += "-p 1.0 "
             }
