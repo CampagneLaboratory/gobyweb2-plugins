@@ -18,6 +18,7 @@
     <help>Version of Lastag wrapped with Goby align mode.</help>
     <version>1.1</version>
     <disabled>true</disabled> <!-- Lastag should be replaced with vanilla last with some new options. -->
+    <uiTemplate>Aligner</uiTemplate>
     <supportsColorSpace>false</supportsColorSpace>
     <supportsGobyAlignments>true</supportsGobyAlignments>
     <supportsBAMAlignments>false</supportsBAMAlignments>

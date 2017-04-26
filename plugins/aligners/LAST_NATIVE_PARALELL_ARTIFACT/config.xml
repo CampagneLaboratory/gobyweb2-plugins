@@ -16,6 +16,7 @@
     <id>LAST_NATIVE_PARALELL_ARTIFACT</id>
     <help>Alignment with Last, using native -P parallelization in lastal.</help>
     <version>1.0</version>
+    <uiTemplate>Aligner</uiTemplate>
     <supportsColorSpace>false</supportsColorSpace>
     <supportsGobyAlignments>true</supportsGobyAlignments>
     <supportsPairedEndAlignments>true</supportsPairedEndAlignments>

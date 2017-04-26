@@ -18,6 +18,7 @@
     <help>Version of BWA that supports Goby formats natively.</help>
     <version>1.2</version>
     <disabled>true</disabled>
+    <uiTemplate>Aligner</uiTemplate>
     <supportsColorSpace>true</supportsColorSpace>
     <supportsGobyAlignments>true</supportsGobyAlignments>
     <supportsPairedEndAlignments>true</supportsPairedEndAlignments>

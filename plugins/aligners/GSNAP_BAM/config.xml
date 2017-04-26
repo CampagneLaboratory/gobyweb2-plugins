@@ -19,6 +19,7 @@
         node against a single reads file.
     </help>
     <version>1.0</version>
+    <uiTemplate>Aligner</uiTemplate>
     <supportsColorSpace>false</supportsColorSpace>
     <supportsGobyAlignments>false</supportsGobyAlignments>
     <supportsPairedEndAlignments>true</supportsPairedEndAlignments>

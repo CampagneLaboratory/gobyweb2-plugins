@@ -16,6 +16,7 @@
     <id>BISMARK_BISULFITE_ARTIFACT</id>
     <help>Align bisulfite converted reads with Bismark.</help>
     <version>1.2</version>
+    <uiTemplate>Aligner</uiTemplate>
     <supportsColorSpace>false</supportsColorSpace>
     <supportsGobyAlignments>true</supportsGobyAlignments>
     <supportsPairedEndAlignments>true</supportsPairedEndAlignments>

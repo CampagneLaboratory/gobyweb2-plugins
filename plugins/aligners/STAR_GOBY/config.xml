@@ -18,6 +18,7 @@
     <help>STAR writing to Goby output. See aligner information at http://gingeraslab.cshl.edu/STAR/.</help>
     <version>1.2</version>
     <disabled>true</disabled> <!-- Use STAR 2.3 with artifacts instead-->
+    <uiTemplate>Aligner</uiTemplate>
     <supportsColorSpace>false</supportsColorSpace>
     <supportsGobyAlignments>true</supportsGobyAlignments>
     <supportsPairedEndAlignments>true</supportsPairedEndAlignments>

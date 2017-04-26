@@ -17,6 +17,7 @@
     <help>Version of BWA to align Hi-C reads.</help>
     <version>1.0.1</version>
     <disabled>true</disabled>
+    <uiTemplate>Aligner</uiTemplate>
     <supportsColorSpace>true</supportsColorSpace>
     <supportsGobyAlignments>true</supportsGobyAlignments>
     <supportsPairedEndAlignments>true</supportsPairedEndAlignments>

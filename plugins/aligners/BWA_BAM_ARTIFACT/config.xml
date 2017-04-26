@@ -18,6 +18,7 @@
         node against a single reads file. This plugin auto-installs on the cluster (executable and index files).
     </help>
     <version>1.1</version>
+    <uiTemplate>Aligner</uiTemplate>
     <supportsColorSpace>true</supportsColorSpace>
     <supportsGobyAlignments>false</supportsGobyAlignments>
     <supportsPairedEndAlignments>true</supportsPairedEndAlignments>

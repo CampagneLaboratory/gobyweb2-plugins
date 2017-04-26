@@ -20,7 +20,7 @@
     </help>
     <version>1.1</version>
     <disabled>true</disabled>
-    <uiTemplate>Analysis</uiTemplate>
+    <uiTemplate>Aligner</uiTemplate>
     <supportsColorSpace>true</supportsColorSpace>
     <supportsGobyAlignments>false</supportsGobyAlignments>
     <supportsPairedEndAlignments>true</supportsPairedEndAlignments>

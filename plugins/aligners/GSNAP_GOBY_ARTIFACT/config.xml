@@ -16,6 +16,7 @@
     <id>GSNAP_GOBY_ARTIFACT</id>
     <help>GSNAP writing to Goby output.</help>
     <version>1.1</version>
+    <uiTemplate>Aligner</uiTemplate>
     <supportsColorSpace>false</supportsColorSpace>
     <supportsGobyAlignments>true</supportsGobyAlignments>
     <supportsPairedEndAlignments>true</supportsPairedEndAlignments>

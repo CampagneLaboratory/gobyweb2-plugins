@@ -23,6 +23,7 @@
     </help>
     <version>2.0</version>
     <disabled>true</disabled>
+    <uiTemplate>Aligner</uiTemplate>
     <supportsColorSpace>false</supportsColorSpace>
     <supportsGobyAlignments>true</supportsGobyAlignments>
     <supportsBAMAlignments>false</supportsBAMAlignments>

@@ -17,7 +17,7 @@
     </help>
     <version>1.0</version>
     <disabled>true</disabled>
-
+    <uiTemplate>Aligner</uiTemplate>
     <supportsColorSpace>true</supportsColorSpace>
     <supportsGobyAlignments>false</supportsGobyAlignments>
     <supportsPairedEndAlignments>true</supportsPairedEndAlignments>

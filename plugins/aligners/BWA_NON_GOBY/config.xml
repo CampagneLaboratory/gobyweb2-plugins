@@ -18,6 +18,7 @@
     <help>Version of BWA does not support Goby formats natively.</help>
     <version>1.0</version>
     <disabled>true</disabled>
+    <uiTemplate>Aligner</uiTemplate>
     <supportsColorSpace>true</supportsColorSpace>
     <supportsGobyAlignments>true</supportsGobyAlignments>
     <supportsBAMAlignments>false</supportsBAMAlignments>

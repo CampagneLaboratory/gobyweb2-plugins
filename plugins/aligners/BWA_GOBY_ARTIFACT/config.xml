@@ -16,6 +16,7 @@
     <id>BWA_GOBY_ARTIFACT</id>
     <help>Version of BWA that supports Goby formats natively, auto-install version of the plugin.</help>
     <version>1.3</version>
+    <uiTemplate>Aligner</uiTemplate>
     <supportsColorSpace>true</supportsColorSpace>
     <supportsGobyAlignments>true</supportsGobyAlignments>
     <supportsPairedEndAlignments>true</supportsPairedEndAlignments>
