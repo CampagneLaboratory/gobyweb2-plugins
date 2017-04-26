@@ -18,6 +18,7 @@
     <help>Infer the sex of samples using the number of matches to X and Y Chromosome. Useful as a quality control step.
     </help>
     <version>1.0.0</version>
+    <uiTemplate>Analysis</uiTemplate>
     <analysisType>SequenceVariants</analysisType>
     <minimumNumberOfGroups>1</minimumNumberOfGroups>
     <maximumNumberOfGroups>1</maximumNumberOfGroups>

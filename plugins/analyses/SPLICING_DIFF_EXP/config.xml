@@ -18,6 +18,7 @@
         table of differential usage for splice sites.
     </help>
     <version>1.2.1</version>
+    <uiTemplate>Analysis</uiTemplate>
     <analysisType>DiffExp</analysisType>
     <minimumNumberOfGroups>1</minimumNumberOfGroups>
     <maximumNumberOfGroups>50</maximumNumberOfGroups>

@@ -18,6 +18,7 @@
     <help>Testing output as directory.
     </help>
     <version>1.0</version>
+    <uiTemplate>Analysis</uiTemplate>
     <analysisType>SequenceVariants</analysisType>
     <minimumNumberOfGroups>1</minimumNumberOfGroups>
     <maximumNumberOfGroups>10</maximumNumberOfGroups>

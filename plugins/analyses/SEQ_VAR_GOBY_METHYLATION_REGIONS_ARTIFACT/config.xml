@@ -18,6 +18,7 @@
         genome. Implemented with Goby 1.9.2.2+.
     </help>
     <version>1.6.3.4.3</version>
+    <uiTemplate>Analysis</uiTemplate>
     <analysisType>Methylation</analysisType>
     <minimumNumberOfGroups>1</minimumNumberOfGroups>
     <maximumNumberOfGroups>50</maximumNumberOfGroups>

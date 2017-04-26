@@ -19,6 +19,7 @@
         with Goby. Specific analysis depends on selected output format.
     </help>
     <version>1.2</version>
+    <uiTemplate>Analysis</uiTemplate>
     <analysisType>SequenceVariants</analysisType>
     <minimumNumberOfGroups>1</minimumNumberOfGroups>
     <maximumNumberOfGroups>50</maximumNumberOfGroups>

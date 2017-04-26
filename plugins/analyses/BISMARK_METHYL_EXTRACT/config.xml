@@ -17,6 +17,7 @@
     <help>Extract methylation calls from Bismark aligned reads</help>
     <version>1.0</version>
     <disabled>true</disabled>
+    <uiTemplate>Analysis</uiTemplate>
     <analysisType>Methylation</analysisType>
     <minimumNumberOfGroups>1</minimumNumberOfGroups>
     <maximumNumberOfGroups>10</maximumNumberOfGroups>

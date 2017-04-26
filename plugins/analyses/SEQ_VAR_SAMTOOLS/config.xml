@@ -19,6 +19,7 @@
         with SAMTOOLS. Specific analysis depends on selected output format.
     </help>
     <version>1.0</version>
+    <uiTemplate>Analysis</uiTemplate>
     <analysisType>SequenceVariants</analysisType>
     <minimumNumberOfGroups>1</minimumNumberOfGroups>
     <maximumNumberOfGroups>2</maximumNumberOfGroups>

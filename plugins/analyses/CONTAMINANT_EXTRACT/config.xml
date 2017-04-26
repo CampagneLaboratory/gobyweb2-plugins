@@ -19,6 +19,7 @@
         contigs to viral, fungal or bacterial nucleotide sequences to identify potential sample contaminants/pathogens.
     </help>
     <version>1.8.1</version>
+    <uiTemplate>Analysis</uiTemplate>
     <analysisType>DiffExp</analysisType>
     <minimumNumberOfGroups>1</minimumNumberOfGroups>
     <maximumNumberOfGroups>10</maximumNumberOfGroups>

@@ -20,6 +20,7 @@
     </help>
     <version>1.1</version>
     <disabled>true</disabled>
+    <uiTemplate>Analysis</uiTemplate>
     <analysisType>DiffExp</analysisType>
     <minimumNumberOfGroups>2</minimumNumberOfGroups>
     <maximumNumberOfGroups>2</maximumNumberOfGroups>
