@@ -102,6 +102,7 @@
     <xs:complexType name="T_option">
         <xs:all>
             <xs:element name="id" type="xs:string"/>
+            <xs:element name="group" type="xs:string" default="generic"/>
             <xs:element name="dbLegacyId" type="xs:string" minOccurs="0"/>
             <xs:element name="name" type="xs:string"/>
             <xs:element name="help" type="xs:string"/>
