@@ -50,7 +50,6 @@
         <option>
             <id>ALIGNER_OPTIONS</id>
             <dbLegacyId>alignerAdvancedOptions</dbLegacyId>
-            <group>A</group>
             <name>Other aligner options (aln phase)</name>
             <help>Provide any additional BWA option here following the syntax expected by bwa aln.</help>
             <required>false</required>
@@ -63,7 +62,6 @@
         <option>
             <id>AMBIGUITY_THRESHOLD</id>
             <dbLegacyId>ambiguityThreshold</dbLegacyId>
-            <group>A</group>
             <name>Ambiguity threshold</name>
             <help>The maximum number of reference sequence locations that can be matched for a read to be considered
                 non-ambiguous.

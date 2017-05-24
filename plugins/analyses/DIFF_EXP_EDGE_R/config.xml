@@ -20,8 +20,8 @@
     </help>
     <version>1.0</version>
     <disabled>true</disabled>
-    <analysisType>DiffExp</analysisType>
     <uiTemplate>Analysis</uiTemplate>
+    <analysisType>DiffExp</analysisType>
     <minimumNumberOfGroups>2</minimumNumberOfGroups>
     <maximumNumberOfGroups>2</maximumNumberOfGroups>
     <supportsTranscriptAlignments>false</supportsTranscriptAlignments>
