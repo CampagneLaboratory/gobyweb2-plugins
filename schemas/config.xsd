@@ -10,7 +10,7 @@
             <xs:element name="help" type="xs:string"/>
             <xs:element name="version" type="xs:string"/>
             <xs:element name="disabled" type="xs:boolean" minOccurs="0"/>
-            <xs:element name="uiTemplate" type="xs:string" default="generic"/>
+            <xs:element name="uiTemplate" type="xs:string" default="generic" minOccurs="0"/>
         </xs:sequence>
     </xs:complexType>
 
