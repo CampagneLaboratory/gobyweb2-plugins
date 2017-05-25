@@ -33,7 +33,7 @@
         </resource>
         <resource>
             <id>GOBY3</id>
-            <versionAtLeast>3.2.3.1</versionAtLeast>
+            <versionAtLeast>3.2.5</versionAtLeast>
         </resource>
         <resource>
             <id>GOBY_INDEXED_GENOMES</id>
