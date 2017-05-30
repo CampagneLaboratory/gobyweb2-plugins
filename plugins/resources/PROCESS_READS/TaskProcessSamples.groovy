@@ -546,10 +546,10 @@ public class TaskProcessSample {
                 println "Generating reads length..."
                 getReadLengths(localFile)
                 getReadQualityStats(localFile)
-                calculateHeptamersWeights(localFile)
-                if (platform != "SOLiD") {
-                    calculateGCWeights(localFile)
-                }
+               // calculateHeptamersWeights(localFile)
+               // if (platform != "SOLiD") {
+               //     calculateGCWeights(localFile)
+               // }
             } else {
                 println "local file does not exist..."
                 retval = 2
