@@ -169,13 +169,6 @@
                 </type>
             </outputSlot>
             <outputSlot>
-                <name>WEIGHT_FILES</name>
-                <type>
-                    <id>WEIGHT_FILES</id>
-                    <versionAtLeast>1.0</versionAtLeast>
-                </type>
-            </outputSlot>
-            <outputSlot>
                 <name>OUTPUT_STATS</name>
                 <type maxOccurs="1" minOccurs="1">
                     <id>READS_STATS_PROPERTIES_FILE</id>
