@@ -1,4 +1,4 @@
-# Installation script for GOBY version 3.0.0
+# Installation script for GOBY version 3.2.6
 function plugin_install_artifact {
 
     id=$1
@@ -7,7 +7,7 @@ function plugin_install_artifact {
     case ${id} in
 
         'JAR' )
-            VERSION="3.2.5"
+            VERSION="3.2.6"
             ${RESOURCES_FETCH_URL_SCRIPT} http://chagall.med.cornell.edu/goby/releases/release-goby_${VERSION}/goby.zip
             unzip goby.zip
             export JAVA_HOME=${RESOURCES_ARTIFACTS_JAVA_LINUX_BINARIES}

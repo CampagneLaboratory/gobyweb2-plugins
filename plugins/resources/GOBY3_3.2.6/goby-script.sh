@@ -10,7 +10,7 @@ function run_goby {
    shift
    # set both minimum and max right away so failure occurs early and parallel GC is happier.
    ${RESOURCES_ARTIFACTS_JAVA_LINUX_BINARIES}/bin/java -Xms${memory} -Xmx${memory} ${JVM_MEM_OPTIONS} \
-                       -Dlog4j.debug=true -Dlog4j.configuration=file:${TMPDIR}/log4j.properties \
+                       -Dlogback.configurationFile=${RESOURCES_ARTIFACTS_GOBY3_JAR}/config/goby-logback.xml  \
                        -Dgoby.configuration=file:${TMPDIR}/goby.properties \
                        -jar ${RESOURCES_ARTIFACTS_GOBY3_JAR}/goby.jar \
                        --mode ${mode_name} $*
@@ -25,7 +25,7 @@ function goby {
    shift
      # set both minimum and max right away so failure occurs early and parallel GC is happier.
    ${RESOURCES_ARTIFACTS_JAVA_LINUX_BINARIES}/bin/java ${GRID_JVM_FLAGS} ${JVM_MEM_OPTIONS} \
-                        -Dlog4j.debug=true -Dlog4j.configuration=file:${TMPDIR}/log4j.properties \
+                        -Dlogback.configurationFile=${RESOURCES_ARTIFACTS_GOBY3_JAR}/config/goby-logback.xml  \
                         -Dgoby.configuration=file:${TMPDIR}/goby.properties \
                        -jar ${RESOURCES_ARTIFACTS_GOBY3_JAR}/goby.jar \
                        --mode ${mode_name} $*
