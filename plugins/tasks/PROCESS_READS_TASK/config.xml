@@ -8,7 +8,7 @@
     <requires>
         <resource>
             <id>GOBY3</id>
-            <versionAtLeast>3.2.1</versionAtLeast>
+            <versionAtLeast>3.2.6.1</versionAtLeast>
         </resource>
         <resource>
             <id>JAVA</id>

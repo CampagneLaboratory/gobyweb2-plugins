@@ -31,7 +31,7 @@
     <requires>
         <resource>
             <id>GOBY3</id>
-            <versionExactly>3.2.6</versionExactly>
+            <versionExactly>3.2.6.1</versionExactly>
         </resource>
         <resource>
             <id>VCF_TOOLS</id>
