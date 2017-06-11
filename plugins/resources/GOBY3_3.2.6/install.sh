@@ -14,7 +14,9 @@ function plugin_install_artifact {
             mv goby-${VERSION}/goby ${installation_path}
             mv goby-${VERSION}/*.jar ${installation_path}
             mkdir ${installation_path}/models
+            mkdir ${installation_path}/config
             mv goby-${VERSION}/models/* ${installation_path}/models
+            mv goby-${VERSION}/config/* ${installation_path}/config
             chmod +x ${installation_path}/*
             if [ -e ${installation_path}/goby.jar ]; then
                 return 0
