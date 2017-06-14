@@ -12,7 +12,7 @@ function plugin_install_artifact {
             VERSION="2.0.6"
             ${RESOURCES_FETCH_URL_SCRIPT} https://dl.bintray.com/groovy/maven/groovy-binary-${VERSION}.zip groovy-binary-${VERSION}.zip
             cp groovy-binary-${VERSION}.zip ${installation_path}/
-            (cd ${installation_path} && rm -rf groovy-binary-${VERSION} && unzip groovy-binary-${VERSION}.zip && rm groovy-binary-${VERSION}.zip)
+            (cd ${installation_path} && rm -rf groovy-binary-${VERSION} && unzip groovy-binary-${VERSION}.zip && mv groovy-${VERSION}/* ./ && rm groovy-binary-${VERSION}.zip)
             exit 0
             ;;
 

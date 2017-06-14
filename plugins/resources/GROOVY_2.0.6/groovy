@@ -3,4 +3,5 @@
 . ${JOB_DIR}/artifacts.sh
 expose_artifact_environment_variables
 export GROOVY_HOME=${RESOURCES_ARTIFACTS_GROOVY_DISTRIBUTION}
+export JAVA_OPTS="${JAVA_OPTS} -Xmx1G"
 ${RESOURCES_ARTIFACTS_GROOVY_DISTRIBUTION}/bin/groovy "$@"
