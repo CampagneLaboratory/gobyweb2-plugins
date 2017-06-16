@@ -13,6 +13,10 @@ function install_plugin_artifacts {
 
 function install_plugin_artifacts_internal {
     if [ -e ${JOB_DIR}/artifacts-install-requests.pb ]; then
+       if [ ! -z "${TMP_NODE_WORK_DIR}" ]; then
+            # if TMP_NODE_WORK_DIR is set, use it to restore TMPDIR, some container technology erase host TMPDIR:
+            export TMPDIR=${TMP_NODE_WORK_DIR}
+       fi
        set +x
        . ${JOB_DIR}/constants.sh
        . ${JOB_DIR}/auto-options.sh
