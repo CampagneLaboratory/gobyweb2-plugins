@@ -27,8 +27,8 @@
     <indexDirectory>/scratchLocal/gobyweb/input-data/reference-db/%VERSION%/%ORGANISM%/%SPACE%/last</indexDirectory>
     <requires>
         <resource>
-            <id>GOBY</id>
-            <versionAtLeast>20140222104439</versionAtLeast>
+            <id>GOBY3</id>
+            <versionAtLeast>3.2.6.1</versionAtLeast>
         </resource>
         <resource>
             <id>LAST_ARTIFACT</id>
@@ -93,6 +93,15 @@
             </help>
             <required>true</required>
             <defaultsTo>150</defaultsTo>
+            <type>INTEGER</type>
+            <autoFormat>false</autoFormat>
+        </option>
+        <option>
+            <id>ALIGN_PART_CHUNK_SIZE</id>
+            <name>Chunk_size</name>
+            <help>The number of bytes of compressed reads file to give to a single align part.</help>
+            <required>false</required>
+            <defaultsTo>200000000</defaultsTo>
             <type>INTEGER</type>
             <autoFormat>false</autoFormat>
         </option>
