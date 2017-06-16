@@ -14,7 +14,7 @@ function plugin_install_artifact {
                     unzip ${VERSION}.zip
 
                     cd  last-${VERSION}
-                    make CXXFLAGS=-O3
+                    # enable multi-threading compilation.
                     make install prefix=${installation_path}
                     #mkdir ${installation_path}/bin/
                     #cp src/lastdb ${installation_path}/bin/

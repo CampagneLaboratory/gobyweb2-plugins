@@ -19,7 +19,7 @@
     <requires>
         <resource>
             <id>LAST_ARTIFACT</id>
-            <versionAtLeast>864.0.0</versionAtLeast>
+            <versionAtLeast>864.1</versionAtLeast>
         </resource>
         <resource>
             <id>FAI_INDEXED_GENOMES</id>

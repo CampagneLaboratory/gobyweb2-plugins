@@ -16,7 +16,6 @@ function plugin_install_artifact {
                     cd  last-${VERSION}
                     echo "${VERSION}" > src/version.hh
 
-                    make CXXFLAGS=-O3
                     make install prefix=${installation_path}
                     #mkdir ${installation_path}/bin/
                     #cp src/lastdb ${installation_path}/bin/

@@ -13,9 +13,9 @@
 <alignerConfig xsi:noNamespaceSchemaLocation="../../../schemas/plugins.xsd"
                xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
     <name>Last (with native parallelization)</name>
-    <id>LAST_NATIVE_PARALELL_ARTIFACT</id>
+    <id>LAST_NATIVE_PARALLEL_ARTIFACT</id>
     <help>Alignment with Last, using native -P parallelization in lastal.</help>
-    <version>1.0</version>
+    <version>1.1</version>
     <uiTemplate>Aligner</uiTemplate>
     <supportsColorSpace>false</supportsColorSpace>
     <supportsGobyAlignments>true</supportsGobyAlignments>
@@ -32,11 +32,11 @@
         </resource>
         <resource>
             <id>LAST_ARTIFACT</id>
-            <versionAtLeast>864.0.0</versionAtLeast>
+            <versionExactly>864.1</versionExactly>
         </resource>
         <resource>
             <id>LAST_INDEX</id>
-            <versionAtLeast>864</versionAtLeast>
+            <versionAtLeast>864.1</versionAtLeast>
         </resource>
 
     </requires>

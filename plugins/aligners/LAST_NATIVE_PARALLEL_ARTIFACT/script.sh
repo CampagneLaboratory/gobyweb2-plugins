@@ -66,12 +66,12 @@ function plugin_align {
           dieUponError "split reads failed, sub-task ${CURRENT_PART} of ${NUMBER_OF_PARTS}, failed"
       fi
     TEMP_FILENAME="last-alignment"
-    ${RESOURCES_LAST_EXEC_PATH} -P ${NUM_THREADS} -s2 -Q1 -d${PLUGINS_ALIGNER_PLAST_ARTIFACT_D} \
-        -e${PLUGINS_ALIGNER_PLAST_ARTIFACT_E} ${INDEX_DIRECTORY}/index ${READS_FASTQ} > ${TEMP_FILENAME}.maf
+    ${RESOURCES_ARTIFACTS_LAST_ARTIFACT_BINARIES}/bin/lastal -P ${NUM_THREADS} -s2 -Q1 -d${PLUGINS_ALIGNER_LAST_NATIVE_PARALLEL_ARTIFACT_D} \
+        -e${PLUGINS_ALIGNER_LAST_NATIVE_PARALLEL_ARTIFACT_E} ${INDEX_DIRECTORY}/index ${READS_FASTQ} > ${TEMP_FILENAME}.maf
     dieUponError "last could not align reads"
     if [ "${PAIRED_END_ALIGNMENT}" == "true" ]; then
-        ${RESOURCES_LAST_EXEC_PATH} -P ${NUM_THREADS} -s2 -Q1 -d${PLUGINS_ALIGNER_PLAST_ARTIFACT_D} \
-           -e${PLUGINS_ALIGNER_PLAST_ARTIFACT_E} ${INDEX_DIRECTORY}/index ${PAIRS_FASTQ} > ${TEMP_FILENAME}-pairs.maf
+        ${RESOURCES_ARTIFACTS_LAST_ARTIFACT_BINARIES}//bin/lastal -P ${NUM_THREADS} -s2 -Q1 -d${PLUGINS_ALIGNER_LAST_NATIVE_PARALLEL_ARTIFACT_D} \
+           -e${PLUGINS_ALIGNER_LAST_NATIVE_PARALLEL_ARTIFACT_E} ${INDEX_DIRECTORY}/index ${PAIRS_FASTQ} > ${TEMP_FILENAME}-pairs.maf
         dieUponError "last could not align paired reads"
         ${RESOURCES_ARTIFACTS_LAST_ARTIFACT_BINARIES}/bin/last-pair-probs ${TEMP_FILENAME}.maf ${TEMP_FILENAME}-pairs.maf > ${TEMP_FILENAME}-2.maf
         if [ $? != 0 ]; then
@@ -79,7 +79,7 @@ function plugin_align {
         fi
         dieUponError "last could not last-pair-probs"
     else
-        cat ${TEMP_FILENAME}.maf |  ${RESOURCES_ARTIFACTS_LAST_ARTIFACT_BINARIES}/bin/last-map-probs -s${PLUGINS_ALIGNER_PLAST_ARTIFACT_S} > ${TEMP_FILENAME}-2.maf
+        cat ${TEMP_FILENAME}.maf |  ${RESOURCES_ARTIFACTS_LAST_ARTIFACT_BINARIES}/bin/last-map-probs -s${PLUGINS_ALIGNER_LAST_NATIVE_PARALLEL_ARTIFACT_S} > ${TEMP_FILENAME}-2.maf
         dieUponError "last could not last-map-probs"
     fi
     REFERENCE=${TOPLEVEL_DIRECTORY}/toplevel-ids.compact-reads
@@ -88,6 +88,6 @@ function plugin_align {
                         -Dgoby.configuration=file:${TMPDIR}/goby.properties \
                         -jar ${RESOURCES_GOBY_GOBY_JAR} \
                         --mode last-to-compact -i ${TEMP_FILENAME}-2.maf -o ${OUTPUT} --third-party-input true \
-                        --only-maf -q ${FULL_READS_INPUT} -t ${REFERENCE} --quality-filter-parameters threshold=1.0
+                        --only-maf -q ${READS} -t ${REFERENCE} --quality-filter-parameters threshold=1.0
      dieUponError "Aligning forward and reverse strand results failed. Goby could not convert maf to compact alignment format, sub-task ${CURRENT_PART} of ${NUMBER_OF_PARTS}, failed"
 }
