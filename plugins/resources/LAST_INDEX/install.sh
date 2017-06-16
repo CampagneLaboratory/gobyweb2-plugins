@@ -51,7 +51,9 @@ function plugin_install_artifact {
 
                     INDEXED_GENOME_DIR=$(eval echo \${RESOURCES_ARTIFACTS_FAI_INDEXED_GENOMES_SAMTOOLS_FAI_INDEX_${ORG}_${BUILD_NUMBER}_${ENSEMBL_RELEASE}})
 
-                    goby fasta-to-compact ${INDEXED_GENOME_DIR}/genome-toplevel.fasta  --exclude-sequences  --include-identifiers -o ${installation_path}/toplevel-ids.compact-reads
+                    # Very important: use --num-threads 1 to force sequential numbering of target indices.
+                    goby fasta-to-compact ${INDEXED_GENOME_DIR}/genome-toplevel.fasta  --exclude-sequences  \
+                        --include-identifiers -o ${installation_path}/toplevel-ids.compact-reads --num-threads 1
 
                     if [ -e ${installation_path}/toplevel-ids.compact-reads ]; then
                           return 0
