@@ -36,7 +36,7 @@
         </resource>
         <resource>
             <id>LAST_INDEX</id>
-            <versionAtLeast>864.1</versionAtLeast>
+            <versionExactly>864.2</versionExactly>
         </resource>
 
     </requires>

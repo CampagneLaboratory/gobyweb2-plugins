@@ -68,14 +68,16 @@ function plugin_align {
         dieUponError "compact read to fastq failed (single end), sub-task ${CURRENT_PART} of ${NUMBER_OF_PARTS}, failed"
 
     fi
-     ${RESOURCES_ARTIFACTS_LAST_ARTIFACT_BINARIES}/bin/lastal -P ${NUM_THREADS} -s2 -Q1 -d${PLUGINS_ALIGNER_LAST_NATIVE_PARALLEL_ARTIFACT_D} \
+    ${RESOURCES_ARTIFACTS_LAST_ARTIFACT_BINARIES}/bin/lastal -P ${NUM_THREADS} \
+        -s2 -Q1 -D1000 -d${PLUGINS_ALIGNER_LAST_NATIVE_PARALLEL_ARTIFACT_D} \
         -e${PLUGINS_ALIGNER_LAST_NATIVE_PARALLEL_ARTIFACT_E} ${INDEX_DIRECTORY}/index read1.fq > ${TEMP_FILENAME}.maf
     dieUponError "last could not align reads"
 
     if [ "${PAIRED_END_ALIGNMENT}" == "true" ]; then
-            ${RESOURCES_ARTIFACTS_LAST_ARTIFACT_BINARIES}//bin/lastal -P ${NUM_THREADS} -s2 -Q1 -d${PLUGINS_ALIGNER_LAST_NATIVE_PARALLEL_ARTIFACT_D} \
+            ${RESOURCES_ARTIFACTS_LAST_ARTIFACT_BINARIES}//bin/lastal -P ${NUM_THREADS} -s2 -Q1 -D1000 -d${PLUGINS_ALIGNER_LAST_NATIVE_PARALLEL_ARTIFACT_D} \
                -e${PLUGINS_ALIGNER_LAST_NATIVE_PARALLEL_ARTIFACT_E} ${INDEX_DIRECTORY}/index read2.fq > ${TEMP_FILENAME}-pairs.maf
             dieUponError "last could not align paired reads"
+
             ${RESOURCES_ARTIFACTS_LAST_ARTIFACT_BINARIES}/bin/last-pair-probs ${TEMP_FILENAME}.maf ${TEMP_FILENAME}-pairs.maf > ${TEMP_FILENAME}-2.maf
             if [ $? != 0 ]; then
                cat ${TEMP_FILENAME}.maf ${TEMP_FILENAME}-pairs.maf > ${TEMP_FILENAME}-2.maf
@@ -83,8 +85,8 @@ function plugin_align {
             dieUponError "last could not last-pair-probs"
     fi
 
-
-    cat ${TEMP_FILENAME}.maf |  ${RESOURCES_ARTIFACTS_LAST_ARTIFACT_BINARIES}/bin/last-map-probs -s${PLUGINS_ALIGNER_LAST_NATIVE_PARALLEL_ARTIFACT_S} > ${TEMP_FILENAME}-2.maf
+    cat ${TEMP_FILENAME}.maf |  ${RESOURCES_ARTIFACTS_LAST_ARTIFACT_BINARIES}/bin/last-map-probs \
+                        -s${PLUGINS_ALIGNER_LAST_NATIVE_PARALLEL_ARTIFACT_S} > ${TEMP_FILENAME}-2.maf
     dieUponError "last could not last-map-probs"
 
     REFERENCE=${TOPLEVEL_DIRECTORY}/toplevel-ids.compact-reads
