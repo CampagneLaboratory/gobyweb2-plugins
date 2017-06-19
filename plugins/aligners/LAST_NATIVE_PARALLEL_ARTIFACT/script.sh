@@ -52,18 +52,7 @@ function plugin_align {
       #	dieUponError "last index could not be found"
     fi
        set -x
-      # Extract the reads if a split is needed
-      if [ ! -z ${SGE_TASK_ID} ] && [ "${SGE_TASK_ID}" != "undefined" ] && [ "${SGE_TASK_ID}" != "unknown" ]; then
-          ${QUEUE_WRITER} --tag ${TAG} --status ${JOB_PART_SPLIT_STATUS} --description "Split, sub-task ${CURRENT_PART} of ${NUMBER_OF_PARTS}, starting" --index ${CURRENT_PART} --job-type job-part
-          # The reads file to process
-          READS_FILE=${READS##*/}
 
-          ls -l ${READS_FILE}
-          ls -l ${READS}
-          run_goby ${PLUGIN_NEED_ALIGN_JVM} reformat-compact-reads --output ${READS_FILE} \
-              --start-position ${START_POSITION} --end-position ${END_POSITION} ${READS}
-          dieUponError "split reads failed, sub-task ${CURRENT_PART} of ${NUMBER_OF_PARTS}, failed"
-      fi
     TEMP_FILENAME="last-alignment-${RANDOM}"
 
     if [ "${PAIRED_END_ALIGNMENT}" == "true" ]; then
