@@ -52,18 +52,7 @@ function plugin_align {
       #	dieUponError "last index could not be found"
     fi
        set -x
-      # Extract the reads if a split is needed
-      if [ ! -z ${SGE_TASK_ID} ] && [ "${SGE_TASK_ID}" != "undefined" ] && [ "${SGE_TASK_ID}" != "unknown" ]; then
-          ${QUEUE_WRITER} --tag ${TAG} --status ${JOB_PART_SPLIT_STATUS} --description "Split, sub-task ${CURRENT_PART} of ${NUMBER_OF_PARTS}, starting" --index ${CURRENT_PART} --job-type job-part
-          # The reads file to process
-          READS_FILE=${READS##*/}
 
-          ls -l ${READS_FILE}
-          ls -l ${READS}
-          run_goby ${PLUGIN_NEED_ALIGN_JVM} reformat-compact-reads --output ${READS_FILE} \
-              --start-position ${START_POSITION} --end-position ${END_POSITION} ${READS}
-          dieUponError "split reads failed, sub-task ${CURRENT_PART} of ${NUMBER_OF_PARTS}, failed"
-      fi
     TEMP_FILENAME="last-alignment-${RANDOM}"
 
     if [ "${PAIRED_END_ALIGNMENT}" == "true" ]; then
@@ -79,14 +68,16 @@ function plugin_align {
         dieUponError "compact read to fastq failed (single end), sub-task ${CURRENT_PART} of ${NUMBER_OF_PARTS}, failed"
 
     fi
-     ${RESOURCES_ARTIFACTS_LAST_ARTIFACT_BINARIES}/bin/lastal -P ${NUM_THREADS} -s2 -Q1 -d${PLUGINS_ALIGNER_LAST_NATIVE_PARALLEL_ARTIFACT_D} \
+    ${RESOURCES_ARTIFACTS_LAST_ARTIFACT_BINARIES}/bin/lastal -P ${NUM_THREADS} \
+        -s2 -Q1 -D1000 -d${PLUGINS_ALIGNER_LAST_NATIVE_PARALLEL_ARTIFACT_D} \
         -e${PLUGINS_ALIGNER_LAST_NATIVE_PARALLEL_ARTIFACT_E} ${INDEX_DIRECTORY}/index read1.fq > ${TEMP_FILENAME}.maf
     dieUponError "last could not align reads"
 
     if [ "${PAIRED_END_ALIGNMENT}" == "true" ]; then
-            ${RESOURCES_ARTIFACTS_LAST_ARTIFACT_BINARIES}//bin/lastal -P ${NUM_THREADS} -s2 -Q1 -d${PLUGINS_ALIGNER_LAST_NATIVE_PARALLEL_ARTIFACT_D} \
+            ${RESOURCES_ARTIFACTS_LAST_ARTIFACT_BINARIES}//bin/lastal -P ${NUM_THREADS} -s2 -Q1 -D1000 -d${PLUGINS_ALIGNER_LAST_NATIVE_PARALLEL_ARTIFACT_D} \
                -e${PLUGINS_ALIGNER_LAST_NATIVE_PARALLEL_ARTIFACT_E} ${INDEX_DIRECTORY}/index read2.fq > ${TEMP_FILENAME}-pairs.maf
             dieUponError "last could not align paired reads"
+
             ${RESOURCES_ARTIFACTS_LAST_ARTIFACT_BINARIES}/bin/last-pair-probs ${TEMP_FILENAME}.maf ${TEMP_FILENAME}-pairs.maf > ${TEMP_FILENAME}-2.maf
             if [ $? != 0 ]; then
                cat ${TEMP_FILENAME}.maf ${TEMP_FILENAME}-pairs.maf > ${TEMP_FILENAME}-2.maf
@@ -94,8 +85,8 @@ function plugin_align {
             dieUponError "last could not last-pair-probs"
     fi
 
-
-    cat ${TEMP_FILENAME}.maf |  ${RESOURCES_ARTIFACTS_LAST_ARTIFACT_BINARIES}/bin/last-map-probs -s${PLUGINS_ALIGNER_LAST_NATIVE_PARALLEL_ARTIFACT_S} > ${TEMP_FILENAME}-2.maf
+    cat ${TEMP_FILENAME}.maf |  ${RESOURCES_ARTIFACTS_LAST_ARTIFACT_BINARIES}/bin/last-map-probs \
+                        -s${PLUGINS_ALIGNER_LAST_NATIVE_PARALLEL_ARTIFACT_S} > ${TEMP_FILENAME}-2.maf
     dieUponError "last could not last-map-probs"
 
     REFERENCE=${TOPLEVEL_DIRECTORY}/toplevel-ids.compact-reads
