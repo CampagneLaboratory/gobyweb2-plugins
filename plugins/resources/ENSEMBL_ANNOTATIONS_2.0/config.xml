@@ -34,10 +34,6 @@
             <versionAtLeast>1.84</versionAtLeast>
         </resource>
         <resource>
-            <id>GOBYWEB_SERVER_SIDE</id>
-            <versionAtLeast>2.0</versionAtLeast>
-        </resource>
-        <resource>
             <id>VARIANT_EFFECT_PREDICTOR</id>
             <versionAtLeast>2.8</versionAtLeast>
         </resource>

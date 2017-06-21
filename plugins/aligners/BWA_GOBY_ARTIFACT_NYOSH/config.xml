@@ -32,10 +32,6 @@
             <versionAtLeast>0.5.9.16.6</versionAtLeast>
         </resource>
         <resource>
-            <id>GOBYWEB_SERVER_SIDE</id>
-            <versionAtLeast>1.1</versionAtLeast>
-        </resource>
-        <resource>
             <id>MPS</id>
             <versionAtLeast>129.380</versionAtLeast>
         </resource>

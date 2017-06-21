@@ -15,12 +15,6 @@
     <id>MAVEN_ARTIFACTS_DOWNLOADER</id>
     <help>Download artifacts from a Maven Repository with an enabled REST-ful interface.</help>
     <version>1.0</version>
-    <requires>
-        <resource>
-            <id>GOBYWEB_SERVER_SIDE</id>
-            <versionAtLeast>2.4</versionAtLeast>
-        </resource>
-    </requires>
     <files>
         <file>
             <id>RUN_DOWNLOADER</id>

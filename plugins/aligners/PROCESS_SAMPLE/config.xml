@@ -28,12 +28,6 @@
     <supportsFastaReads>false</supportsFastaReads>
     <indexDirectory>%NODE_LOCAL_DATA_ROOT%/%VERSION%/%ORGANISM%/%SPACE%/bwa</indexDirectory>
 
-    <requires>
-        <resource>
-            <id>GOBYWEB_SERVER_SIDE</id>
-            <versionAtLeast>1.1</versionAtLeast>
-        </resource>
-    </requires>
     <runtime>
         <need scope="ALIGN" key="excl" value="false"/>
         <need scope="ALIGN" key="h_vmem" value="12G"/>
