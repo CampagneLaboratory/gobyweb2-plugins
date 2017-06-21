@@ -157,7 +157,7 @@ public class Biomart {
     def exec = new ExecAndRemote()
     def curl = new CurlSupport()
 
-    boolean deleteUnsorted = true
+    boolean deleteUnsorted = false
 
     boolean downloadWithCurl = false
 
@@ -286,11 +286,11 @@ public class Biomart {
                     // file and dashes in the filename would prevent attaching the database
                     database: true,
                     dataset: "gene_ensembl",
-                    filterByChrom: true,
+                    filterByChrom: false,
                     optional: false,
                     fields: [
                             "ensembl_gene_id": "GENE",
-                            "external_gene_id": "GENE_ID",  // a gene id/gene name
+                            "external_gene_name": "GENE_ID",  // a gene id/gene name
                             "description": "DESCRIPTION",
                     ]
             ],
