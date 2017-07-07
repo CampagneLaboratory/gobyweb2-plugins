@@ -3,20 +3,30 @@
             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
     <name>Tar compression utility</name>
     <id>TARBALLER</id>
-    <help>Use GNU tar for creating TAR archives from TEXT or IMAGES files</help>
+    <help>Use GNU tar for creating TAR archives from TEXT and IMAGES files</help>
     <version>1.0</version>
+    <runtime>
+        <need scope="PROCESS" key="excl" value="false"/>
+        <need scope="PROCESS" key="h_vmem" value="11G"/>
+        <need scope="PROCESS" key="virtual_free" value="11G"/>
+        <need scope="PROCESS_JVM" value="8g"/>
+    </runtime>
+
     <executableIOSchema>
     <input>
         <inputSlot>
             <name>TEXT</name>
-            <type>
-                <id>TSV</id>
+            <description>List of TXT files to compress</description>
+            <type maxOccurs="unbounded" minOccurs="0">
+                <id>TXT</id>
                 <versionAtMost>1.0</versionAtMost>
             </type>
         </inputSlot>
+
         <inputSlot>
             <name>IMAGE</name>
-            <type>
+            <description>List of PNG files to compress</description>
+            <type maxOccurs="unbounded" minOccurs="0">
                 <id>PNG</id>
                 <versionAtMost>1.0</versionAtMost>
             </type>
