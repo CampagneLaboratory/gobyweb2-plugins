@@ -99,6 +99,10 @@
             <id>MESSAGE_WRAPPERS</id>
             <filename>message-functions-wrapper.sh</filename>
         </file>
+        <file>
+            <id>EVENT_TOOLS_JAR</id>
+            <filename>events-tools.jar</filename>
+        </file>
 
     </files>
 </resourceConfig>
