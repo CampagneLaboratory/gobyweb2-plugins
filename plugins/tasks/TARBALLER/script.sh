@@ -25,13 +25,13 @@ function plugin_task {
          fi
      fi
 
-     ${FILESET_COMMAND} --has-fileset JPEG
+     ${FILESET_COMMAND} --has-fileset IMAGE
      if [ $? == 0 ]; then
        echo Input JPEGs are not available
      else
         JPEG_FILES_LIST=`${FILESET_COMMAND} --fetch IMAGE`
          if [ $? == 0 ]; then
-            echo Failed to fecth JPEG entries
+            echo Failed to fecth IMAGE entries
             echo ${JPEG_FILES_LIST}
             return 0
          fi
