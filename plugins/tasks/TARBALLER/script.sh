@@ -14,23 +14,23 @@ function plugin_task {
      # options:  (-i|--pb-file) <pbfile> [(-d|--download-dir) <downloadDir>] [-q|--has-fileset] [-f|--fetch] [-p|--push] [-h|--help] [-l|--info] fileset1 fileset2 ... filesetN
 
      ${FILESET_COMMAND} --has-fileset TEXT
-     if [ $? == 0 ]; then
+     if [ $? != 0 ]; then
        echo Input TEXTs are not available
      else
         TXT_FILES_LIST=`${FILESET_COMMAND} --fetch TEXT`
-        if [ $? == 0 ]; then
+        if [ $? != 0 ]; then
             echo Failed to fecth TEXT entries
             echo ${TXT_FILES_LIST}
             return 0
          fi
-     fi
+     fi                                                                     
 
      ${FILESET_COMMAND} --has-fileset IMAGE
-     if [ $? == 0 ]; then
-       echo Input JPEGs are not available
+     if [ $? != 0 ]; then
+       echo Input IMAGEs are not available
      else
         JPEG_FILES_LIST=`${FILESET_COMMAND} --fetch IMAGE`
-         if [ $? == 0 ]; then
+         if [ $? != 0 ]; then
             echo Failed to fecth IMAGE entries
             echo ${JPEG_FILES_LIST}
             return 0
