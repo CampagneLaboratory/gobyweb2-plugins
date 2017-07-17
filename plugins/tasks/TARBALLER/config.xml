@@ -34,7 +34,7 @@
     </input>
     <output>
         <outputSlot>
-            <name>STATS</name>
+            <name>ARCHIVE</name>
             <type>
                 <id>TAR_GZ</id>
                 <versionExactly>1.0</versionExactly>

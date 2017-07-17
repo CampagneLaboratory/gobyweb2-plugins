@@ -41,6 +41,11 @@ function plugin_task {
 
      mkdir "${JOB_DIR}/output-data"
      tar -cvf ${OUTPUT_FILE} ${TXT_FILES_LIST} ${JPEG_FILES_LIST}
+     REGISTERED_TAGS=`${FILESET_COMMAND} --push ARCHIVE: output-data/*.tar`
+     dieUponError "Failed to register the tar archive."
+
+     ALL_REGISTERED_TAGS="${ALL_REGISTERED_TAGS} COMPACT_READ_FILES:[${REGISTERED_TAGS}]"
+     echo "The following tags were registered by this plugin: ${ALL_REGISTERED_TAGS}"
 
      #will be replaced by a request to file-manager
      #scp ${OUTPUT_FILE} ${WEB_SERVER_SSH_PREFIX}:${RESULTS_WEB_DIR}
