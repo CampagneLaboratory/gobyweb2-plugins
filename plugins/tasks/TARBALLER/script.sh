@@ -6,7 +6,7 @@
 TXT_FILES_LIST=""
 JPEG_FILES_LIST=""
 
-OUTPUT_FILE=${JOB_DIR}/output-data/out.tar
+OUTPUT_FILE=${JOB_DIR}/output-data/out.tar.gz
 
 function plugin_task {
 
@@ -39,9 +39,9 @@ function plugin_task {
 
      echo "Localized filesets ${TXT_FILES_LIST} ${JPEG_FILES_LIST}"
 
-     mkdir "${JOB_DIR}/output-data"
-     tar -cvf ${OUTPUT_FILE} ${TXT_FILES_LIST} ${JPEG_FILES_LIST}
-     REGISTERED_TAGS=`${FILESET_COMMAND} --push ARCHIVE: output-data/*.tar`
+     mkdir -p "${JOB_DIR}/output-data"
+     tar -zcvf ${OUTPUT_FILE} ${TXT_FILES_LIST} ${JPEG_FILES_LIST}
+     REGISTERED_TAGS=`${FILESET_COMMAND} --push ARCHIVE: ${OUTPUT_FILE}`
      dieUponError "Failed to register the tar archive."
 
      ALL_REGISTERED_TAGS="${ALL_REGISTERED_TAGS} COMPACT_READ_FILES:[${REGISTERED_TAGS}]"
