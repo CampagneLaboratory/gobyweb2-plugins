@@ -25,8 +25,8 @@
     </requires>
     <runtime>
         <need scope="PROCESS" key="excl" value="false"/>
-        <need scope="PROCESS" key="h_vmem" value="11G"/>
-        <need scope="PROCESS" key="virtual_free" value="11G"/>
+        <need scope="PROCESS" key="h_vmem" value="20G"/>
+        <need scope="PROCESS" key="virtual_free" value="20G"/>
         <need scope="INSTALL_ARTIFACTS" key="excl" value="true"/>
         <need scope="INSTALL_ARTIFACTS" key="h_vmem" value="4G"/>
         <need scope="INSTALL_ARTIFACTS" key="virtual_free" value="6G"/>
