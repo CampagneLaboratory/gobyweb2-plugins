@@ -22,6 +22,10 @@
             <versionAtLeast>2.0.6</versionAtLeast>
         </resource>
         <resource>
+            <id>JAVA</id>
+            <versionAtLeast>1.8</versionAtLeast>
+        </resource>
+        <resource>
             <id>FETCH_URL</id>
             <versionAtLeast>1.2</versionAtLeast>
         </resource>
