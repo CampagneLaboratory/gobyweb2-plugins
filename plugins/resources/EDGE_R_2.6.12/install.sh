@@ -14,8 +14,8 @@ function plugin_install_artifact {
             . ${RESOURCES_ARTIFACTS_R_BINARIES}/setup.sh
             RUN_R=${RESOURCES_ARTIFACTS_R_BINARIES}/bin/R
 
-            VERSION="1.5-2"
-            ${RESOURCES_FETCH_URL_SCRIPT} http://cran.r-project.org/src/contrib/Cairo_1.5-2.tar.gz
+            VERSION="1.5-9"
+            ${RESOURCES_FETCH_URL_SCRIPT} http://cran.r-project.org/src/contrib/Cairo_${VERSION}.tar.gz
             ${RUN_R} CMD INSTALL Cairo_${VERSION}.tar.gz --library=${installation_path}/
 
             VERSION="3.12.3"
