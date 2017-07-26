@@ -22,13 +22,13 @@ function plugin_install_artifact {
             ${RUN_R} CMD INSTALL Cairo_${VERSION}.tar.gz --library=${installation_path}/
 
             # BiocGenerics
-            VERSION="0.2.0"
-            ${RESOURCES_FETCH_URL_SCRIPT} http://www.bioconductor.org/packages/2.10/bioc/src/contrib/BiocGenerics_${VERSION}.tar.gz
+            VERSION="0.10.0"
+            ${RESOURCES_FETCH_URL_SCRIPT} http://www.bioconductor.org/packages/2.14/bioc/src/contrib/BiocGenerics_${VERSION}.tar.gz
             ${RUN_R} CMD INSTALL BiocGenerics_${VERSION}.tar.gz --library=${installation_path}
 
             # Biobase
-            VERSION="2.30.0"
-            ${RESOURCES_FETCH_URL_SCRIPT} http://www.bioconductor.org/packages/3.0/bioc/src/contrib/Biobase_${VERSION}.tar.gz
+            VERSION="2.24.0"
+            ${RESOURCES_FETCH_URL_SCRIPT} http://www.bioconductor.org/packages/2.14/bioc/src/contrib/Biobase_${VERSION}.tar.gz
             ${RUN_R} CMD INSTALL Biobase_${VERSION}.tar.gz --library=${installation_path}
 
             # locfit
