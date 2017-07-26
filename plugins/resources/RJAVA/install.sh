@@ -6,7 +6,7 @@ function plugin_install_artifact {
 
     case ${id} in
         'BINARIES' )
-            VERSION="0.9-6"
+            VERSION="0.9-8"
 
             . ${RESOURCES_ARTIFACTS_R_BINARIES}/setup.sh
             RUN_R=${RESOURCES_ARTIFACTS_R_BINARIES}/bin/R
