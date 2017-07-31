@@ -40,8 +40,8 @@ function plugin_task {
      tar -zcvf ${OUTPUT_FILE} ${TXT_FILES_LIST} ${JPEG_FILES_LIST}
      REGISTERED_TAGS=`${FILESET_COMMAND} --push ARCHIVE: ${OUTPUT_FILE}`
      dieUponError "Failed to register the tar archive."
-
-     ALL_REGISTERED_TAGS="${ALL_REGISTERED_TAGS} COMPACT_READ_FILES:[${REGISTERED_TAGS}]"
+     filesetRegistered ${REGISTERED_TAGS} ARCHIVE
+     ALL_REGISTERED_TAGS="${ALL_REGISTERED_TAGS} ARCHIVE:[${REGISTERED_TAGS}]"
      info "The following tags were registered by this plugin: ${ALL_REGISTERED_TAGS}"
      info "TARBALLER execution completed"
 }
