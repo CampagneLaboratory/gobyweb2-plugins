@@ -51,7 +51,7 @@
     </files>
     <runtime>
         <need scope="ALIGN" key="excl" value="true"/>
-        <need scope="ALIGN" key="h_vmem" value="8G"/>
+        <need scope="ALIGN" key="h_vmem" value="800G"/>
         <need scope="ALIGN" key="virtual_free" value="4G"/>
         <need scope="ALIGN_JVM" value="8G"/>
         <need scope="ALIGNMENT_POST_PROCESSING" key="excl" value="false"/>
