@@ -394,7 +394,7 @@ public class Biomart {
             }
         }
         //def url = "http://${serverPrefix}.ensembl.org/biomart/martservice"
-        def url = "http://www.ensembl.org/biomart/martservice"
+        def url = "http://useast.ensembl.org/biomart/martservice"
         System.err.println "--------------------------------------------"
         System.err.println "exportType=${exportType}"
         System.err.println "virtualSchemaName=${virtualSchemaName}"
