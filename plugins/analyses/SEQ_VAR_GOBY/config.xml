@@ -18,7 +18,7 @@
     <help>Compares groups of samples and produce output about sequence variants observed in the alignments. Implemented
         with Goby. Specific analysis depends on selected output format.
     </help>
-    <version>1.2.4</version>
+    <version>1.2.5</version>
     <uiTemplate>Analysis</uiTemplate>
     <analysisType>SequenceVariants</analysisType>
     <minimumNumberOfGroups>1</minimumNumberOfGroups>
@@ -52,6 +52,10 @@
         <resource>
             <id>GOBY_INDEXED_GENOMES</id>
             <versionAtLeast>1.0.1</versionAtLeast>
+        </resource>
+        <resource>
+            <id>GENOTYPE_DL_MODELS</id>
+            <versionAtLeast>1.0</versionAtLeast>
         </resource>
     </requires>
     <runtime>
@@ -112,6 +116,26 @@
             </categories>
             <autoFormat>true</autoFormat>
             <flagFormat>--format=%s</flagFormat>
+            <includeSpaces>true</includeSpaces>
+        </option>
+        <option>
+            <id>GENOTYPE_DL_MODEL</id>
+            <name>Model for calling genotypes.</name>
+            <help>Model to use when calling genotypes at observed bases.</help>
+            <required>false</required>
+            <defaultsTo>CNG_1498773835404</defaultsTo>
+            <type>CATEGORY</type>
+            <categories>
+                <category>
+                    <id>CNG_1498773835404</id>
+                    <name>CNG_1498773835404</name>
+                    <value>CNG_1498773835404</value>
+                    <help>Model trained with CNG version of NA12878..</help>
+                    <dbLegacyValue>CNG_1498773835404</dbLegacyValue>
+                </category>
+            </categories>
+            <autoFormat>true</autoFormat>
+            <flagFormat>model-path:%s</flagFormat>
             <includeSpaces>true</includeSpaces>
         </option>
         <option>
