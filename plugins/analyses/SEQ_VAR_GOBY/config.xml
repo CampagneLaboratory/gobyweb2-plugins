@@ -18,7 +18,7 @@
     <help>Compares groups of samples and produce output about sequence variants observed in the alignments. Implemented
         with Goby. Specific analysis depends on selected output format.
     </help>
-    <version>1.2.5</version>
+    <version>1.2.6</version>
     <uiTemplate>Analysis</uiTemplate>
     <analysisType>SequenceVariants</analysisType>
     <minimumNumberOfGroups>1</minimumNumberOfGroups>
