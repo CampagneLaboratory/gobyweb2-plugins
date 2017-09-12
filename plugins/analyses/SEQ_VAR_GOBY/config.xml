@@ -127,10 +127,17 @@
             <type>CATEGORY</type>
             <categories>
                 <category>
+                    <id>DEFAULT</id>
+                    <name>Default</name>
+                    <value>Default</value>
+                    <help>Use the default model.</help>
+                    <dbLegacyValue>Default</dbLegacyValue>
+                </category>
+                <category>
                     <id>CNG_1498773835404</id>
                     <name>CNG_1498773835404</name>
                     <value>CNG_1498773835404</value>
-                    <help>Model trained with CNG version of NA12878..</help>
+                    <help>Model trained with CNG version of NA12878.</help>
                     <dbLegacyValue>CNG_1498773835404</dbLegacyValue>
                 </category>
             </categories>
