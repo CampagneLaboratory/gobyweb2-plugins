@@ -25,3 +25,4 @@ function plugin_install_artifact {
     esac
 
     exit 1
+}
