@@ -8,7 +8,7 @@ function plugin_install_artifact {
 
         'JAR' )
 
-            git clone git@bitbucket.org:campagnelaboratory/goby3.git
+            git clone git://github.com/CampagneLaboratory/genotype-dl-models.git
             cd goby3
             export JAVA_HOME=${RESOURCES_ARTIFACTS_JAVA_LINUX_BINARIES}
             mvn install
