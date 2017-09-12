@@ -101,7 +101,7 @@ function plugin_alignment_analysis_process {
     . ${RESOURCES_ARTIFACTS_RJAVA_BINARIES}/setup.sh
     MODEL_PATH=""
     if [  "${OUTPUT_FORMAT}" == "GENOTYPES" ]; then
-       MODEL_PATH="--model-path ${RESOURCES_ARTIFACTS_GENOTYPE_DL_MODELS_MODELS}/${GENOTYPE_DL_MODEL}/bestF1-ComputationGraph.bin"
+       MODEL_PATH="-x GenotypesOutputFormat:model-path=${RESOURCES_ARTIFACTS_GENOTYPE_DL_MODELS_MODELS}/${GENOTYPE_DL_MODEL}/bestF1-ComputationGraph.bin"
     fi
      # Note that we override the grid jvm flags to request only 4Gb:
      run_goby_wrapper ${PLUGIN_NEED_PROCESS_JVM} discover-sequence-variants \
