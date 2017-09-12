@@ -7,8 +7,7 @@ function plugin_install_artifact {
     case ${id} in
 
         'MODELS' )
-
-            git clone git@bitbucket.org:campagnelaboratory/genotype-dl-models.git
+            git clone git@github.com:CampagneLaboratory/genotype-dl-models.git
             mkdir -p ${installation_path}/
             mv ./genotype-dl-models/* ${installation_path}/
             if [ -e ${installation_path}/* ]; then
