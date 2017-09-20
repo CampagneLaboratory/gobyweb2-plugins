@@ -158,6 +158,18 @@
             <autoFormat>false</autoFormat>
         </option>
         <option>
+            <id>MAX_COVERAGE_PER_SITE</id>
+            <dbLegacyId>max_coverage_per_site</dbLegacyId>
+            <name>Maximum coverage per site</name>
+            <help>The maximum coverage per site considered for comparisons. Any bases in
+                excess of the specified coverage at a given site is ignored.
+            </help>
+            <required>false</required>
+            <defaultsTo>1000</defaultsTo>
+            <type>INTEGER</type>
+            <autoFormat>false</autoFormat>
+        </option>
+        <option>
             <id>CALL_INDELS</id>
             <name>Call indels</name>
             <help>When this option is active, indels are called and reported in the VCF output file. Please be advised

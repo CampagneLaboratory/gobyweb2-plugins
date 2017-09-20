@@ -55,6 +55,7 @@ function plugin_alignment_analysis_process {
    OUTPUT_FORMAT=${PLUGINS_ALIGNMENT_ANALYSIS_SEQ_VAR_GOBY_OUTPUT_FORMAT}
    GENOTYPE_DL_MODEL=${PLUGINS_ALIGNMENT_ANALYSIS_SEQ_VAR_GOBY_GENOTYPE_DL_MODEL}
    ANNOTATIONS=${PLUGINS_ALIGNMENT_ANALYSIS_SEQ_VAR_GOBY_ANNOTATIONS}
+   MAX_COVERAGE_PER_SITE=${PLUGINS_ALIGNMENT_ANALYSIS_SEQ_VAR_GOBY_MAX_COVERAGE_PER_SITE}
    if [ ! "${PLUGINS_ALIGNMENT_ANALYSIS_SEQ_VAR_GOBY_ANNOTATIONS}" == "NONE" ]; then
      ANNOTATION_OPTION=" -x MethylationRegionsOutputFormat:annotations=${PLUGINS_ALIGNMENT_ANALYSIS_SEQ_VAR_GOBY_ANNOTATIONS} "
    else
@@ -101,8 +102,10 @@ function plugin_alignment_analysis_process {
     . ${RESOURCES_ARTIFACTS_R_BINARIES}/setup.sh
     . ${RESOURCES_ARTIFACTS_RJAVA_BINARIES}/setup.sh
     MODEL_PATH=""
+    MAX_COVERAGE_PARAM=""
     if [ "${OUTPUT_FORMAT}" == "GENOTYPES" ] && [ "${GENOTYPE_DL_MODEL}" != "Default" ]; then
        MODEL_PATH="-x GenotypesOutputFormat:model-path=${RESOURCES_ARTIFACTS_GENOTYPE_DL_MODELS_MODELS}/genotypes/${GENOTYPE_DL_MODEL}/bestF1-ComputationGraph.bin"
+       MAX_COVERAGE_PARAM="--max-coverage-per-site ${MAX_COVERAGE_PER_SITE}"
     fi
      # Note that we override the grid jvm flags to request only 4Gb:
      run_goby_wrapper ${PLUGIN_NEED_PROCESS_JVM} discover-sequence-variants \
@@ -119,7 +122,8 @@ function plugin_alignment_analysis_process {
            --threshold-distinct-read-indices ${THRESHOLD_DISTINCT_READ_INDICES} \
            --output ${TAG}-dsv-${ARRAY_JOB_INDEX}.vcf  \
            --call-indels ${CALL_INDELS_OPTION} \
-           --diploid ${FORCE_DIPLOID}  \
+           --diploid ${FORCE_DIPLOID} \
+           ${MAX_COVERAGE_PARAM} \
            ${ANNOTATION_OPTION} \
            ${ENTRIES_FILES}
 
