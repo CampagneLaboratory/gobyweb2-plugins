@@ -3,6 +3,7 @@
        echo "You must define JOB_DIR before running this job."
        exit 1;
     fi
+    set -x
     . ${JOB_DIR}/constants.sh;
     . ${JOB_DIR}/auto-options.sh;
     mkdir -p ${ARTIFACT_REPOSITORY_DIR}
@@ -12,3 +13,4 @@
                       org.campagnelab.gobyweb.artifacts.ArtifactManager \
                       --repository ${ARTIFACT_REPOSITORY_DIR} --repo-dir-quota  1000000000 "
     ${RUN_ARTIFACT_MANAGER} "$@"
+    set +x
