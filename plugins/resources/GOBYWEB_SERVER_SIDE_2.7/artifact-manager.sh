@@ -13,4 +13,3 @@
                       org.campagnelab.gobyweb.artifacts.ArtifactManager \
                       --repository ${ARTIFACT_REPOSITORY_DIR} --repo-dir-quota  1000000000 "
     ${RUN_ARTIFACT_MANAGER} "$@"
-    set +x
