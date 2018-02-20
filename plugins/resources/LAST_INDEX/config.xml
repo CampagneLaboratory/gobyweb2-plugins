@@ -26,8 +26,8 @@
             <versionAtLeast>1.1.1</versionAtLeast>
         </resource>
         <resource>
-            <id>GOBY</id>
-            <versionAtLeast>20130413162635</versionAtLeast>
+            <id>GOBY3</id>
+            <versionAtLeast>3.3.1</versionAtLeast>
         </resource>
     </requires>
     <artifacts>
