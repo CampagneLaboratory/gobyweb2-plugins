@@ -47,8 +47,6 @@ function plugin_install_artifact {
                     ENSEMBL_RELEASE=$5
                     echo "Organism=${ORGANISM} Reference-build=${GENOME_REFERENCE_ID}"
 
-                    . ${RESOURCES_GOBY_SHELL_SCRIPT}
-
                     ORG=` echo ${ORGANISM} | tr [:lower:] [:upper:]  `
                     BUILD_NUMBER=`echo ${GENOME_REFERENCE_ID} | awk -F\. '{print $1}' | tr [:lower:] [:upper:] `
                     ENSEMBL_RELEASE=`echo ${GENOME_REFERENCE_ID} | awk -F\. '{print $(NF)}'| tr [:lower:] [:upper:] `
@@ -56,7 +54,7 @@ function plugin_install_artifact {
                     INDEXED_GENOME_DIR=$(eval echo \${RESOURCES_ARTIFACTS_FAI_INDEXED_GENOMES_SAMTOOLS_FAI_INDEX_${ORG}_${BUILD_NUMBER}_${ENSEMBL_RELEASE}})
 
                     # Very important: use --num-threads 1 to force sequential numbering of target indices.
-                    run_goby fasta-to-compact ${INDEXED_GENOME_DIR}/genome-toplevel.fasta  --exclude-sequences  \
+                    run_goby 4g fasta-to-compact ${INDEXED_GENOME_DIR}/genome-toplevel.fasta  --exclude-sequences  \
                         --include-identifiers -o ${installation_path}/toplevel-ids.compact-reads --num-threads 1
 
                     if [ -e ${installation_path}/toplevel-ids.compact-reads ]; then
