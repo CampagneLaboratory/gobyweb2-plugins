@@ -12,7 +12,7 @@ function plugin_install_artifact {
             bunzip2  samtools-${VERSION}.tar.bz2
             tar -xvf samtools-${VERSION}.tar
             cd samtools-${VERSION}
-            ./configure --prefix=${installation_path}
+            ./configure --prefix=${installation_path}  --disable-bz2 --disable-lzma
             make
             make install
             return 0
