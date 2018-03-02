@@ -12,9 +12,9 @@ function plugin_install_artifact {
             bunzip2  samtools-${VERSION}.tar.bz2
             tar -xvf samtools-${VERSION}.tar
             cd samtools-${VERSION}
+            ./configure --prefix=${installation_path}
             make
-            cp samtools ${installation_path}/
-            cp bcftools/bcftools ${installation_path}/
+            make install
             return 0
             ;;
 
