@@ -23,7 +23,7 @@ function plugin_install_artifact {
             fi
 
             set +e
-            ${RESOURCES_ARTIFACTS_SAMTOOLS_BINARIES}/samtools faidx ${installation_path}/genome-toplevel.fasta
+            ${RESOURCES_ARTIFACTS_SAMTOOLS_BINARIES}/bin/samtools faidx ${installation_path}/genome-toplevel.fasta
 
             if [ -e ${installation_path}/genome-toplevel.fasta.fai ]; then
                 return 0
